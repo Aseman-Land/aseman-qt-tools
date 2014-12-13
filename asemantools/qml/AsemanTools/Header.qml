@@ -2,12 +2,12 @@
     Copyright (C) 2014 Aseman
     http://aseman.co
 
-    Kaqaz is free software: you can redistribute it and/or modify
+    This project is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Kaqaz is distributed in the hope that it will be useful,
+    This project is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -51,7 +51,7 @@ Item {
         Text {
             id: back_txt
             font.pixelSize: 14*fontsScale
-            font.family: SApp.globalFontFamily
+            font.family: AApp.globalFontFamily
             y: parent.height/2 - height/2 + 2*physicalPlatformScale
             color: (!back_row.press && header.light)||(back_row.press && !header.light)? "#ffffff" : "#111111"
         }
@@ -66,21 +66,21 @@ Item {
         visible: back_row.visible
         onClicked: {
             header.beginBack()
-            SApp.back()
+            AApp.back()
         }
     }
 
     Text {
         id: title_txt
         font.pixelSize: 16*fontsScale
-        font.family: SApp.globalFontFamily
+        font.family: AApp.globalFontFamily
         y: parent.height/2 - height/2 + 2*physicalPlatformScale
         anchors.horizontalCenter: parent.horizontalCenter
         color: header.light? "#ffffff" : "#333333"
     }
 
     Connections{
-        target: SApp
+        target: AApp
         onLanguageUpdated: initTranslations()
     }
 

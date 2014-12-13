@@ -59,5 +59,8 @@
         <file>qml/AsemanTools/fonts/DroidSansMono.ttf</file>
         <file>qml/AsemanTools/files/aseman-logo-dark.png</file>
         <file>qml/AsemanTools/MessageDialog.qml</file>
+        <file>qml/AsemanTools/AsemanAbout.qml</file>
+        <file>qml/AsemanTools/files/aseman-special.png</file>
+        <file>qml/AsemanTools/files/splash-back.jpg</file>
     </qresource>
 </RCC>

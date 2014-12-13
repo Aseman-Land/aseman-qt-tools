@@ -26,6 +26,8 @@
 #include <QFile>
 #include <QDebug>
 #include <QFileInfo>
+#include <QDir>
+#include <QStringList>
 
 QString aseman_tools_numtranslate_0 = "0";
 QString aseman_tools_numtranslate_1 = "1";
@@ -148,6 +150,19 @@ QString AsemanTools::passToMd5(const QString &pass)
         return QString();
 
     return QCryptographicHash::hash( pass.toUtf8(), QCryptographicHash::Md5 ).toHex();
+}
+
+void AsemanTools::copyDirectory(const QString &src, const QString &dst)
+{
+    QDir().mkpath(dst);
+
+    const QStringList & dirs = QDir(src).entryList(QDir::Dirs|QDir::NoDotAndDotDot);
+    foreach( const QString & d, dirs )
+        copyDirectory(src+"/"+d, dst+"/"+d);
+
+    const QStringList & files = QDir(src).entryList(QDir::Files);
+    foreach( const QString & f, files )
+        QFile::copy(src+"/"+f, dst+"/"+f);
 }
 
 void AsemanTools::setProperty(QObject *obj, const QString &property, const QVariant &v)

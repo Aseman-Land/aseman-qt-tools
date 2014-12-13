@@ -5,6 +5,7 @@ AsemanMain 1.0 AsemanMain.qml
 Button 1.0 Button.qml
 LineEdit 1.0 LineEdit.qml
 ProgressBar 1.0 ProgressBar.qml
+AsemanAbout 1.0 AsemanAbout.qml
 SlideMenu 1.0 SlideMenu.qml
 CheckBox 1.0 CheckBox.qml
 MenuButton 1.0 MenuButton.qml

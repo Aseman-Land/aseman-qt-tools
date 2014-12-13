@@ -50,7 +50,7 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: 4*physicalPlatformScale
         font.pixelSize: 11*fontsScale
-        font.family: SApp.globalFontFamily
+        font.family: AApp.globalFontFamily
         color: "#333333"
         verticalAlignment: Text.AlignVCenter
         onAccepted: line_edit_frame.accepted()

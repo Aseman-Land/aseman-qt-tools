@@ -2,12 +2,12 @@
     Copyright (C) 2014 Aseman
     http://aseman.co
 
-    Kaqaz is free software: you can redistribute it and/or modify
+    This project is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Kaqaz is distributed in the hope that it will be useful,
+    This project is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -36,7 +36,7 @@ Item {
     signal success()
     signal passGiven( string pass )
 
-    Keys.onEscapePressed: SApp.back()
+    Keys.onEscapePressed: AApp.back()
 
     onParentItemChanged: if( !parentItem ) destroy()
 
@@ -112,7 +112,7 @@ Item {
             anchors.right: parent.right
             anchors.margins: 40*physicalPlatformScale
             font.pixelSize: 15*fontsScale
-            font.family: SApp.globalFontFamily
+            font.family: AApp.globalFontFamily
             color: "#ffffff"
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
@@ -136,7 +136,7 @@ Item {
                 id: pass_placeholder
                 color: "#bbbbbb"
                 font.pixelSize: pass.font.pixelSize
-                font.family: SApp.globalFontFamily
+                font.family: AApp.globalFontFamily
                 y: pass.y
                 anchors.left: pass.left
                 anchors.right: pass.right
@@ -148,7 +148,7 @@ Item {
                 id: pass
                 color: "#333333"
                 font.pixelSize: 13*fontsScale
-                font.family: SApp.globalFontFamily
+                font.family: AApp.globalFontFamily
                 y: pass_frame.height/2-height/2
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -217,7 +217,7 @@ Item {
         Text{
             id: warn_txt
             font.pixelSize: 20*fontsScale
-            font.family: SApp.globalFontFamily
+            font.family: AApp.globalFontFamily
             color: "#ffffff"
             wrapMode: Text.WordWrap
             anchors.left: error_frame.horizontalCenter
@@ -263,7 +263,7 @@ Item {
     }
 
     Connections{
-        target: SApp
+        target: AApp
         onLanguageUpdated: initTranslations()
     }
 

@@ -87,7 +87,7 @@ AsemanQuickView::AsemanQuickView(int options, QWindow *parent) :
     p->fullscreen = false;
     p->layoutDirection = Qt::LeftToRight;
 
-    engine()->rootContext()->setContextProperty( "SApp", AsemanApplication::instance() );
+    engine()->rootContext()->setContextProperty( "AApp", AsemanApplication::instance() );
     engine()->rootContext()->setContextProperty( "View", this );
 
     qmlRegisterType<AsemanHashObject>("AsemanTools", 1,0, "HashObject");

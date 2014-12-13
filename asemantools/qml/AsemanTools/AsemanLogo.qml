@@ -23,7 +23,7 @@ Item {
     width: img.width
     height: 30
 
-    property real ratio: 572/69
+    property real ratio: 249/64
     property bool dark: false
 
     Image {
