@@ -47,6 +47,10 @@ public:
 
     QRect keyboardRect();
 
+public slots:
+    bool startService();
+    bool stopService();
+
 signals:
     void incomingShare( const QString & title, const QString & msg );
     void incomingImage( const QString & path );

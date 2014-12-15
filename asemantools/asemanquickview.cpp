@@ -190,7 +190,7 @@ qreal AsemanQuickView::navigationBarHeight() const
     if( !p->devices )
         return 0;
 
-    return p->devices->transparentNavigationBar() && !fullscreen()? 45*p->devices->density() : 0;
+    return p->devices->transparentNavigationBar() && !fullscreen()? 44*p->devices->density() : 0;
 }
 
 void AsemanQuickView::setRoot(QQuickItem *root)

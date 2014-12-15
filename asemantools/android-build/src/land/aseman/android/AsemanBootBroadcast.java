@@ -18,28 +18,15 @@
 
 package land.aseman.android;
 
-import org.qtproject.qt5.android.bindings.QtApplication;
-
-import android.app.Application;
-import android.content.Intent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 
-public class AsemanApplication extends QtApplication
-{
-    private static Context context;
-    private static Application app_instance = null;
+import land.aseman.android.AsemanService;
 
-    public void onCreate(){
-        super.onCreate();
-        app_instance = this;
-        AsemanApplication.context = getApplicationContext();
-    }
-
-    public static Context getAppContext() {
-        return AsemanApplication.context;
-    }
-
-    public static Context instance() {
-        return app_instance;
+public class AsemanBootBroadcast extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context ctx, Intent intent) {
+        ctx.startService(new Intent(ctx, AsemanService.class));
     }
 }

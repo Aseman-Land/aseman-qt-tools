@@ -9,10 +9,12 @@ android {
 
     QT += androidextras
     SOURCES += \
-        asemantools/asemanjavalayer.cpp
+        asemantools/asemanjavalayer.cpp \
+        asemantools/asemanandroidservice.cpp
 
     HEADERS += \
-        asemantools/asemanjavalayer.h
+        asemantools/asemanjavalayer.h \
+        asemantools/asemanandroidservice.h
 } else {
     ios {
 
@@ -94,10 +96,12 @@ HEADERS += \
     $$PWD/asemancountriesmodel.h
 
 OTHER_FILES += \
-    asemantools/android-build/src/org/aseman/android/AsemanActivity.java \
-    asemantools/android-build/src/org/aseman/android/AsemanApplication.java \
-    asemantools/android-build/src/org/aseman/android/AsemanJavaLayer.java
+    asemantools/android-build/src/land/aseman/android/AsemanActivity.java \
+    asemantools/android-build/src/land/aseman/android/AsemanApplication.java \
+    asemantools/android-build/src/land/aseman/android/AsemanJavaLayer.java \
+    asemantools/android-build/src/land/aseman/android/AsemanService.java \
+    asemantools/android-build/src/land/aseman/android/AsemanBootBroadcast.java \
+    asemantools/android-build/src/land/aseman/android/AsemanServiceDelegate.java
 
 RESOURCES += \
     asemantools/asemanresource.qrc
-

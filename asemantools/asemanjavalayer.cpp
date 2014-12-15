@@ -48,7 +48,7 @@ AsemanJavaLayer::AsemanJavaLayer() :
     QObject()
 {
     p = new AsemanJavaLayerPrivate;
-    p->object = QAndroidJniObject("org/aseman/android/AsemanJavaLayer");
+    p->object = QAndroidJniObject("land/aseman/android/AsemanJavaLayer");
 
     java_layers_objects.insert(this);
     QMetaObject::invokeMethod( this, "load_buffer", Qt::QueuedConnection );
@@ -104,6 +104,18 @@ bool AsemanJavaLayer::transparentStatusBar()
 bool AsemanJavaLayer::transparentNavigationBar()
 {
     jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "()Z");
+    return res;
+}
+
+bool AsemanJavaLayer::startService()
+{
+    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "()Z" );
+    return res;
+}
+
+bool AsemanJavaLayer::stopService()
+{
+    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "()Z" );
     return res;
 }
 
@@ -278,7 +290,7 @@ bool registerNativeMethods() {
                                {"_activityStarted", "()V", reinterpret_cast<void *>(activityStarted)},
                                {"_activityRestarted", "()V", reinterpret_cast<void *>(activityRestarted)}};
 
-    QAndroidJniObject javaClass("org/aseman/android/AsemanJavaLayer");
+    QAndroidJniObject javaClass("land/aseman/android/AsemanJavaLayer");
     QAndroidJniEnvironment env;
     jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
 

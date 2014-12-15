@@ -20,6 +20,7 @@ package land.aseman.android;
 
 import land.aseman.android.AsemanApplication;
 import land.aseman.android.AsemanActivity;
+import land.aseman.android.AsemanService;
 
 import android.util.Log;
 import android.content.Intent;
@@ -41,7 +42,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 
-public class AsemanJavaLayer {
+public class AsemanJavaLayer
+{
 
     private static native void _sendNote( String title, String msg );
     private static native void _sendImage( String path );
@@ -120,6 +122,32 @@ public class AsemanJavaLayer {
             path = "";
 
         _selectImageResult(path);
+    }
+
+    boolean startService()
+    {
+        AsemanActivity activity = AsemanActivity.getActivityInstance();
+        Intent i = new Intent(activity, AsemanService.class);
+        i.putExtra("name", "SurvivingwithAndroid");
+        try {
+            activity.startService(i);
+        } catch(Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    boolean stopService()
+    {
+        AsemanActivity activity = AsemanActivity.getActivityInstance();
+        Intent i = new Intent(activity, AsemanService.class);
+        try {
+        activity.stopService(i);
+        } catch(Exception e) {
+            return false;
+        }
+        return true;
     }
 
     boolean sharePaper( String title, String msg )
