@@ -26,7 +26,7 @@ Item {
     property Component delegate
     property variant item
 
-    property real handleWidth: 20*physicalPlatformScale
+    property real handleWidth: 20*Devices.density
 
     property alias menuWidth: item_frame.width
     property real percent: (menuWidth+item_frame.x)/menuWidth
@@ -58,7 +58,7 @@ Item {
                 var newX = item_frame.x + mouseX-pinX
                 if( newX > 0 )
                     newX = 0
-                if( Math.abs(x-startX) > 5*physicalPlatformScale )
+                if( Math.abs(x-startX) > 5*Devices.density )
                     movedX = true
 
                 item_frame.x = newX

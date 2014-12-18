@@ -25,7 +25,7 @@ Item {
 
     property bool light: true
     property bool modern: false
-    property real indicatorSize: 16*physicalPlatformScale
+    property real indicatorSize: 16*Devices.density
     property string source: light? "files/" + privates.name + "_light.png" : "files/" + privates.name + ".png"
 
     QtObject {

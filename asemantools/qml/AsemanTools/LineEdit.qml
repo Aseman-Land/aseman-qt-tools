@@ -21,8 +21,8 @@ import QtQuick 2.0
 Rectangle {
     id: line_edit_frame
     color: "#88eeeeee"
-    height: 42*physicalPlatformScale
-    width: 100*physicalPlatformScale
+    height: 42*Devices.density
+    width: 100*Devices.density
 
     property alias placeholder: pholder.text
     property alias placeholderColor: pholder.color
@@ -48,9 +48,9 @@ Rectangle {
     TextLineCore {
         id: main_item
         anchors.fill: parent
-        anchors.margins: 4*physicalPlatformScale
-        font.pixelSize: 11*fontsScale
-        font.family: AApp.globalFontFamily
+        anchors.margins: 4*Devices.density
+        font.pixelSize: 11*Devices.fontDensity
+        font.family: AsemanApp.globalFontFamily
         color: "#333333"
         verticalAlignment: Text.AlignVCenter
         onAccepted: line_edit_frame.accepted()

@@ -114,7 +114,7 @@ Item {
         opacity: marea.containsMouse? 1 : 0.5
         visible: scrollArea.visibleArea.heightRatio != 1
 
-        property real diagonal: size()<20*physicalPlatformScale? 20*physicalPlatformScale : size()
+        property real diagonal: size()<20*Devices.density? 20*Devices.density : size()
 
         MouseArea {
             id: marea

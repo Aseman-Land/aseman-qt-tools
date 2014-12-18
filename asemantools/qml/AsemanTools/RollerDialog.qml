@@ -36,7 +36,7 @@ Item {
         anchors.left: roller_dialog.left
         anchors.right: roller_dialog.right
         anchors.top: roller_dialog.top
-        anchors.margins: -1*physicalPlatformScale
+        anchors.margins: -1*Devices.density
         color: "#bb000000"
         height: size
 
@@ -81,7 +81,7 @@ Item {
         anchors.left: roller_dialog.left
         anchors.right: roller_dialog.right
         anchors.bottom: roller_dialog.bottom
-        anchors.margins: -1*physicalPlatformScale
+        anchors.margins: -1*Devices.density
         color: "#bb000000"
         height: (size != 0)? roller_dialog.height-size : 0
 

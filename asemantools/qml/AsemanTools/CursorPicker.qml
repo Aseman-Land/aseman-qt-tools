@@ -25,8 +25,8 @@ Item {
     visible: false
     opacity: 0
 
-    property real pickerWidth: 35*physicalPlatformScale
-    property real pickerHeight: 35*physicalPlatformScale
+    property real pickerWidth: 35*Devices.density
+    property real pickerHeight: 35*Devices.density
 
     property bool moving: false
     property bool press: top_handler.press || bottom_handler.press
@@ -58,15 +58,15 @@ Item {
 
     Item{
         id: fader_item
-        height: 60*physicalPlatformScale
+        height: 60*Devices.density
         visible: false
 
         Button {
             id: copy_btn
             anchors.bottom: fader_item.bottom
             anchors.left: fader_item.left
-            anchors.margins: 10*physicalPlatformScale
-            width: (fader_item.width - 50*physicalPlatformScale)/4
+            anchors.margins: 10*Devices.density
+            width: (fader_item.width - 50*Devices.density)/4
             normalColor: "#ffffff"
             textColor: "#333333"
             onClicked: {
@@ -80,9 +80,9 @@ Item {
             id: cut_btn
             anchors.bottom: fader_item.bottom
             anchors.right: fader_item.horizontalCenter
-            anchors.rightMargin: 5*physicalPlatformScale
-            anchors.margins: 10*physicalPlatformScale
-            width: (fader_item.width - 50*physicalPlatformScale)/4
+            anchors.rightMargin: 5*Devices.density
+            anchors.margins: 10*Devices.density
+            width: (fader_item.width - 50*Devices.density)/4
             normalColor: "#ffffff"
             textColor: "#333333"
             onClicked: {
@@ -96,9 +96,9 @@ Item {
             id: paste_btn
             anchors.bottom: fader_item.bottom
             anchors.left: fader_item.horizontalCenter
-            anchors.leftMargin: 5*physicalPlatformScale
-            anchors.margins: 10*physicalPlatformScale
-            width: (fader_item.width - 50*physicalPlatformScale)/4
+            anchors.leftMargin: 5*Devices.density
+            anchors.margins: 10*Devices.density
+            width: (fader_item.width - 50*Devices.density)/4
             normalColor: "#ffffff"
             textColor: "#333333"
             onClicked: {
@@ -113,8 +113,8 @@ Item {
             id: delete_btn
             anchors.bottom: fader_item.bottom
             anchors.right: fader_item.right
-            anchors.margins: 10*physicalPlatformScale
-            width: (fader_item.width - 50*physicalPlatformScale)/4
+            anchors.margins: 10*Devices.density
+            width: (fader_item.width - 50*Devices.density)/4
             normalColor: "#aaC80000"
             textColor: "#ffffff"
             onClicked: {
@@ -303,8 +303,8 @@ Item {
             secnd_pos = tmp
         }
 
-        first_pos -= 40*physicalPlatformScale
-        secnd_pos += 30*physicalPlatformScale
+        first_pos -= 40*Devices.density
+        secnd_pos += 30*Devices.density
 
         if( !bottom_picker.disabled )
             View.root.showRollerDialog( mapToItem(View.root,0,first_pos).y, mapToItem(View.root,0,secnd_pos).y, fader_item )

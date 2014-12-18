@@ -41,7 +41,7 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        height: 4*physicalPlatformScale
+        height: 4*Devices.density
         color: "#ffffff"
     }
 
@@ -51,7 +51,7 @@ Item {
         anchors.bottom: parent.bottom
         width: height
         radius: height/2
-        border.width: 1*physicalPlatformScale
+        border.width: 1*Devices.density
         border.color: masterPalette.highlight
         x: (slider.width-seeker.width)*slider.value/slider.maximum
     }

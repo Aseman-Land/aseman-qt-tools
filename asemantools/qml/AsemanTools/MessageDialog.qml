@@ -37,9 +37,9 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
-            anchors.margins: 10*physicalPlatformScale
-            height: item? item.height + 20*physicalPlatformScale : 0
-            radius: 3*physicalPlatformScale
+            anchors.margins: 10*Devices.density
+            height: item? item.height + 20*Devices.density : 0
+            radius: 3*Devices.density
             transformOrigin: Item.Center
             scale: 0.8
             opacity: (scale-0.8)*5

@@ -20,8 +20,8 @@ import QtQuick 2.0
 
 Item {
     id: checkbox
-    width: 48*physicalPlatformScale
-    height: 25*physicalPlatformScale
+    width: 48*Devices.density
+    height: 25*Devices.density
     smooth: true
 
     property color color: "#ffffff"
@@ -35,7 +35,7 @@ Item {
         anchors.fill: parent
         radius: height/2
         color: "#00000000"
-        border.width: 1*physicalPlatformScale
+        border.width: 1*Devices.density
         border.color: checkbox.color
     }
 
@@ -43,8 +43,8 @@ Item {
         id: bilbilak
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.margins: 2*physicalPlatformScale
-        x: checkbox.checked? parent.width - width - 2*physicalPlatformScale : 2*physicalPlatformScale
+        anchors.margins: 2*Devices.density
+        x: checkbox.checked? parent.width - width - 2*Devices.density : 2*Devices.density
         width: height
         radius: height/2
         color: checkbox.color
@@ -60,15 +60,15 @@ Item {
         anchors.right: bilbilak.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 2*physicalPlatformScale
+        anchors.leftMargin: 2*Devices.density
         clip: true
         visible: labels
 
         Text {
             id: on_txt
             anchors.centerIn: parent
-            font.pixelSize: 10*fontsScale
-            font.family: AApp.globalFontFamily
+            font.pixelSize: 10*Devices.fontDensity
+            font.family: AsemanApp.globalFontFamily
             color: checkbox.color
         }
     }
@@ -79,15 +79,15 @@ Item {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.rightMargin: 2*physicalPlatformScale
+        anchors.rightMargin: 2*Devices.density
         clip: true
         visible: labels
 
         Text {
             id: off_txt
             anchors.centerIn: parent
-            font.pixelSize: 10*fontsScale
-            font.family: AApp.globalFontFamily
+            font.pixelSize: 10*Devices.fontDensity
+            font.family: AsemanApp.globalFontFamily
             color: checkbox.color
         }
     }
@@ -99,7 +99,7 @@ Item {
     }
 
     Connections{
-        target: AApp
+        target: AsemanApp
         onLanguageUpdated: initTranslations()
     }
 

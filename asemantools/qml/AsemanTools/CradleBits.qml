@@ -19,13 +19,13 @@
 import QtQuick 2.0
 
 Rectangle{
-    width: 10*physicalPlatformScale
+    width: 10*Devices.density
     height: width
     color: "#ffffff"
     anchors.verticalCenter: parent.verticalCenter
     x: (parent.width - parent.count*(width+space))/2 + index*(width+space) + x_pad
 
-    property real space: 2*physicalPlatformScale
+    property real space: 2*Devices.density
     property real x_pad: 0
     property int index: 0
 

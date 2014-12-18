@@ -71,7 +71,7 @@ public:
 };
 
 AsemanQuickView::AsemanQuickView(int options, QWindow *parent) :
-    QQuickView(parent)
+    INHERIT_VIEW(parent)
 {
     p = new AsemanQuickViewPrivate;
     p->options = options;
@@ -87,7 +87,8 @@ AsemanQuickView::AsemanQuickView(int options, QWindow *parent) :
     p->fullscreen = false;
     p->layoutDirection = Qt::LeftToRight;
 
-    engine()->rootContext()->setContextProperty( "AApp", AsemanApplication::instance() );
+#ifndef ASEMAN_QML_PLUGIN
+    engine()->rootContext()->setContextProperty( "AsemanApp", AsemanApplication::instance() );
     engine()->rootContext()->setContextProperty( "View", this );
 
     qmlRegisterType<AsemanHashObject>("AsemanTools", 1,0, "HashObject");
@@ -108,14 +109,7 @@ AsemanQuickView::AsemanQuickView(int options, QWindow *parent) :
     init_options();
 
     engine()->setImportPathList( QStringList()<< engine()->importPathList() << "qrc:///asemantools/qml" );
-
-    engine()->rootContext()->setContextProperty("flickVelocity",
-#ifdef DESKTOP_DEVICE
-                                                2500
-#else
-                                                25000
 #endif
-                                                );
 }
 
 AsemanDesktopTools *AsemanQuickView::desktopTools() const
@@ -161,11 +155,12 @@ void AsemanQuickView::setFullscreen(bool stt)
         return;
 
     p->fullscreen = stt;
-
+#ifndef ASEMAN_QML_PLUGIN
     if( p->fullscreen )
         showFullScreen();
     else
         showNormal();
+#endif
 
     emit fullscreenChanged();
     emit navigationBarHeightChanged();
@@ -207,7 +202,11 @@ QQuickItem *AsemanQuickView::root() const
     if( p->root )
         return p->root;
 
+#ifndef ASEMAN_QML_PLUGIN
     return rootObject();
+#else
+    return 0;
+#endif
 }
 
 void AsemanQuickView::setFocusedText(QQuickItem *item)
@@ -252,6 +251,15 @@ void AsemanQuickView::setLayoutDirection(int l)
     emit layoutDirectionChanged();
 }
 
+qreal AsemanQuickView::flickVelocity() const
+{
+#ifdef DESKTOP_DEVICE
+    return 2500;
+#else
+    return 25000;
+#endif
+}
+
 void AsemanQuickView::discardFocusedText()
 {
     setFocusedText(0);
@@ -259,6 +267,7 @@ void AsemanQuickView::discardFocusedText()
 
 void AsemanQuickView::init_options()
 {
+#ifndef ASEMAN_QML_PLUGIN
     if( p->options & DesktopTools && !p->desktop )
     {
         p->desktop = new AsemanDesktopTools(this);
@@ -268,9 +277,6 @@ void AsemanQuickView::init_options()
     {
         p->devices = new AsemanDevices(this);
         engine()->rootContext()->setContextProperty( "Devices", p->devices );
-
-        engine()->rootContext()->setContextProperty( "physicalPlatformScale", p->devices->density());
-        engine()->rootContext()->setContextProperty( "fontsScale", p->devices->fontDensity());
     }
     if( p->options & QtLogger && !p->logger )
     {
@@ -299,6 +305,7 @@ void AsemanQuickView::init_options()
         p->back_handler = new AsemanBackHandler(this);
         engine()->rootContext()->setContextProperty( "BackHandler", p->back_handler );
     }
+#endif
 }
 
 AsemanQuickView::~AsemanQuickView()

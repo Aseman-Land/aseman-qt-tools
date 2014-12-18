@@ -36,7 +36,7 @@ Item {
     signal success()
     signal passGiven( string pass )
 
-    Keys.onEscapePressed: AApp.back()
+    Keys.onEscapePressed: BackHandler.back()
 
     onParentItemChanged: if( !parentItem ) destroy()
 
@@ -110,9 +110,9 @@ Item {
             y: parent.height/2- (message.height + pass_frame.height + 2*done_btn.height )/2
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.margins: 40*physicalPlatformScale
-            font.pixelSize: 15*fontsScale
-            font.family: AApp.globalFontFamily
+            anchors.margins: 40*Devices.density
+            font.pixelSize: 15*Devices.fontDensity
+            font.family: AsemanApp.globalFontFamily
             color: "#ffffff"
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
@@ -123,20 +123,20 @@ Item {
             id: pass_frame
             color: "white"
             smooth: true
-            radius: 3*physicalPlatformScale
-            height: 40*physicalPlatformScale
+            radius: 3*Devices.density
+            height: 40*Devices.density
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: message.bottom
-            anchors.topMargin: 10*physicalPlatformScale
-            anchors.leftMargin: 40*physicalPlatformScale
-            anchors.rightMargin: 40*physicalPlatformScale
+            anchors.topMargin: 10*Devices.density
+            anchors.leftMargin: 40*Devices.density
+            anchors.rightMargin: 40*Devices.density
 
             STextInput{
                 id: pass_placeholder
                 color: "#bbbbbb"
                 font.pixelSize: pass.font.pixelSize
-                font.family: AApp.globalFontFamily
+                font.family: AsemanApp.globalFontFamily
                 y: pass.y
                 anchors.left: pass.left
                 anchors.right: pass.right
@@ -147,12 +147,12 @@ Item {
             STextInput{
                 id: pass
                 color: "#333333"
-                font.pixelSize: 13*fontsScale
-                font.family: AApp.globalFontFamily
+                font.pixelSize: 13*Devices.fontDensity
+                font.family: AsemanApp.globalFontFamily
                 y: pass_frame.height/2-height/2
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.margins: 10*physicalPlatformScale
+                anchors.margins: 10*Devices.density
                 echoMode: TextInput.Password
                 inputMethodHints: Qt.ImhDigitsOnly
                 onAccepted: get_pass.done()
@@ -161,9 +161,9 @@ Item {
             Button {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                anchors.margins: 4*physicalPlatformScale
-                height: 32*physicalPlatformScale
-                radius: 2*physicalPlatformScale
+                anchors.margins: 4*Devices.density
+                height: 32*Devices.density
+                radius: 2*Devices.density
                 textFont.bold: false
                 normalColor: "#888888"
                 highlightColor: "#444444"
@@ -178,15 +178,15 @@ Item {
 
         Button{
             id: done_btn
-            height: 40*physicalPlatformScale
-            width: parent.width/2 - 50*physicalPlatformScale
+            height: 40*Devices.density
+            width: parent.width/2 - 50*Devices.density
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: pass_frame.bottom
-            anchors.topMargin: 10*physicalPlatformScale
-            anchors.leftMargin: 40*physicalPlatformScale
-            anchors.rightMargin: 40*physicalPlatformScale
-            fontSize: 9*fontsScale
+            anchors.topMargin: 10*Devices.density
+            anchors.leftMargin: 40*Devices.density
+            anchors.rightMargin: 40*Devices.density
+            fontSize: 9*Devices.fontDensity
             normalColor: "#3B97EC"
             highlightColor: masterPalette.highlight
             textColor: "#333333"
@@ -205,19 +205,19 @@ Item {
         Image{
             id: warn_image
             source: "files/warning.png"
-            width: 42*physicalPlatformScale
-            height: 42*physicalPlatformScale
-            y: error_frame.height/2 - height/2 - 5*physicalPlatformScale
+            width: 42*Devices.density
+            height: 42*Devices.density
+            y: error_frame.height/2 - height/2 - 5*Devices.density
             anchors.right: warn_txt.left
-            anchors.rightMargin: 10*physicalPlatformScale
+            anchors.rightMargin: 10*Devices.density
             anchors.bottom: error_frame.verticalCenter
-            anchors.bottomMargin: -height/2 +5*physicalPlatformScale
+            anchors.bottomMargin: -height/2 +5*Devices.density
         }
 
         Text{
             id: warn_txt
-            font.pixelSize: 20*fontsScale
-            font.family: AApp.globalFontFamily
+            font.pixelSize: 20*Devices.fontDensity
+            font.family: AsemanApp.globalFontFamily
             color: "#ffffff"
             wrapMode: Text.WordWrap
             anchors.left: error_frame.horizontalCenter
@@ -263,7 +263,7 @@ Item {
     }
 
     Connections{
-        target: AApp
+        target: AsemanApp
         onLanguageUpdated: initTranslations()
     }
 

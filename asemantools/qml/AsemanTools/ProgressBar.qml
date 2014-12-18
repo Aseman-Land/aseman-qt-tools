@@ -21,9 +21,9 @@ import QtQuick 2.2
 Rectangle {
     id: progress_bar
     width: 100
-    height: 6*physicalPlatformScale
+    height: 6*Devices.density
     color: "#333333"
-    radius: 3*physicalPlatformScale
+    radius: 3*Devices.density
     smooth: true
 
     property real percent: 0

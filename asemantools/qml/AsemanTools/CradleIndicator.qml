@@ -19,8 +19,8 @@
 import QtQuick 2.0
 
 Item {
-    width: 300*physicalPlatformScale
-    height: 10*physicalPlatformScale
+    width: 300*Devices.density
+    height: 10*Devices.density
 
     property real count: 6
 

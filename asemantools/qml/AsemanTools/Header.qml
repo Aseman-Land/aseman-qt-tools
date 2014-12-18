@@ -35,13 +35,13 @@ Item {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 10*physicalPlatformScale
-        width: 75*physicalPlatformScale
+        anchors.leftMargin: 10*Devices.density
+        width: 75*Devices.density
         visible: backButton
 
         Image {
             anchors.verticalCenter: parent.verticalCenter
-            height: 20*physicalPlatformScale
+            height: 20*Devices.density
             source: (!back_row.press && header.light)||(back_row.press && !header.light)? (height>48? "files/back_light_64.png" : "files/back_light_32.png") : (height>48? "files/back_64.png" : "files/back_32.png")
             fillMode: Image.PreserveAspectFit
             smooth: true
@@ -50,9 +50,9 @@ Item {
 
         Text {
             id: back_txt
-            font.pixelSize: 14*fontsScale
-            font.family: AApp.globalFontFamily
-            y: parent.height/2 - height/2 + 2*physicalPlatformScale
+            font.pixelSize: 14*Devices.fontDensity
+            font.family: AsemanApp.globalFontFamily
+            y: parent.height/2 - height/2 + 2*Devices.density
             color: (!back_row.press && header.light)||(back_row.press && !header.light)? "#ffffff" : "#111111"
         }
 
@@ -66,21 +66,21 @@ Item {
         visible: back_row.visible
         onClicked: {
             header.beginBack()
-            AApp.back()
+            BackHandler.back()
         }
     }
 
     Text {
         id: title_txt
-        font.pixelSize: 16*fontsScale
-        font.family: AApp.globalFontFamily
-        y: parent.height/2 - height/2 + 2*physicalPlatformScale
+        font.pixelSize: 16*Devices.fontDensity
+        font.family: AsemanApp.globalFontFamily
+        y: parent.height/2 - height/2 + 2*Devices.density
         anchors.horizontalCenter: parent.horizontalCenter
         color: header.light? "#ffffff" : "#333333"
     }
 
     Connections{
-        target: AApp
+        target: AsemanApp
         onLanguageUpdated: initTranslations()
     }
 

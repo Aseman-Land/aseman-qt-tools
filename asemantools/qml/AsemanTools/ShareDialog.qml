@@ -50,12 +50,12 @@ Item {
 
     Text {
         id: title
-        x: 40*physicalPlatformScale
-        y: 60*physicalPlatformScale
+        x: 40*Devices.density
+        y: 60*Devices.density
         text: qsTr("Select Application")
-        font.pixelSize: 25*fontsScale
+        font.pixelSize: 25*Devices.fontDensity
         font.weight: Font.Light
-        font.family: AApp.globalFontFamily
+        font.family: AsemanApp.globalFontFamily
         color: "#333333"
     }
 
@@ -65,13 +65,13 @@ Item {
         anchors.right: parent.right
         anchors.top: title.bottom
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 20*physicalPlatformScale
-        anchors.topMargin: 10*physicalPlatformScale
+        anchors.leftMargin: 20*Devices.density
+        anchors.topMargin: 10*Devices.density
         model: ListModel{}
         clip: true
         delegate: Rectangle {
             id: item
-            height: 48*physicalPlatformScale
+            height: 48*Devices.density
             width: apps_list.width
             color: marea.pressed? "#880d80ec" : "#00000000"
 
@@ -79,8 +79,8 @@ Item {
                 id: img
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.leftMargin: 4*physicalPlatformScale
-                height: 36*physicalPlatformScale
+                anchors.leftMargin: 4*Devices.density
+                height: 36*Devices.density
                 width: height
                 sourceSize: Qt.size(width,height)
                 source: "image://icon/" + mime_apps.appIcon(appId)
@@ -89,10 +89,10 @@ Item {
             Text {
                 id: txt
                 anchors.left: img.right
-                anchors.leftMargin: 10*physicalPlatformScale
+                anchors.leftMargin: 10*Devices.density
                 anchors.verticalCenter: parent.verticalCenter
-                font.family: AApp.globalFontFamily
-                font.pixelSize: 9*fontsScale
+                font.family: AsemanApp.globalFontFamily
+                font.pixelSize: 9*Devices.fontDensity
                 text: mime_apps.appName(appId)
             }
 
@@ -120,7 +120,7 @@ Item {
     }
 
     ScrollBar {
-        scrollArea: apps_list; height: apps_list.height; width: 6*physicalPlatformScale
+        scrollArea: apps_list; height: apps_list.height; width: 6*Devices.density
         anchors.right: apps_list.right; anchors.top: apps_list.top; color: "#333333"
     }
 

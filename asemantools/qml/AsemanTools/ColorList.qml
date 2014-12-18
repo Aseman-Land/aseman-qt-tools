@@ -28,9 +28,9 @@ Item {
         id: color_grid
         anchors.fill: parent
         cellWidth: width/(cellCount<3? 3 : cellCount)
-        cellHeight: cellWidth - 15*physicalPlatformScale
+        cellHeight: cellWidth - 15*Devices.density
 
-        property int cellCount: Math.floor(width/(100*physicalPlatformScale))
+        property int cellCount: Math.floor(width/(100*Devices.density))
 
         model: ListModel {}
         delegate: Item {
@@ -41,10 +41,10 @@ Item {
             Rectangle{
                 id: rectangle
                 anchors.fill: parent
-                anchors.margins: 15*physicalPlatformScale
+                anchors.margins: 15*Devices.density
                 radius: width/2
                 border.color: "#ffffff"
-                border.width: 3*physicalPlatformScale
+                border.width: 3*Devices.density
                 color: itemColor
             }
 
@@ -88,7 +88,7 @@ Item {
     }
 
     ScrollBar {
-        scrollArea: color_grid; height: color_grid.height; width: 6*physicalPlatformScale
+        scrollArea: color_grid; height: color_grid.height; width: 6*Devices.density
         anchors.right: color_grid.right; anchors.top: color_grid.top; color: "#000000"
     }
 }

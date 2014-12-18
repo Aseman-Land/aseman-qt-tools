@@ -24,8 +24,8 @@ Rectangle {
     Image {
         id: logo
         anchors.centerIn: parent
-        width: 200*physicalPlatformScale
-        height: 142*physicalPlatformScale
+        width: 200*Devices.density
+        height: 142*Devices.density
         sourceSize: Qt.size(width,height)
         source: "files/aseman-special.png"
         z: 10
@@ -36,9 +36,9 @@ Rectangle {
         anchors.top: logo.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.margins: 20*physicalPlatformScale
+        anchors.margins: 20*Devices.density
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-        font.pixelSize: 9*fontsScale
+        font.pixelSize: 9*Devices.fontDensity
         color: "#ffffff"
         horizontalAlignment: Text.AlignHCenter
         z: 10
@@ -50,10 +50,10 @@ Rectangle {
         anchors.top: desc_txt.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.leftMargin: 20*physicalPlatformScale
-        anchors.rightMargin: 20*physicalPlatformScale
+        anchors.leftMargin: 20*Devices.density
+        anchors.rightMargin: 20*Devices.density
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-        font.pixelSize: 9*fontsScale
+        font.pixelSize: 9*Devices.fontDensity
         color: "#ffffff"
         horizontalAlignment: Text.AlignHCenter
         z: 10
@@ -63,15 +63,15 @@ Rectangle {
     MouseArea {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        height: 40*physicalPlatformScale
-        width: 300*physicalPlatformScale
+        height: 40*Devices.density
+        width: 300*Devices.density
         z: 10
         cursorShape: Qt.PointingHandCursor
         onClicked: Qt.openUrlExternally("http://aseman.co")
 
         Text {
             anchors.centerIn: parent
-            font.pixelSize: 9*fontsScale
+            font.pixelSize: 9*Devices.fontDensity
             font.bold: true
             color: "#ffffff"
             horizontalAlignment: Text.AlignHCenter

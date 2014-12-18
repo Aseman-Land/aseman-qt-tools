@@ -61,7 +61,7 @@ import QtQuick 2.0
 
 Item {
     id: container
-    width: 6*physicalPlatformScale
+    width: 6*Devices.density
 
     property variant scrollArea
     property variant orientation: Qt.Vertical
@@ -115,7 +115,7 @@ Item {
         height: container.orientation == Qt.Vertical ? diagonal : container.height - 4
         opacity: 0.5
 
-        property real diagonal: size()<20*physicalPlatformScale? 20*physicalPlatformScale : size()
+        property real diagonal: size()<20*Devices.density? 20*Devices.density : size()
     }
 
     Behavior on opacity {

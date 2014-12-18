@@ -21,6 +21,12 @@
 
 #include <QQuickView>
 
+#ifdef ASEMAN_QML_PLUGIN
+#define INHERIT_VIEW QObject
+#else
+#define INHERIT_VIEW QQuickView
+#endif
+
 class AsemanBackHandler;
 class AsemanDesktopTools;
 class AsemanDevices;
@@ -29,7 +35,7 @@ class AsemanQtLogger;
 class AsemanTools;
 class AsemanCalendarConverter;
 class AsemanQuickViewPrivate;
-class AsemanQuickView : public QQuickView
+class AsemanQuickView : public INHERIT_VIEW
 {
     Q_OBJECT
 
@@ -42,6 +48,8 @@ class AsemanQuickView : public QQuickView
     Q_PROPERTY(QQuickItem* focusedText READ focusedText WRITE setFocusedText NOTIFY focusedTextChanged)
 
     Q_PROPERTY(int layoutDirection READ layoutDirection WRITE setLayoutDirection NOTIFY layoutDirectionChanged)
+
+    Q_PROPERTY(qreal flickVelocity READ flickVelocity NOTIFY fakeSignal)
 
 public:
     enum OptionsFlag {
@@ -84,6 +92,8 @@ public:
 
     int layoutDirection() const;
     void setLayoutDirection( int l );
+
+    qreal flickVelocity() const;
 
 public slots:
     void discardFocusedText();

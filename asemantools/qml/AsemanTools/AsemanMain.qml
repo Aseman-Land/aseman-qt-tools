@@ -82,7 +82,7 @@ Rectangle {
         id: tool_tip
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottomMargin: 32*physicalPlatformScale + View.navigationBarHeight
+        anchors.bottomMargin: 32*Devices.density + View.navigationBarHeight
         z: 11
     }
 

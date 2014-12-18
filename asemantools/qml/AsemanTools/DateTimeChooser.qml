@@ -20,8 +20,8 @@ import QtQuick 2.0
 
 Rectangle {
     id: dt_chooser
-    width: 400*physicalPlatformScale
-    height: 100*physicalPlatformScale
+    width: 400*Devices.density
+    height: 100*Devices.density
     clip: true
 
     property color textsColor
@@ -41,7 +41,7 @@ Rectangle {
         SelectableList {
             id: year_list
             height: parent.height
-            width: timeVisible? dt_chooser.width/5.333 : dt_chooser.width*(75*physicalPlatformScale)/(225*physicalPlatformScale)
+            width: timeVisible? dt_chooser.width/5.333 : dt_chooser.width*(75*Devices.density)/(225*Devices.density)
             textsColor: dt_chooser.textsColor
             color: dt_chooser.color
             visible: dateVisible
@@ -60,7 +60,7 @@ Rectangle {
         SelectableList {
             id: month_list
             height: parent.height
-            width: timeVisible? dt_chooser.width/4 : dt_chooser.width*(100*physicalPlatformScale)/(225*physicalPlatformScale)
+            width: timeVisible? dt_chooser.width/4 : dt_chooser.width*(100*Devices.density)/(225*Devices.density)
             textsColor: dt_chooser.textsColor
             color: dt_chooser.color
             visible: dateVisible
@@ -81,7 +81,7 @@ Rectangle {
         SelectableList {
             id: day_list
             height: parent.height
-            width: timeVisible? dt_chooser.width/8 : dt_chooser.width*(50*physicalPlatformScale)/(225*physicalPlatformScale)
+            width: timeVisible? dt_chooser.width/8 : dt_chooser.width*(50*Devices.density)/(225*Devices.density)
             textsColor: dt_chooser.textsColor
             color: dt_chooser.color
             visible: dateVisible
@@ -111,7 +111,7 @@ Rectangle {
         SelectableList {
             id: hour_list
             height: parent.height
-            width: dateVisible? dt_chooser.width/8 : dt_chooser.width*(50*physicalPlatformScale)/(150*physicalPlatformScale)
+            width: dateVisible? dt_chooser.width/8 : dt_chooser.width*(50*Devices.density)/(150*Devices.density)
             textsColor: dt_chooser.textsColor
             color: dt_chooser.color
             visible: timeVisible
@@ -133,7 +133,7 @@ Rectangle {
         SelectableList {
             id: minute_list
             height: parent.height
-            width: dateVisible? dt_chooser.width/8 : dt_chooser.width*(50*physicalPlatformScale)/(150*physicalPlatformScale)
+            width: dateVisible? dt_chooser.width/8 : dt_chooser.width*(50*Devices.density)/(150*Devices.density)
             textsColor: dt_chooser.textsColor
             color: dt_chooser.color
             visible: timeVisible
@@ -155,7 +155,7 @@ Rectangle {
         SelectableList {
             id: clock_list
             height: parent.height
-            width: dateVisible? dt_chooser.width/8 : dt_chooser.width*(50*physicalPlatformScale)/(150*physicalPlatformScale)
+            width: dateVisible? dt_chooser.width/8 : dt_chooser.width*(50*Devices.density)/(150*Devices.density)
             textsColor: dt_chooser.textsColor
             color: dt_chooser.color
             visible: timeVisible
@@ -190,7 +190,7 @@ Rectangle {
     Rectangle {
         id: date_line
         x: 0
-        height: 2*physicalPlatformScale
+        height: 2*Devices.density
         width: timeVisible? dt_chooser.width/1.777 : dt_chooser.width
         anchors.top: date_text.bottom
         visible: dateVisible
@@ -200,7 +200,7 @@ Rectangle {
     Rectangle {
         id: time_line
         x: parent.width-width
-        height: 2*physicalPlatformScale
+        height: 2*Devices.density
         width: dateVisible? dt_chooser.width/2.666 : dt_chooser.width
         anchors.top: time_text.bottom
         visible: timeVisible
@@ -211,8 +211,8 @@ Rectangle {
         id: date_text
         anchors.horizontalCenter: date_line.horizontalCenter
         anchors.top: parent.top
-        font.family: AApp.globalFontFamily
-        font.pixelSize: 10*fontsScale
+        font.family: AsemanApp.globalFontFamily
+        font.pixelSize: 10*Devices.fontDensity
         color: dt_chooser.textsColor
         visible: dateVisible
         text: qsTr("Date")
@@ -222,8 +222,8 @@ Rectangle {
         id: time_text
         anchors.horizontalCenter: time_line.horizontalCenter
         anchors.top: parent.top
-        font.family: AApp.globalFontFamily
-        font.pixelSize: 10*fontsScale
+        font.family: AsemanApp.globalFontFamily
+        font.pixelSize: 10*Devices.fontDensity
         color: dt_chooser.textsColor
         visible: timeVisible
         text: qsTr("Time")

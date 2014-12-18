@@ -24,7 +24,7 @@ Item {
     property alias shadowOpacity: blur.opacity
     property alias radius: blur.radius
     property alias visibleShadow: blur.visible
-    property real shadowSize: 8*physicalPlatformScale
+    property real shadowSize: 8*Devices.density
 
     Item {
         id: shadow
@@ -43,7 +43,7 @@ Item {
         id: blur
         anchors.fill: shadow
         source: shadow
-        radius: 2*physicalPlatformScale
+        radius: 2*Devices.density
     }
 
     Rectangle {

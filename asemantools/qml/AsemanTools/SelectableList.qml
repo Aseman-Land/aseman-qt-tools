@@ -29,7 +29,7 @@ Rectangle {
     property variant items: new Array
     property color textsColor
     property color splitersColor: "#66bbbbbb"
-    property real itemsHeight: 40*physicalPlatformScale
+    property real itemsHeight: 40*Devices.density
 
     property variant nameMethodObject: seletable_list
     property string nameMethodFunction: "itemName"
@@ -61,8 +61,8 @@ Rectangle {
                 Text {
                     id: txt
                     anchors.centerIn: parent
-                    font.family: AApp.globalFontFamily
-                    font.pixelSize: 11*fontsScale
+                    font.family: AsemanApp.globalFontFamily
+                    font.pixelSize: 11*Devices.fontDensity
                     text: Tools.call(nameMethodObject,nameMethodFunction,Qt.DirectConnection,name)
                     color: textsColor
                 }
@@ -128,14 +128,14 @@ Rectangle {
     }
 
     Rectangle {
-        height: 1*physicalPlatformScale
+        height: 1*Devices.density
         width: parent.width
         anchors.top: top_part.bottom
         color: splitersColor
     }
 
     Rectangle {
-        height: 1*physicalPlatformScale
+        height: 1*Devices.density
         width: parent.width
         anchors.bottom: bottom_part.top
         color: splitersColor

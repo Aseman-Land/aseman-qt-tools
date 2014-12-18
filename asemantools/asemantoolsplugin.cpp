@@ -43,6 +43,7 @@ SINGLETON_PROVIDER(AsemanTools, aseman_tools_singleton)
 SINGLETON_PROVIDER(AsemanDesktopTools, aseman_desktoptools_singleton)
 SINGLETON_PROVIDER(AsemanCalendarConverter, aseman_calendarconv_singleton)
 SINGLETON_PROVIDER(AsemanBackHandler, aseman_backhandler_singleton)
+SINGLETON_PROVIDER(AsemanQuickView, aseman_qview_singleton)
 SINGLETON_PROVIDER_PRO(AsemanApplication, aseman_app_singleton, AsemanApplication::instance())
 SINGLETON_PROVIDER_PRO(AsemanQtLogger, aseman_logger_singleton, new AsemanQtLogger(AsemanApplication::logPath()))
 
@@ -69,4 +70,5 @@ void AsemanToolsPlugin::registerTypes(const char *uri)
     qmlRegisterSingletonType<AsemanBackHandler>(uri, 1, 0, "BackHandler", aseman_backhandler_singleton);
     qmlRegisterSingletonType<AsemanApplication>(uri, 1, 0, "AsemanApp", aseman_app_singleton);
     qmlRegisterSingletonType<AsemanQtLogger>(uri, 1, 0, "Logger", aseman_logger_singleton);
+    qmlRegisterSingletonType<AsemanQuickView>(uri, 1, 0, "View", aseman_qview_singleton);
 }

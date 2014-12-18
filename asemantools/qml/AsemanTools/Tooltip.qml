@@ -22,14 +22,14 @@ Rectangle {
     id: tooltip
     width: txt.width + padding*2
     height: txt.height + padding*1.5
-    radius: 3*physicalPlatformScale
+    radius: 3*Devices.density
     smooth: true
     opacity: 0
     color: "#333333"
     visible: opacity != 0
 
     property int interval: 1500
-    property real padding: 8*physicalPlatformScale
+    property real padding: 8*Devices.density
 
     Behavior on opacity {
         NumberAnimation { id: anim_item; easing.type: Easing.OutCubic; duration: 250 }
@@ -39,8 +39,8 @@ Rectangle {
         id: txt
         x: tooltip.padding
         y: tooltip.padding*0.75
-        font.pixelSize: 10*fontsScale
-        font.family: AApp.globalFontFamily
+        font.pixelSize: 10*Devices.fontDensity
+        font.family: AsemanApp.globalFontFamily
         color: "#ffffff"
     }
 

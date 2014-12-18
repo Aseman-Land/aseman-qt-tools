@@ -30,10 +30,10 @@ Item {
     property alias titleBarFont: title_txt.font
     property alias titleBarColor: titlebar.color
 
-    property real headersHeight: 50*physicalPlatformScale
-    property real topMargin: 30*physicalPlatformScale
-    property real headerColorDomain: 10*physicalPlatformScale
-    property real headerColorHeight: 50*physicalPlatformScale
+    property real headersHeight: 50*Devices.density
+    property real topMargin: 30*Devices.density
+    property real headerColorDomain: 10*Devices.density
+    property real headerColorHeight: 50*Devices.density
 
     property real contentY: listv.contentY
 
@@ -51,7 +51,7 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        maximumFlickVelocity: flickVelocity
+        maximumFlickVelocity: View.flickVelocity
 
         property color color0
         property color color1
@@ -60,7 +60,7 @@ Item {
         onWidthChanged: refresh()
 
         function refresh() {
-            var header_extra_area = 100*physicalPlatformScale
+            var header_extra_area = 100*Devices.density
 
             var item = listv.itemAt(width/2,contentY+headerColorDomain+1+header_extra_area)
             if( !item ) {
@@ -181,13 +181,13 @@ Item {
     }
 
     ScrollBar {
-        scrollArea: listv; height: listv.height; width: 6*physicalPlatformScale
+        scrollArea: listv; height: listv.height; width: 6*Devices.density
         anchors.right: listv.right; anchors.top: listv.top; color: titleBarColor
     }
 
     Rectangle {
         id: titlebar
-        height: 70*physicalPlatformScale
+        height: 70*Devices.density
         width: listv.width
         color: titleBarDefaultColor
         clip: true
@@ -209,7 +209,7 @@ Item {
                 id: title_txt
                 anchors.centerIn: parent
                 color: titleBarDefaultTextColor
-                font.family: AApp.globalFontFamily
+                font.family: AsemanApp.globalFontFamily
             }
         }
     }

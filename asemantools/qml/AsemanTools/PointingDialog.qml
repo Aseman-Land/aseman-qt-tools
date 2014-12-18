@@ -27,7 +27,7 @@ Item {
     property real margin: 10
 
     property real extraX: 0
-    property real extraY: 7*physicalPlatformScale
+    property real extraY: 7*Devices.density
 
     property real pointerLeftMargin: pointer.width
 
@@ -72,11 +72,11 @@ Item {
         Image {
             id: pointer
             source: back.mirror? "files/pointer-down.png" : "files/pointer.png"
-            width: 42*physicalPlatformScale
-            height: 20*physicalPlatformScale
+            width: 42*Devices.density
+            height: 20*Devices.density
             smooth: true
             anchors.bottom: back.mirror? border.bottom : border.top
-            anchors.bottomMargin: back.mirror? 10 - 20*physicalPlatformScale : -11
+            anchors.bottomMargin: back.mirror? 10 - 20*Devices.density : -11
             anchors.left: parent.left
             anchors.leftMargin: pointerLeftMargin
         }

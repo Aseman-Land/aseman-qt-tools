@@ -21,10 +21,10 @@ import QtQuick 2.0
 Button {
     id: dyn_paste_btn
     x: textItem? textItem.mapToItem(View.root,textRect.x,textRect.y).x - width/2 : 0
-    y: textItem? textItem.mapToItem(View.root,textRect.x,textRect.y).y - height - 5*physicalPlatformScale : 0
-    width: 60*physicalPlatformScale
-    height: 30*physicalPlatformScale
-    radius: 2*physicalPlatformScale
+    y: textItem? textItem.mapToItem(View.root,textRect.x,textRect.y).y - height - 5*Devices.density : 0
+    width: 60*Devices.density
+    height: 30*Devices.density
+    radius: 2*Devices.density
     normalColor: "#88333333"
     highlightColor: "#333333"
     textFont.bold: false
@@ -37,7 +37,7 @@ Button {
     onClicked: if( textItem ) textItem.paste()
 
     Connections{
-        target: AApp
+        target: AsemanApp
         onLanguageUpdated: initTranslations()
     }
 

@@ -7,6 +7,8 @@ DESTDIR = build/qml/AsemanTools
 TARGET = $$qtLibraryTarget($$TARGET)
 uri = AsemanTools
 
+DEFINES += ASEMAN_QML_PLUGIN
+
 android {
     manifest.source = android-build
     manifest.target = .

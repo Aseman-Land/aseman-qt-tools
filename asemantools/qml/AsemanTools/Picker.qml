@@ -32,7 +32,7 @@ Canvas {
 
         ctx.strokeStyle = fillColor;
         ctx.fillStyle = strokeColor
-        ctx.lineWidth = 1*physicalPlatformScale
+        ctx.lineWidth = 1*Devices.density
         ctx.beginPath();
 
         ctx.moveTo(width/2,0)

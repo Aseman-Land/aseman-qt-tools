@@ -21,9 +21,9 @@ import QtQuick 2.2
 Rectangle {
     id: button
     smooth: true
-    width: 100*physicalPlatformScale
-    height: 30*physicalPlatformScale
-//    radius: 2*physicalPlatformScale
+    width: 100*Devices.density
+    height: 30*Devices.density
+//    radius: 2*Devices.density
     color: press? highlightColor : normalColor
 
     property alias text: txt.text
@@ -52,12 +52,12 @@ Rectangle {
         id: txt
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.margins: 20*physicalPlatformScale
-        y: parent.height/2 - height/2 - 1*physicalPlatformScale
+        anchors.margins: 20*Devices.density
+        y: parent.height/2 - height/2 - 1*Devices.density
         color: "#ffffff"
         font.bold: Devices.isWindows? false : true
-        font.family: AApp.globalFontFamily
-        font.pixelSize: 9*fontsScale
+        font.family: AsemanApp.globalFontFamily
+        font.pixelSize: 9*Devices.fontDensity
     }
 
     MouseArea{
@@ -72,7 +72,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        height: 1*physicalPlatformScale
+        height: 1*Devices.density
         visible: false
         opacity: 0.3
     }

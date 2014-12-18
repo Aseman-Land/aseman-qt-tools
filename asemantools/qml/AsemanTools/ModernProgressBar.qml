@@ -39,11 +39,11 @@ Item {
     }
 
     ProgressBar {
-        y: parent.height/2 + 30*physicalPlatformScale
+        y: parent.height/2 + 30*Devices.density
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.margins: 10*physicalPlatformScale
-        height: 5*physicalPlatformScale
+        anchors.margins: 10*Devices.density
+        height: 5*Devices.density
         percent: modern_pbar.percent
     }
 
