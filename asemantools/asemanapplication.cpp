@@ -32,15 +32,12 @@ public:
     QString globalMonoFontFamily;
 };
 
-AsemanApplication *aseman_app_obj = 0;
 AsemanApplication::AsemanApplication(int &argc, char **argv) :
     INHERIT_QAPP (argc,argv)
 {
     p = new AsemanApplicationPrivate;
     p->globalFontFamily = "Droid Kaqaz Sans";
     p->globalMonoFontFamily = "Droid Sans Mono";
-
-    aseman_app_obj = this;
 }
 
 QString AsemanApplication::homePath()
@@ -124,7 +121,7 @@ QString AsemanApplication::cameraPath()
 
 AsemanApplication *AsemanApplication::instance()
 {
-    return aseman_app_obj;
+    return static_cast<AsemanApplication*>(QCoreApplication::instance());
 }
 
 void AsemanApplication::setGlobalFontFamily(const QString &fontFamily)
@@ -188,6 +185,5 @@ QVariant AsemanApplication::readSetting(const QString &key, const QVariant &defa
 
 AsemanApplication::~AsemanApplication()
 {
-    aseman_app_obj = 0;
     delete p;
 }
