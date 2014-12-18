@@ -17,6 +17,7 @@
 */
 
 import QtQuick 2.2
+import AsemanTools 1.0
 
 Rectangle {
     id: progress_bar

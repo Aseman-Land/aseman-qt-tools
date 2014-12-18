@@ -17,6 +17,7 @@
 */
 
 import QtQuick 2.0
+import AsemanTools 1.0
 
 Button {
     id: dyn_paste_btn
