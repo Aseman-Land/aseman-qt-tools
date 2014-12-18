@@ -123,13 +123,9 @@ isEmpty(PREFIX) {
     PREFIX = /usr
 }
 
-target = $$TARGET
-target.path = $$PREFIX/qml/AsemanTools
-qmlFile.files = qml
-qmlFile.path = $$PREFIX
-qmlTypes.files = $$OUT_PWD/$$DESTDIR/plugins.qmltypes
-qmlTypes.path = $$PREFIX/qml/AsemanTools
-qmlDir.files = $$OUT_PWD/$$DESTDIR/qmldir
+qmlFile.files = $$OUT_PWD/$$DESTDIR/
+qmlFile.path = $$PREFIX/qml
+qmlDir.files = $$OUT_PWD/qmldir
 qmlDir.path = $$PREFIX/qml/AsemanTools
 
-INSTALLS += qmlFile target qmlTypes qmlDir
+INSTALLS += qmlFile qmlDir
