@@ -129,5 +129,7 @@ qmlFile.files = qml
 qmlFile.path = $$PREFIX
 qmlTypes.files = $$OUT_PWD/$$DESTDIR/plugins.qmltypes
 qmlTypes.path = $$PREFIX/qml/AsemanTools
+qmlDir.files = $$OUT_PWD/$$DESTDIR/qmldir
+qmlDir.path = $$PREFIX/qml/AsemanTools
 
-INSTALLS += qmlFile target qmlTypes
+INSTALLS += qmlFile target qmlTypes qmlDir

@@ -32,6 +32,7 @@ Item {
 
     property real headersHeight: 50*Devices.density
     property real topMargin: 30*Devices.density
+    property real bottomMargin: 0
     property real headerColorDomain: 10*Devices.density
     property real headerColorHeight: 50*Devices.density
 
@@ -144,6 +145,11 @@ Item {
 
                 headerObj = cf_listv.header.createObject(header_item)
             }
+        }
+
+        footer: Item {
+            width: 20
+            height: cf_listv.bottomMargin
         }
 
         delegate: Item {
