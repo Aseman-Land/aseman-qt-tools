@@ -20,6 +20,7 @@
 #define ASEMANQUICKVIEW_H
 
 #include <QQuickView>
+#include <QQmlEngine>
 
 #ifdef ASEMAN_QML_PLUGIN
 #define INHERIT_VIEW QObject
@@ -44,7 +45,7 @@ class AsemanQuickView : public INHERIT_VIEW
     Q_PROPERTY(qreal statusBarHeight READ statusBarHeight NOTIFY statusBarHeightChanged)
     Q_PROPERTY(qreal navigationBarHeight READ navigationBarHeight NOTIFY navigationBarHeightChanged)
 
-    Q_PROPERTY(QQuickItem* root        READ root        WRITE setRoot        NOTIFY rootChanged)
+    Q_PROPERTY(QObject*    root        READ root        WRITE setRoot        NOTIFY rootChanged)
     Q_PROPERTY(QQuickItem* focusedText READ focusedText WRITE setFocusedText NOTIFY focusedTextChanged)
 
     Q_PROPERTY(int layoutDirection READ layoutDirection WRITE setLayoutDirection NOTIFY layoutDirectionChanged)
@@ -65,7 +66,11 @@ public:
         AllExceptLogger = 119
     };
 
+#ifdef ASEMAN_QML_PLUGIN
+    AsemanQuickView(QQmlEngine *engine, QObject *parent = 0);
+#else
     AsemanQuickView( int options = Devices|BackHandler, QWindow *parent = 0);
+#endif
     ~AsemanQuickView();
 
     AsemanDesktopTools *desktopTools() const;
@@ -84,8 +89,8 @@ public:
     qreal statusBarHeight() const;
     qreal navigationBarHeight() const;
 
-    void setRoot( QQuickItem *root );
-    QQuickItem *root() const;
+    void setRoot( QObject *root );
+    QObject *root() const;
 
     void setFocusedText( QQuickItem *item );
     QQuickItem *focusedText() const;

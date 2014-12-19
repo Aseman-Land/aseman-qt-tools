@@ -108,6 +108,7 @@ Item {
             width: sidemenu.width/2
             height: parent.height
             x: -width
+            visible: x != -width
 
             property bool anim: false
 

@@ -51,8 +51,6 @@
 class AsemanQuickViewPrivate
 {
 public:
-    int options;
-
     AsemanDesktopTools *desktop;
     AsemanDevices *devices;
     AsemanQtLogger *logger;
@@ -63,18 +61,32 @@ public:
     AsemanCalendarConverter *calendar;
     AsemanBackHandler *back_handler;
 
-    QPointer<QQuickItem> root;
+    QPointer<QObject> root;
     QPointer<QQuickItem> focused_text;
 
     bool fullscreen;
     int layoutDirection;
+
+#ifdef ASEMAN_QML_PLUGIN
+    QQmlEngine *engine;
+#else
+    int options;
+#endif
 };
 
+#ifdef ASEMAN_QML_PLUGIN
+AsemanQuickView::AsemanQuickView(QQmlEngine *engine, QObject *parent ) :
+#else
 AsemanQuickView::AsemanQuickView(int options, QWindow *parent) :
+#endif
     INHERIT_VIEW(parent)
 {
     p = new AsemanQuickViewPrivate;
+#ifdef ASEMAN_QML_PLUGIN
+    p->engine = engine;
+#else
     p->options = options;
+#endif
     p->desktop = 0;
     p->devices = 0;
     p->logger = 0;
@@ -188,7 +200,7 @@ qreal AsemanQuickView::navigationBarHeight() const
     return p->devices->transparentNavigationBar() && !fullscreen()? 44*p->devices->density() : 0;
 }
 
-void AsemanQuickView::setRoot(QQuickItem *root)
+void AsemanQuickView::setRoot(QObject *root)
 {
     if( p->root == root )
         return;
@@ -197,16 +209,12 @@ void AsemanQuickView::setRoot(QQuickItem *root)
     emit rootChanged();
 }
 
-QQuickItem *AsemanQuickView::root() const
+QObject *AsemanQuickView::root() const
 {
     if( p->root )
         return p->root;
 
-#ifndef ASEMAN_QML_PLUGIN
-    return rootObject();
-#else
-    return 0;
-#endif
+    return p->root;
 }
 
 void AsemanQuickView::setFocusedText(QQuickItem *item)
