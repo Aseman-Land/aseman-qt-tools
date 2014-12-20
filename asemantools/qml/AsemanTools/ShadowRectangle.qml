@@ -22,10 +22,12 @@ import AsemanTools 1.0
 
 Item {
     property alias color : back.color
+    property alias radius: back.radius
+    property alias border: back.border
     property alias shadowOpacity: blur.opacity
-    property alias radius: blur.radius
+    property real shadowSize: shadowRadius
+    property alias shadowRadius: blur.radius
     property alias visibleShadow: blur.visible
-    property real shadowSize: 8*Devices.density
 
     Item {
         id: shadow
@@ -36,6 +38,7 @@ Item {
             anchors.centerIn: parent
             width: back.width
             height: back.height
+            radius: back.radius
             color: "#333333"
         }
     }
@@ -44,7 +47,8 @@ Item {
         id: blur
         anchors.fill: shadow
         source: shadow
-        radius: 2*Devices.density
+        radius: 16*Devices.density
+        opacity: 0.8
     }
 
     Rectangle {
