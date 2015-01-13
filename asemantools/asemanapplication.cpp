@@ -22,22 +22,20 @@
 #include <QDir>
 #include <QFont>
 #include <QSettings>
+#include <QThread>
 
 static QSettings *app_global_settings = 0;
 
 class AsemanApplicationPrivate
 {
 public:
-    QString globalFontFamily;
-    QString globalMonoFontFamily;
+    QFont globalFont;
 };
 
 AsemanApplication::AsemanApplication(int &argc, char **argv) :
     INHERIT_QAPP (argc,argv)
 {
     p = new AsemanApplicationPrivate;
-    p->globalFontFamily = "Droid Kaqaz Sans";
-    p->globalMonoFontFamily = "Droid Sans Mono";
 }
 
 QString AsemanApplication::homePath()
@@ -51,9 +49,9 @@ QString AsemanApplication::homePath()
     result = QDir::homePath();
 #else
 #ifdef Q_OS_WIN
-    result = QDir::homePath() + "/AppData/Local/" + QCoreApplication::organizationDomain().toLower() + "." + QCoreApplication::applicationName().toLower();
+    result = QDir::homePath() + "/AppData/Local/" + QCoreApplication::applicationName();
 #else
-    result = QDir::homePath() + "/.config/" + QCoreApplication::organizationDomain().toLower() + "." + QCoreApplication::applicationName().toLower();
+    result = QDir::homePath() + "/.config/" + QCoreApplication::applicationName();
 #endif
 #endif
 #endif
@@ -124,32 +122,18 @@ AsemanApplication *AsemanApplication::instance()
     return static_cast<AsemanApplication*>(QCoreApplication::instance());
 }
 
-void AsemanApplication::setGlobalFontFamily(const QString &fontFamily)
+void AsemanApplication::setGlobalFont(const QFont &font)
 {
-    if( p->globalFontFamily == fontFamily )
+    if(p->globalFont == font)
         return;
 
-    p->globalFontFamily = fontFamily;
-    emit globalFontFamilyChanged();
+    p->globalFont = font;
+    emit globalFontChanged();
 }
 
-QString AsemanApplication::globalFontFamily() const
+QFont AsemanApplication::globalFont() const
 {
-    return p->globalFontFamily;
-}
-
-void AsemanApplication::setGlobalMonoFontFamily(const QString &fontFamily)
-{
-    if( p->globalMonoFontFamily == fontFamily )
-        return;
-
-    p->globalMonoFontFamily = fontFamily;
-    emit globalMonoFontFamilyChanged();
-}
-
-QString AsemanApplication::globalMonoFontFamily() const
-{
-    return p->globalMonoFontFamily;
+    return p->globalFont;
 }
 
 QSettings *AsemanApplication::settings()
@@ -171,6 +155,11 @@ void AsemanApplication::refreshTranslations()
 void AsemanApplication::back()
 {
     emit backRequest();
+}
+
+void AsemanApplication::sleep(quint64 ms)
+{
+    QThread::msleep(ms);
 }
 
 void AsemanApplication::setSetting(const QString &key, const QVariant &value)

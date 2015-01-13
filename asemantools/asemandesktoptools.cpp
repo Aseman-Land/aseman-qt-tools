@@ -22,11 +22,13 @@
 #include <QStringList>
 #include <QPalette>
 #include <QEventLoop>
+#include <QFontDatabase>
 #include <QDebug>
 
 #ifdef DESKTOP_DEVICE
 #include <QColorDialog>
 #include <QFileDialog>
+#include <QFontDialog>
 #include <QMenu>
 #include <QAction>
 #endif
@@ -34,12 +36,15 @@
 class AsemanDesktopToolsPrivate
 {
 public:
+    QFontDatabase *font_db;
+    QString style;
 };
 
 AsemanDesktopTools::AsemanDesktopTools(QObject *parent) :
     QObject(parent)
 {
     p = new AsemanDesktopToolsPrivate;
+    p->font_db = 0;
 }
 
 int AsemanDesktopTools::desktopSession() const
@@ -79,6 +84,7 @@ int AsemanDesktopTools::desktopSession() const
 
 QColor AsemanDesktopTools::titleBarColor() const
 {
+#ifdef DESKTOP_DEVICE
     const int dsession = desktopSession();
     switch( dsession )
     {
@@ -130,6 +136,9 @@ QColor AsemanDesktopTools::titleBarColor() const
     }
 
     return QColor("#EDEDED");
+#else
+    return QColor("#111111");
+#endif
 }
 
 QColor AsemanDesktopTools::titleBarTransparentColor() const
@@ -141,6 +150,7 @@ QColor AsemanDesktopTools::titleBarTransparentColor() const
 
 QColor AsemanDesktopTools::titleBarTextColor() const
 {
+#ifdef DESKTOP_DEVICE
     const int dsession = desktopSession();
     switch( dsession )
     {
@@ -192,6 +202,9 @@ QColor AsemanDesktopTools::titleBarTextColor() const
     }
 
     return QColor("#333333");
+#else
+    return QColor("#ffffff");
+#endif
 }
 
 bool AsemanDesktopTools::titleBarIsDark() const
@@ -202,6 +215,28 @@ bool AsemanDesktopTools::titleBarIsDark() const
         return false;
     else
         return true;
+}
+
+QStringList AsemanDesktopTools::fontFamilies() const
+{
+    if(!p->font_db)
+        p->font_db = new QFontDatabase();
+
+    return p->font_db->families();
+}
+
+void AsemanDesktopTools::setMenuStyle(const QString &style)
+{
+    if(p->style == style)
+        return;
+
+    p->style = style;
+    emit menuStyleChanged();
+}
+
+QString AsemanDesktopTools::menuStyle() const
+{
+    return p->style;
 }
 
 QString AsemanDesktopTools::getOpenFileName(QWindow *window, const QString & title, const QString &filter, const QString &startPath)
@@ -421,6 +456,20 @@ QString AsemanDesktopTools::getExistingDirectory(QWindow *window, const QString 
 #endif
 }
 
+QFont AsemanDesktopTools::getFont(QWindow *window, const QString &title, const QFont &font)
+{
+#ifdef DESKTOP_DEVICE
+    Q_UNUSED(window)
+    bool ok = false;
+    return QFontDialog::getFont(&ok, font, 0, title);
+#else
+    Q_UNUSED(window)
+    Q_UNUSED(title)
+    Q_UNUSED(font)
+    return font;
+#endif
+}
+
 QColor AsemanDesktopTools::getColor(const QColor &color) const
 {
 #ifdef DESKTOP_DEVICE
@@ -437,6 +486,8 @@ int AsemanDesktopTools::showMenu(const QStringList &actions, QPoint point)
         point = QCursor::pos();
 
     QMenu menu;
+    menu.setStyleSheet(p->style);
+
     QList<QAction*> pointers;
     foreach(const QString &act, actions)
         pointers << (act.isEmpty()? menu.addSeparator() : menu.addAction(act));
@@ -450,5 +501,8 @@ int AsemanDesktopTools::showMenu(const QStringList &actions, QPoint point)
 
 AsemanDesktopTools::~AsemanDesktopTools()
 {
+    if(p->font_db)
+        delete p->font_db;
+
     delete p;
 }

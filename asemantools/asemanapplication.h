@@ -21,6 +21,8 @@
 
 #include "aseman_macros.h"
 
+#include <QFont>
+
 #ifdef DESKTOP_DEVICE
 #include "qtsingleapplication/qtsingleapplication.h"
 class INHERIT_QAPP : public QtSingleApplication
@@ -51,8 +53,7 @@ class AsemanApplication : public INHERIT_QAPP
     Q_PROPERTY(QString backupsPath  READ backupsPath  NOTIFY fakeSignal)
     Q_PROPERTY(QString cameraPath   READ cameraPath   NOTIFY fakeSignal)
 
-    Q_PROPERTY(QString globalFontFamily READ globalFontFamily WRITE setGlobalFontFamily NOTIFY globalFontFamilyChanged)
-    Q_PROPERTY(QString globalMonoFontFamily READ globalMonoFontFamily WRITE setGlobalMonoFontFamily NOTIFY globalMonoFontFamilyChanged)
+    Q_PROPERTY(QFont globalFont READ globalFont WRITE setGlobalFont NOTIFY globalFontChanged)
 
 public:
     AsemanApplication(int &argc, char **argv);
@@ -68,17 +69,16 @@ public:
 
     static AsemanApplication *instance();
 
-    void setGlobalFontFamily( const QString & fontFamily );
-    QString globalFontFamily() const;
-
-    void setGlobalMonoFontFamily( const QString & fontFamily );
-    QString globalMonoFontFamily() const;
+    void setGlobalFont(const QFont &font);
+    QFont globalFont() const;
 
     static QSettings *settings();
 
 public slots:
     void refreshTranslations();
     void back();
+
+    void sleep(quint64 ms);
 
     void setSetting( const QString & key, const QVariant & value );
     QVariant readSetting( const QString & key, const QVariant & defaultValue = QVariant() );
@@ -87,6 +87,7 @@ signals:
     void fakeSignal();
     void globalFontFamilyChanged();
     void globalMonoFontFamilyChanged();
+    void globalFontChanged();
     void languageUpdated();
     void backRequest();
 
