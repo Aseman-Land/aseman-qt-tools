@@ -61,6 +61,15 @@ contains(QT,widgets) {
         asemantools/asemannativenotification.h \
         asemantools/asemannativenotificationitem.h
 }
+contains(QT,multimedia) {
+    DEFINES += ASEMAN_MULTIMEDIA
+    SOURCES +=  \
+        asemantools/asemanaudiorecorder.cpp \
+        asemantools/asemanaudioencodersettings.cpp
+    HEADERS +=  \
+        asemantools/asemanaudiorecorder.h \
+        asemantools/asemanaudioencodersettings.h
+}
 linux {
 contains(QT,dbus) {
     DEFINES += LINUX_NATIVE_ASEMAN_NOTIFICATION
@@ -97,7 +106,8 @@ SOURCES += \
     asemantools/asemanautostartmanager.cpp \
     asemantools/asemanquickitemimagegrabber.cpp \
     asemantools/asemanquickobject.cpp \
-    asemantools/asemanfilesystemmodel.cpp
+    asemantools/asemanfilesystemmodel.cpp \
+    $$PWD/asemandebugobjectcounter.cpp
 
 HEADERS += \
     asemantools/asemandevices.h \
@@ -123,7 +133,8 @@ HEADERS += \
     asemantools/asemanautostartmanager.h \
     asemantools/asemanquickitemimagegrabber.h \
     asemantools/asemanquickobject.h \
-    asemantools/asemanfilesystemmodel.h
+    asemantools/asemanfilesystemmodel.h \
+    $$PWD/asemandebugobjectcounter.h
 
 OTHER_FILES += \
     asemantools/android-build/src/land/aseman/android/AsemanActivity.java \
