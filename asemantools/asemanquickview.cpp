@@ -41,6 +41,8 @@
 #include "asemanmimeapps.h"
 #include "asemanwebpagegrabber.h"
 #include "asemantitlebarcolorgrabber.h"
+#include "asemantaskbarbutton.h"
+#include "asemanmapdownloader.h"
 #ifdef Q_OS_ANDROID
 #include "asemanjavalayer.h"
 #endif
@@ -133,6 +135,8 @@ AsemanQuickView::AsemanQuickView(int options, QWindow *parent) :
     qmlRegisterType<AsemanMimeApps>("AsemanTools", 1,0, "MimeApps");
     qmlRegisterType<AsemanWebPageGrabber>("AsemanTools", 1,0, "WebPageGrabber");
     qmlRegisterType<AsemanTitleBarColorGrabber>("AsemanTools", 1,0, "TitleBarColorGrabber");
+    qmlRegisterType<AsemanTaskbarButton>("AsemanTools", 1,0, "TaskbarButton");
+    qmlRegisterType<AsemanMapDownloader>("AsemanTools", 1,0, "MapDownloader");
 
 #ifdef ASEMAN_SENSORS
     qmlRegisterType<AsemanSensors>("AsemanTools", 1,0, "AsemanSensors");
