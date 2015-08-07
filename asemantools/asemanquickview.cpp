@@ -114,11 +114,7 @@ AsemanQuickView::AsemanQuickView(int options, QWindow *parent) :
     p->fullscreen = false;
     p->backController = false;
     p->layoutDirection = Qt::LeftToRight;
-#ifdef Q_OS_ANDROID
     p->tryClose  = false;
-#else
-    p->tryClose  = false;
-#endif
 
 #ifndef ASEMAN_QML_PLUGIN
     engine()->rootContext()->setContextProperty( "AsemanApp", AsemanApplication::instance() );
