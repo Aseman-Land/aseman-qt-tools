@@ -26,7 +26,7 @@ include(qmake/copyData.pri)
 copyData()
 
 installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
-qmldir.files = $$OUT_PWD/$$DESTDIR/qmldir $$OUT_PWD/$$DESTDIR/plugins.qmltypes
+qmldir.files = $$OUT_PWD/qmldir $$OUT_PWD/$$DESTDIR/plugins.qmltypes
 qmldir.path = $$installPath
 qmlFile.files = qml/AsemanTools/
 qmlFile.path = $$[QT_INSTALL_QML]

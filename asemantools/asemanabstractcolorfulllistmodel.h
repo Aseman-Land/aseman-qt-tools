@@ -25,6 +25,8 @@
 class AsemanAbstractColorfullListModel : public AsemanAbstractListModel
 {
     Q_OBJECT
+    Q_ENUMS(ColorfullListModelRoles)
+
     Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:

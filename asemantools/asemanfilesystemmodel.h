@@ -10,6 +10,7 @@ class AsemanFileSystemModel : public AsemanAbstractListModel
 {
     Q_OBJECT
     Q_ENUMS(SortFlag)
+    Q_ENUMS(DataRole)
 
     Q_PROPERTY(bool showDirs READ showDirs WRITE setShowDirs NOTIFY showDirsChanged)
     Q_PROPERTY(bool showDotAndDotDot READ showDotAndDotDot WRITE setShowDotAndDotDot NOTIFY showDotAndDotDotChanged)

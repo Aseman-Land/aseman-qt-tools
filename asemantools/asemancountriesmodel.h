@@ -27,6 +27,7 @@ class AsemanCountriesModelPrivate;
 class AsemanCountriesModel : public AsemanAbstractListModel
 {
     Q_OBJECT
+    Q_ENUMS(ColorfullListModelRoles)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
