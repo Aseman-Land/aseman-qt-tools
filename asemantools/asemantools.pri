@@ -95,8 +95,15 @@ contains(QT,dbus) {
 }
 }
 macx {
-    LIBS += -framework CoreServices
-    INCLUDEPATH += /System/Library/Frameworks/CoreServices.framework/Headers/
+    !contains(DEFINES, DISABLE_CORE_SERVICES) {
+        LIBS += -framework CoreServices
+        INCLUDEPATH += /System/Library/Frameworks/CoreServices.framework/Headers/
+        DEFINES += OSX_CORE_SERVICES_AVAILABLE
+    }
+    !contains(QMAKE_HOST.arch, x86_64) {
+        LIBS +=  -framework CoreFoundation -framework Carbon -lobjc
+    }
+
     DEFINES += MAC_NATIVE_ASEMAN_NOTIFICATION
     SOURCES += $$PWD/asemanmacnativenotification.cpp
     HEADERS += $$PWD/asemanmacnativenotification.h

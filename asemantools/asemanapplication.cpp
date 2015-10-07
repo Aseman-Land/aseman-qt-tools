@@ -26,6 +26,7 @@
 #include <QThread>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QTimer>
 
 #ifdef QT_WIDGETS_LIB
 #define READ_DEFINITION(FUNCTION, DEFAULT_VALUE) \
@@ -95,10 +96,25 @@
 
 static QSettings *app_global_settings = 0;
 static AsemanApplication *aseman_app_singleton = 0;
+static QString *aseman_app_home_path = 0;
+
+#if defined(Q_OS_MAC) && defined(Q_PROCESSOR_X86_32)
+#include <objc/objc.h>
+#include <objc/message.h>
+
+bool dockClickHandler(id self,SEL _cmd,...)
+{
+    Q_UNUSED(self)
+    Q_UNUSED(_cmd)
+    if(aseman_app_singleton) aseman_app_singleton->clickedOnDock();
+    return true;
+}
+#endif
 
 class AsemanApplicationPrivate
 {
 public:
+    QTimer *clickOnDock_timer;
     QFont globalFont;
     int appType;
     QCoreApplication *app;
@@ -114,7 +130,7 @@ AsemanApplication::AsemanApplication() :
     p->app_owner = false;
 
 #ifdef QT_WIDGETS_LIB
-#ifdef DESKTOP_LINUX
+#ifdef DESKTOP_DEVICE
     if( qobject_cast<QtSingleApplication*>(p->app) )
     {
         p->appType = WidgetApplication;
@@ -145,6 +161,9 @@ AsemanApplication::AsemanApplication() :
 
     if(!aseman_app_singleton)
         aseman_app_singleton = this;
+
+    p->app->installEventFilter(this);
+    init();
 }
 
 AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType appType) :
@@ -177,7 +196,7 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
         break;
 #endif
 #ifdef QT_WIDGETS_LIB
-#ifdef DESKTOP_LINUX
+#ifdef DESKTOP_DEVICE
     case WidgetApplication:
         p->app = new QtSingleApplication(argc, argv);
         connect(p->app, SIGNAL(messageReceived(QString)), SIGNAL(messageReceived(QString)));
@@ -195,27 +214,75 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
         p->app = 0;
         break;
     }
+
+    if(p->app)
+        p->app->installEventFilter(this);
+    init();
+}
+
+void AsemanApplication::init()
+{
+    p->clickOnDock_timer = new QTimer(this);
+    p->clickOnDock_timer->setSingleShot(true);
+    p->clickOnDock_timer->setInterval(500);
+
+#if defined(Q_OS_MAC) && defined(Q_PROCESSOR_X86_32)
+    objc_object* cls = objc_getClass("NSApplication");
+    SEL sharedApplication = sel_registerName("sharedApplication");
+    objc_object* appInst = objc_msgSend(cls,sharedApplication);
+
+    if(appInst != NULL)
+    {
+        objc_object* delegate = objc_msgSend(appInst, sel_registerName("delegate"));
+        objc_object* delClass = objc_msgSend(delegate,  sel_registerName("class"));
+        const char* tst = class_getName(delClass->isa);
+        bool test = class_addMethod((objc_class*)delClass, sel_registerName("applicationShouldHandleReopen:hasVisibleWindows:"), (IMP)dockClickHandler,"B@:");
+
+        Q_UNUSED(tst)
+        if (!test)
+        {
+            // failed to register handler...
+        }
+    }
+#endif
 }
 
 QString AsemanApplication::homePath()
 {
-    QString result;
+    if(aseman_app_home_path)
+        return *aseman_app_home_path;
+
+    aseman_app_home_path = new QString();
 
 #ifdef Q_OS_ANDROID
-    result = QDir::homePath();
+    *aseman_app_home_path = QDir::homePath();
 #else
 #ifdef Q_OS_IOS
-    result = QDir::homePath();
+    *aseman_app_home_path = QDir::homePath();
 #else
 #ifdef Q_OS_WIN
-    result = QDir::homePath() + "/AppData/Local/" + QCoreApplication::applicationName();
+    *aseman_app_home_path = QDir::homePath() + "/AppData/Local/" + QCoreApplication::applicationName();
 #else
-    result = QDir::homePath() + "/.config/" + QCoreApplication::applicationName();
+    *aseman_app_home_path = QDir::homePath() + "/.config/" + QCoreApplication::applicationName();
 #endif
 #endif
 #endif
 
-    return result;
+    return *aseman_app_home_path;
+}
+
+void AsemanApplication::setHomePath(const QString &path)
+{
+    homePath();
+    *aseman_app_home_path = path;
+
+    if(aseman_app_singleton)
+    {
+        emit aseman_app_singleton->homePathChanged();
+        emit aseman_app_singleton->logPathChanged();
+        emit aseman_app_singleton->confsPathChanged();
+        emit aseman_app_singleton->backupsPathChanged();
+    }
 }
 
 QString AsemanApplication::appPath()
@@ -374,18 +441,26 @@ QClipboard *AsemanApplication::clipboard()
 #ifdef QT_GUI_LIB
 void AsemanApplication::setWindowIcon(const QIcon &icon)
 {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     SET_DIFINITION(setWindowIcon, icon)
+#else
+    Q_UNUSED(icon)
+#endif
 }
 
 QIcon AsemanApplication::windowIcon()
 {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     READ_DEFINITION(windowIcon, QIcon())
+#else
+    return QIcon();
+#endif
 }
 #endif
 
 bool AsemanApplication::isRunning()
 {
-#if defined(QT_GUI_LIB) && defined(DESKTOP_LINUX) && defined(QT_WIDGETS_LIB)
+#if defined(QT_GUI_LIB) && defined(DESKTOP_DEVICE) && defined(QT_WIDGETS_LIB)
     if(aseman_app_singleton->p->appType == WidgetApplication)
         return static_cast<QtSingleApplication*>(QCoreApplication::instance())->isRunning();
 #endif
@@ -400,7 +475,7 @@ int AsemanApplication::appType()
 
 void AsemanApplication::sendMessage(const QString &msg)
 {
-#if defined(QT_GUI_LIB) && defined(DESKTOP_LINUX) && defined(QT_WIDGETS_LIB)
+#if defined(QT_GUI_LIB) && defined(DESKTOP_DEVICE) && defined(QT_WIDGETS_LIB)
     if(aseman_app_singleton->p->appType == WidgetApplication)
         static_cast<QtSingleApplication*>(QCoreApplication::instance())->sendMessage(msg);
 #else
@@ -477,6 +552,9 @@ void AsemanApplication::back()
 
 int AsemanApplication::exec()
 {
+    p->clickOnDock_timer->stop();
+    p->clickOnDock_timer->start();
+
     return p->app->exec();
 }
 
@@ -500,21 +578,29 @@ QVariant AsemanApplication::readSetting(const QString &key, const QVariant &defa
     return settings()->value(key, defaultValue);
 }
 
-bool AsemanApplication::event(QEvent *e)
+bool AsemanApplication::eventFilter(QObject *o, QEvent *e)
 {
-#ifdef Q_OS_MAC
-    switch(e->type())
+    if(o == p->app)
     {
-    case QEvent::ApplicationActivate:
-        clickedOnDock();
-        break;
+#ifdef Q_OS_MAC
+        switch(e->type()) {
+        case QEvent::ApplicationActivate:
+            if(p->clickOnDock_timer->isActive())
+            {
+                p->clickOnDock_timer->stop();
+                p->clickOnDock_timer->start();
+            }
+            else
+                emit clickedOnDock();
+            break;
 
-    default:
-        break;
-    }
+        default:
+            break;
+        }
 #endif
+    }
 
-    return QObject::event(e);
+    return QObject::eventFilter(o,e);
 }
 
 AsemanApplication::~AsemanApplication()

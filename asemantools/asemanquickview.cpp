@@ -65,6 +65,7 @@
 #include <QQmlEngine>
 #include <QQmlContext>
 #include <QQuickItem>
+#include <QScreen>
 
 class AsemanQuickViewPrivate
 {
@@ -76,6 +77,7 @@ public:
     bool fullscreen;
     bool backController;
     int layoutDirection;
+    bool reverseScroll;
 
 #ifdef ASEMAN_QML_PLUGIN
     QQmlEngine *engine;
@@ -97,6 +99,7 @@ AsemanQuickView::AsemanQuickView(QWindow *parent) :
     p->backController = false;
     p->layoutDirection = Qt::LeftToRight;
     p->tryClose  = false;
+    p->reverseScroll = false;
 
 #ifndef ASEMAN_QML_PLUGIN
     AsemanQtTools::registerTypes("AsemanTools");
@@ -187,6 +190,20 @@ bool AsemanQuickView::backController() const
     return p->backController;
 }
 
+void AsemanQuickView::setReverseScroll(bool stt)
+{
+    if(p->reverseScroll == stt)
+        return;
+
+    p->reverseScroll = stt;
+    emit reverseScrollChanged();
+}
+
+bool AsemanQuickView::reverseScroll() const
+{
+    return p->reverseScroll;
+}
+
 qreal AsemanQuickView::statusBarHeight() const
 {
     AsemanDevices *dv = devices();
@@ -265,6 +282,16 @@ qreal AsemanQuickView::flickVelocity() const
 #endif
 }
 
+QSize AsemanQuickView::screenSize() const
+{
+    QSize result;
+#ifndef ASEMAN_QML_PLUGIN
+    if(screen())
+        result = screen()->size();
+#endif
+    return result;
+}
+
 void AsemanQuickView::discardFocusedText()
 {
     setFocusedText(0);
@@ -275,6 +302,27 @@ void AsemanQuickView::tryClose()
     p->tryClose = true;
 #ifndef ASEMAN_QML_PLUGIN
     close();
+#endif
+}
+
+void AsemanQuickView::setMask(qreal x, qreal y, qreal width, qreal height)
+{
+#ifndef ASEMAN_QML_PLUGIN
+    QQuickView::setMask(QRegion(x,y,width,height));
+#endif
+}
+
+void AsemanQuickView::move(qreal x, qreal y)
+{
+#ifndef ASEMAN_QML_PLUGIN
+    QQuickView::setPosition(x, y);
+#endif
+}
+
+void AsemanQuickView::resize(qreal w, qreal h)
+{
+#ifndef ASEMAN_QML_PLUGIN
+    QQuickView::resize(QSize(w,h));
 #endif
 }
 

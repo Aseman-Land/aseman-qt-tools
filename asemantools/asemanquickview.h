@@ -42,6 +42,7 @@ class AsemanQuickView : public INHERIT_VIEW
 
     Q_PROPERTY(bool fullscreen READ fullscreen WRITE setFullscreen NOTIFY fullscreenChanged)
     Q_PROPERTY(bool backController READ backController WRITE setBackController NOTIFY backControllerChanged)
+    Q_PROPERTY(bool reverseScroll READ reverseScroll WRITE setReverseScroll NOTIFY reverseScrollChanged)
 
     Q_PROPERTY(qreal statusBarHeight READ statusBarHeight NOTIFY statusBarHeightChanged)
     Q_PROPERTY(qreal navigationBarHeight READ navigationBarHeight NOTIFY navigationBarHeightChanged)
@@ -78,6 +79,9 @@ public:
     void setBackController(bool stt);
     bool backController() const;
 
+    void setReverseScroll(bool stt);
+    bool reverseScroll() const;
+
     qreal statusBarHeight() const;
     qreal navigationBarHeight() const;
 
@@ -91,10 +95,14 @@ public:
     void setLayoutDirection( int l );
 
     qreal flickVelocity() const;
+    Q_INVOKABLE QSize screenSize() const;
 
 public slots:
     void discardFocusedText();
     void tryClose();
+    void setMask(qreal x, qreal y, qreal width, qreal height);
+    void move(qreal x, qreal y);
+    void resize(qreal w, qreal h);
 
 signals:
     void fullscreenChanged();
@@ -104,6 +112,7 @@ signals:
     void focusedTextChanged();
     void layoutDirectionChanged();
     void backControllerChanged();
+    void reverseScrollChanged();
     void fakeSignal();
     void closeRequest();
 
