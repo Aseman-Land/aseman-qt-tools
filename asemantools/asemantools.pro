@@ -2,7 +2,7 @@ TEMPLATE = lib
 TARGET = AsemanToolsQml
 QT += qml quick
 CONFIG += qt plugin
-DESTDIR = qml/AsemanTools/
+DESTDIR = qml/AsemanTools/AsemanTools
 
 TARGET = $$qtLibraryTarget($$TARGET)
 uri = AsemanTools
@@ -17,7 +17,7 @@ SOURCES += \
 HEADERS += \
     asemantoolsplugin.h
 
-qmlFiles.source = $$files(qml/AsemanTools/*)
+qmlFiles.source = qml/AsemanTools/
 qmlFiles.target = .
 COPYFOLDERS += qmlFiles
 
