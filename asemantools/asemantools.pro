@@ -17,7 +17,7 @@ SOURCES += \
 HEADERS += \
     asemantoolsplugin.h
 
-qmlFiles.source = qml/AsemanTools/
+qmlFiles.source = $$files(qml/AsemanTools/*)
 qmlFiles.target = .
 COPYFOLDERS += qmlFiles
 
