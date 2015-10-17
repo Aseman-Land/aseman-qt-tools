@@ -17,7 +17,7 @@ SOURCES += \
 HEADERS += \
     asemantoolsplugin.h
 
-QML_FILES_TMP = $$system(dir qml/AsemanTools/)
+QML_FILES_TMP = $$files(qml/AsemanTools/*)
 QML_FILES =
 for(qmlFile, QML_FILES_TMP) {
     QML_FILES += qml/AsemanTools/$$qmlFile

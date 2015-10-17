@@ -28,7 +28,7 @@ for(sourceFiles, $${deploymentfolder}.source) {
             copyCommand += cmd /c echo F | xcopy /E /Y /I \"$$source\" \"$$target\"
         } else {
             source = $$replace(source, \\\\, /)
-            target = $$OUT_PWD/$$eval($${deploymentfolder}.target)/
+            target = $$OUT_PWD/$$eval($${deploymentfolder}.target)
             target = $$replace(target, \\\\, /)
             copyCommand += test -d \"$$target\" || mkdir -p \"$$target\" && cp -f -u -r \"$$source\" \"$$target\"
         }
