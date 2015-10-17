@@ -21,8 +21,8 @@ for(sourceFiles, $${deploymentfolder}.source) {
     sourcePathSegments = $$split(source, \\)
     !isEqual(source,$$target) {
         !isEmpty(copyCommand):copyCommand += &&
-        win32 {
-            target = $$OUT_PWD/$$eval($${deploymentfolder}.target)/$$dirname(sourceFiles)/$$last(sourcePathSegments)
+        !win32 {
+            target = $$OUT_PWD/$$eval($${deploymentfolder}.target)/$$last(sourcePathSegments)
             target = $$replace(target, /, \\)
             target ~= s,\\\\\\.?\\\\,\\,
             copyCommand += cmd /c echo F | xcopy /E /Y /I \"$$source\" \"$$target\"

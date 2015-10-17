@@ -17,7 +17,13 @@ SOURCES += \
 HEADERS += \
     asemantoolsplugin.h
 
-qmlFiles.source = qml/AsemanTools/
+QML_FILES_TMP = $$system(dir qml/AsemanTools/)
+QML_FILES =
+for(qmlFile, QML_FILES_TMP) {
+    QML_FILES += qml/AsemanTools/$$qmlFile
+}
+
+qmlFiles.source = $$QML_FILES
 qmlFiles.target = $$DESTDIR
 COPYFOLDERS += qmlFiles
 
