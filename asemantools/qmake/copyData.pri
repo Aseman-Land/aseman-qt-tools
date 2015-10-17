@@ -21,7 +21,7 @@ for(sourceFiles, $${deploymentfolder}.source) {
     sourcePathSegments = $$split(source, \\)
     !isEqual(source,$$target) {
         !isEmpty(copyCommand):copyCommand += &&
-        win32 {
+        !win32 {
             target = $$OUT_PWD/$$eval($${deploymentfolder}.target)/$$last(sourcePathSegments)
             target = $$replace(target, /, \\)
             target ~= s,\\\\\\.?\\\\,\\,
