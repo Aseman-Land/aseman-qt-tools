@@ -20,7 +20,7 @@ HEADERS += \
 QML_FILES_TMP = $$files(qml/AsemanTools/*)
 QML_FILES =
 for(qmlFile, QML_FILES_TMP) {
-    QML_FILES += $$PWD/qml/AsemanTools/$$qmlFile
+    QML_FILES += $$qmlFile
 }
 
 qmlFiles.source = $$QML_FILES
