@@ -78,6 +78,10 @@ void AsemanQtTools::registerTypes(const char *uri)
     if(register_list.contains(uri))
         return;
 
+    const QString &logPath = QString::fromUtf8(qgetenv("ASEMAN_LOG_PATH"));
+    if(!logPath.isEmpty())
+        qtLogger(logPath)->debug("AsemanQtLogger set from ASEMAN_LOG_PATH environement variable.");
+
     qRegisterMetaType<AsemanMimeData*>("AsemanMimeData*");
 
     qmlRegisterType<AsemanMimeData>(uri, 1, 0, "MimeData");
@@ -186,11 +190,11 @@ AsemanDevices *AsemanQtTools::devices()
     return res;
 }
 
-AsemanQtLogger *AsemanQtTools::qtLogger()
+AsemanQtLogger *AsemanQtTools::qtLogger(const QString &path)
 {
     static QPointer<AsemanQtLogger> res = 0;
     if(!res)
-        res = new AsemanQtLogger(AsemanApplication::logPath());
+        res = new AsemanQtLogger(path.isEmpty()?AsemanApplication::logPath():path);
 
     return res;
 }
