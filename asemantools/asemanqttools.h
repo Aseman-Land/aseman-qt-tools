@@ -15,7 +15,7 @@ public:
     static class AsemanApplication *application();
     static class AsemanDesktopTools *desktopTools();
     static class AsemanDevices *devices();
-    static class AsemanQtLogger *qtLogger(const QString &path = QString());
+    static class AsemanQtLogger *qtLogger();
     static class AsemanTools *tools();
     static class AsemanCalendarConverter *calendar(QQmlEngine *engine);
     static class AsemanBackHandler *backHandler(QQmlEngine *engine);

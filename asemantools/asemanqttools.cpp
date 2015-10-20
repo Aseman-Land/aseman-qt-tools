@@ -78,10 +78,6 @@ void AsemanQtTools::registerTypes(const char *uri)
     if(register_list.contains(uri))
         return;
 
-    const QString &logPath = QString::fromUtf8(qgetenv("ASEMAN_LOG_PATH"));
-    if(!logPath.isEmpty())
-        qtLogger(logPath)->debug("AsemanQtLogger set from ASEMAN_LOG_PATH environement variable.");
-
     qRegisterMetaType<AsemanMimeData*>("AsemanMimeData*");
 
     qmlRegisterType<AsemanMimeData>(uri, 1, 0, "MimeData");
@@ -159,12 +155,6 @@ AsemanQuickViewWrapper *AsemanQtTools::quickView(QQmlEngine *engine)
 
 AsemanApplication *AsemanQtTools::application()
 {
-//    AsemanApplication *res = AsemanApplication::instance();
-//    if(res)
-//        return res;
-//    if(QCoreApplication::instance() == 0)
-//        return 0;
-
     static QPointer<AsemanApplication> res;
     if(!res)
         res = new AsemanApplication();
@@ -190,11 +180,17 @@ AsemanDevices *AsemanQtTools::devices()
     return res;
 }
 
-AsemanQtLogger *AsemanQtTools::qtLogger(const QString &path)
+AsemanQtLogger *AsemanQtTools::qtLogger()
 {
     static QPointer<AsemanQtLogger> res = 0;
     if(!res)
-        res = new AsemanQtLogger(path.isEmpty()?AsemanApplication::logPath():path);
+    {
+        QString path = QString::fromUtf8(qgetenv("ASEMAN_LOG_PATH"));
+        if(path.isEmpty())
+            path = AsemanApplication::logPath();
+
+        res = new AsemanQtLogger(path);
+    }
 
     return res;
 }
