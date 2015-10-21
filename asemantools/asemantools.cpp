@@ -158,6 +158,9 @@ QString AsemanTools::urlToLocalPath(const QUrl &url)
             res.remove(idx1, idx2-idx1);
     }
 
+    if(res.left(AsemanDevices::localFilesPrePath().size()) == AsemanDevices::localFilesPrePath())
+        res = res.mid(AsemanDevices::localFilesPrePath().size());
+
     return res;
 }
 
