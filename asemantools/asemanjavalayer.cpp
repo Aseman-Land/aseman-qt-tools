@@ -30,6 +30,7 @@
 #include <QTimer>
 #include <QScreen>
 #include <QGuiApplication>
+#include <QPointer>
 
 #include <jni.h>
 
@@ -56,7 +57,7 @@ AsemanJavaLayer::AsemanJavaLayer() :
 
 AsemanJavaLayer *AsemanJavaLayer::instance()
 {
-    static AsemanJavaLayer *java_layer_instance = 0;
+    static QPointer<AsemanJavaLayer> java_layer_instance;
     if( !java_layer_instance )
     {
         java_layer_instance = new AsemanJavaLayer();

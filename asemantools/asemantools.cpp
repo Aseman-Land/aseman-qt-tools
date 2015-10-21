@@ -144,6 +144,23 @@ QUrl AsemanTools::stringToUrl(const QString &path)
     return QUrl(path);
 }
 
+QString AsemanTools::urlToLocalPath(const QUrl &url)
+{
+    QString res = url.toLocalFile();
+    if(res.isEmpty())
+        res = url.toString();
+
+    int idx1 = res.indexOf(":/");
+    if(idx1 != -1)
+    {
+        int idx2 = res.lastIndexOf(":/");
+        if(idx2 != -1)
+            res.remove(idx1, idx2-idx1);
+    }
+
+    return res;
+}
+
 QString AsemanTools::qtVersion()
 {
     return qVersion();
