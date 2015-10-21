@@ -7,7 +7,7 @@ DESTDIR = qml/AsemanTools/AsemanTools
 TARGET = $$qtLibraryTarget($$TARGET)
 uri = AsemanTools
 
-DEFINES += ASEMAN_QML_PLUGIN
+DEFINES += ASEMAN_QML_PLUGIN QT_MESSAGELOGCONTEXT
 
 include(asemantools.pri)
 
