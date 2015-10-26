@@ -54,8 +54,6 @@ AsemanQtLogger::AsemanQtLogger(const QString &path, QObject *parent) :
     aseman_qt_logger_objs.insert(this);
     if( aseman_qt_logger_objs.count() == 1 )
         qInstallMessageHandler(asemanQtLoggerFnc);
-
-    connect( QCoreApplication::instance(), SIGNAL(aboutToQuit()), SLOT(app_closed()) );
 }
 
 void AsemanQtLogger::logMsg(QtMsgType type, const QMessageLogContext &context, const QString &msg)

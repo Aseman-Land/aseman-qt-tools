@@ -1,6 +1,6 @@
 TEMPLATE = lib
 TARGET = AsemanToolsQml
-QT += qml quick
+QT += qml quick widgets
 CONFIG += qt plugin
 DESTDIR = qml/AsemanTools/AsemanTools
 

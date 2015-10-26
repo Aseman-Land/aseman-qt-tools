@@ -152,6 +152,12 @@ qreal AsemanJavaLayer::density()
     return res;
 }
 
+QString AsemanJavaLayer::packageName()
+{
+    QString res = p->object.callObjectMethod(__FUNCTION__, "()Ljava/lang/String;" ).toString();
+    return res;
+}
+
 QRect AsemanJavaLayer::keyboardRect()
 {
     jint jheight = p->object.callMethod<jfloat>("menuHeight", "()I" );
@@ -160,8 +166,6 @@ QRect AsemanJavaLayer::keyboardRect()
     const QList<QScreen*> & screens = QGuiApplication::screens();
     if( screens.isEmpty() )
         return QRect();
-
-    qDebug() << menuheight;
 
     QScreen *screen = screens.first();
     QRect rect = screen->availableGeometry();
