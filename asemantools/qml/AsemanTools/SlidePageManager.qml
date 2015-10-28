@@ -62,10 +62,10 @@ Item {
         var last = list.lastItem()
         var iscene = item_component.createObject(pmanager)
 
-        iscene.itemObject = component.createObject(iscene.itemScene)
-
         last.closed = true
         list.append(iscene)
+
+        iscene.itemObject = component.createObject(iscene.itemScene)
     }
 
     Component {
