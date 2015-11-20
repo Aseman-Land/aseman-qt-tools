@@ -135,14 +135,12 @@ AsemanApplication::AsemanApplication() :
     if( qobject_cast<QtSingleApplication*>(p->app) )
     {
         p->appType = WidgetApplication;
-        p->globalFont = static_cast<QtSingleApplication*>(p->app)->font();
     }
     else
 #else
     if( qobject_cast<QApplication*>(p->app) )
     {
         p->appType = WidgetApplication;
-        p->globalFont = static_cast<QApplication*>(p->app)->font();
     }
     else
 #endif
@@ -151,7 +149,6 @@ AsemanApplication::AsemanApplication() :
     if( qobject_cast<QGuiApplication*>(p->app) )
     {
         p->appType = GuiApplication;
-        p->globalFont = static_cast<QGuiApplication*>(p->app)->font();
     }
     else
 #endif
@@ -182,34 +179,22 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
 #ifdef QT_CORE_LIB
     case CoreApplication:
         p->app = new QCoreApplication(argc, argv);
-        connect(p->app, SIGNAL(organizationNameChanged())  , SIGNAL(organizationNameChanged()));
-        connect(p->app, SIGNAL(organizationDomainChanged()), SIGNAL(organizationDomainChanged()));
-        connect(p->app, SIGNAL(applicationNameChanged())   , SIGNAL(applicationNameChanged()));
-        connect(p->app, SIGNAL(applicationVersionChanged()), SIGNAL(applicationVersionChanged()));
         break;
 #endif
 #ifdef QT_GUI_LIB
     case GuiApplication:
         p->app = new QGuiApplication(argc, argv);
-        connect(p->app, SIGNAL(lastWindowClosed()), SIGNAL(lastWindowClosed()));
-
-        p->globalFont = static_cast<QGuiApplication*>(p->app)->font();
         break;
 #endif
 #ifdef QT_WIDGETS_LIB
-#ifdef DESKTOP_DEVICE
     case WidgetApplication:
+#ifdef DESKTOP_DEVICE
         p->app = new QtSingleApplication(argc, argv);
-        connect(p->app, SIGNAL(messageReceived(QString)), SIGNAL(messageReceived(QString)));
-
-        p->globalFont = static_cast<QtSingleApplication*>(p->app)->font();
-        break;
 #else
     case WidgetApplication:
         p->app = new QApplication(argc, argv);
-        p->globalFont = static_cast<QApplication*>(p->app)->font();
-        break;
 #endif
+        break;
 #endif
     default:
         p->app = 0;
@@ -223,6 +208,39 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
 
 void AsemanApplication::init()
 {
+    switch(p->appType)
+    {
+#ifdef QT_CORE_LIB
+    case CoreApplication:
+        connect(p->app, SIGNAL(organizationNameChanged())  , SIGNAL(organizationNameChanged()));
+        connect(p->app, SIGNAL(organizationDomainChanged()), SIGNAL(organizationDomainChanged()));
+        connect(p->app, SIGNAL(applicationNameChanged())   , SIGNAL(applicationNameChanged()));
+        connect(p->app, SIGNAL(applicationVersionChanged()), SIGNAL(applicationVersionChanged()));
+        break;
+#endif
+#ifdef QT_GUI_LIB
+    case GuiApplication:
+        connect(p->app, SIGNAL(lastWindowClosed()), SIGNAL(lastWindowClosed()));
+        connect(p->app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), SIGNAL(applicationStateChanged()));
+        p->globalFont = static_cast<QGuiApplication*>(p->app)->font();
+        break;
+#endif
+#ifdef QT_WIDGETS_LIB
+    case WidgetApplication:
+#ifdef DESKTOP_DEVICE
+        connect(p->app, SIGNAL(messageReceived(QString)), SIGNAL(messageReceived(QString)));
+#else
+    case WidgetApplication:
+#endif
+        connect(p->app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), SIGNAL(applicationStateChanged()));
+        p->globalFont = static_cast<QApplication*>(p->app)->font();
+        break;
+#endif
+    default:
+        p->app = 0;
+        break;
+    }
+
     p->clickOnDock_timer = new QTimer(this);
     p->clickOnDock_timer->setSingleShot(true);
     p->clickOnDock_timer->setInterval(500);
@@ -552,6 +570,11 @@ QPalette AsemanApplication::palette()
 void AsemanApplication::setPalette(const QPalette &pal)
 {
     SET_DIFINITION(setPalette, pal);
+}
+
+int AsemanApplication::applicationState()
+{
+    READ_DEFINITION(applicationState, Qt::ApplicationActive)
 }
 #endif
 
