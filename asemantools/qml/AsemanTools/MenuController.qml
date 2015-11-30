@@ -17,8 +17,11 @@ Item {
     property Component component
 
     onSourceChanged: refreshSource()
-    onLayoutDirectionChanged: refreshSource()
     onRatioChanged: refresh()
+    onLayoutDirectionChanged: {
+        refresh()
+        refreshSource()
+    }
 
     onPressedChanged: if(!pressed) anim_timer.restart()
 

@@ -120,6 +120,7 @@ public:
     int appType;
     QCoreApplication *app;
     bool app_owner;
+    QString appAbout;
 };
 
 AsemanApplication::AsemanApplication() :
@@ -446,6 +447,25 @@ void AsemanApplication::setApplicationDisplayName(const QString &name)
 QString AsemanApplication::applicationDisplayName()
 {
     READ_DEFINITION(applicationDisplayName, QString())
+}
+
+void AsemanApplication::setApplicationAbout(const QString &desc)
+{
+    if(!aseman_app_singleton)
+        return;
+    if( aseman_app_singleton->p->appAbout == desc )
+        return;
+
+    aseman_app_singleton->p->appAbout = desc;
+    emit aseman_app_singleton->applicationAboutChanged();
+}
+
+QString AsemanApplication::applicationAbout()
+{
+    if(aseman_app_singleton)
+        return aseman_app_singleton->p->appAbout;
+    else
+        return QString();
 }
 
 QString AsemanApplication::platformName()
