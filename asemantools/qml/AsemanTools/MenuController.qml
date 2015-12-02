@@ -19,8 +19,8 @@ Item {
     onSourceChanged: refreshSource()
     onRatioChanged: refresh()
     onLayoutDirectionChanged: {
-        refresh()
         refreshSource()
+        refresh()
     }
 
     onPressedChanged: if(!pressed) anim_timer.restart()
@@ -53,6 +53,8 @@ Item {
     QtObject {
         id: privates
         property variant item
+        property real sourceScale: (menuc.width-menuWidth*ratio/2)/source.width
+        onSourceScaleChanged: if(source) source.scale = sourceScale
     }
 
     Item {
@@ -155,7 +157,6 @@ Item {
         if(!source)
             return
 
-        source.scale = (parent.width-menuWidth*ratio/2)/source.width
         var sourceX = menuWidth*ratio/2
         if(layoutDirection == Qt.RightToLeft)
             sourceX = -sourceX
