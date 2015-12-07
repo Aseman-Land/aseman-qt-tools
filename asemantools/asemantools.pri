@@ -151,7 +151,9 @@ SOURCES += \
     $$PWD/asemanfonthandler.cpp \
     $$PWD/asemansimpleqtcryptor.cpp \
     $$PWD/asemanmixedlistmodel.cpp \
-    $$PWD/asemanhostchecker.cpp
+    $$PWD/asemanhostchecker.cpp \
+    $$PWD/asemannetworkmanager.cpp \
+    $$PWD/asemannetworkmanageritem.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -197,7 +199,9 @@ HEADERS += \
     $$PWD/asemansimpleqtcryptor.h \
     $$PWD/private/serpent_sbox.h \
     $$PWD/asemanmixedlistmodel.h \
-    $$PWD/asemanhostchecker.h
+    $$PWD/asemanhostchecker.h \
+    $$PWD/asemannetworkmanager.h \
+    $$PWD/asemannetworkmanageritem.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

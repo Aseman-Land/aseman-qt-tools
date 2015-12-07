@@ -21,6 +21,8 @@
 #include "asemanautostartmanager.h"
 #include "asemanfilesystemmodel.h"
 #include "asemanhostchecker.h"
+#include "asemannetworkmanager.h"
+#include "asemannetworkmanageritem.h"
 #include "asemanquickobject.h"
 #include "asemannotification.h"
 #include "asemanfiledownloaderqueueitem.h"
@@ -80,7 +82,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     if(register_list.contains(uri))
         return;
 
-    qRegisterMetaType<AsemanMimeData*>("AsemanMimeData*");
+     qRegisterMetaType<AsemanMimeData*>("AsemanMimeData*");
 
     qmlRegisterType<AsemanMimeData>(uri, 1, 0, "MimeData");
     qmlRegisterType<AsemanDragObject>(uri, 1, 0, "DragObject");
@@ -102,6 +104,7 @@ void AsemanQtTools::registerTypes(const char *uri)
 #endif
     qmlRegisterType<AsemanWebPageGrabber>(uri, 1,0, "WebPageGrabber");
     qmlRegisterType<AsemanHostChecker>(uri, 1,0, "HostChecker");
+    qmlRegisterType<AsemanNetworkManager>(uri, 1,0, "NetworkManager");
     qmlRegisterType<AsemanTitleBarColorGrabber>(uri, 1,0, "TitleBarColorGrabber");
     qmlRegisterType<AsemanTaskbarButton>(uri, 1,0, "TaskbarButton");
     qmlRegisterType<AsemanMapDownloader>(uri, 1,0, "MapDownloader");
@@ -121,6 +124,7 @@ void AsemanQtTools::registerTypes(const char *uri)
 #endif
 
     qmlRegisterUncreatableType<AsemanDesktopTools>(uri, 1,0, "AsemanDesktopTools", "It's a singleton class");
+    qmlRegisterUncreatableType<AsemanNetworkManagerItem>(uri, 1,0, "NetworkManagerItem", "It must create using NetworkManager component.");
 
     qmlRegisterSingletonType<AsemanDevices>(uri, 1, 0, "Devices", aseman_devices_singleton);
     qmlRegisterSingletonType<AsemanTools>(uri, 1, 0, "Tools", aseman_tools_singleton);
