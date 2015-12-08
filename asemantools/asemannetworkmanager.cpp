@@ -63,6 +63,23 @@ QVariantMap AsemanNetworkManager::configurations() const
     return p->map;
 }
 
+void AsemanNetworkManager::setInterval(qint32 ms)
+{
+    if(p->updateTimer->interval() == ms)
+        return;
+
+    p->updateTimer->setInterval(ms);
+    p->updateTimer->stop();
+    p->updateTimer->start();
+
+    emit intervalChanged();
+}
+
+qint32 AsemanNetworkManager::interval() const
+{
+    return p->updateTimer->interval();
+}
+
 void AsemanNetworkManager::configureChanged(const QNetworkConfiguration &config)
 {
     AsemanNetworkManagerItem *item = p->map.value(config.identifier()).value<AsemanNetworkManagerItem*>();

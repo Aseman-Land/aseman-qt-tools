@@ -153,7 +153,8 @@ SOURCES += \
     $$PWD/asemanmixedlistmodel.cpp \
     $$PWD/asemanhostchecker.cpp \
     $$PWD/asemannetworkmanager.cpp \
-    $$PWD/asemannetworkmanageritem.cpp
+    $$PWD/asemannetworkmanageritem.cpp \
+    $$PWD/asemannetworksleepmanager.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -201,7 +202,8 @@ HEADERS += \
     $$PWD/asemanmixedlistmodel.h \
     $$PWD/asemanhostchecker.h \
     $$PWD/asemannetworkmanager.h \
-    $$PWD/asemannetworkmanageritem.h
+    $$PWD/asemannetworkmanageritem.h \
+    $$PWD/asemannetworksleepmanager.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

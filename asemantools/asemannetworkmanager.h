@@ -13,6 +13,7 @@ class AsemanNetworkManager : public QObject
     Q_PROPERTY(QString defaultNetworkIdentifier READ defaultNetworkIdentifier NOTIFY defaultNetworkIdentifierChanged)
     Q_PROPERTY(QVariantMap configurations READ configurations NOTIFY configurationsChanged)
     Q_PROPERTY(AsemanNetworkManagerItem* defaultNetwork READ defaultNetwork NOTIFY defaultNetworkChanged)
+    Q_PROPERTY(qint32  interval READ interval WRITE setInterval NOTIFY intervalChanged)
 
 public:
     AsemanNetworkManager(QObject *parent = 0);
@@ -22,10 +23,14 @@ public:
     AsemanNetworkManagerItem *defaultNetwork() const;
     QVariantMap configurations() const;
 
+    void setInterval(qint32 ms);
+    qint32 interval() const;
+
 signals:
     void defaultNetworkIdentifierChanged();
     void defaultNetworkChanged();
     void configurationsChanged();
+    void intervalChanged();
 
 private slots:
     void configureChanged(const QNetworkConfiguration &config);
