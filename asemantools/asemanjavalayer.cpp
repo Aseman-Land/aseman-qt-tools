@@ -293,7 +293,7 @@ static void activityRestarted( JNIEnv *env, jobject obj )
         emit sjl->activityRestarted();
 }
 
-bool registerNativeMethods() {
+bool aseman_jlayer_registerNativeMethods() {
     JNINativeMethod methods[] {{"_sendNote", "(Ljava/lang/String;Ljava/lang/String;)V", reinterpret_cast<void *>(noteRecieved)},
                                {"_sendImage", "(Ljava/lang/String;)V", reinterpret_cast<void *>(imageRecieved)},
                                {"_selectImageResult", "(Ljava/lang/String;)V", reinterpret_cast<void *>(selectImageResult)},
@@ -313,4 +313,4 @@ bool registerNativeMethods() {
     return true;
 }
 
-const bool native_methods_registered = registerNativeMethods();
+const bool aseman_jlayer_native_methods_registered = aseman_jlayer_registerNativeMethods();

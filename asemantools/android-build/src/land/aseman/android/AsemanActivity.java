@@ -20,6 +20,13 @@ package land.aseman.android;
 
 import org.qtproject.qt5.android.bindings.QtActivity;
 
+import land.aseman.android.store.StoreManager;
+import land.aseman.android.store.util.IabHelper;
+import land.aseman.android.store.util.IabResult;
+import land.aseman.android.store.util.Inventory;
+import land.aseman.android.store.util.Purchase;
+import com.android.vending.billing.IInAppBillingService;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,13 +37,21 @@ import android.view.WindowManager;
 import android.view.Window;
 import android.provider.MediaStore;
 import android.database.Cursor;
+import android.util.Log;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class AsemanActivity extends QtActivity
 {
+    static final String STORE_MANAGER_TAG = "StoreManager";
+
     private static AsemanActivity instance;
     public boolean _transparentStatusBar = false;
     public boolean _transparentNavigationBar = false;
     public static final int SELECT_IMAGE = 1;
+
+    boolean _storeHasFound;
+    IabHelper mStoreManagerHelper;
 
     public AsemanActivity() {
         AsemanActivity.instance = this;
@@ -62,6 +77,9 @@ public class AsemanActivity extends QtActivity
                 Uri selectedImageUri = data.getData();
                 AsemanJavaLayer.selectImageResult( getPath(selectedImageUri) );
             }
+        }
+        if (mStoreManagerHelper != null) {
+            mStoreManagerHelper.handleActivityResult(requestCode, resultCode, data);
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -123,5 +141,85 @@ public class AsemanActivity extends QtActivity
         else
         if("image/png".equals(type) || "image/jpeg".equals(type))
             AsemanJavaLayer.sendImage( (Uri)intent.getExtras().get(Intent.EXTRA_STREAM) );
+    }
+
+    public void storeManagerSetup(String base64EncodedPublicKey, String storePackageName, String billingBindIntentPath)
+    {
+        if (mStoreManagerHelper != null)
+            mStoreManagerHelper.dispose();
+
+        mStoreManagerHelper = new IabHelper(this, base64EncodedPublicKey);
+        try {
+            Log.d(STORE_MANAGER_TAG, "Starting setup.");
+            mStoreManagerHelper.startSetup(storePackageName, billingBindIntentPath,
+                new IabHelper.OnIabSetupFinishedListener() {
+                    public void onIabSetupFinished(IabResult result) {
+                        if (!result.isSuccess()) {
+                            Log.d(STORE_MANAGER_TAG, "Problem setting up In-app Billing: " + result);
+                        } else {
+                            _storeHasFound = true;
+                            mStoreManagerHelper.queryInventoryAsync(mGotInventoryListener);
+                            Log.d(STORE_MANAGER_TAG, "Setup finished.");
+                        }
+                        StoreManager._setupFinished(_storeHasFound);
+                    }
+                });
+
+        } catch(Exception e) {
+            return;
+        }
+    }
+
+    public void storeManagerGetInventoriesState() {
+        if(!_storeHasFound)
+            return;
+
+        Log.d(STORE_MANAGER_TAG, "Start getting inventories.");
+        try {
+            mStoreManagerHelper.queryInventoryAsync(mGotInventoryListener);
+        } catch(Exception e) {
+            return;
+        }
+    }
+
+    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+            Log.d(STORE_MANAGER_TAG, "Query inventory finished.");
+            if (result.isFailure()) {
+                Log.d(STORE_MANAGER_TAG, "Failed to query inventory: " + result);
+                return;
+            }
+            else {
+                Log.d(STORE_MANAGER_TAG, "Query inventory was successful.");
+
+                HashMap<String, Boolean> inventoriesMap = StoreManager.data;
+                if (inventoriesMap != null) {
+                    Iterator it = inventoriesMap.keySet().iterator();
+                    while(it.hasNext()) {
+                        String inventoryKey = (String)it.next();
+                        boolean newState = inventory.hasPurchase(inventoryKey);
+                        StoreManager.setState(inventoryKey, newState);
+                    }
+                }
+            }
+        }
+    };
+
+    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
+        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
+            if (result.isFailure()) {
+                Log.d(STORE_MANAGER_TAG, "Error purchasing: " + result);
+                return;
+            }
+            else
+                StoreManager.setState(purchase.getSku(), true);
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mStoreManagerHelper != null) mStoreManagerHelper.dispose();
+        mStoreManagerHelper = null;
     }
 }
