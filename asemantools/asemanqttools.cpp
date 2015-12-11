@@ -20,6 +20,7 @@
 #include "asemancountriesmodel.h"
 #include "asemanautostartmanager.h"
 #include "asemanfilesystemmodel.h"
+#include "asemanstoremanager.h"
 #include "asemanhostchecker.h"
 #include "asemannetworkmanager.h"
 #include "asemannetworkmanageritem.h"
@@ -96,6 +97,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterType<AsemanNotification>(uri, 1,0, "Notification");
     qmlRegisterType<AsemanFileSystemModel>(uri, 1,0, "FileSystemModel");
     qmlRegisterType<AsemanAutoStartManager>(uri, 1,0, "AutoStartManager");
+    qmlRegisterType<AsemanStoreManager>(uri, 1,0, "StoreManager");
     qmlRegisterType<AsemanQuickItemImageGrabber>(uri, 1,0, "ItemImageGrabber");
     qmlRegisterType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem");
     qmlRegisterType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue");

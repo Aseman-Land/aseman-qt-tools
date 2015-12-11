@@ -44,6 +44,7 @@ import java.util.Iterator;
 public class AsemanActivity extends QtActivity
 {
     static final String STORE_MANAGER_TAG = "StoreManager";
+    static final int STORE_MANAGER_RC_REQUEST = 0;
 
     private static AsemanActivity instance;
     public boolean _transparentStatusBar = false;
@@ -51,6 +52,7 @@ public class AsemanActivity extends QtActivity
     public static final int SELECT_IMAGE = 1;
 
     boolean _storeHasFound;
+    String _storeManagerLastPurchaseSku;
     IabHelper mStoreManagerHelper;
 
     public AsemanActivity() {
@@ -182,6 +184,16 @@ public class AsemanActivity extends QtActivity
         }
     }
 
+    public void storeManagerPurchaseInventory(String sku) {
+        Log.d(STORE_MANAGER_TAG, "Start purchasing " + sku);
+        try {
+            _storeManagerLastPurchaseSku = sku;
+            mStoreManagerHelper.launchPurchaseFlow(this, sku, STORE_MANAGER_RC_REQUEST, mPurchaseFinishedListener, "payload-string");
+        } catch(Exception e) {
+            return;
+        }
+    }
+
     IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
         public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
             Log.d(STORE_MANAGER_TAG, "Query inventory finished.");
@@ -209,6 +221,7 @@ public class AsemanActivity extends QtActivity
         public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
             if (result.isFailure()) {
                 Log.d(STORE_MANAGER_TAG, "Error purchasing: " + result);
+                StoreManager.setState(_storeManagerLastPurchaseSku, false);
                 return;
             }
             else

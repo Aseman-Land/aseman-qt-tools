@@ -11,12 +11,12 @@ android {
     SOURCES += \
         $$PWD/asemanjavalayer.cpp \
         $$PWD/asemanandroidservice.cpp \
-        $$PWD/private/asemanandroidstoremangercore.cpp
+        $$PWD/private/asemanandroidstoremanagercore.cpp
 
     HEADERS += \
         $$PWD/asemanjavalayer.h \
         $$PWD/asemanandroidservice.h \
-        $$PWD/private/asemanandroidstoremangercore.h
+        $$PWD/private/asemanandroidstoremanagercore.h
 } else {
     ios {
 
@@ -158,8 +158,8 @@ SOURCES += \
     $$PWD/asemannetworkmanageritem.cpp \
     $$PWD/asemannetworksleepmanager.cpp \
     $$PWD/asemanstoremanager.cpp \
-    $$PWD/private/asemanabstractstoremangercore.cpp \
-    $$PWD/private/asemannullstoremangercore.cpp
+    $$PWD/private/asemanabstractstoremanagercore.cpp \
+    $$PWD/private/asemannullstoremanagercore.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -210,8 +210,8 @@ HEADERS += \
     $$PWD/asemannetworkmanageritem.h \
     $$PWD/asemannetworksleepmanager.h \
     $$PWD/asemanstoremanager.h \
-    $$PWD/private/asemanabstractstoremangercore.h \
-    $$PWD/private/asemannullstoremangercore.h
+    $$PWD/private/asemannullstoremanagercore.h \
+    $$PWD/private/asemanabstractstoremanagercore.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

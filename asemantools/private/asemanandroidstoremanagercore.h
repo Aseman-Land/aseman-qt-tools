@@ -1,15 +1,15 @@
-#ifndef ASEMANNULLSTOREMANGERCORE_H
-#define ASEMANNULLSTOREMANGERCORE_H
+#ifndef ASEMANANDROIDSTOREMANAGERCORE_H
+#define ASEMANANDROIDSTOREMANAGERCORE_H
 
-#include "asemanabstractstoremangercore.h"
+#include "asemanabstractstoremanagercore.h"
 
-class AsemanNullStoreMangerCorePrivate;
-class AsemanNullStoreMangerCore : public AsemanAbstractStoreMangerCore
+class AsemanAndroidStoreManagerCorePrivate;
+class AsemanAndroidStoreManagerCore : public AsemanAbstractStoreManagerCore
 {
     Q_OBJECT
 public:
-    AsemanNullStoreMangerCore();
-    ~AsemanNullStoreMangerCore();
+    AsemanAndroidStoreManagerCore();
+    ~AsemanAndroidStoreManagerCore();
 
     void setup(const QString &base64EncodedPublicKey, const QString &storePackageName, const QString &billingBindIntentPath);
     void updateStates();
@@ -20,10 +20,12 @@ public:
     void removeInventory(const QString &sku);
     bool getState(const QString &sku);
     int count();
+    void clear();
+    void purchaseInventory(const QString &sku);
     QStringList inventories();
 
 private:
-    AsemanNullStoreMangerCorePrivate *p;
+    AsemanAndroidStoreManagerCorePrivate *p;
 };
 
-#endif // ASEMANNULLSTOREMANGERCORE_H
+#endif // ASEMANANDROIDSTOREMANAGERCORE_H

@@ -1,4 +1,4 @@
-#include "asemanandroidstoremangercore.h"
+#include "asemanandroidstoremanagercore.h"
 
 #include <QDebug>
 #include <QAndroidJniEnvironment>
@@ -8,9 +8,9 @@
 
 #include <jni.h>
 
-QSet<AsemanAndroidStoreMangerCore*> store_manager_objects;
+QSet<AsemanAndroidStoreManagerCore*> store_manager_objects;
 
-class AsemanAndroidStoreMangerCorePrivate
+class AsemanAndroidStoreManagerCorePrivate
 {
 public:
     QAndroidJniObject object;
@@ -18,15 +18,15 @@ public:
     QSet<QString> inventories;
 };
 
-AsemanAndroidStoreMangerCore::AsemanAndroidStoreMangerCore() :
-    AsemanAbstractStoreMangerCore()
+AsemanAndroidStoreManagerCore::AsemanAndroidStoreManagerCore() :
+    AsemanAbstractStoreManagerCore()
 {
-    p = new AsemanAndroidStoreMangerCorePrivate;
+    p = new AsemanAndroidStoreManagerCorePrivate;
     p->object = QAndroidJniObject("land/aseman/android/store/StoreManager");
     store_manager_objects.insert(this);
 }
 
-void AsemanAndroidStoreMangerCore::setup(const QString &base64EncodedPublicKey, const QString &storePackageName, const QString &billingBindIntentPath)
+void AsemanAndroidStoreManagerCore::setup(const QString &base64EncodedPublicKey, const QString &storePackageName, const QString &billingBindIntentPath)
 {
     jstring jpkey = p->env->NewString(reinterpret_cast<const jchar*>(base64EncodedPublicKey.constData()), base64EncodedPublicKey.length());
     jstring jpack = p->env->NewString(reinterpret_cast<const jchar*>(storePackageName.constData()), storePackageName.length());
@@ -34,57 +34,68 @@ void AsemanAndroidStoreMangerCore::setup(const QString &base64EncodedPublicKey, 
     p->object.callMethod<void>(__FUNCTION__, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V", jpkey, jpack, jintn );
 }
 
-void AsemanAndroidStoreMangerCore::updateStates()
+void AsemanAndroidStoreManagerCore::updateStates()
 {
     p->object.callMethod<void>(__FUNCTION__, "()V");
 }
 
-bool AsemanAndroidStoreMangerCore::containsInventory(const QString &sku)
+bool AsemanAndroidStoreManagerCore::containsInventory(const QString &sku)
 {
     jstring jsku = p->env->NewString(reinterpret_cast<const jchar*>(sku.constData()), sku.length());
     jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;)Z", jsku );
     return res;
 }
 
-void AsemanAndroidStoreMangerCore::insertInventory(const QString &sku, bool state)
+void AsemanAndroidStoreManagerCore::insertInventory(const QString &sku, bool state)
 {
     p->inventories.insert(sku);
     jstring jsku = p->env->NewString(reinterpret_cast<const jchar*>(sku.constData()), sku.length());
     p->object.callMethod<void>(__FUNCTION__, "(Ljava/lang/String;Z)V", jsku, state );
 }
 
-void AsemanAndroidStoreMangerCore::insertInventory(const QString &sku)
+void AsemanAndroidStoreManagerCore::insertInventory(const QString &sku)
 {
     p->inventories.insert(sku);
     jstring jsku = p->env->NewString(reinterpret_cast<const jchar*>(sku.constData()), sku.length());
     p->object.callMethod<void>(__FUNCTION__, "(Ljava/lang/String;)V", jsku );
 }
 
-void AsemanAndroidStoreMangerCore::removeInventory(const QString &sku)
+void AsemanAndroidStoreManagerCore::removeInventory(const QString &sku)
 {
     jstring jsku = p->env->NewString(reinterpret_cast<const jchar*>(sku.constData()), sku.length());
     p->object.callMethod<void>(__FUNCTION__, "(Ljava/lang/String;)V", jsku );
 }
 
-bool AsemanAndroidStoreMangerCore::getState(const QString &sku)
+bool AsemanAndroidStoreManagerCore::getState(const QString &sku)
 {
     jstring jsku = p->env->NewString(reinterpret_cast<const jchar*>(sku.constData()), sku.length());
     jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;Z)Z", jsku );
     return res;
 }
 
-int AsemanAndroidStoreMangerCore::count()
+int AsemanAndroidStoreManagerCore::count()
 {
     jboolean res = p->object.callMethod<jint>(__FUNCTION__, "()Z" );
     return res;
 }
 
-QStringList AsemanAndroidStoreMangerCore::inventories()
+void AsemanAndroidStoreManagerCore::clear()
+{
+    p->object.callMethod<void>(__FUNCTION__, "()V" );
+}
+
+void AsemanAndroidStoreManagerCore::purchaseInventory(const QString &sku)
+{
+    jstring jsku = p->env->NewString(reinterpret_cast<const jchar*>(sku.constData()), sku.length());
+    p->object.callMethod<void>(__FUNCTION__, "(Ljava/lang/String;)V", jsku );
+}
+
+QStringList AsemanAndroidStoreManagerCore::inventories()
 {
     return p->inventories.toList();
 }
 
-AsemanAndroidStoreMangerCore::~AsemanAndroidStoreMangerCore()
+AsemanAndroidStoreManagerCore::~AsemanAndroidStoreManagerCore()
 {
     store_manager_objects.remove(this);
     delete p;
@@ -96,7 +107,7 @@ static void inventoryStateChangedRecieved( JNIEnv *env, jobject obj ,jstring sku
     jboolean a;
     const char *s = env->GetStringUTFChars(sku,&a);
 
-    foreach( AsemanAndroidStoreMangerCore *smc, store_manager_objects )
+    foreach( AsemanAndroidStoreManagerCore *smc, store_manager_objects )
         emit smc->inventoryStateChanged( QString(s), state );
 }
 
@@ -104,7 +115,7 @@ static void setupFinishedRecieved( JNIEnv *env, jobject obj ,jboolean state )
 {
     Q_UNUSED(obj)
     Q_UNUSED(env)
-    foreach( AsemanAndroidStoreMangerCore *smc, store_manager_objects )
+    foreach( AsemanAndroidStoreManagerCore *smc, store_manager_objects )
         emit smc->setupFinished(state);
 }
 

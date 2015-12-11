@@ -74,8 +74,16 @@ public class StoreManager
         return data.get(sku).booleanValue();
     }
 
+    public void purchaseInventory(String sku) {
+        AsemanActivity.getActivityInstance().storeManagerPurchaseInventory(sku);
+    }
+
     public int count() {
         return data.size();
+    }
+
+    public void clear() {
+        data.clear();
     }
 }
 

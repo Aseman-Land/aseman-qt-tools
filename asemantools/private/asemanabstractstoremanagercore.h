@@ -1,15 +1,15 @@
-#ifndef ASEMANABSTRACTSTOREMANGERCORE_H
-#define ASEMANABSTRACTSTOREMANGERCORE_H
+#ifndef ASEMANABSTRACTSTOREMANAGERCORE_H
+#define ASEMANABSTRACTSTOREMANAGERCORE_H
 
 #include <QObject>
 #include <QStringList>
 
-class AsemanAbstractStoreMangerCore : public QObject
+class AsemanAbstractStoreManagerCore : public QObject
 {
     Q_OBJECT
 public:
-    AsemanAbstractStoreMangerCore();
-    ~AsemanAbstractStoreMangerCore();
+    AsemanAbstractStoreManagerCore();
+    ~AsemanAbstractStoreManagerCore();
 
     virtual void setup(const QString &base64EncodedPublicKey, const QString &storePackageName, const QString &billingBindIntentPath) = 0;
 
@@ -19,6 +19,8 @@ public:
     virtual void removeInventory(const QString &sku) = 0;
     virtual bool getState(const QString &sku) = 0;
     virtual int count() = 0;
+    virtual void clear() = 0;
+    virtual void purchaseInventory(const QString &sku) = 0;
 
     virtual QStringList inventories() = 0;
 
@@ -30,4 +32,4 @@ signals:
     void setupFinished(bool state);
 };
 
-#endif // ASEMANABSTRACTSTOREMANGERCORE_H
+#endif // ASEMANABSTRACTSTOREMANAGERCORE_H
