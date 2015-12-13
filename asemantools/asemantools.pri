@@ -11,12 +11,16 @@ android {
     SOURCES += \
         $$PWD/asemanjavalayer.cpp \
         $$PWD/asemanandroidservice.cpp \
-        $$PWD/private/asemanandroidstoremanagercore.cpp
+        $$PWD/private/asemanandroidstoremanagercore.cpp \
+        $$PWD/private/asemanandroidlocationlistenercore.cpp \
+        $$PWD/private/asemanandroidcameracapturecore.cpp
 
     HEADERS += \
         $$PWD/asemanjavalayer.h \
         $$PWD/asemanandroidservice.h \
-        $$PWD/private/asemanandroidstoremanagercore.h
+        $$PWD/private/asemanandroidstoremanagercore.h \
+        $$PWD/private/asemanandroidlocationlistenercore.h \
+        $$PWD/private/asemanandroidcameracapturecore.h
 } else {
     ios {
 
@@ -159,7 +163,11 @@ SOURCES += \
     $$PWD/asemannetworksleepmanager.cpp \
     $$PWD/asemanstoremanager.cpp \
     $$PWD/private/asemanabstractstoremanagercore.cpp \
-    $$PWD/private/asemannullstoremanagercore.cpp
+    $$PWD/private/asemannullstoremanagercore.cpp \
+    $$PWD/asemanlocationlistener.cpp \
+    $$PWD/private/asemanabstractlocationlistenercore.cpp \
+    $$PWD/private/asemanqtlocationlistenercore.cpp \
+    $$PWD/private/asemanabstractcameracapturecore.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -211,7 +219,11 @@ HEADERS += \
     $$PWD/asemannetworksleepmanager.h \
     $$PWD/asemanstoremanager.h \
     $$PWD/private/asemannullstoremanagercore.h \
-    $$PWD/private/asemanabstractstoremanagercore.h
+    $$PWD/private/asemanabstractstoremanagercore.h \
+    $$PWD/asemanlocationlistener.h \
+    $$PWD/private/asemanabstractlocationlistenercore.h \
+    $$PWD/private/asemanqtlocationlistenercore.h \
+    $$PWD/private/asemanabstractcameracapturecore.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \
@@ -230,7 +242,11 @@ OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/store/util/Purchase.java \
     $$PWD/android-build/src/land/aseman/android/store/util/Security.java \
     $$PWD/android-build/src/land/aseman/android/store/util/SkuDetails.java \
-    $$PWD/android-build/src/land/aseman/android/store/StoreManager.java
+    $$PWD/android-build/src/land/aseman/android/store/StoreManager.java \
+    $$PWD/android-build/src/land/aseman/android/extra/AsemanLocationListener.java
 
 RESOURCES += \
     $$PWD/asemanresource.qrc
+
+DISTFILES += \
+    $$PWD/android-build/src/land/aseman/android/extra/AsemanCameraCapture.java

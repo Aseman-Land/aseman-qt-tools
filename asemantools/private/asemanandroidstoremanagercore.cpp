@@ -8,7 +8,20 @@
 
 #include <jni.h>
 
-QSet<AsemanAndroidStoreManagerCore*> store_manager_objects;
+QHash<jobject, AsemanAndroidStoreManagerCore*> store_manager_objects;
+
+AsemanAndroidStoreManagerCore *getStoreManagerObject(jobject obj)
+{
+    QHashIterator<jobject, AsemanAndroidStoreManagerCore*> i(store_manager_objects);
+    while(i.hasNext())
+    {
+        i.next();
+        if(QAndroidJniObject(i.key()) == QAndroidJniObject(obj))
+            return i.value();
+    }
+
+    return 0;
+}
 
 class AsemanAndroidStoreManagerCorePrivate
 {
@@ -23,7 +36,7 @@ AsemanAndroidStoreManagerCore::AsemanAndroidStoreManagerCore() :
 {
     p = new AsemanAndroidStoreManagerCorePrivate;
     p->object = QAndroidJniObject("land/aseman/android/store/StoreManager");
-    store_manager_objects.insert(this);
+    store_manager_objects.insert(p->object.object<jobject>(), this);
 }
 
 void AsemanAndroidStoreManagerCore::setup(const QString &base64EncodedPublicKey, const QString &storePackageName, const QString &billingBindIntentPath)
@@ -75,7 +88,7 @@ bool AsemanAndroidStoreManagerCore::getState(const QString &sku)
 
 int AsemanAndroidStoreManagerCore::count()
 {
-    jboolean res = p->object.callMethod<jint>(__FUNCTION__, "()Z" );
+    jint res = p->object.callMethod<jint>(__FUNCTION__, "()I" );
     return res;
 }
 
@@ -97,26 +110,32 @@ QStringList AsemanAndroidStoreManagerCore::inventories()
 
 AsemanAndroidStoreManagerCore::~AsemanAndroidStoreManagerCore()
 {
-    store_manager_objects.remove(this);
+    p->object.callMethod<void>("end", "()V" );
+    store_manager_objects.remove(p->object.object<jobject>());
     delete p;
 }
 
 static void inventoryStateChangedRecieved( JNIEnv *env, jobject obj ,jstring sku, jboolean state )
 {
-    Q_UNUSED(obj)
-    jboolean a;
-    const char *s = env->GetStringUTFChars(sku,&a);
+    AsemanAndroidStoreManagerCore *smc = getStoreManagerObject(obj);
+    if(!smc)
+        return;
 
-    foreach( AsemanAndroidStoreManagerCore *smc, store_manager_objects )
-        emit smc->inventoryStateChanged( QString(s), state );
+    jboolean a;
+    QString qsku = env->GetStringUTFChars(sku,&a);
+    bool cstate = state;
+    QMetaObject::invokeMethod(smc, "inventoryStateChanged", Q_ARG(QString, qsku), Q_ARG(bool,cstate));
 }
 
 static void setupFinishedRecieved( JNIEnv *env, jobject obj ,jboolean state )
 {
-    Q_UNUSED(obj)
     Q_UNUSED(env)
-    foreach( AsemanAndroidStoreManagerCore *smc, store_manager_objects )
-        emit smc->setupFinished(state);
+    AsemanAndroidStoreManagerCore *smc = getStoreManagerObject(obj);
+    if(!smc)
+        return;
+
+    bool cstate = state;
+    QMetaObject::invokeMethod(smc, "setupFinished", Q_ARG(bool, cstate));
 }
 
 bool aseman_str_mgr_registerNativeMethods() {

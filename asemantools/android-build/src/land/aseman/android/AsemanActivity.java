@@ -80,8 +80,12 @@ public class AsemanActivity extends QtActivity
                 AsemanJavaLayer.selectImageResult( getPath(selectedImageUri) );
             }
         }
-        if (mStoreManagerHelper != null) {
-            mStoreManagerHelper.handleActivityResult(requestCode, resultCode, data);
+
+        Iterator sm_itrs = StoreManager.instances.iterator();
+        while (sm_itrs.hasNext()) {
+            StoreManager sm = (StoreManager)sm_itrs.next();
+            if(sm != null && sm.mStoreManagerHelper != null)
+                sm.mStoreManagerHelper.handleActivityResult(requestCode, resultCode, data);
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -143,96 +147,5 @@ public class AsemanActivity extends QtActivity
         else
         if("image/png".equals(type) || "image/jpeg".equals(type))
             AsemanJavaLayer.sendImage( (Uri)intent.getExtras().get(Intent.EXTRA_STREAM) );
-    }
-
-    public void storeManagerSetup(String base64EncodedPublicKey, String storePackageName, String billingBindIntentPath)
-    {
-        if (mStoreManagerHelper != null)
-            mStoreManagerHelper.dispose();
-
-        mStoreManagerHelper = new IabHelper(this, base64EncodedPublicKey);
-        try {
-            Log.d(STORE_MANAGER_TAG, "Starting setup.");
-            mStoreManagerHelper.startSetup(storePackageName, billingBindIntentPath,
-                new IabHelper.OnIabSetupFinishedListener() {
-                    public void onIabSetupFinished(IabResult result) {
-                        if (!result.isSuccess()) {
-                            Log.d(STORE_MANAGER_TAG, "Problem setting up In-app Billing: " + result);
-                        } else {
-                            _storeHasFound = true;
-                            mStoreManagerHelper.queryInventoryAsync(mGotInventoryListener);
-                            Log.d(STORE_MANAGER_TAG, "Setup finished.");
-                        }
-                        StoreManager._setupFinished(_storeHasFound);
-                    }
-                });
-
-        } catch(Exception e) {
-            return;
-        }
-    }
-
-    public void storeManagerGetInventoriesState() {
-        if(!_storeHasFound)
-            return;
-
-        Log.d(STORE_MANAGER_TAG, "Start getting inventories.");
-        try {
-            mStoreManagerHelper.queryInventoryAsync(mGotInventoryListener);
-        } catch(Exception e) {
-            return;
-        }
-    }
-
-    public void storeManagerPurchaseInventory(String sku) {
-        Log.d(STORE_MANAGER_TAG, "Start purchasing " + sku);
-        try {
-            _storeManagerLastPurchaseSku = sku;
-            mStoreManagerHelper.launchPurchaseFlow(this, sku, STORE_MANAGER_RC_REQUEST, mPurchaseFinishedListener, "payload-string");
-        } catch(Exception e) {
-            return;
-        }
-    }
-
-    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-            Log.d(STORE_MANAGER_TAG, "Query inventory finished.");
-            if (result.isFailure()) {
-                Log.d(STORE_MANAGER_TAG, "Failed to query inventory: " + result);
-                return;
-            }
-            else {
-                Log.d(STORE_MANAGER_TAG, "Query inventory was successful.");
-
-                HashMap<String, Boolean> inventoriesMap = StoreManager.data;
-                if (inventoriesMap != null) {
-                    Iterator it = inventoriesMap.keySet().iterator();
-                    while(it.hasNext()) {
-                        String inventoryKey = (String)it.next();
-                        boolean newState = inventory.hasPurchase(inventoryKey);
-                        StoreManager.setState(inventoryKey, newState);
-                    }
-                }
-            }
-        }
-    };
-
-    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
-        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-            if (result.isFailure()) {
-                Log.d(STORE_MANAGER_TAG, "Error purchasing: " + result);
-                StoreManager.setState(_storeManagerLastPurchaseSku, false);
-                return;
-            }
-            else
-                StoreManager.setState(purchase.getSku(), true);
-        }
-    };
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mStoreManagerHelper != null) mStoreManagerHelper.dispose();
-        mStoreManagerHelper = null;
     }
 }
