@@ -305,6 +305,15 @@ void AsemanApplication::setHomePath(const QString &path)
     }
 }
 
+QString AsemanApplication::startPath()
+{
+#ifdef Q_OS_ANDROID
+    return "/sdcard/";
+#else
+    return homePath();
+#endif
+}
+
 QString AsemanApplication::appPath()
 {
     return QCoreApplication::applicationDirPath();

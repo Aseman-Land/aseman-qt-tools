@@ -59,7 +59,7 @@ Rectangle {
 
     Timer {
         id: save_timer
-        interval: 100
+        interval: 800
         onTriggered: {
             model.setConvertDate(year_list.currentIndex,
                                  month_list.currentIndex,

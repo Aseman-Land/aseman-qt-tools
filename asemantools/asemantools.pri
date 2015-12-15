@@ -167,7 +167,9 @@ SOURCES += \
     $$PWD/asemanlocationlistener.cpp \
     $$PWD/private/asemanabstractlocationlistenercore.cpp \
     $$PWD/private/asemanqtlocationlistenercore.cpp \
-    $$PWD/private/asemanabstractcameracapturecore.cpp
+    $$PWD/private/asemanabstractcameracapturecore.cpp \
+    $$PWD/private/asemannullcameracapturecore.cpp \
+    $$PWD/asemancameracapture.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -223,7 +225,9 @@ HEADERS += \
     $$PWD/asemanlocationlistener.h \
     $$PWD/private/asemanabstractlocationlistenercore.h \
     $$PWD/private/asemanqtlocationlistenercore.h \
-    $$PWD/private/asemanabstractcameracapturecore.h
+    $$PWD/private/asemanabstractcameracapturecore.h \
+    $$PWD/private/asemannullcameracapturecore.h \
+    $$PWD/asemancameracapture.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

@@ -42,11 +42,12 @@ AsemanAndroidCameraCaptureCore::AsemanAndroidCameraCaptureCore(QObject *parent) 
     android_camera_capture_objects.insert(p->object.object<jobject>(), this);
 }
 
-int AsemanAndroidCameraCaptureCore::capture(const QString &dest)
+int AsemanAndroidCameraCaptureCore::capture(const QString &dest, AsemanCameraCapture::CameraFace face)
 {
     p->idIndexs++;
+    jboolean jface = (face==AsemanCameraCapture::CameraFacingFront?true:false);
     jstring jdest = p->env->NewString(reinterpret_cast<const jchar*>(dest.constData()), dest.length());
-    p->object.callMethod<void>(__FUNCTION__, "(ILjava/lang/String;)V", p->idIndexs, jdest);
+    p->object.callMethod<void>(__FUNCTION__, "(ILjava/lang/String;Z)V", p->idIndexs, jdest, jface);
     return p->idIndexs;
 }
 

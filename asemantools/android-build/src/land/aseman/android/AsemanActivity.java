@@ -148,4 +148,46 @@ public class AsemanActivity extends QtActivity
         if("image/png".equals(type) || "image/jpeg".equals(type))
             AsemanJavaLayer.sendImage( (Uri)intent.getExtras().get(Intent.EXTRA_STREAM) );
     }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        AsemanJavaLayer.activityStarted();
+    }
+
+    @Override
+    protected void onRestart()
+    {
+        super.onRestart();
+        AsemanJavaLayer.activityRestarted();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        AsemanJavaLayer.activityResumed();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        AsemanJavaLayer.activityPaused();
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        AsemanJavaLayer.activityStopped();
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        AsemanJavaLayer.activityDestroyed();
+        super.onDestroy();
+    }
 }

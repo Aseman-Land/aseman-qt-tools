@@ -2,6 +2,7 @@
 #define ASEMANABSTRACTCAMERACAPTURECORE_H
 
 #include <QObject>
+#include "../asemancameracapture.h"
 
 class AsemanAbstractCameraCaptureCore : public QObject
 {
@@ -10,8 +11,7 @@ public:
     AsemanAbstractCameraCaptureCore(QObject *parent = 0);
     ~AsemanAbstractCameraCaptureCore();
 
-public slots:
-    virtual int capture(const QString &dest) = 0;
+    virtual int capture(const QString &dest, AsemanCameraCapture::CameraFace face) = 0;
 
 signals:
     void imageCaptured(int id, const QString &path);

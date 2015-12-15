@@ -52,6 +52,7 @@ public class AsemanJavaLayer
     private static native void _activityResumed();
     private static native void _activityStarted();
     private static native void _activityRestarted();
+    private static native void _activityDestroyed();
     private static native void _selectImageResult( String path );
 
     public AsemanJavaLayer() {
@@ -75,6 +76,10 @@ public class AsemanJavaLayer
 
     public static void activityRestarted(){
         _activityRestarted();
+    }
+
+    public static void activityDestroyed(){
+        _activityDestroyed();
     }
 
     public static void sendNote( String title, String msg ) {
@@ -128,7 +133,6 @@ public class AsemanJavaLayer
     {
         Context oContext;
         oContext = AsemanApplication.getAppContext();
-        Log.d("asdd", oContext.getPackageName());
         return oContext.getPackageName();
     }
 

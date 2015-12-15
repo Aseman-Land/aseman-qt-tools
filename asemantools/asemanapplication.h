@@ -51,6 +51,7 @@ class AsemanApplication : public QObject
     Q_ENUMS(ApplicationState)
 
     Q_PROPERTY(QString homePath     READ homePath     NOTIFY homePathChanged)
+    Q_PROPERTY(QString startPath    READ startPath    NOTIFY fakeSignal)
     Q_PROPERTY(QString appPath      READ appPath      NOTIFY fakeSignal)
     Q_PROPERTY(QString appFilePath  READ appFilePath  NOTIFY fakeSignal)
     Q_PROPERTY(QString logPath      READ logPath      WRITE setLogPath NOTIFY logPathChanged)
@@ -104,6 +105,7 @@ public:
     static QString homePath();
     static void setHomePath(const QString &path);
 
+    static QString startPath();
     static QString appPath();
     static QString appFilePath();
     static QString confsPath();

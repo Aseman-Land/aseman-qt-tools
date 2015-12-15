@@ -34,11 +34,18 @@ import android.view.WindowManager;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
+import android.os.Environment;
 import java.util.HashMap;
 import java.io.IOException;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Locale;
+import java.util.Date;
+import java.util.TimerTask;
+import java.util.Timer;
 import java.lang.Runnable;
+import java.text.SimpleDateFormat;
 import android.os.Handler;
 
 public class AsemanCameraCapture
@@ -47,67 +54,102 @@ public class AsemanCameraCapture
 
     public native void _imageCaptured(int id, String path);
 
-    public void capture(final int id, final String path) {
+    public void capture(final int id, final String path, final boolean frontCamera) {
+        Handler mainHandler = new Handler(getContext().getMainLooper());
+        Runnable myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    takePhoto(id, path,
+                              frontCamera? Camera.CameraInfo.CAMERA_FACING_FRONT :
+                                           Camera.CameraInfo.CAMERA_FACING_BACK);
+                } catch (Exception e) {
+                    _imageCaptured(id, "");
+                }
+            }
+        };
+        mainHandler.post(myRunnable);
     }
 
-    private static void takePhoto() {
-        Context context;
-        context = AsemanApplication.getAppContext();
+    public static Context getContext() {
+        if(AsemanActivity.getActivityInstance() != null)
+            return AsemanActivity.getActivityInstance();
+        else
+        if(AsemanService.getServiceInstance() != null)
+            return AsemanService.getServiceInstance();
+        else
+            return AsemanApplication.getAppContext();
+    }
 
-        final SurfaceView preview = new SurfaceView(context);
-        SurfaceHolder holder = preview.getHolder();
-        // deprecated setting, but required on Android versions prior to 3.0
-        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+    private void takePhoto(final int actionId, final String path, final int cameraType) {
+        final SurfaceView view = new SurfaceView(getContext());
+        final Camera camera = openCamera(cameraType);
+        if(camera == null) {
+            _imageCaptured(actionId, "");
+            return;
+        }
 
-        holder.addCallback(new Callback() {
+        Timer timer = new Timer();
+        timer.schedule( new TimerTask() {
             @Override
-            //The preview must happen at or after this point or takePicture fails
-            public void surfaceCreated(SurfaceHolder holder) {
-                Log.d(TAG, "Surface created");
-
-                Camera camera = null;
-
+            public void run() {
+                Log.d(TAG, "Opened camera");
                 try {
-                    camera = Camera.open();
-                    Log.d(TAG, "Opened camera");
+                    camera.setPreviewDisplay(view.getHolder());
 
-                    try {
-                        camera.setPreviewDisplay(holder);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    camera.startPreview();
                     Log.d(TAG, "Started preview");
 
+                    Thread.sleep(1000);
                     camera.takePicture(null, null, new PictureCallback() {
-
                         @Override
                         public void onPictureTaken(byte[] data, Camera camera) {
                             Log.d(TAG, "Took picture");
+                            savePicture(data, path);
                             camera.release();
+                            _imageCaptured(actionId, path);
                         }
                     });
                 } catch (Exception e) {
                     if (camera != null)
                         camera.release();
+                    _imageCaptured(actionId, "");
                     throw new RuntimeException(e);
                 }
             }
+        } , 2000);
+    }
 
-            @Override public void surfaceDestroyed(SurfaceHolder holder) {}
-            @Override public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
-        });
+    /** null if unable to save the file */
+    public boolean savePicture(byte[] data, String filePath) {
+        try {
+            File pictureFile = new File(filePath);
 
-        WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                1, 1, //Must be at least 1x1
-                WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
-                0,
-                //Don't know if this is a safe default
-                PixelFormat.UNKNOWN);
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            fos.write(data);
+            fos.close();
 
-        //Don't set the preview visibility to GONE or INVISIBLE
-        wm.addView(preview, params);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private Camera openCamera(final int type) {
+        int cameraCount = 0;
+        Camera cam = null;
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        cameraCount = Camera.getNumberOfCameras();
+        for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
+            Camera.getCameraInfo(camIdx, cameraInfo);
+            if (cameraInfo.facing == type) {
+                try {
+                    cam = Camera.open(camIdx);
+                } catch (RuntimeException e) {
+                    Log.e(TAG, "Camera failed to open: " + e.getLocalizedMessage());
+                }
+            }
+        }
+
+        return cam;
     }
 }

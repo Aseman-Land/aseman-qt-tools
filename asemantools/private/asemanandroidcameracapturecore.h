@@ -11,7 +11,10 @@ public:
     AsemanAndroidCameraCaptureCore(QObject *parent = 0);
     ~AsemanAndroidCameraCaptureCore();
 
-    int capture(const QString &dest);
+    int capture(const QString &dest, AsemanCameraCapture::CameraFace face);
+
+signals:
+    void imageCaptured(int id, const QString &path);
 
 private:
     AsemanAndroidCameraCaptureCorePrivate *p;

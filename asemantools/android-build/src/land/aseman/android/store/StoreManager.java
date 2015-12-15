@@ -29,6 +29,7 @@ import land.aseman.android.store.util.Purchase;
 import com.android.vending.billing.IInAppBillingService;
 
 import android.util.Log;
+import android.content.Context;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -58,11 +59,21 @@ public class StoreManager
         instances.remove(this);
     }
 
+    public static Context getContext() {
+        if(AsemanActivity.getActivityInstance() != null)
+            return AsemanActivity.getActivityInstance();
+        else
+        if(AsemanService.getServiceInstance() != null)
+            return AsemanService.getServiceInstance();
+        else
+            return AsemanApplication.getAppContext();
+    }
+
     public void setup(String base64EncodedPublicKey, String storePackageName, String billingBindIntentPath) {
         if (mStoreManagerHelper != null)
             mStoreManagerHelper.dispose();
 
-        mStoreManagerHelper = new IabHelper(AsemanActivity.getActivityInstance(), base64EncodedPublicKey);
+        mStoreManagerHelper = new IabHelper(getContext(), base64EncodedPublicKey);
         try {
             Log.d(STORE_MANAGER_TAG, "Starting setup.");
             mStoreManagerHelper.startSetup(storePackageName, billingBindIntentPath,

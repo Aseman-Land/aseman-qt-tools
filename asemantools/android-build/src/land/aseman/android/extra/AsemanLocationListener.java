@@ -50,14 +50,11 @@ public class AsemanLocationListener
     public native void _locationListened(double longitude, double latitude, double altitude, String city);
 
     AsemanLocationListener() {
-        Context context;
-        context = AsemanApplication.getAppContext();
-
-        locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
     }
 
     private Boolean displayGpsStatus() {
-        ContentResolver contentResolver = AsemanApplication.getAppContext().getContentResolver();
+        ContentResolver contentResolver = getContext().getContentResolver();
         boolean gpsStatus = Settings.Secure.isLocationProviderEnabled(contentResolver, LocationManager.GPS_PROVIDER);
         if (gpsStatus) {
             return true;
@@ -66,11 +63,18 @@ public class AsemanLocationListener
         }
     }
 
-    public void requestLocationUpdates(final int interval) {
-        Context context;
-        context = AsemanApplication.getAppContext();
+    public static Context getContext() {
+        if(AsemanActivity.getActivityInstance() != null)
+            return AsemanActivity.getActivityInstance();
+        else
+        if(AsemanService.getServiceInstance() != null)
+            return AsemanService.getServiceInstance();
+        else
+            return AsemanApplication.getAppContext();
+    }
 
-        Handler mainHandler = new Handler(context.getMainLooper());
+    public void requestLocationUpdates(final int interval) {
+        Handler mainHandler = new Handler(getContext().getMainLooper());
         Runnable myRunnable = new Runnable() {
             @Override
             public void run() {

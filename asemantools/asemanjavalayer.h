@@ -25,11 +25,10 @@ class AsemanJavaLayerPrivate;
 class AsemanJavaLayer : public QObject
 {
     Q_OBJECT
-private:
+public:
     AsemanJavaLayer();
     ~AsemanJavaLayer();
 
-public:
     static AsemanJavaLayer *instance();
 
     bool sharePaper( const QString & title, const QString & msg );
@@ -63,6 +62,7 @@ signals:
     void activityResumed();
     void activityStarted();
     void activityRestarted();
+    void activityDestroyed();
 
 private slots:
     void load_buffer();

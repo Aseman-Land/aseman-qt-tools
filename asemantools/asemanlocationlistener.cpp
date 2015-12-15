@@ -20,7 +20,8 @@ AsemanLocationListener::AsemanLocationListener(QObject *parent) :
     p = new AsemanLocationListenerPrivate;
     p->core = new LocationListenerCore(this);
 
-    connect(p->core, SIGNAL(positionUpdated(QGeoPositionInfo)), SIGNAL(positionUpdated(QGeoPositionInfo)));
+    connect(p->core, SIGNAL(positionUpdated(QGeoPositionInfo)),
+            SIGNAL(positionUpdated(QGeoPositionInfo)), Qt::QueuedConnection);
 }
 
 void AsemanLocationListener::requestLocationUpdates(int interval)

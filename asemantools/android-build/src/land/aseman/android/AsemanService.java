@@ -104,6 +104,10 @@ public class AsemanService extends Service
         super.onCreate();
     }
 
+    public static AsemanService getServiceInstance() {
+        return AsemanService.m_instance;
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startApp();

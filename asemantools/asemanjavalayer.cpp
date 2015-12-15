@@ -293,6 +293,15 @@ static void activityRestarted( JNIEnv *env, jobject obj )
         emit sjl->activityRestarted();
 }
 
+static void activityDestroyed( JNIEnv *env, jobject obj )
+{
+    Q_UNUSED(env)
+    Q_UNUSED(obj)
+    qDebug() << __FUNCTION__ << java_layers_objects;
+    foreach( AsemanJavaLayer *sjl, java_layers_objects )
+        emit sjl->activityDestroyed();
+}
+
 bool aseman_jlayer_registerNativeMethods() {
     JNINativeMethod methods[] {{"_sendNote", "(Ljava/lang/String;Ljava/lang/String;)V", reinterpret_cast<void *>(noteRecieved)},
                                {"_sendImage", "(Ljava/lang/String;)V", reinterpret_cast<void *>(imageRecieved)},
@@ -301,7 +310,8 @@ bool aseman_jlayer_registerNativeMethods() {
                                {"_activityStopped", "()V", reinterpret_cast<void *>(activityStopped)},
                                {"_activityResumed", "()V", reinterpret_cast<void *>(activityResumed)},
                                {"_activityStarted", "()V", reinterpret_cast<void *>(activityStarted)},
-                               {"_activityRestarted", "()V", reinterpret_cast<void *>(activityRestarted)}};
+                               {"_activityRestarted", "()V", reinterpret_cast<void *>(activityRestarted)},
+                               {"_activityDestroyed", "()V", reinterpret_cast<void *>(activityDestroyed)}};
 
     QAndroidJniObject javaClass("land/aseman/android/AsemanJavaLayer");
     QAndroidJniEnvironment env;

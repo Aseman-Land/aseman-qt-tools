@@ -77,6 +77,9 @@ SINGLETON_PROVIDER(AsemanBackHandler      , aseman_backhandler_singleton , Asema
 SINGLETON_PROVIDER(AsemanApplication      , aseman_app_singleton         , AsemanQtTools::application())
 SINGLETON_PROVIDER(AsemanQuickViewWrapper , aseman_qview_singleton       , AsemanQtTools::quickView(engine))
 SINGLETON_PROVIDER(AsemanQtLogger         , aseman_logger_singleton      , AsemanQtTools::qtLogger())
+#ifdef Q_OS_ANDROID
+SINGLETON_PROVIDER(AsemanJavaLayer        , aseman_javalayer_singleton   , AsemanQtTools::javaLayer())
+#endif
 
 void AsemanQtTools::registerTypes(const char *uri)
 {
@@ -84,7 +87,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     if(register_list.contains(uri))
         return;
 
-     qRegisterMetaType<AsemanMimeData*>("AsemanMimeData*");
+    qRegisterMetaType<AsemanMimeData*>("AsemanMimeData*");
 
     qmlRegisterType<AsemanMimeData>(uri, 1, 0, "MimeData");
     qmlRegisterType<AsemanDragObject>(uri, 1, 0, "DragObject");
@@ -138,6 +141,9 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterSingletonType<AsemanApplication>(uri, 1, 0, "AsemanApp", aseman_app_singleton);
     qmlRegisterSingletonType<AsemanQtLogger>(uri, 1, 0, "Logger", aseman_logger_singleton);
     qmlRegisterSingletonType<AsemanQuickViewWrapper>(uri, 1, 0, "View", aseman_qview_singleton);
+#ifdef Q_OS_ANDROID
+    qmlRegisterSingletonType<AsemanJavaLayer>(uri, 1, 0, "JavaLayer", aseman_javalayer_singleton);
+#endif
 
     register_list.insert(uri);
 }
@@ -206,6 +212,17 @@ AsemanQtLogger *AsemanQtTools::qtLogger()
 
     return res;
 }
+
+#ifdef Q_OS_ANDROID
+AsemanJavaLayer *AsemanQtTools::javaLayer()
+{
+    static QPointer<AsemanJavaLayer> res = 0;
+    if(!res)
+        res = new AsemanJavaLayer();
+
+    return res;
+}
+#endif
 
 AsemanTools *AsemanQtTools::tools()
 {
