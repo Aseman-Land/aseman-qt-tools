@@ -24,7 +24,7 @@ QStringList AsemanAbstractListModel::roles() const
 
 QVariant AsemanAbstractListModel::get(int row, int role) const
 {
-    if(row >= rowCount())
+    if(row >= rowCount() || row < 0)
         return QVariant();
 
     const QModelIndex &idx = index(row,0);

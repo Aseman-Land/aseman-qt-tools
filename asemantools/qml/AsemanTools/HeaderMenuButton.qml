@@ -29,10 +29,6 @@ Item {
         id: menuIcon
         anchors.centerIn: parent
         layoutDirection: View.layoutDirection
-
-        Behavior on color {
-            ColorAnimation{easing.type: Easing.OutCubic; duration: 400}
-        }
     }
 
     MouseArea {

@@ -30,6 +30,7 @@ Item {
     property real handleWidth: 20*Devices.density
 
     property alias menuWidth: item_frame.width
+    property alias pressed: marea.pressed
     property real percent: (menuWidth+item_frame.x)/menuWidth
 
     property int layoutDirection: View.layoutDirection
@@ -41,6 +42,12 @@ Item {
             return
 
         item = delegate.createObject(item_parent)
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        color: "#000000"
+        opacity: percent*0.7
     }
 
     Item {
@@ -105,7 +112,7 @@ Item {
 
         Item {
             id: item_frame
-            width: sidemenu.width/2
+            width: Devices.isMobile? sidemenu.width-50*Devices.density : sidemenu.width/2 + 20*Devices.density
             height: parent.height
             x: -width
             visible: x != -width

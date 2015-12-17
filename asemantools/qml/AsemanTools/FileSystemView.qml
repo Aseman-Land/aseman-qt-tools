@@ -20,6 +20,15 @@ AsemanGridView {
         id: palette
     }
 
+    ListObject {
+        id: paths_list
+    }
+
+    onRootChanged: {
+        if(paths_list.last() != root)
+            paths_list.append(root)
+    }
+
     property real gridWidth: 92*Devices.density
 
     cellWidth: width/Math.floor(width/gridWidth)
@@ -85,6 +94,17 @@ AsemanGridView {
                     clickedOnFile(model.fileUrl)
             }
         }
+    }
+
+    function back() {
+        paths_list.takeLast()
+        if(paths_list.count != 0)
+            root = paths_list.last()
+
+        if(paths_list.count <= 1)
+            return false
+        else
+            return true
     }
 }
 

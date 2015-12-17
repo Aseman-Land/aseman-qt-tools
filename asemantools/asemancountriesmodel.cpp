@@ -183,7 +183,7 @@ int AsemanCountriesModel::count() const
 
 int AsemanCountriesModel::indexOf(const QString &name)
 {
-    return p->list.indexOf(name);
+    return p->list.indexOf(name.toLower());
 }
 
 void AsemanCountriesModel::init_buff()

@@ -310,7 +310,7 @@ QString AsemanApplication::startPath()
 #ifdef Q_OS_ANDROID
     return "/sdcard/";
 #else
-    return homePath();
+    return QDir::homePath();
 #endif
 }
 
