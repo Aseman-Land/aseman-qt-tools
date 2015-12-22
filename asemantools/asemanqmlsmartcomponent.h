@@ -12,6 +12,7 @@ class AsemanQmlSmartComponent : public QObject
     Q_OBJECT
     Q_PROPERTY(QUrl source READ source WRITE setSource NOTIFY sourceChanged)
     Q_PROPERTY(int status READ status NOTIFY statusChanged)
+    Q_PROPERTY(QQmlComponent* component READ component NOTIFY componentChanged)
 
 public:
     AsemanQmlSmartComponent(QObject *parent = 0);
@@ -23,13 +24,14 @@ public:
     int status() const;
     QString error() const;
 
-public slots:
-    QObject *createObject(QObject *parent, const QVariantMap &data = QVariantMap());
+    QQmlComponent *component() const;
 
 signals:
     void sourceChanged();
     void statusChanged();
     void errorChanged();
+    void componentChanged();
+    void ready();
 
 private slots:
     void statusChanged(QQmlComponent::Status status);

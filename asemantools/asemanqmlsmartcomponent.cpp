@@ -69,6 +69,14 @@ QString AsemanQmlSmartComponent::error() const
         return QString();
 }
 
+QQmlComponent *AsemanQmlSmartComponent::component() const
+{
+    if(p->component && p->component->isReady())
+        return p->component;
+    else
+        return 0;
+}
+
 QObject *AsemanQmlSmartComponent::createObject(QObject *parent, const QVariantMap &data)
 {
     if(status() == QQmlComponent::Null ||
@@ -105,6 +113,8 @@ void AsemanQmlSmartComponent::statusChanged(QQmlComponent::Status status)
         break;
 
     case QQmlComponent::Ready:
+        emit componentChanged();
+        emit ready();
         break;
 
     case QQmlComponent::Loading:
