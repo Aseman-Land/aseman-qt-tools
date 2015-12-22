@@ -82,7 +82,7 @@ QObject *AsemanQmlSmartComponent::createObject(QObject *parent, const QVariantMa
     if(!p->component->isReady())
         return 0;
 
-    QObject *result = p->component->create();
+    QObject *result = p->component->create(qmlContext(this));
     if(result)
     {
         result->setParent(parent);
