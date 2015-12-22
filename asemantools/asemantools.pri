@@ -12,14 +12,12 @@ android {
         $$PWD/asemanjavalayer.cpp \
         $$PWD/asemanandroidservice.cpp \
         $$PWD/private/asemanandroidstoremanagercore.cpp \
-        $$PWD/private/asemanandroidlocationlistenercore.cpp \
         $$PWD/private/asemanandroidcameracapturecore.cpp
 
     HEADERS += \
         $$PWD/asemanjavalayer.h \
         $$PWD/asemanandroidservice.h \
         $$PWD/private/asemanandroidstoremanagercore.h \
-        $$PWD/private/asemanandroidlocationlistenercore.h \
         $$PWD/private/asemanandroidcameracapturecore.h
 } else {
     ios {
@@ -88,6 +86,23 @@ contains(QT,webkitwidgets) {
 }
 contains(QT,webenginewidgets) {
     DEFINES += ASEMAN_WEBENGINE
+}
+contains(QT,positioning) {
+    DEFINES += ASEMAN_POSITIONING
+    SOURCES += \
+        $$PWD/asemanlocationlistener.cpp \
+        $$PWD/private/asemanabstractlocationlistenercore.cpp \
+        $$PWD/private/asemanqtlocationlistenercore.cpp
+    HEADERS += \
+        $$PWD/asemanlocationlistener.h \
+        $$PWD/private/asemanabstractlocationlistenercore.h \
+        $$PWD/private/asemanqtlocationlistenercore.h
+    android {
+        SOURCES += \
+            $$PWD/private/asemanandroidlocationlistenercore.cpp
+        HEADERS += \
+            $$PWD/private/asemanandroidlocationlistenercore.h
+    }
 }
 linux|openbsd {
 contains(QT,dbus) {
@@ -164,12 +179,10 @@ SOURCES += \
     $$PWD/asemanstoremanager.cpp \
     $$PWD/private/asemanabstractstoremanagercore.cpp \
     $$PWD/private/asemannullstoremanagercore.cpp \
-    $$PWD/asemanlocationlistener.cpp \
-    $$PWD/private/asemanabstractlocationlistenercore.cpp \
-    $$PWD/private/asemanqtlocationlistenercore.cpp \
     $$PWD/private/asemanabstractcameracapturecore.cpp \
     $$PWD/private/asemannullcameracapturecore.cpp \
-    $$PWD/asemancameracapture.cpp
+    $$PWD/asemancameracapture.cpp \
+    $$PWD/asemanqmlsmartcomponent.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -222,12 +235,10 @@ HEADERS += \
     $$PWD/asemanstoremanager.h \
     $$PWD/private/asemannullstoremanagercore.h \
     $$PWD/private/asemanabstractstoremanagercore.h \
-    $$PWD/asemanlocationlistener.h \
-    $$PWD/private/asemanabstractlocationlistenercore.h \
-    $$PWD/private/asemanqtlocationlistenercore.h \
     $$PWD/private/asemanabstractcameracapturecore.h \
     $$PWD/private/asemannullcameracapturecore.h \
-    $$PWD/asemancameracapture.h
+    $$PWD/asemancameracapture.h \
+    $$PWD/asemanqmlsmartcomponent.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

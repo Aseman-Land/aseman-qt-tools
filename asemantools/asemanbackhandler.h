@@ -53,6 +53,7 @@ public slots:
 signals:
     void topHandlerChanged();
     void countChanged();
+    void backFinished();
 
 private slots:
     void object_destroyed( QObject *obj );

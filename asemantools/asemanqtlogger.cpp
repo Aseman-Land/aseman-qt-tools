@@ -58,8 +58,11 @@ AsemanQtLogger::AsemanQtLogger(const QString &path, QObject *parent) :
 
 void AsemanQtLogger::logMsg(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
+    QString file = context.file;
     QByteArray localMsg = msg.toLocal8Bit();
-    QString text = QString(": (%2:%3, %4) %5 : %1\n").arg(localMsg.constData()).arg(context.file).arg(context.line).arg(context.function).arg(QTime::currentTime().toString());
+    QString text = QString(": (%2:%3, %4) %5 : %1\n").arg(localMsg.constData())
+            .arg(file.mid(file.lastIndexOf("/")+1))
+            .arg(context.line).arg(context.function).arg(QTime::currentTime().toString());
 
     switch (static_cast<int>(type)) {
     case QtDebugMsg:

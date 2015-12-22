@@ -192,7 +192,6 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
 #ifdef DESKTOP_DEVICE
         p->app = new QtSingleApplication(argc, argv);
 #else
-    case WidgetApplication:
         p->app = new QApplication(argc, argv);
 #endif
         break;
@@ -230,8 +229,6 @@ void AsemanApplication::init()
     case WidgetApplication:
 #ifdef DESKTOP_DEVICE
         connect(p->app, SIGNAL(messageReceived(QString)), SIGNAL(messageReceived(QString)));
-#else
-    case WidgetApplication:
 #endif
         connect(p->app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), SIGNAL(applicationStateChanged()));
         p->globalFont = static_cast<QApplication*>(p->app)->font();

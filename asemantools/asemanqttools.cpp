@@ -38,6 +38,7 @@
 #include "asemancalendarmodel.h"
 #include "asemanmixedlistmodel.h"
 #include "asemanquickviewwrapper.h"
+#include "asemanqmlsmartcomponent.h"
 #ifdef Q_OS_ANDROID
 #include "asemanjavalayer.h"
 #endif
@@ -105,6 +106,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem");
     qmlRegisterType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue");
     qmlRegisterType<AsemanFontHandler>(uri, 1,0, "FontHandler");
+    qmlRegisterType<AsemanQmlSmartComponent>(uri, 1,0, "SmartComponent");
 #ifdef DESKTOP_LINUX
     qmlRegisterType<AsemanMimeApps>(uri, 1,0, "MimeApps");
 #endif

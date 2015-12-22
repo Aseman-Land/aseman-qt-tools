@@ -137,7 +137,10 @@ QObject *AsemanBackHandler::forcePopHandler()
 bool AsemanBackHandler::back()
 {
     if( p->stack.isEmpty() )
+    {
+        emit backFinished();
         return false;
+    }
 
     tryPopHandler();
     return true;

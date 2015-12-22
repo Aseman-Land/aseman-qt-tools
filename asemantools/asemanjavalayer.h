@@ -41,6 +41,8 @@ public:
     bool transparentNavigationBar();
 
     int densityDpi();
+    int screenSizeWidth();
+    int screenSizeHeight();
     int getSizeName();
     bool isTablet();
     qreal density();

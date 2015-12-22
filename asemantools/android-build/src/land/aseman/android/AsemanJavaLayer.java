@@ -138,11 +138,12 @@ public class AsemanJavaLayer
 
     boolean startService()
     {
-        AsemanActivity activity = AsemanActivity.getActivityInstance();
-        Intent i = new Intent(activity, AsemanService.class);
+        Context oContext;
+        oContext = AsemanApplication.getAppContext();
+        Intent i = new Intent(oContext, AsemanService.class);
         i.putExtra("name", "SurvivingwithAndroid");
         try {
-            activity.startService(i);
+            oContext.startService(i);
         } catch(Exception e) {
             return false;
         }
@@ -152,10 +153,11 @@ public class AsemanJavaLayer
 
     boolean stopService()
     {
-        AsemanActivity activity = AsemanActivity.getActivityInstance();
-        Intent i = new Intent(activity, AsemanService.class);
+        Context oContext;
+        oContext = AsemanApplication.getAppContext();
+        Intent i = new Intent(oContext, AsemanService.class);
         try {
-        activity.stopService(i);
+        oContext.stopService(i);
         } catch(Exception e) {
             return false;
         }
@@ -216,6 +218,38 @@ public class AsemanJavaLayer
             return false;
         }
         return true;
+    }
+
+    DisplayMetrics getMetrics()
+    {
+        DisplayMetrics dm = new DisplayMetrics();
+        AsemanActivity.getActivityInstance().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        return dm;
+    }
+
+    double lcdDpiX()
+    {
+        return getMetrics().densityDpi;
+    }
+
+    int densityDpi()
+    {
+        return getMetrics().densityDpi;
+    }
+
+    float density()
+    {
+        return getMetrics().density;
+    }
+
+    int screenSizeWidth()
+    {
+        return getMetrics().widthPixels;
+    }
+
+    int screenSizeHeight()
+    {
+        return getMetrics().heightPixels;
     }
 
     boolean isTablet()
@@ -282,20 +316,6 @@ public class AsemanJavaLayer
     boolean transparentNavigationBar()
     {
         return AsemanActivity.getActivityInstance().transparentNavigationBar();
-    }
-
-    int densityDpi()
-    {
-        DisplayMetrics metrics = new DisplayMetrics();
-        AsemanActivity.getActivityInstance().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        return metrics.densityDpi;
-    }
-
-    float density()
-    {
-        DisplayMetrics metrics = new DisplayMetrics();
-        AsemanActivity.getActivityInstance().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        return metrics.density;
     }
 
     boolean release()

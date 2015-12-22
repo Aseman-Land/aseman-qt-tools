@@ -56,4 +56,5 @@ WindowResizeGrip 1.0 WindowResizeGrip.qml
 FileSystemView 1.0 FileSystemView.qml
 SlidePageManager 1.0 SlidePageManager.qml
 AsemanFlickable 1.0 AsemanFlickable.qml
+AboutPage 1.0 AboutPage.qml
 ArrayTools 1.0 ArrayFunctions.js

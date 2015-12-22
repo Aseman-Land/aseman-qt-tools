@@ -31,6 +31,8 @@
 #include <QJSValue>
 #endif
 
+#define ASEMAN_TYPE_NAME(TYPE) #TYPE
+
 class AsemanToolsPrivate;
 class AsemanTools : public QObject
 {

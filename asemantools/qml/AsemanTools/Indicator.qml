@@ -29,6 +29,15 @@ Item {
     property real indicatorSize: 16*Devices.density
     property string source: light? "files/" + privates.name + "_light.png" : "files/" + privates.name + ".png"
 
+    property bool running: false
+
+    onRunningChanged: {
+        if(running)
+            start()
+        else
+            stop()
+    }
+
     QtObject {
         id: privates
         property variant item

@@ -224,8 +224,7 @@ qreal AsemanDevices::lcdPhysicalWidth() const
     if( QGuiApplication::screens().isEmpty() )
         return 0;
 
-    QScreen *scr = QGuiApplication::screens().first();
-    return (qreal)scr->size().width()/scr->physicalDotsPerInchX();
+    return (qreal)screenSize().width()/lcdDpiX();
 }
 
 qreal AsemanDevices::lcdPhysicalHeight() const
@@ -233,35 +232,47 @@ qreal AsemanDevices::lcdPhysicalHeight() const
     if( QGuiApplication::screens().isEmpty() )
         return 0;
 
-    QScreen *scr = QGuiApplication::screens().first();
-    return (qreal)scr->size().height()/scr->physicalDotsPerInchY();
+    return (qreal)screenSize().height()/lcdDpiY();
 }
 
 qreal AsemanDevices::lcdDpiX() const
 {
+#ifdef Q_OS_ANDROID
+    return p->java_layer->densityDpi();
+#else
     if( QGuiApplication::screens().isEmpty() )
         return 0;
 
     QScreen *scr = QGuiApplication::screens().first();
     return scr->physicalDotsPerInchX();
+#endif
 }
 
 qreal AsemanDevices::lcdDpiY() const
 {
+#ifdef Q_OS_ANDROID
+    return p->java_layer->densityDpi();
+#else
     if( QGuiApplication::screens().isEmpty() )
         return 0;
 
     QScreen *scr = QGuiApplication::screens().first();
     return scr->physicalDotsPerInchY();
+#endif
 }
 
 QSize AsemanDevices::screenSize() const
 {
+#ifdef Q_OS_ANDROID
+    return QSize(p->java_layer->screenSizeWidth(),
+                 p->java_layer->screenSizeHeight());
+#else
     if( QGuiApplication::screens().isEmpty() )
         return QSize();
 
     QScreen *scr = QGuiApplication::screens().first();
     return scr->size();
+#endif
 }
 
 qreal AsemanDevices::keyboardHeight() const

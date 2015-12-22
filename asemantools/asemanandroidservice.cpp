@@ -5,6 +5,7 @@
 #include <QAndroidJniObject>
 #include <QStringList>
 #include <QCoreApplication>
+#include <QThread>
 
 #include <dlfcn.h>
 #include <pthread.h>
@@ -38,6 +39,14 @@ static void *startMainMethod(void *ar)
     m_main(argc, argv);
     return NULL;
 }
+
+class AsemanAdroidServiceThread : public QThread
+{
+protected:
+    void run() {
+        startMainMethod(0);
+    }
+};
 
 static jboolean startQtApplication(JNIEnv *env, jobject object, jstring paramsString, jstring environmentString)
 {
@@ -97,8 +106,9 @@ static jboolean startQtApplication(JNIEnv *env, jobject object, jstring paramsSt
     }
 
 
-    pthread_t appThread;
-    return pthread_create(&appThread, NULL, startMainMethod, NULL) == 0;
+    AsemanAdroidServiceThread *appThread = new AsemanAdroidServiceThread();
+    appThread->start();
+    return 0;
 }
 
 static JNINativeMethod methods[] = {

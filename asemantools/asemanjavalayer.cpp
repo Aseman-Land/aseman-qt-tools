@@ -134,6 +134,18 @@ int AsemanJavaLayer::densityDpi()
     return res;
 }
 
+int AsemanJavaLayer::screenSizeWidth()
+{
+    jint res = p->object.callMethod<jint>(__FUNCTION__, "()I" );
+    return res;
+}
+
+int AsemanJavaLayer::screenSizeHeight()
+{
+    jint res = p->object.callMethod<jint>(__FUNCTION__, "()I" );
+    return res;
+}
+
 int AsemanJavaLayer::getSizeName()
 {
     jint res = p->object.callMethod<jint>(__FUNCTION__, "()I" );
@@ -297,7 +309,6 @@ static void activityDestroyed( JNIEnv *env, jobject obj )
 {
     Q_UNUSED(env)
     Q_UNUSED(obj)
-    qDebug() << __FUNCTION__ << java_layers_objects;
     foreach( AsemanJavaLayer *sjl, java_layers_objects )
         emit sjl->activityDestroyed();
 }

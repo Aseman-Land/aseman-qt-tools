@@ -141,5 +141,6 @@
         <file>qml/AsemanTools/files/unknown.png</file>
         <file>qml/AsemanTools/SlidePageManager.qml</file>
         <file>qml/AsemanTools/ArrayFunctions.js</file>
+        <file>qml/AsemanTools/AboutPage.qml</file>
     </qresource>
 </RCC>
