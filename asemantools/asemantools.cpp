@@ -110,6 +110,11 @@ QString AsemanTools::fileSuffix(const QString &path)
     return QFileInfo(path).suffix().toLower();
 }
 
+QString AsemanTools::fileParent(const QString &path)
+{
+    return path.mid(0, path.lastIndexOf("/"));
+}
+
 QString AsemanTools::readText(const QString &path)
 {
     QFile file(path);

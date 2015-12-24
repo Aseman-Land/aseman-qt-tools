@@ -142,5 +142,14 @@
         <file>qml/AsemanTools/SlidePageManager.qml</file>
         <file>qml/AsemanTools/ArrayFunctions.js</file>
         <file>qml/AsemanTools/AboutPage.qml</file>
+        <file>qml/AsemanTools/SmartComponent.qml</file>
+        <file>qml/AsemanTools/AboutPageItem.qml</file>
+        <file>qml/AsemanTools/AboutPageAseman.qml</file>
+        <file>qml/AsemanTools/files/aseman-abstract.png</file>
+        <file>qml/AsemanTools/files/aseman-dark.png</file>
+        <file>qml/AsemanTools/files/aseman-silver.png</file>
+        <file>qml/AsemanTools/files/asemanland-logo.png</file>
+        <file>qml/AsemanTools/files/aseman-silver-shadowed.png</file>
+        <file>qml/AsemanTools/AsemanProductsList.qml</file>
     </qresource>
 </RCC>

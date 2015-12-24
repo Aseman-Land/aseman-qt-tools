@@ -106,7 +106,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem");
     qmlRegisterType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue");
     qmlRegisterType<AsemanFontHandler>(uri, 1,0, "FontHandler");
-    qmlRegisterType<AsemanQmlSmartComponent>(uri, 1,0, "SmartComponent");
+    qmlRegisterType<AsemanQmlSmartComponent>(uri, 1,0, "SmartComponentCore");
 #ifdef DESKTOP_LINUX
     qmlRegisterType<AsemanMimeApps>(uri, 1,0, "MimeApps");
 #endif

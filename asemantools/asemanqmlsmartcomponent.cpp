@@ -6,18 +6,23 @@
 #include <QList>
 #include <QEventLoop>
 #include <QCoreApplication>
+#include <QTimerEvent>
 
 class AsemanQmlSmartComponentPrivate
 {
 public:
     QPointer<QQmlComponent> component;
     QUrl source;
+    int createTimer;
+    int delayInterval;
 };
 
 AsemanQmlSmartComponent::AsemanQmlSmartComponent(QObject *parent) :
     QObject(parent)
 {
     p = new AsemanQmlSmartComponentPrivate;
+    p->createTimer = 0;
+    p->delayInterval = 1;
 }
 
 void AsemanQmlSmartComponent::setSource(const QUrl &url)
@@ -25,7 +30,6 @@ void AsemanQmlSmartComponent::setSource(const QUrl &url)
     if(p->source == url)
         return;
 
-    p->source = url;
     if(p->component)
     {
         bool hadError = !p->component->errorString().isEmpty();
@@ -35,15 +39,8 @@ void AsemanQmlSmartComponent::setSource(const QUrl &url)
             emit errorChanged();
     }
 
-    if(p->source.isValid())
-    {
-        p->component = new QQmlComponent(qmlEngine(this), this);
-
-        connect(p->component, SIGNAL(statusChanged(QQmlComponent::Status)),
-                this, SLOT(statusChanged(QQmlComponent::Status)));
-
-        p->component->loadUrl(p->source, QQmlComponent::Asynchronous);
-    }
+    p->source = url;
+    recheckTimer();
 
     emit sourceChanged();
 }
@@ -51,6 +48,21 @@ void AsemanQmlSmartComponent::setSource(const QUrl &url)
 QUrl AsemanQmlSmartComponent::source() const
 {
     return p->source;
+}
+
+void AsemanQmlSmartComponent::setDelayInterval(int ms)
+{
+    if(p->delayInterval == ms)
+        return;
+
+    p->delayInterval = ms;
+    recheckTimer();
+    emit delayIntervalChanged();
+}
+
+int AsemanQmlSmartComponent::delayInterval() const
+{
+    return p->delayInterval;
 }
 
 int AsemanQmlSmartComponent::status() const
@@ -77,34 +89,6 @@ QQmlComponent *AsemanQmlSmartComponent::component() const
         return 0;
 }
 
-QObject *AsemanQmlSmartComponent::createObject(QObject *parent, const QVariantMap &data)
-{
-    if(status() == QQmlComponent::Null ||
-       status() == QQmlComponent::Error )
-        return 0;
-    if(!p->component)
-        return 0;
-
-    while (p->component->isLoading())
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 1);
-    if(!p->component->isReady())
-        return 0;
-
-    QObject *result = p->component->create(qmlContext(this));
-    if(result)
-    {
-        result->setParent(parent);
-        QMapIterator<QString,QVariant> i(data);
-        while(i.hasNext())
-        {
-            i.next();
-            result->setProperty(i.key().toUtf8(), i.value());
-        }
-    }
-
-    return result;
-}
-
 void AsemanQmlSmartComponent::statusChanged(QQmlComponent::Status status)
 {
     switch(static_cast<int>(status))
@@ -127,6 +111,38 @@ void AsemanQmlSmartComponent::statusChanged(QQmlComponent::Status status)
     }
 
     emit statusChanged();
+}
+
+void AsemanQmlSmartComponent::recheckTimer()
+{
+    if(p->createTimer)
+        killTimer(p->createTimer);
+    if(p->delayInterval == -1)
+        return;
+    if(p->source.isValid())
+        p->createTimer = startTimer(p->delayInterval);
+}
+
+void AsemanQmlSmartComponent::createComponent()
+{
+    if(!p->source.isValid())
+        return;
+
+    p->component = new QQmlComponent(qmlEngine(this), this);
+    connect(p->component, SIGNAL(statusChanged(QQmlComponent::Status)),
+            this, SLOT(statusChanged(QQmlComponent::Status)));
+
+    p->component->loadUrl(p->source, QQmlComponent::Asynchronous);
+}
+
+void AsemanQmlSmartComponent::timerEvent(QTimerEvent *e)
+{
+    if(e->timerId() == p->createTimer)
+    {
+        createComponent();
+        killTimer(p->createTimer);
+        p->createTimer = 0;
+    }
 }
 
 AsemanQmlSmartComponent::~AsemanQmlSmartComponent()
