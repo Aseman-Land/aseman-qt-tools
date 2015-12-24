@@ -33,8 +33,8 @@ public class AsemanServiceDelegate
     private static final String STATIC_INIT_CLASSES_KEY = "static.init.classes";
     private static final String NECESSITAS_API_LEVEL_KEY = "necessitas.api.level";
 
-    private static String m_environmentVariables = null;
-    private static String m_applicationParameters = null;
+    private String m_environmentVariables = null;
+    private String m_applicationParameters = null;
 
     private String m_mainLib;
 
@@ -162,4 +162,5 @@ public class AsemanServiceDelegate
     }
 
     public static native void startQtApplication(String params, String env);
+    public static native void finishQtApplication();
 }

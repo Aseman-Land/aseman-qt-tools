@@ -52,6 +52,7 @@ import android.os.Process;
 import android.widget.Toast;
 
 import land.aseman.android.AsemanActivity;
+import land.aseman.android.AsemanServiceDelegate;
 import org.qtproject.qt5.android.bindings.QtApplication;
 
 public class AsemanService extends Service
@@ -65,12 +66,12 @@ public class AsemanService extends Service
     private String[] m_sources = {"https://download.qt-project.org/ministro/android/qt5/qt-5.2"}; // Make sure you are using ONLY secure locations
     private String m_repository = "default";
 
-    private static ServiceInfo m_serviceInfo = null;
-    protected static NotificationManager m_notificationManager;
-    protected static Notification.Builder m_builder;
-    protected static PendingIntent pi;
-    private static AsemanService m_instance;
-    private static String m_lib_name;
+    private ServiceInfo m_serviceInfo = null;
+    protected NotificationManager m_notificationManager;
+    protected Notification.Builder m_builder;
+    protected PendingIntent pi;
+    private static AsemanService m_instance = null;
+    private String m_lib_name;
 
     private static final String ERROR_CODE_KEY = "error.code";
     private static final String DEX_PATH_KEY = "dex.path";
@@ -121,6 +122,10 @@ public class AsemanService extends Service
 
     @Override
     public void onDestroy() {
+        AsemanServiceDelegate.finishQtApplication();
+        m_serviceInfo = null;
+        m_instance = null;
+        m_classLoader = null;
         super.onDestroy();
     }
 

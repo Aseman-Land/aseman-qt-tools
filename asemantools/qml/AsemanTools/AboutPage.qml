@@ -118,6 +118,10 @@ Item {
             orientation: Qt.Horizontal
             currentIndex: main_listv.currentIndex
 
+            preferredHighlightBegin: width*0.2
+            preferredHighlightEnd: width*0.8
+            highlightRangeMode: ListView.ApplyRange
+
             property real itemsWidth: {
                 var res = footer_listv.width/footer_listv.count
                 if(res < 92*Devices.density)

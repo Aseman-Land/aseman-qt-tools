@@ -72,14 +72,12 @@ Rectangle {
                         spacing: 4*Devices.density
 
                         Text {
-                            font.family: AsemanApp.globalFont.family
                             font.pixelSize: 11*Devices.fontDensity
                             color: "#333333"
                             text: model.name
                         }
 
                         Text {
-                            font.family: AsemanApp.globalFont.family
                             font.pixelSize: 9*Devices.fontDensity
                             anchors.bottom: parent.bottom
                             color: "#0d80ec"
@@ -89,7 +87,6 @@ Rectangle {
 
                     Text {
                         width: row.width - img.width - row.spacing*2 - btn.width
-                        font.family: AsemanApp.globalFont.family
                         font.pixelSize: 9*Devices.fontDensity
                         color: "#777777"
                         text: model.description
@@ -104,14 +101,22 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     border.width: 1*Devices.density
                     border.color: highlightColor
-                    textColor: highlightColor
+                    textColor: press? "#ffffff" : highlightColor
                     width: 64*Devices.density
                     radius: 3*Devices.density
-                    text: qsTr("Home")
+                    text: "Home"
                     onClicked: Qt.openUrlExternally(model.link)
                 }
             }
         }
+    }
+
+    Indicator {
+        anchors.centerIn: parent
+        indicatorSize: 22*Devices.density
+        light: false
+        modern: true
+        running: xmlModel.status == XmlListModel.Loading
     }
 
     ScrollBar {

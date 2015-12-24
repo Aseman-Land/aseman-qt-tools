@@ -6,6 +6,8 @@
 #include <QStringList>
 #include <QCoreApplication>
 #include <QThread>
+#include <QPointer>
+#include <QDebug>
 
 #include <dlfcn.h>
 #include <pthread.h>
@@ -48,7 +50,22 @@ protected:
     }
 };
 
-static jboolean startQtApplication(JNIEnv *env, jobject object, jstring paramsString, jstring environmentString)
+QPointer<AsemanAdroidServiceThread> aseman_service_thread;
+
+static void finishQtApplication(JNIEnv *env, jobject object)
+{
+    Q_UNUSED(env)
+    Q_UNUSED(object)
+    if(!aseman_service_thread)
+        return;
+
+    QCoreApplication::exit();
+    aseman_service_thread->quit();
+    aseman_service_thread->wait();
+    delete aseman_service_thread;
+}
+
+static void startQtApplication(JNIEnv *env, jobject object, jstring paramsString, jstring environmentString)
 {
     Q_UNUSED(object)
 
@@ -67,12 +84,12 @@ static jboolean startQtApplication(JNIEnv *env, jobject object, jstring paramsSt
 
     __android_log_print(ANDROID_LOG_FATAL, "Qt", "Starting the Qt service");
 
-        char cwd[1024];
-        if (getcwd(cwd, sizeof(cwd)) != NULL)
-            __android_log_print(ANDROID_LOG_INFO, "Qt", "Current working dir : %s", cwd);
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL)
+        __android_log_print(ANDROID_LOG_INFO, "Qt", "Current working dir : %s", cwd);
 
-        __android_log_print(ANDROID_LOG_FATAL, "Qt", "Param : %s", nativeParamsString );
-        __android_log_print(ANDROID_LOG_FATAL, "Qt", "Env : %s", nativeEnvironmentString );
+    __android_log_print(ANDROID_LOG_FATAL, "Qt", "Param : %s", nativeParamsString );
+    __android_log_print(ANDROID_LOG_FATAL, "Qt", "Env : %s", nativeEnvironmentString );
 
     // Start
 
@@ -84,35 +101,31 @@ static jboolean startQtApplication(JNIEnv *env, jobject object, jstring paramsSt
     m_mainLibraryHnd = dlopen(nativeParamsString, 0);
 
     if (m_mainLibraryHnd == NULL) {
-
         __android_log_print(ANDROID_LOG_INFO, "Qt", "No main library was specified; searching entire process (this is slow!)");
         m_main = (Main)dlsym(RTLD_DEFAULT, "mainService");
     }
     else {
-
         __android_log_print(ANDROID_LOG_INFO, "Qt", "Getting the main method from handler");
         m_main = (Main)dlsym(m_mainLibraryHnd, "mainService");
     }
 
 
     if (!m_main) {
-
         __android_log_print(ANDROID_LOG_INFO, "Qt", "Could not find main method");
-        return 0;
+        return;
     }
     else{
-
         __android_log_print(ANDROID_LOG_INFO, "Qt", "Main method found, starting");
     }
 
 
-    AsemanAdroidServiceThread *appThread = new AsemanAdroidServiceThread();
-    appThread->start();
-    return 0;
+    aseman_service_thread = new AsemanAdroidServiceThread();
+    aseman_service_thread->start();
 }
 
 static JNINativeMethod methods[] = {
     {"startQtApplication", "(Ljava/lang/String;Ljava/lang/String;)V", (void *)startQtApplication},
+    {"finishQtApplication", "()V", (void *)finishQtApplication},
 };
 
 #define FIND_AND_CHECK_CLASS(CLASS_NAME) \
