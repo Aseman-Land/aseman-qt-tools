@@ -15,6 +15,7 @@ public:
     QPointer<AsemanNetworkManagerItem> defaultNetwork;
     bool available;
     bool forceDisable;
+    bool networkManagerState;
 
     QTimer *resetTimer;
 };
@@ -26,6 +27,7 @@ AsemanNetworkSleepManager::AsemanNetworkSleepManager(QObject *parent) :
     p->hostCheker = new AsemanHostChecker(this);
     p->available = false;
     p->forceDisable = false;
+    p->networkManagerState = true;
 
     p->networkManager = new AsemanNetworkManager(this);
 
@@ -74,6 +76,21 @@ void AsemanNetworkSleepManager::setInterval(qint32 ms)
 qint32 AsemanNetworkSleepManager::interval() const
 {
     return p->hostCheker->interval();
+}
+
+void AsemanNetworkSleepManager::setNetworkManager(bool stt)
+{
+    if(p->networkManagerState = stt)
+        return;
+
+    p->networkManagerState = stt;
+    updateAvailablity();
+    emit networkManagerChanged();
+}
+
+bool AsemanNetworkSleepManager::networkManager() const
+{
+    return p->networkManagerState;
 }
 
 bool AsemanNetworkSleepManager::available() const
@@ -160,7 +177,7 @@ void AsemanNetworkSleepManager::networkTypeChanged()
 void AsemanNetworkSleepManager::updateAvailablity()
 {
     bool networkState = true;
-    if(p->defaultNetwork)
+    if(p->defaultNetwork && p->defaultNetwork->isValid() && p->networkManagerState)
     {
         networkState = (
                     p->defaultNetwork->bearerType() != AsemanNetworkManagerItem::BearerUnknown &&

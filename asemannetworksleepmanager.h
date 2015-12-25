@@ -11,6 +11,7 @@ class AsemanNetworkSleepManager : public QObject
     Q_PROPERTY(qint32  port     READ port     WRITE setPort     NOTIFY portChanged)
     Q_PROPERTY(qint32  interval READ interval WRITE setInterval NOTIFY intervalChanged)
 
+    Q_PROPERTY(bool networkManager READ networkManager WRITE setNetworkManager NOTIFY networkManagerChanged)
     Q_PROPERTY(bool available READ available NOTIFY availableChanged)
 
 public:
@@ -26,12 +27,16 @@ public:
     void setInterval(qint32 ms);
     qint32 interval() const;
 
+    void setNetworkManager(bool stt);
+    bool networkManager() const;
+
     bool available() const;
 
 signals:
     void hostChanged();
     void portChanged();
     void intervalChanged();
+    void networkManagerChanged();
     void wake();
     void sleep();
     void availableChanged();
