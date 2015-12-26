@@ -80,7 +80,7 @@ qint32 AsemanNetworkSleepManager::interval() const
 
 void AsemanNetworkSleepManager::setNetworkManager(bool stt)
 {
-    if(p->networkManagerState = stt)
+    if(p->networkManagerState == stt)
         return;
 
     p->networkManagerState = stt;

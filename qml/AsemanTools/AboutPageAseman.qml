@@ -64,7 +64,7 @@ AboutPageItem {
             }
         }
 
-        Controls.Button {
+        Button {
             id: home_btn
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
@@ -73,10 +73,10 @@ AboutPageItem {
             width: 150*Devices.density
             text: qsTr("Home")
             onClicked: Qt.openUrlExternally("http://aseman.co")
-            style: Styles.ButtonStyle {
-                buttonColor: "#0d80ec"
-                buttonTextColor: "#ffffff"
-            }
+            normalColor: "#00A0E3"
+            highlightColor: Qt.darker(normalColor, 1.1)
+            textColor: "#ffffff"
+            radius: 4*Devices.density
         }
     }
 }

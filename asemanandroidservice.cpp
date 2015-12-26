@@ -70,6 +70,7 @@ static void startQtApplication(JNIEnv *env, jobject object, jstring paramsString
     Q_UNUSED(object)
 
     QString packageName = AsemanJavaLayer::instance()->packageName();
+    qputenv("NECESSITAS_API_LEVEL", "2");
     qputenv("HOME", QString("/data/data/%1/files/").arg(packageName).toUtf8());
     QStringList libraryPath;
     libraryPath << QString("/data/app/%1-1/lib/arm").arg(packageName)
