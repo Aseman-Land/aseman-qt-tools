@@ -22,8 +22,8 @@ CheckBoxStyle {
 
             Rectangle {
                 anchors.fill: parent
-                anchors.margins: 1
-                radius: 5
+                anchors.margins: 1*Devices.density
+                radius: 5*Devices.density
                 color: backgroundColor
             }
         }
@@ -31,17 +31,17 @@ CheckBoxStyle {
         InnerShadow {
             anchors.fill: source
             source: frame
-            radius: 4.0
+            radius: 4.0*Devices.density
             samples: 16
             horizontalOffset: 0
-            verticalOffset: 1
+            verticalOffset: 1*Devices.density
             opacity: control.pressed? 0.6 : 0.4
             color: "#000000"
         }
 
         Image {
             anchors.fill: parent
-            anchors.margins: 5
+            anchors.margins: 5*Devices.density
             source: "images/yes.png"
             sourceSize: Qt.size(width,height)
             fillMode: Image.PreserveAspectCrop

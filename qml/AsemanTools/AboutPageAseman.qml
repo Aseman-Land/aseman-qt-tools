@@ -73,7 +73,7 @@ AboutPageItem {
             width: 150*Devices.density
             text: qsTr("Home")
             onClicked: Qt.openUrlExternally("http://aseman.co")
-            normalColor: "#00A0E3"
+            normalColor: "#0d80ec"
             highlightColor: Qt.darker(normalColor, 1.1)
             textColor: "#ffffff"
             radius: 4*Devices.density
