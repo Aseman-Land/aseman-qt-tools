@@ -1,4 +1,5 @@
 #include "asemanandroidstoremanagercore.h"
+#include "../asemanstoremanager.h"
 
 #include <QDebug>
 #include <QAndroidJniEnvironment>
@@ -29,6 +30,7 @@ public:
     QAndroidJniObject object;
     QAndroidJniEnvironment env;
     QSet<QString> inventories;
+    QMap<QString, AsemanStoreManagerInventoryItem> details;
 };
 
 AsemanAndroidStoreManagerCore::AsemanAndroidStoreManagerCore() :
@@ -108,11 +110,47 @@ QStringList AsemanAndroidStoreManagerCore::inventories()
     return p->inventories.toList();
 }
 
+QMap<QString,AsemanStoreManagerInventoryItem> AsemanAndroidStoreManagerCore::itemDetails() const
+{
+    return p->details;
+}
+
+void AsemanAndroidStoreManagerCore::detailsFetched(const QString &sku, const QString &type, const QString &price, const QString &title, const QString &description)
+{
+    AsemanStoreManagerInventoryItem item;
+    item.sku = sku;
+    item.type = type;
+    item.price = price;
+    item.title = title;
+    item.description = description;
+
+    p->details[sku] = item;
+    emit itemDetailsChanged();
+}
+
 AsemanAndroidStoreManagerCore::~AsemanAndroidStoreManagerCore()
 {
     p->object.callMethod<void>("end", "()V" );
     store_manager_objects.remove(p->object.object<jobject>());
     delete p;
+}
+
+static void detailsFetched(JNIEnv *env, jobject obj ,jstring sku, jstring type, jstring price, jstring title, jstring description)
+{
+    AsemanAndroidStoreManagerCore *smc = getStoreManagerObject(obj);
+    if(!smc)
+        return;
+
+    jboolean a;
+    QString qsku = env->GetStringUTFChars(sku,&a);
+    QString qtype = env->GetStringUTFChars(type,&a);
+    QString qprice = env->GetStringUTFChars(price,&a);
+    QString qtitle = env->GetStringUTFChars(title,&a);
+    QString qdesc = env->GetStringUTFChars(description,&a);
+
+    QMetaObject::invokeMethod(smc, "detailsFetched", Q_ARG(QString, qsku)
+                              , Q_ARG(QString, qtype), Q_ARG(QString, qprice)
+                              , Q_ARG(QString, qtitle), Q_ARG(QString, qdesc));
 }
 
 static void inventoryStateChangedRecieved( JNIEnv *env, jobject obj ,jstring sku, jboolean state )
@@ -140,6 +178,7 @@ static void setupFinishedRecieved( JNIEnv *env, jobject obj ,jboolean state )
 
 bool aseman_str_mgr_registerNativeMethods() {
     JNINativeMethod methods[] {{"_inventoryStateChanged", "(Ljava/lang/String;Z)V", reinterpret_cast<void *>(inventoryStateChangedRecieved)},
+                               {"_detailsFetched", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V", reinterpret_cast<void *>(detailsFetched)},
                                {"_setupFinished", "(Z)V", reinterpret_cast<void *>(setupFinishedRecieved)}};
 
     QAndroidJniObject javaClass("land/aseman/android/store/StoreManager");

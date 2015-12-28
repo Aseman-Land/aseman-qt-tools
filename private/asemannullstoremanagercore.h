@@ -23,6 +23,7 @@ public:
     void clear();
     void purchaseInventory(const QString &sku);
     QStringList inventories();
+    QMap<QString,AsemanStoreManagerInventoryItem> itemDetails() const;
 
 private:
     AsemanNullStoreManagerCorePrivate *p;

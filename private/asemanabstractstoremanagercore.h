@@ -3,7 +3,9 @@
 
 #include <QObject>
 #include <QStringList>
+#include <QMap>
 
+class AsemanStoreManagerInventoryItem;
 class AsemanAbstractStoreManagerCore : public QObject
 {
     Q_OBJECT
@@ -23,6 +25,7 @@ public:
     virtual void purchaseInventory(const QString &sku) = 0;
 
     virtual QStringList inventories() = 0;
+    virtual QMap<QString,AsemanStoreManagerInventoryItem> itemDetails() const = 0;
 
 public slots:
     virtual void updateStates() = 0;
@@ -30,6 +33,7 @@ public slots:
 signals:
     void inventoryStateChanged(const QString &sku, bool state);
     void setupFinished(bool state);
+    void itemDetailsChanged();
 };
 
 #endif // ASEMANABSTRACTSTOREMANAGERCORE_H

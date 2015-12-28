@@ -2,7 +2,18 @@
 #define ASEMANSTOREMANAGER_H
 
 #include <QObject>
+#include <QList>
 #include "asemanquickobject.h"
+
+class AsemanStoreManagerInventoryItem
+{
+public:
+    QString sku;
+    QString type;
+    QString price;
+    QString title;
+    QString description;
+};
 
 class AsemanStoreManagerPrivate;
 class AsemanStoreManager : public AsemanQuickObject
@@ -36,6 +47,11 @@ public:
     void setCacheSource(const QString &path);
     QString cacheSource() const;
 
+    QMap<QString,AsemanStoreManagerInventoryItem> itemDetails() const;
+
+    int inventoryState(const QString &sku) const;
+    bool startPurchasing(const QString &sku);
+
 public slots:
     bool setup();
 
@@ -44,6 +60,7 @@ signals:
     void packageNameChanged();
     void bindIntentChanged();
     void cacheSourceChanged();
+    void itemDetailsChanged();
 
 private slots:
     void inventoryStateChanged(const QString &sku, bool state);

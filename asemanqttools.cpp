@@ -32,6 +32,7 @@
 #include "asemanwebpagegrabber.h"
 #include "asemantitlebarcolorgrabber.h"
 #include "asemanfiledownloaderqueue.h"
+#include "asemanstoremanagermodel.h"
 #include "asemantaskbarbutton.h"
 #include "asemanmapdownloader.h"
 #include "asemandragarea.h"
@@ -102,6 +103,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterType<AsemanFileSystemModel>(uri, 1,0, "FileSystemModel");
     qmlRegisterType<AsemanAutoStartManager>(uri, 1,0, "AutoStartManager");
     qmlRegisterType<AsemanStoreManager>(uri, 1,0, "StoreManager");
+    qmlRegisterType<AsemanStoreManagerModel>(uri, 1,0, "StoreManagerModel");
     qmlRegisterType<AsemanQuickItemImageGrabber>(uri, 1,0, "ItemImageGrabber");
     qmlRegisterType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem");
     qmlRegisterType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue");

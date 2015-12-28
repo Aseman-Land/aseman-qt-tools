@@ -23,6 +23,10 @@ public:
     void clear();
     void purchaseInventory(const QString &sku);
     QStringList inventories();
+    QMap<QString, AsemanStoreManagerInventoryItem> itemDetails() const;
+
+public slots:
+    void detailsFetched(const QString &sku, const QString &type, const QString &price, const QString &title, const QString &description);
 
 private:
     AsemanAndroidStoreManagerCorePrivate *p;

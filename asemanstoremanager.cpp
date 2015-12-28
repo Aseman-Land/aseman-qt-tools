@@ -21,8 +21,6 @@ typedef AsemanAndroidStoreManagerCore AsemanStoreManagerCore;
 typedef AsemanNullStoreManagerCore AsemanStoreManagerCore;
 #endif
 
-QPointer<AsemanAbstractStoreManagerCore> aseman_store_manager_core;
-
 class AsemanStoreManagerPrivate
 {
 public:
@@ -100,6 +98,25 @@ QString AsemanStoreManager::cacheSource() const
     return p->cacheSource;
 }
 
+QMap<QString, AsemanStoreManagerInventoryItem> AsemanStoreManager::itemDetails() const
+{
+    return p->core->itemDetails();
+}
+
+int AsemanStoreManager::inventoryState(const QString &sku) const
+{
+    return property(sku.toUtf8()).toInt();
+}
+
+bool AsemanStoreManager::startPurchasing(const QString &sku)
+{
+    if(inventoryState(sku) != InventoryStateNone)
+        return false;
+
+    setProperty(sku.toUtf8(), static_cast<int>(InventoryStatePurchasing));
+    return true;
+}
+
 bool AsemanStoreManager::setup()
 {
     if(p->publicKey.isEmpty() || p->packageName.isEmpty() || p->bindIntent.isEmpty())
@@ -107,7 +124,7 @@ bool AsemanStoreManager::setup()
 
     initCore();
     initProperties();
-    aseman_store_manager_core->setup(p->publicKey, p->packageName, p->bindIntent);
+    p->core->setup(p->publicKey, p->packageName, p->bindIntent);
     return true;
 }
 
@@ -142,16 +159,16 @@ void AsemanStoreManager::propertyChanged()
     }
 
     initCore();
-    if(aseman_store_manager_core->getState(propertyName))
+    if(p->core->getState(propertyName))
         return;
 
-    aseman_store_manager_core->purchaseInventory(propertyName);
+    p->core->purchaseInventory(propertyName);
 }
 
 void AsemanStoreManager::initProperties()
 {
     initCore();
-    aseman_store_manager_core->clear();
+    p->core->clear();
     const QMetaObject *meta = metaObject();
     for(int i=0; i<meta->propertyCount(); i++)
     {
@@ -162,7 +179,7 @@ void AsemanStoreManager::initProperties()
         const QByteArray &propertyName = property.name();
         const QByteArray &signalSign = property.notifySignal().methodSignature();
 
-        aseman_store_manager_core->insertInventory(propertyName);
+        p->core->insertInventory(propertyName);
 
         p->signalsProperties[signalSign] = propertyName;
         if(p->settings)
@@ -190,22 +207,17 @@ void AsemanStoreManager::reinitCache()
 
 void AsemanStoreManager::initCore()
 {
-    if(!aseman_store_manager_core)
-        aseman_store_manager_core = new AsemanStoreManagerCore();
-    if(p->core == aseman_store_manager_core)
+    if(p->core)
         return;
-    if(p->core)
-        disconnect(p->core.data(), SIGNAL(inventoryStateChanged(QString,bool)),
-                   this, SLOT(inventoryStateChanged(QString,bool)));
 
-    p->core = aseman_store_manager_core;
-    if(p->core)
-        connect(p->core.data(), SIGNAL(inventoryStateChanged(QString,bool)),
-                this, SLOT(inventoryStateChanged(QString,bool)));
+    p->core = new AsemanStoreManagerCore();
+    connect(p->core, SIGNAL(inventoryStateChanged(QString,bool)),
+            this, SLOT(inventoryStateChanged(QString,bool)));
+    connect(p->core, SIGNAL(itemDetailsChanged()),
+            this, SIGNAL(itemDetailsChanged()));
 }
 
 AsemanStoreManager::~AsemanStoreManager()
 {
     delete p;
 }
-

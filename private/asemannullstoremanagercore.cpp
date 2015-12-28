@@ -1,4 +1,5 @@
 #include "asemannullstoremanagercore.h"
+#include "../asemanstoremanager.h"
 
 #include <QMap>
 
@@ -69,6 +70,11 @@ void AsemanNullStoreManagerCore::purchaseInventory(const QString &sku)
 QStringList AsemanNullStoreManagerCore::inventories()
 {
     return p->data.keys();
+}
+
+QMap<QString, AsemanStoreManagerInventoryItem> AsemanNullStoreManagerCore::itemDetails() const
+{
+    return QMap<QString,AsemanStoreManagerInventoryItem>();
 }
 
 AsemanNullStoreManagerCore::~AsemanNullStoreManagerCore()

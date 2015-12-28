@@ -26,12 +26,16 @@ import land.aseman.android.store.util.IabHelper;
 import land.aseman.android.store.util.IabResult;
 import land.aseman.android.store.util.Inventory;
 import land.aseman.android.store.util.Purchase;
+import land.aseman.android.store.util.SkuDetails;
 import com.android.vending.billing.IInAppBillingService;
 
 import android.util.Log;
 import android.content.Context;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Iterator;
 
 public class StoreManager
@@ -45,6 +49,7 @@ public class StoreManager
 
     public native void _inventoryStateChanged(String sku, boolean state);
     public native void _setupFinished(boolean state);
+    public native void _detailsFetched(String sku, String type, String price, String title, String description);
 
     private HashMap<String, Boolean> data = new HashMap<String, Boolean>();
     public static HashSet<StoreManager> instances = new HashSet<StoreManager>();
@@ -73,6 +78,17 @@ public class StoreManager
         if (mStoreManagerHelper != null)
             mStoreManagerHelper.dispose();
 
+        List moreSkus = new ArrayList();
+        HashMap<String, Boolean> inventoriesMap = data;
+        if (inventoriesMap != null) {
+            Iterator it = inventoriesMap.keySet().iterator();
+            while(it.hasNext()) {
+                String inventoryKey = (String)it.next();
+                moreSkus.add(inventoryKey);
+            }
+        }
+
+        final List _moreSkus = moreSkus;
         mStoreManagerHelper = new IabHelper(getContext(), base64EncodedPublicKey);
         try {
             Log.d(STORE_MANAGER_TAG, "Starting setup.");
@@ -83,7 +99,7 @@ public class StoreManager
                             Log.d(STORE_MANAGER_TAG, "Problem setting up In-app Billing: " + result);
                         } else {
                             _storeHasFound = true;
-                            mStoreManagerHelper.queryInventoryAsync(mGotInventoryListener);
+                            mStoreManagerHelper.queryInventoryAsync(true, _moreSkus, mGotInventoryListener);
                             Log.d(STORE_MANAGER_TAG, "Setup finished.");
                         }
                         _setupFinished(_storeHasFound);
@@ -170,6 +186,10 @@ public class StoreManager
                         String inventoryKey = (String)it.next();
                         boolean newState = inventory.hasPurchase(inventoryKey);
                         setState(inventoryKey, newState);
+
+                        SkuDetails detail = inventory.getSkuDetails(inventoryKey);
+                        if(detail != null)
+                            _detailsFetched(detail.getSku(), detail.getType(), detail.getPrice(), detail.getTitle(), detail.getDescription());
                     }
                 }
             }

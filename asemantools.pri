@@ -182,7 +182,8 @@ SOURCES += \
     $$PWD/private/asemanabstractcameracapturecore.cpp \
     $$PWD/private/asemannullcameracapturecore.cpp \
     $$PWD/asemancameracapture.cpp \
-    $$PWD/asemanqmlsmartcomponent.cpp
+    $$PWD/asemanqmlsmartcomponent.cpp \
+    $$PWD/asemanstoremanagermodel.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -238,7 +239,8 @@ HEADERS += \
     $$PWD/private/asemanabstractcameracapturecore.h \
     $$PWD/private/asemannullcameracapturecore.h \
     $$PWD/asemancameracapture.h \
-    $$PWD/asemanqmlsmartcomponent.h
+    $$PWD/asemanqmlsmartcomponent.h \
+    $$PWD/asemanstoremanagermodel.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \
