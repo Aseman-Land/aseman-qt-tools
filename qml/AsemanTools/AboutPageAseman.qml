@@ -47,7 +47,7 @@ AboutPageItem {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "#333333"
                     font.family: AsemanApp.globalFont.family
-                    font.pixelSize: 10*Devices.fontDensity
+                    font.pixelSize: 9*Devices.fontDensity
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     text: qsTr("Aseman is a non-profit organization, exists to support and lead the free, open source and cross-platform projects and researches.")
                 }
@@ -57,7 +57,7 @@ AboutPageItem {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "#333333"
                     font.family: AsemanApp.globalFont.family
-                    font.pixelSize: 10*Devices.fontDensity
+                    font.pixelSize: 9*Devices.fontDensity
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     text: qsTr("The Goal of the Aseman is to provide free and secure products to keep people’s freedom and their privacy.")
                 }

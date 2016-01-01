@@ -44,6 +44,7 @@ signals:
 
 private slots:
     void itemDetailsChanged();
+    void inventoryStateChanged(const QString &sku);
     void changed(const QStringList &list);
 
 private:

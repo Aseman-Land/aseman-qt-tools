@@ -49,6 +49,10 @@ Item {
                 NumberAnimation{ easing.type: Easing.OutCubic; duration: 400 }
             }
 
+            MouseArea {
+                anchors.fill: parent
+            }
+
             property variant item
 
             onItemChanged: if(item) item.width = msg_f_item.width

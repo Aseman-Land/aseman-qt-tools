@@ -86,16 +86,16 @@ public:
     bool isMobile() const;
     bool isTablet() const;
     bool isLargeTablet() const;
-    bool isTouchDevice() const;
-    bool isDesktop() const;
-    bool isMacX() const;
-    bool isWindows() const;
-    bool isLinux() const;
-    bool isAndroid() const;
-    bool isIOS() const;
-    bool isUbuntuTouch() const;
-    bool isWindowsPhone() const;
-    bool isWindows8() const;
+    static bool isTouchDevice();
+    static bool isDesktop();
+    static bool isMacX();
+    static bool isWindows();
+    static bool isLinux();
+    static bool isAndroid();
+    static bool isIOS();
+    static bool isUbuntuTouch();
+    static bool isWindowsPhone();
+    static bool isWindows8();
 
     QScreen *screen() const;
     QObject *screenObj() const;

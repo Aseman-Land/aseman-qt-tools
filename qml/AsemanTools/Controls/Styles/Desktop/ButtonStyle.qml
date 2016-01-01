@@ -61,6 +61,7 @@ ButtonStyle {
             Text {
                 color: control.enabled? buttonTextColor : Qt.lighter(masterPalette.windowText, 5)
                 text: control.text
+                font.family: AsemanApp.globalFont.family
                 font.pixelSize: fontPixelSize
             }
         }

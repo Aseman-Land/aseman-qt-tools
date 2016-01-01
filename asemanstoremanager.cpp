@@ -103,6 +103,11 @@ QMap<QString, AsemanStoreManagerInventoryItem> AsemanStoreManager::itemDetails()
     return p->core->itemDetails();
 }
 
+AsemanStoreManagerInventoryItem AsemanStoreManager::detail(const QString &sku) const
+{
+    return p->core->itemDetails().value(sku);
+}
+
 int AsemanStoreManager::inventoryState(const QString &sku) const
 {
     return property(sku.toUtf8()).toInt();
@@ -128,7 +133,7 @@ bool AsemanStoreManager::setup()
     return true;
 }
 
-void AsemanStoreManager::inventoryStateChanged(const QString &sku, bool state)
+void AsemanStoreManager::inventoryStateChanged_slt(const QString &sku, bool state)
 {
     setProperty(sku.toUtf8(), INVENTORY_STATE(state));
     if(p->settings)
@@ -146,6 +151,8 @@ void AsemanStoreManager::propertyChanged()
 
     QMetaMethod signalObj = metaObject()->method(signalIndex);
     const QByteArray &propertyName = p->signalsProperties.value(signalObj.methodSignature());
+    emit inventoryStateChanged(propertyName);
+
     const QVariant &value = property(propertyName);
     switch(value.toInt())
     {
@@ -212,7 +219,7 @@ void AsemanStoreManager::initCore()
 
     p->core = new AsemanStoreManagerCore();
     connect(p->core, SIGNAL(inventoryStateChanged(QString,bool)),
-            this, SLOT(inventoryStateChanged(QString,bool)));
+            this, SLOT(inventoryStateChanged_slt(QString,bool)));
     connect(p->core, SIGNAL(itemDetailsChanged()),
             this, SIGNAL(itemDetailsChanged()));
 }

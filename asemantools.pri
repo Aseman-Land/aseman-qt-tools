@@ -240,7 +240,8 @@ HEADERS += \
     $$PWD/private/asemannullcameracapturecore.h \
     $$PWD/asemancameracapture.h \
     $$PWD/asemanqmlsmartcomponent.h \
-    $$PWD/asemanstoremanagermodel.h
+    $$PWD/asemanstoremanagermodel.h \
+    $$PWD/asemanglobals.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

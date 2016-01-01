@@ -82,41 +82,74 @@ public class AsemanCameraCapture
     }
 
     private void takePhoto(final int actionId, final String path, final int cameraType) {
-        final SurfaceView view = new SurfaceView(getContext());
+        Context context = getContext();
+        final SurfaceView view = new SurfaceView(context);
         final Camera camera = openCamera(cameraType);
         if(camera == null) {
+            camera.release();
             _imageCaptured(actionId, "");
             return;
         }
 
-        Timer timer = new Timer();
-        timer.schedule( new TimerTask() {
+        Log.d(TAG, "Opened camera");
+
+        SurfaceHolder holder = view.getHolder();
+        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
+        holder.addCallback(new Callback() {
             @Override
-            public void run() {
-                Log.d(TAG, "Opened camera");
+            //The preview must happen at or after this point or takePicture fails
+            public void surfaceCreated(SurfaceHolder holder) {
+
                 try {
-                    camera.setPreviewDisplay(view.getHolder());
-
-                    Log.d(TAG, "Started preview");
-
-                    Thread.sleep(1000);
-                    camera.takePicture(null, null, new PictureCallback() {
-                        @Override
-                        public void onPictureTaken(byte[] data, Camera camera) {
-                            Log.d(TAG, "Took picture");
-                            savePicture(data, path);
-                            camera.release();
-                            _imageCaptured(actionId, path);
-                        }
-                    });
+                    camera.setPreviewDisplay(holder);
                 } catch (Exception e) {
                     if (camera != null)
                         camera.release();
                     _imageCaptured(actionId, "");
                     throw new RuntimeException(e);
                 }
+
+                Log.d(TAG, "Started preview");
+                Timer timer = new Timer();
+                timer.schedule( new TimerTask() {
+                    @Override
+                    public void run() {
+                        try {
+                            camera.takePicture(null, null, new PictureCallback() {
+                                @Override
+                                public void onPictureTaken(byte[] data, Camera camera) {
+                                    Log.d(TAG, "Took picture");
+                                    savePicture(data, path);
+                                    camera.release();
+                                    _imageCaptured(actionId, path);
+                                }
+                            });
+                        } catch (Exception e) {
+                            if (camera != null)
+                                camera.release();
+                            _imageCaptured(actionId, "");
+                            throw new RuntimeException(e);
+                        }
+                    }
+                } , 3000);
             }
-        } , 2000);
+
+            @Override public void surfaceDestroyed(SurfaceHolder holder) {}
+            @Override public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
+        });
+
+        WindowManager wm = (WindowManager)context
+            .getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                1, 1, //Must be at least 1x1
+                WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
+                0,
+                //Don't know if this is a safe default
+                PixelFormat.UNKNOWN);
+
+        //Don't set the preview visibility to GONE or INVISIBLE
+        wm.addView(view, params);
     }
 
     /** null if unable to save the file */
@@ -139,14 +172,25 @@ public class AsemanCameraCapture
         Camera cam = null;
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
         cameraCount = Camera.getNumberOfCameras();
+
+        boolean typeFounded = false;
         for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
             Camera.getCameraInfo(camIdx, cameraInfo);
             if (cameraInfo.facing == type) {
+                typeFounded = true;
                 try {
                     cam = Camera.open(camIdx);
                 } catch (RuntimeException e) {
                     Log.e(TAG, "Camera failed to open: " + e.getLocalizedMessage());
                 }
+            }
+        }
+        if(!typeFounded) {
+            Log.d(TAG, "Can't find requested camera. Try to open default camera.");
+            try {
+                cam = Camera.open();
+            } catch (RuntimeException e) {
+                Log.e(TAG, "Default camera failed to open: " + e.getLocalizedMessage());
             }
         }
 

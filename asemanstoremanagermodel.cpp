@@ -3,6 +3,7 @@
 #include <QPointer>
 #include <QMetaObject>
 #include <QMetaProperty>
+#include <QDebug>
 
 class AsemanStoreManagerModelPrivate
 {
@@ -23,11 +24,17 @@ void AsemanStoreManagerModel::setStoreManager(AsemanStoreManager *store)
         return;
 
     if(p->store)
+    {
         disconnect(p->store, SIGNAL(itemDetailsChanged()), this, SLOT(itemDetailsChanged()));
+        disconnect(p->store, SIGNAL(inventoryStateChanged(QString)), this, SLOT(inventoryStateChanged(QString)));
+    }
 
     p->store = store;
     if(p->store)
+    {
         connect(p->store, SIGNAL(itemDetailsChanged()), this, SLOT(itemDetailsChanged()));
+        connect(p->store, SIGNAL(inventoryStateChanged(QString)), this, SLOT(inventoryStateChanged(QString)));
+    }
 
     itemDetailsChanged();
     emit storeManagerChanged();
@@ -165,6 +172,16 @@ void AsemanStoreManagerModel::itemDetailsChanged()
     {
         changed(QStringList());
     }
+}
+
+void AsemanStoreManagerModel::inventoryStateChanged(const QString &sku)
+{
+    int row = p->list.indexOf(sku);
+    if(row == -1)
+        return;
+
+    QModelIndex idx = index(row);
+    emit dataChanged(idx, idx, QVector<int>()<<PurchasedRole<<PurchasingRole);
 }
 
 void AsemanStoreManagerModel::changed(const QStringList &list)

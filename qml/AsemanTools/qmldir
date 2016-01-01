@@ -61,4 +61,5 @@ AboutPageItem 1.0 AboutPageItem.qml
 AboutPageAseman 1.0 AboutPageAseman.qml
 SmartComponent 1.0 SmartComponent.qml
 AsemanProductsList 1.0 AsemanProductsList.qml
+MessageDialogOkCancelWarning 1.0 MessageDialogOkCancelWarning.qml
 ArrayTools 1.0 ArrayFunctions.js

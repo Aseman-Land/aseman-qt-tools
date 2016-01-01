@@ -3,7 +3,31 @@
 
 #include <QObject>
 #include <QList>
+
 #include "asemanquickobject.h"
+
+#define DEFINE_STORE_MANAGER_INVENTORY(SKU) \
+    DEFINE_QML_PROEPRTY(SKU) \
+    Q_SIGNALS: \
+        void SKU##_fakeSignal(); \
+    public: \
+        Q_PROPERTY(bool SKU##_IsPurchased READ SKU##_IsPurchased NOTIFY SKU##Changed) \
+        Q_PROPERTY(bool SKU##_IsPurchasing READ SKU##_IsPurchasing NOTIFY SKU##Changed) \
+        Q_PROPERTY(QString SKU##_Price READ SKU##_Price NOTIFY SKU##_fakeSignal) \
+        Q_PROPERTY(QString SKU##_Title READ SKU##_Title NOTIFY SKU##_fakeSignal) \
+        Q_PROPERTY(QString SKU##_Description READ SKU##_Description NOTIFY SKU##_fakeSignal) \
+        Q_PROPERTY(QString SKU##_Type READ SKU##_Type NOTIFY SKU##_fakeSignal) \
+        Q_PROPERTY(QString SKU##_Sku READ SKU##_Sku NOTIFY SKU##_fakeSignal) \
+        bool SKU##_IsPurchased() const { return SKU() == AsemanStoreManager::InventoryStatePurchased; } \
+        bool SKU##_IsPurchasing() const { return SKU() == AsemanStoreManager::InventoryStatePurchasing; } \
+        QString SKU##_Price() const { return detail(#SKU).price; } \
+        QString SKU##_Title() const { return detail(#SKU).title; } \
+        QString SKU##_Description() const { return detail(#SKU).description; } \
+        QString SKU##_Type() const { return detail(#SKU).type; } \
+        QString SKU##_Sku() const { return #SKU; }
+
+#define CHECK_INVENTORY_PURCHASED(STORE, SKU) \
+    (STORE && STORE->SKU##_IsPurchased())
 
 class AsemanStoreManagerInventoryItem
 {
@@ -48,6 +72,7 @@ public:
     QString cacheSource() const;
 
     QMap<QString,AsemanStoreManagerInventoryItem> itemDetails() const;
+    AsemanStoreManagerInventoryItem detail(const QString &sku) const;
 
     int inventoryState(const QString &sku) const;
     bool startPurchasing(const QString &sku);
@@ -61,9 +86,10 @@ signals:
     void bindIntentChanged();
     void cacheSourceChanged();
     void itemDetailsChanged();
+    void inventoryStateChanged(const QString &sku);
 
 private slots:
-    void inventoryStateChanged(const QString &sku, bool state);
+    void inventoryStateChanged_slt(const QString &sku, bool state);
     void propertyChanged();
 
 private:

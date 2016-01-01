@@ -114,17 +114,17 @@ bool AsemanDevices::isLargeTablet() const
 #endif
 }
 
-bool AsemanDevices::isTouchDevice() const
+bool AsemanDevices::isTouchDevice()
 {
     return isAndroid() || isIOS() || isWindowsPhone() || isUbuntuTouch();
 }
 
-bool AsemanDevices::isDesktop() const
+bool AsemanDevices::isDesktop()
 {
     return !isTouchDevice();
 }
 
-bool AsemanDevices::isMacX() const
+bool AsemanDevices::isMacX()
 {
 #ifdef Q_OS_MAC
     return true;
@@ -133,7 +133,7 @@ bool AsemanDevices::isMacX() const
 #endif
 }
 
-bool AsemanDevices::isWindows() const
+bool AsemanDevices::isWindows()
 {
 #ifdef Q_OS_WIN
     return true;
@@ -142,7 +142,7 @@ bool AsemanDevices::isWindows() const
 #endif
 }
 
-bool AsemanDevices::isLinux() const
+bool AsemanDevices::isLinux()
 {
 #if defined(Q_OS_LINUX) || defined(Q_OS_OPENBSD)
     return true;
@@ -151,7 +151,7 @@ bool AsemanDevices::isLinux() const
 #endif
 }
 
-bool AsemanDevices::isAndroid() const
+bool AsemanDevices::isAndroid()
 {
 #ifdef Q_OS_ANDROID
     return true;
@@ -160,7 +160,7 @@ bool AsemanDevices::isAndroid() const
 #endif
 }
 
-bool AsemanDevices::isIOS() const
+bool AsemanDevices::isIOS()
 {
 #ifdef Q_OS_IOS
     return true;
@@ -169,7 +169,7 @@ bool AsemanDevices::isIOS() const
 #endif
 }
 
-bool AsemanDevices::isUbuntuTouch() const
+bool AsemanDevices::isUbuntuTouch()
 {
 #ifdef Q_OS_UBUNTUTOUCH
     return true;
@@ -178,7 +178,7 @@ bool AsemanDevices::isUbuntuTouch() const
 #endif
 }
 
-bool AsemanDevices::isWindowsPhone() const
+bool AsemanDevices::isWindowsPhone()
 {
 #ifdef Q_OS_WINPHONE
     return true;
@@ -187,7 +187,7 @@ bool AsemanDevices::isWindowsPhone() const
 #endif
 }
 
-bool AsemanDevices::isWindows8() const
+bool AsemanDevices::isWindows8()
 {
 #ifdef Q_OS_WIN
     return QSysInfo::windowsVersion() == QSysInfo::WV_WINDOWS8 ||
