@@ -51,6 +51,8 @@ Rectangle {
             preferredHighlightBegin: height/2 - itemsHeight/2
             preferredHighlightEnd: height/2 + itemsHeight/2
             highlightRangeMode: ListView.StrictlyEnforceRange
+            highlightMoveDuration: 300
+            highlightMoveVelocity: -1
             snapMode: ListView.SnapToItem
             model: ListModel{}
 

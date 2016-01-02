@@ -469,7 +469,7 @@ void AsemanApplication::setApplicationAbout(const QString &desc)
 QString AsemanApplication::applicationAbout()
 {
     if(aseman_app_singleton)
-        return aseman_app_singleton->p->appAbout;
+        return tr(aseman_app_singleton->p->appAbout.toUtf8());
     else
         return QString();
 }
