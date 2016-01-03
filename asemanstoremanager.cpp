@@ -100,11 +100,17 @@ QString AsemanStoreManager::cacheSource() const
 
 QMap<QString, AsemanStoreManagerInventoryItem> AsemanStoreManager::itemDetails() const
 {
+    if(!p->core)
+        return QMap<QString, AsemanStoreManagerInventoryItem>();
+
     return p->core->itemDetails();
 }
 
 AsemanStoreManagerInventoryItem AsemanStoreManager::detail(const QString &sku) const
 {
+    if(!p->core)
+        return AsemanStoreManagerInventoryItem();
+
     return p->core->itemDetails().value(sku);
 }
 
