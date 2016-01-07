@@ -141,9 +141,14 @@ bool AsemanStoreManager::setup()
 
 void AsemanStoreManager::inventoryStateChanged_slt(const QString &sku, bool state)
 {
+    const bool purchasing = (property(sku.toUtf8()).toInt() == InventoryStatePurchasing);
     setProperty(sku.toUtf8(), INVENTORY_STATE(state));
     if(p->settings)
         p->settings->setValue(INVENTORY_CACHE_KEY(sku), state);
+
+    const bool purchased = (property(sku.toUtf8()).toInt() == InventoryStatePurchased);
+    if(purchasing && purchased)
+        emit inventoryPurchased(sku);
 }
 
 void AsemanStoreManager::propertyChanged()

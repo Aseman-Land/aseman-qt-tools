@@ -79,6 +79,8 @@ class AsemanDevices : public QObject
     Q_PROPERTY(QString resourcePath      READ resourcePathQml   NOTIFY resourcePathChanged      )
     Q_PROPERTY(QString libsPath          READ libsPath          NOTIFY libsPathChanged          )
 
+    Q_PROPERTY(QString deviceName READ deviceName NOTIFY deviceNameChanged)
+
 public:
     AsemanDevices(QObject *parent = 0);
     ~AsemanDevices();
@@ -108,6 +110,7 @@ public:
 
     QSize screenSize() const;
     qreal keyboardHeight() const;
+    QString deviceName() const;
 
     int densityDpi() const;
     qreal density() const;
@@ -167,6 +170,8 @@ signals:
     void isIOSChanged();
     void isUbuntuTouchChanged();
     void isWindowsPhoneChanged();
+
+    void deviceNameChanged();
 
     void cameraIsAvailableChanged();
 

@@ -299,6 +299,23 @@ qreal AsemanDevices::keyboardHeight() const
 #endif
 }
 
+QString AsemanDevices::deviceName() const
+{
+    if(isDesktop())
+#ifdef Q_OS_WIN
+        return QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture();
+#else
+        return "desktop";
+#endif
+#ifdef Q_OS_ANDROID
+    else
+        return p->java_layer->deviceName();
+#else
+    else
+        return "mobile";
+#endif
+}
+
 bool AsemanDevices::transparentStatusBar() const
 {
 #ifdef Q_OS_ANDROID

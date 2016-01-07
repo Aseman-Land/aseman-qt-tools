@@ -55,6 +55,8 @@ public slots:
     static QString readText( const QString & path );
     static QStringList filesOf(const QString &path);
 
+    static QString className(QObject *obj);
+
     static QStringList stringLinks(const QString &str);
 
     static QUrl stringToUrl(const QString &path);

@@ -87,6 +87,7 @@ signals:
     void cacheSourceChanged();
     void itemDetailsChanged();
     void inventoryStateChanged(const QString &sku);
+    void inventoryPurchased(const QString &sku);
 
 private slots:
     void inventoryStateChanged_slt(const QString &sku, bool state);

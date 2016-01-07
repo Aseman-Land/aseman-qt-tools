@@ -130,6 +130,18 @@ QStringList AsemanTools::filesOf(const QString &path)
     return QDir(path).entryList(QDir::Files);
 }
 
+QString AsemanTools::className(QObject *obj)
+{
+    QString result;
+    if(obj)
+        result = obj->metaObject()->className();
+
+    int idx = result.indexOf("_QMLTYPE");
+    if(idx >= 0)
+        result = result.left(idx+8);
+    return result;
+}
+
 QStringList AsemanTools::stringLinks(const QString &str)
 {
     QStringList links;

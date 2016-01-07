@@ -170,6 +170,12 @@ QString AsemanJavaLayer::packageName()
     return res;
 }
 
+QString AsemanJavaLayer::deviceName()
+{
+    QString res = p->object.callObjectMethod(__FUNCTION__, "()Ljava/lang/String;" ).toString();
+    return res;
+}
+
 QRect AsemanJavaLayer::keyboardRect()
 {
     jint jheight = p->object.callMethod<jfloat>("menuHeight", "()I" );

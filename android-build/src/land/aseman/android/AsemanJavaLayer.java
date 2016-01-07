@@ -31,6 +31,7 @@ import android.util.DisplayMetrics;
 import android.provider.MediaStore;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 import android.view.WindowManager;
 import android.os.Build;
 import android.content.res.Configuration;
@@ -134,6 +135,29 @@ public class AsemanJavaLayer
         Context oContext;
         oContext = AsemanApplication.getAppContext();
         return oContext.getPackageName();
+    }
+
+    public String deviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.startsWith(manufacturer)) {
+            return capitalize(model);
+        } else {
+            return capitalize(manufacturer) + " " + model;
+        }
+    }
+
+
+    private String capitalize(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        char first = s.charAt(0);
+        if (Character.isUpperCase(first)) {
+            return s;
+        } else {
+            return Character.toUpperCase(first) + s.substring(1);
+        }
     }
 
     boolean startService()

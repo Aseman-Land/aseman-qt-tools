@@ -48,6 +48,7 @@ public:
     qreal density();
 
     QString packageName();
+    QString deviceName();
 
     QRect keyboardRect();
 
