@@ -31,9 +31,18 @@ Item {
 
     property alias menuWidth: item_frame.width
     property alias pressed: marea.pressed
-    property real percent: (menuWidth+item_frame.x)/menuWidth
+    property real percent: {
+        var res = (menuWidth+item_frame.x)/menuWidth
+        if(res < 0)
+            res = 0
+        else
+        if(res > 1)
+            res = 1
+        return res
+    }
 
     property int layoutDirection: View.layoutDirection
+    property bool showed: item_frame.x > -menuWidth
 
     onDelegateChanged: {
         if( item )
@@ -115,7 +124,7 @@ Item {
             width: Devices.isMobile? sidemenu.width-50*Devices.density : sidemenu.width/2 + 20*Devices.density
             height: parent.height
             x: -width
-            visible: x != -width
+            visible: x > -width
 
             property bool anim: false
 
