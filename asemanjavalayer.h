@@ -52,6 +52,8 @@ public:
 
     QRect keyboardRect();
 
+    void setKeepScreenOn(bool stt);
+
 public slots:
     bool startService();
     bool stopService();

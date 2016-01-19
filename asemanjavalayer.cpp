@@ -215,6 +215,12 @@ QRect AsemanJavaLayer::keyboardRect()
     return final;
 }
 
+void AsemanJavaLayer::setKeepScreenOn(bool stt)
+{
+    jboolean jstt = stt;
+    p->object.callMethod<jboolean>(__FUNCTION__, "(Z)V", jstt );
+}
+
 void AsemanJavaLayer::load_buffer()
 {
     while( !java_layer_inc_share_buffer.isEmpty() )

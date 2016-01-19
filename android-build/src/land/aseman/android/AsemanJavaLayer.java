@@ -92,6 +92,14 @@ public class AsemanJavaLayer
         _sendNote(title,msg);
     }
 
+    public static void setKeepScreenOn(boolean status) {
+        Window window = AsemanActivity.getActivityInstance().getWindow();
+        if (status)
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        else
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
     public static int menuHeight()
     {
         Rect r = new Rect();
