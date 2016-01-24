@@ -38,6 +38,9 @@ import android.content.res.Configuration;
 import android.view.View;
 import android.view.Window;
 import android.graphics.Rect;
+import android.provider.Settings.Secure;
+import java.lang.Runnable;
+import android.os.Handler;
 
 import java.io.File;
 import java.io.InputStream;
@@ -93,11 +96,16 @@ public class AsemanJavaLayer
     }
 
     public static void setKeepScreenOn(boolean status) {
-        Window window = AsemanActivity.getActivityInstance().getWindow();
-        if (status)
-            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        else
-            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        final boolean fstatus = status;
+        final AsemanActivity activtiy = AsemanActivity.getActivityInstance();
+        Handler mainHandler = new Handler(activtiy.getMainLooper());
+        Runnable myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                activtiy.setKeepScreenOn(fstatus);
+            }
+        };
+        mainHandler.post(myRunnable);
     }
 
     public static int menuHeight()
@@ -155,6 +163,10 @@ public class AsemanJavaLayer
         }
     }
 
+    public String deviceId() {
+        return Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID);
+    }
+
 
     private String capitalize(String s) {
         if (s == null || s.length() == 0) {
@@ -166,6 +178,16 @@ public class AsemanJavaLayer
         } else {
             return Character.toUpperCase(first) + s.substring(1);
         }
+    }
+
+    public static Context getContext() {
+        if(AsemanActivity.getActivityInstance() != null)
+            return AsemanActivity.getActivityInstance();
+        else
+        if(AsemanService.getServiceInstance() != null)
+            return AsemanService.getServiceInstance();
+        else
+            return AsemanApplication.getAppContext();
     }
 
     boolean startService()

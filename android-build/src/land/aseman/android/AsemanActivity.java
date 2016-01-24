@@ -71,6 +71,14 @@ public class AsemanActivity extends QtActivity
         return _transparentNavigationBar;
     }
 
+    public void setKeepScreenOn(boolean status) {
+        Window window = getWindow();
+        if (status)
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        else
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {

@@ -74,12 +74,13 @@ Item {
         }
     }
 
-    function show( component ) {
+    function show( component, args ) {
         if( frameItem )
             return
 
         frameItem = msg_dialog.createObject(mdialog)
-        frameItem.item = component.createObject(frameItem)
+        frameItem.item = args? component.createObject(frameItem, args) :
+                               component.createObject(frameItem)
         frameItem.scale = 1
     }
 

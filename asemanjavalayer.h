@@ -49,6 +49,7 @@ public:
 
     QString packageName();
     QString deviceName();
+    QString deviceId();
 
     QRect keyboardRect();
 

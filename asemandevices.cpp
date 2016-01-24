@@ -42,6 +42,7 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QMimeData>
+#include <QProcess>
 
 #ifdef ASEMAN_MULTIMEDIA
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
@@ -299,7 +300,7 @@ qreal AsemanDevices::keyboardHeight() const
 #endif
 }
 
-QString AsemanDevices::deviceName() const
+QString AsemanDevices::deviceName()
 {
     if(isDesktop())
 #ifdef Q_OS_WIN
@@ -309,10 +310,33 @@ QString AsemanDevices::deviceName() const
 #endif
 #ifdef Q_OS_ANDROID
     else
-        return p->java_layer->deviceName();
+        return AsemanJavaLayer::instance()->deviceName();
 #else
     else
         return "mobile";
+#endif
+}
+
+QString AsemanDevices::deviceId()
+{
+#if defined(Q_OS_ANDROID)
+    return AsemanJavaLayer::instance()->deviceId();
+#elif defined(Q_OS_LINUX)
+    static QString cg_hostId;
+    if(!cg_hostId.isEmpty())
+        return cg_hostId;
+
+    QProcess prc;
+    prc.start("hostid");
+    prc.waitForStarted();
+    prc.waitForReadyRead();
+    prc.waitForFinished();
+
+    cg_hostId = prc.readAll();
+    cg_hostId = cg_hostId.trimmed();
+    return cg_hostId;
+#else
+    return QString();
 #endif
 }
 

@@ -110,7 +110,8 @@ public:
 
     QSize screenSize() const;
     qreal keyboardHeight() const;
-    QString deviceName() const;
+    static QString deviceName();
+    static QString deviceId();
 
     int densityDpi() const;
     qreal density() const;
