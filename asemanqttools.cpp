@@ -152,6 +152,28 @@ void AsemanQtTools::registerTypes(const char *uri)
     register_list.insert(uri);
 }
 
+void AsemanQtTools::registerSecureTypes(const char *uri)
+{
+    static QSet<QByteArray> register_list;
+    if(register_list.contains(uri))
+        return;
+
+    qmlRegisterType<AsemanQuickObject>(uri, 1,0, "AsemanObject");
+    qmlRegisterType<AsemanImageColorAnalizor>(uri, 1,0, "ImageColorAnalizor");
+    qmlRegisterType<AsemanTitleBarColorGrabber>(uri, 1,0, "TitleBarColorGrabber");
+    qmlRegisterType<AsemanStoreManager>(uri, 1,0, "StoreManager");
+    qmlRegisterType<AsemanStoreManagerModel>(uri, 1,0, "StoreManagerModel");
+    qmlRegisterType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem");
+    qmlRegisterType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue");
+
+    qmlRegisterSingletonType<AsemanDevices>(uri, 1, 0, "Devices", aseman_devices_singleton);
+    qmlRegisterSingletonType<AsemanDesktopTools>(uri, 1, 0, "Desktop", aseman_desktoptools_singleton);
+    qmlRegisterSingletonType<AsemanBackHandler>(uri, 1, 0, "BackHandler", aseman_backhandler_singleton);
+    qmlRegisterSingletonType<AsemanApplication>(uri, 1, 0, "AsemanApp", aseman_app_singleton);
+
+    register_list.insert(uri);
+}
+
 AsemanQuickViewWrapper *AsemanQtTools::quickView(QQmlEngine *engine)
 {
     static QHash<QQmlEngine*, QPointer<AsemanQuickViewWrapper> > views;

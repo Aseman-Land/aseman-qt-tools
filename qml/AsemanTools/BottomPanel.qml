@@ -65,17 +65,18 @@ Item {
         anchors.bottom: parent.bottom
         color: "#f0f0f0"
         height: 0
+        opacity: 0.9
         clip: true
 
         property real destHeight: 10
 
         Behavior on height {
-            NumberAnimation{ easing.type: Easing.OutCubic; duration: 400 }
+            NumberAnimation{ easing.type: Easing.OutCubic; duration: 250 }
         }
 
         Timer {
             id: destroy_timer
-            interval: 400
+            interval: 250
             onTriggered: {
                 if(bpanel.item)
                     bpanel.item.destroy()

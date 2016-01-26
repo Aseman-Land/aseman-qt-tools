@@ -65,6 +65,8 @@ class AsemanDevices : public QObject
     Q_PROPERTY(bool  transparentStatusBar     READ transparentStatusBar     NOTIFY transparentStatusBarChanged    )
     Q_PROPERTY(bool  transparentNavigationBar READ transparentNavigationBar NOTIFY transparentNavigationBarChanged)
     Q_PROPERTY(qreal standardTitleBarHeight   READ standardTitleBarHeight   NOTIFY standardTitleBarHeightChanged  )
+    Q_PROPERTY(qreal statusBarHeight          READ statusBarHeight          NOTIFY statusBarHeightChanged)
+    Q_PROPERTY(qreal navigationBarHeight      READ navigationBarHeight      NOTIFY navigationBarHeightChanged)
 
     Q_PROPERTY(QString     clipboard    READ clipboard    WRITE setClipboard    NOTIFY clipboardChanged   )
     Q_PROPERTY(QList<QUrl> clipboardUrl READ clipboardUrl WRITE setClipboardUrl NOTIFY clipboardUrlChanged)
@@ -124,6 +126,9 @@ public:
     bool transparentStatusBar() const;
     bool transparentNavigationBar() const;
     qreal standardTitleBarHeight() const;
+
+    qreal statusBarHeight() const;
+    qreal navigationBarHeight() const;
 
     QString clipboard() const;
     bool keyboard() const;
@@ -191,6 +196,8 @@ signals:
     void transparentStatusBarChanged();
     void transparentNavigationBarChanged();
     void standardTitleBarHeightChanged();
+    void statusBarHeightChanged();
+    void navigationBarHeightChanged();
 
     void densityDpiChanged();
     void densityChanged();

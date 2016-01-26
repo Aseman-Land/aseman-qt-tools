@@ -103,6 +103,7 @@ AsemanQuickView::AsemanQuickView(QWindow *parent) :
 
 #ifndef ASEMAN_QML_PLUGIN
     AsemanQtTools::registerTypes("AsemanTools");
+    AsemanQtTools::registerSecureTypes("AsemanTools.Secure");
     setResizeMode(QQuickView::SizeRootObjectToView);
     engine()->setImportPathList( QStringList()<< engine()->importPathList() << "qrc:///asemantools/qml" );
 #endif
@@ -207,13 +208,13 @@ bool AsemanQuickView::reverseScroll() const
 qreal AsemanQuickView::statusBarHeight() const
 {
     AsemanDevices *dv = devices();
-    return dv->transparentStatusBar() && !fullscreen()? 24*dv->density() : 0;
+    return !fullscreen()? dv->statusBarHeight() : 0;
 }
 
 qreal AsemanQuickView::navigationBarHeight() const
 {
     AsemanDevices *dv = devices();
-    return dv->transparentNavigationBar() && !fullscreen()? 44*dv->density() : 0;
+    return !fullscreen()? dv->navigationBarHeight() : 0;
 }
 
 void AsemanQuickView::setRoot(QObject *root)

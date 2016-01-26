@@ -372,6 +372,16 @@ qreal AsemanDevices::standardTitleBarHeight() const
     return res;
 }
 
+qreal AsemanDevices::statusBarHeight() const
+{
+    return transparentStatusBar()? 24*density() : 0;
+}
+
+qreal AsemanDevices::navigationBarHeight() const
+{
+    return transparentNavigationBar()? 44*density() : 0;
+}
+
 int AsemanDevices::densityDpi() const
 {
 #ifdef Q_OS_ANDROID

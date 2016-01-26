@@ -124,7 +124,7 @@ Item {
             width: Devices.isMobile? sidemenu.width-50*Devices.density : sidemenu.width/2 + 20*Devices.density
             height: parent.height
             x: -width
-            visible: x > -width
+//            visible: x > -width
 
             property bool anim: false
 

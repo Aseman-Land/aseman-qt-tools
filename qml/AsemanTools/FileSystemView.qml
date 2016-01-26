@@ -56,7 +56,7 @@ AsemanGridView {
                 width: height
                 height: parent.height - txt.height - 10*Devices.density
                 asynchronous: true
-                sourceSize: Qt.size(width, height)
+                sourceSize: Qt.size(width*2, height*2)
                 fillMode: Image.PreserveAspectCrop
                 clip: true
                 source: {
@@ -101,7 +101,7 @@ AsemanGridView {
         if(paths_list.count != 0)
             root = paths_list.last()
 
-        if(paths_list.count <= 1)
+        if(paths_list.count <= 0)
             return false
         else
             return true
