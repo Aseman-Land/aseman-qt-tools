@@ -18,6 +18,7 @@
 #include "aseman_macros.h"
 #include "asemanfonthandler.h"
 #include "asemancountriesmodel.h"
+#include "asemanwindowdetails.h"
 #include "asemanautostartmanager.h"
 #include "asemanfilesystemmodel.h"
 #include "asemanstoremanager.h"
@@ -89,6 +90,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     if(register_list.contains(uri))
         return;
 
+    qmlRegisterUncreatableType<QScreen>(uri, 1, 0, "Screen", "");
     qRegisterMetaType<AsemanMimeData*>("AsemanMimeData*");
 
     qmlRegisterType<AsemanMimeData>(uri, 1, 0, "MimeData");
@@ -96,6 +98,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterType<AsemanHashObject>(uri, 1,0, "HashObject");
     qmlRegisterType<AsemanListObject>(uri, 1,0, "ListObject");
     qmlRegisterType<AsemanDownloader>(uri, 1,0, "Downloader");
+    qmlRegisterType<AsemanWindowDetails>(uri, 1,0, "WindowDetails");
     qmlRegisterType<AsemanQuickObject>(uri, 1,0, "AsemanObject");
     qmlRegisterType<AsemanImageColorAnalizor>(uri, 1,0, "ImageColorAnalizor");
     qmlRegisterType<AsemanCountriesModel>(uri, 1,0, "CountriesModel");
@@ -158,6 +161,8 @@ void AsemanQtTools::registerSecureTypes(const char *uri)
     if(register_list.contains(uri))
         return;
 
+    qmlRegisterUncreatableType<QScreen>(uri, 1, 0, "Screen", "");
+
     qmlRegisterType<AsemanQuickObject>(uri, 1,0, "AsemanObject");
     qmlRegisterType<AsemanImageColorAnalizor>(uri, 1,0, "ImageColorAnalizor");
     qmlRegisterType<AsemanTitleBarColorGrabber>(uri, 1,0, "TitleBarColorGrabber");
@@ -165,6 +170,7 @@ void AsemanQtTools::registerSecureTypes(const char *uri)
     qmlRegisterType<AsemanStoreManagerModel>(uri, 1,0, "StoreManagerModel");
     qmlRegisterType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem");
     qmlRegisterType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue");
+    qmlRegisterType<AsemanWindowDetails>(uri, 1,0, "WindowDetails");
 
     qmlRegisterSingletonType<AsemanDevices>(uri, 1, 0, "Devices", aseman_devices_singleton);
     qmlRegisterSingletonType<AsemanDesktopTools>(uri, 1, 0, "Desktop", aseman_desktoptools_singleton);
