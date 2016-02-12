@@ -162,6 +162,7 @@ void AsemanQtTools::registerSecureTypes(const char *uri)
         return;
 
     qmlRegisterUncreatableType<QScreen>(uri, 1, 0, "Screen", "");
+    qmlRegisterUncreatableType<QWindow>(uri, 1, 0, "Window", "");
 
     qmlRegisterType<AsemanQuickObject>(uri, 1,0, "AsemanObject");
     qmlRegisterType<AsemanImageColorAnalizor>(uri, 1,0, "ImageColorAnalizor");
