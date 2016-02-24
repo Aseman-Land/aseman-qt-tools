@@ -1,5 +1,9 @@
 #include "asemanmimedata.h"
 
+#include <QClipboard>
+#include <QGuiApplication>
+#include <QMimeData>
+
 class AsemanMimeDataPrivate
 {
 public:
@@ -69,6 +73,33 @@ void AsemanMimeData::setDataMap(const QVariantMap &map)
 QVariantMap AsemanMimeData::dataMap() const
 {
     return p->dataMap;
+}
+
+QStringList AsemanMimeData::formats() const
+{
+    return p->dataMap.keys();
+}
+
+void AsemanMimeData::fetchClipboard()
+{
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    if(!clipboard) return;
+    const QMimeData *mime = clipboard->mimeData();
+    if(!mime) return;
+
+    setUrls(mime->urls());
+    setText(mime->text());
+    setHtml(mime->html());
+
+    QVariantMap data;
+    foreach(const QString &format, mime->formats())
+        data[format] = mime->data(format);
+    setDataMap(data);
+}
+
+QString AsemanMimeData::getDataAsString(const QString &type)
+{
+    return p->dataMap.value(type).toString();
 }
 
 AsemanMimeData::~AsemanMimeData()

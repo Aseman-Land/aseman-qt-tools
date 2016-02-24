@@ -23,6 +23,7 @@
 #include <QUrl>
 #include <QSize>
 
+class AsemanMimeData;
 class QScreen;
 class AsemanDevicesPrivate;
 class AsemanDevices : public QObject
@@ -153,6 +154,7 @@ public slots:
     void openFile( const QString & address );
     void shareFile(const QString &address);
     void setClipboard( const QString & text );
+    void setClipboardData(AsemanMimeData *mime);
 
     bool startCameraPicture();
     bool getOpenPictures();

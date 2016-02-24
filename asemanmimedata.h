@@ -14,6 +14,7 @@ class AsemanMimeData : public QObject
     Q_PROPERTY(QString html READ html WRITE setHtml NOTIFY htmlChanged)
     Q_PROPERTY(QList<QUrl> urls READ urls WRITE setUrls NOTIFY urlsChanged)
     Q_PROPERTY(QVariantMap dataMap READ dataMap WRITE setDataMap NOTIFY dataMapChanged)
+    Q_PROPERTY(QStringList formats READ formats NOTIFY dataMapChanged)
 
 public:
     AsemanMimeData(QObject *parent = 0);
@@ -30,6 +31,11 @@ public:
 
     void setDataMap(const QVariantMap &map);
     QVariantMap dataMap() const;
+    QStringList formats() const;
+
+public slots:
+    void fetchClipboard();
+    QString getDataAsString(const QString &type);
 
 signals:
     void textChanged();

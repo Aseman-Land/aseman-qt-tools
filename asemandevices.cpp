@@ -22,6 +22,7 @@
 
 #include "asemandevices.h"
 #include "asemanapplication.h"
+#include "asemanmimedata.h"
 
 #ifdef Q_OS_ANDROID
 #include "asemanjavalayer.h"
@@ -681,6 +682,26 @@ void AsemanDevices::shareFile(const QString &address)
 void AsemanDevices::setClipboard(const QString &text)
 {
     QGuiApplication::clipboard()->setText( text );
+}
+
+void AsemanDevices::setClipboardData(AsemanMimeData *mime)
+{
+    QMimeData *data = new QMimeData();
+    if(mime)
+    {
+        data->setText(mime->text());
+        data->setHtml(mime->html());
+        data->setUrls(mime->urls());
+
+        const QVariantMap &map = mime->dataMap();
+        QMapIterator<QString,QVariant> i(map);
+        while(i.hasNext())
+        {
+            i.next();
+            data->setData(i.key(), i.value().toByteArray());
+        }
+    }
+    QGuiApplication::clipboard()->setMimeData(data);
 }
 
 bool AsemanDevices::startCameraPicture()
