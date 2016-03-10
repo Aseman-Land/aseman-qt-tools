@@ -60,6 +60,9 @@ Rectangle {
 
     signal clicked()
 
+    Keys.onEnterPressed: clicked()
+    Keys.onReturnPressed: clicked()
+
     Row {
         id: row
         anchors.top: parent.top

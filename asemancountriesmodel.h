@@ -29,6 +29,8 @@ class AsemanCountriesModel : public AsemanAbstractListModel
     Q_OBJECT
     Q_ENUMS(ColorfullListModelRoles)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
+    Q_PROPERTY(QString filter READ filter WRITE setFilter NOTIFY filterChanged)
+    Q_PROPERTY(QString systemCountry READ systemCountry NOTIFY systemCountryChanged)
 
 public:
     enum ColorfullListModelRoles {
@@ -68,11 +70,19 @@ public:
 
     Q_INVOKABLE int indexOf(const QString &name);
 
+    void setFilter(const QString &filter);
+    QString filter() const;
+
+    QString systemCountry() const;
+
 signals:
     void countChanged();
+    void filterChanged();
+    void systemCountryChanged();
 
 private:
     void init_buff();
+    void changed(const QStringList &list);
 
 private:
     AsemanCountriesModelPrivate *p;

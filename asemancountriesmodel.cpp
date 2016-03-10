@@ -21,13 +21,18 @@
 #include <QFile>
 #include <QStringList>
 #include <QHash>
+#include <QLocale>
+#include <QTimeZone>
 #include <QDebug>
 
 class AsemanCountriesModelPrivate
 {
 public:
     QMap<QString, QHash<QString,QString> > data;
+    QStringList fullList;
     QList<QString> list;
+    QString filter;
+    QString systemCountry;
 };
 
 AsemanCountriesModel::AsemanCountriesModel(QObject *parent) :
@@ -186,6 +191,36 @@ int AsemanCountriesModel::indexOf(const QString &name)
     return p->list.indexOf(name.toLower());
 }
 
+void AsemanCountriesModel::setFilter(const QString &filter)
+{
+    if(p->filter == filter)
+        return;
+
+    p->filter = filter;
+
+    QStringList list = p->fullList;
+    for(int i=0; i<list.count(); i++)
+        if(!list.at(i).contains(filter.toLower()))
+        {
+            list.removeAt(i);
+            i--;
+        }
+
+    changed(list);
+
+    emit filterChanged();
+}
+
+QString AsemanCountriesModel::filter() const
+{
+    return p->filter;
+}
+
+QString AsemanCountriesModel::systemCountry() const
+{
+    return p->systemCountry;
+}
+
 void AsemanCountriesModel::init_buff()
 {
     QFile file(":/asemantools/files/countries.csv");
@@ -197,6 +232,7 @@ void AsemanCountriesModel::init_buff()
     if( splits.isEmpty() )
         return;
 
+    QString country = QLocale::countryToString(QTimeZone::systemTimeZone().country()).toLower().trimmed().remove(" ");
     QStringList heads = splits.takeFirst().split(";");
 
     foreach( const QString & s, splits )
@@ -205,12 +241,71 @@ void AsemanCountriesModel::init_buff()
         for( int i=0; i<parts.count(); i++ )
         {
             const QString & prt = parts.at(i);
-            p->data[parts.first().toLower()][heads.at(i)] = prt.split(",").first();
+            const QString & countryName = parts.first().toLower();
+            if(countryName.toLower().trimmed().remove(" ") == country)
+                p->systemCountry = countryName;
+
+            p->data[countryName][heads.at(i)] = prt.split(",").first();
         }
     }
 
-    p->list = p->data.keys();
-    emit countChanged();
+    p->fullList = p->data.keys();
+    changed(p->fullList);
+    Q_EMIT systemCountryChanged();
+}
+
+void AsemanCountriesModel::changed(const QStringList &list)
+{
+    bool count_changed = (list.count()!=p->list.count());
+
+    for( int i=0 ; i<p->list.count() ; i++ )
+    {
+        const QString &item = p->list.at(i);
+        if( list.contains(item) )
+            continue;
+
+        beginRemoveRows(QModelIndex(), i, i);
+        p->list.removeAt(i);
+        i--;
+        endRemoveRows();
+    }
+
+    QList<QString> temp_list = list;
+    for( int i=0 ; i<temp_list.count() ; i++ )
+    {
+        const QString &item = temp_list.at(i);
+        if( p->list.contains(item) )
+            continue;
+
+        temp_list.removeAt(i);
+        i--;
+    }
+    while( p->list != temp_list )
+        for( int i=0 ; i<p->list.count() ; i++ )
+        {
+            const QString &item = p->list.at(i);
+            int nw = temp_list.indexOf(item);
+            if( i == nw )
+                continue;
+
+            beginMoveRows( QModelIndex(), i, i, QModelIndex(), nw>i?nw+1:nw );
+            p->list.move( i, nw );
+            endMoveRows();
+        }
+
+    for( int i=0 ; i<list.count() ; i++ )
+    {
+        const QString &item = list.at(i);
+        if( p->list.contains(item) )
+            continue;
+
+        beginInsertRows(QModelIndex(), i, i );
+        p->list.insert( i, item );
+        endInsertRows();
+    }
+
+    if(count_changed)
+        emit countChanged();
 }
 
 AsemanCountriesModel::~AsemanCountriesModel()

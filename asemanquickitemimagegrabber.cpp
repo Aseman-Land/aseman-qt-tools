@@ -65,6 +65,11 @@ void AsemanQuickItemImageGrabber::start()
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
     p->result = p->item->grabToImage();
+    if(p->result.isNull())
+    {
+        QMetaObject::invokeMethod(this, "ready", Qt::QueuedConnection );
+        return;
+    }
     connect(p->result.data(), SIGNAL(ready()), this, SLOT(ready()));
 #else
     QMetaObject::invokeMethod(this, "ready", Qt::QueuedConnection );
