@@ -11,6 +11,7 @@ class AsemanTitleBarColorGrabberPrivate
 public:
     QPointer<QWindow> window;
     QColor color;
+    QColor defaultColor;
     bool autoRefresh;
     int firstAttemps;
 
@@ -81,9 +82,24 @@ bool AsemanTitleBarColorGrabber::autoRefresh() const
     return p->autoRefresh;
 }
 
+void AsemanTitleBarColorGrabber::setDefaultColor(const QColor &defaultColor)
+{
+    if(p->defaultColor == defaultColor)
+        return;
+
+    p->defaultColor = defaultColor;
+    emit defaultColorChanged();
+    emit colorChanged();
+}
+
+QColor AsemanTitleBarColorGrabber::defaultColor() const
+{
+    return p->defaultColor;
+}
+
 QColor AsemanTitleBarColorGrabber::color() const
 {
-    return p->color;
+    return p->color.isValid()? p->color : p->defaultColor;
 }
 
 void AsemanTitleBarColorGrabber::refresh()

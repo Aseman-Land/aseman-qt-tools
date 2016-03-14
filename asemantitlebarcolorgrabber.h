@@ -10,6 +10,7 @@ class AsemanTitleBarColorGrabber : public QObject
     Q_OBJECT
     Q_PROPERTY(QWindow* window READ window WRITE setWindow NOTIFY windowChanged)
     Q_PROPERTY(bool autoRefresh READ autoRefresh WRITE setAutoRefresh NOTIFY autoRefreshChanged)
+    Q_PROPERTY(QColor defaultColor READ defaultColor WRITE setDefaultColor NOTIFY defaultColorChanged)
     Q_PROPERTY(QColor color READ color NOTIFY colorChanged)
 
 public:
@@ -22,6 +23,9 @@ public:
     void setAutoRefresh(bool stt);
     bool autoRefresh() const;
 
+    void setDefaultColor(const QColor &color);
+    QColor defaultColor() const;
+
     QColor color() const;
 
 public slots:
@@ -31,6 +35,7 @@ signals:
     void windowChanged();
     void colorChanged();
     void autoRefreshChanged();
+    void defaultColorChanged();
 
 private slots:
     void activeChanged();

@@ -12,6 +12,7 @@
 #include "asemanlistobject.h"
 #include "asemancalendarconverter.h"
 #include "asemanimagecoloranalizor.h"
+#include "asemansettings.h"
 #include "asemanmimedata.h"
 #include "asemandragobject.h"
 #include "asemanbackhandler.h"
@@ -105,6 +106,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterType<AsemanNotification>(uri, 1,0, "Notification");
     qmlRegisterType<AsemanFileSystemModel>(uri, 1,0, "FileSystemModel");
     qmlRegisterType<AsemanAutoStartManager>(uri, 1,0, "AutoStartManager");
+    qmlRegisterType<AsemanSettings>(uri, 1,0, "Settings");
     qmlRegisterType<AsemanStoreManager>(uri, 1,0, "StoreManager");
     qmlRegisterType<AsemanStoreManagerModel>(uri, 1,0, "StoreManagerModel");
     qmlRegisterType<AsemanQuickItemImageGrabber>(uri, 1,0, "ItemImageGrabber");
