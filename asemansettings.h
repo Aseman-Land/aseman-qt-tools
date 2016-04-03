@@ -2,6 +2,7 @@
 #define ASEMANSETTINGS_H
 
 #include <QObject>
+#include <QVariant>
 
 class AsemanSettingsPrivate;
 class AsemanSettings : public QObject
@@ -19,9 +20,16 @@ public:
     void setSource(const QString &source);
     QString source() const;
 
+public Q_SLOTS:
+    void setValue(const QString &key, const QVariant &value);
+    QVariant value(const QString &key, const QVariant &defaultValue = QVariant());
+    void remove(const QString &key);
+    QStringList keys() const;
+
 signals:
     void categoryChanged();
     void sourceChanged();
+    void valueChanged();
 
 private slots:
     void propertyChanged();

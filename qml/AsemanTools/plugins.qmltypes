@@ -206,6 +206,14 @@ Module {
         Method { name: "save" }
     }
     Component {
+        name: "AsemanSettings"
+        prototype: "QObject"
+        exports: ["AsemanTools/Settings 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "source"; type: "string" }
+        Property { name: "category"; type: "string" }
+    }
+    Component {
         name: "AsemanBackHandler"
         prototype: "QObject"
         exports: ["AsemanTools/BackHandler 1.0"]
@@ -1563,6 +1571,7 @@ Module {
         exportMetaObjectRevisions: [0]
         Property { name: "window"; type: "QWindow"; isPointer: true }
         Property { name: "autoRefresh"; type: "bool" }
+        Property { name: "defaultColor"; type: "QColor" }
         Property { name: "color"; type: "QColor"; isReadonly: true }
         Method { name: "refresh" }
     }

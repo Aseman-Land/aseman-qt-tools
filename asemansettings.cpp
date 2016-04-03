@@ -66,6 +66,42 @@ QString AsemanSettings::source() const
     return p->source;
 }
 
+void AsemanSettings::setValue(const QString &key, const QVariant &value)
+{
+    if(!p->settings)
+        return;
+
+    p->settings->setValue(PROPERTY_KEY(key), value);
+    Q_EMIT valueChanged();
+}
+
+QVariant AsemanSettings::value(const QString &key, const QVariant &defaultValue)
+{
+    if(!p->settings)
+        return QVariant();
+
+    return p->settings->value(PROPERTY_KEY(key), defaultValue);
+}
+
+void AsemanSettings::remove(const QString &key)
+{
+    if(!p->settings)
+        return;
+    p->settings->remove(PROPERTY_KEY(key));
+}
+
+QStringList AsemanSettings::keys() const
+{
+    QStringList result;
+    if(!p->settings)
+        return result;
+
+    p->settings->beginGroup(p->caregory);
+    result = p->settings->childKeys();
+    p->settings->endGroup();
+    return result;
+}
+
 void AsemanSettings::propertyChanged()
 {
     if(sender() != this)
@@ -80,6 +116,8 @@ void AsemanSettings::propertyChanged()
     const QVariant &value = property(propertyName);
     if(p->settings)
         p->settings->setValue(PROPERTY_KEY(propertyName), value);
+
+    Q_EMIT valueChanged();
 }
 
 void AsemanSettings::initProperties()
