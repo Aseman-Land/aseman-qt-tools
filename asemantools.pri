@@ -185,7 +185,8 @@ SOURCES += \
     $$PWD/asemanqmlsmartcomponent.cpp \
     $$PWD/asemanstoremanagermodel.cpp \
     $$PWD/asemanwindowdetails.cpp \
-    $$PWD/asemansettings.cpp
+    $$PWD/asemansettings.cpp \
+    $$PWD/asemantexttools.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -245,7 +246,8 @@ HEADERS += \
     $$PWD/asemanstoremanagermodel.h \
     $$PWD/asemanglobals.h \
     $$PWD/asemanwindowdetails.h \
-    $$PWD/asemansettings.h
+    $$PWD/asemansettings.h \
+    $$PWD/asemantexttools.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

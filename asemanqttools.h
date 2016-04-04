@@ -21,6 +21,7 @@ public:
     static class AsemanJavaLayer *javaLayer();
 #endif
     static class AsemanTools *tools();
+    static class AsemanTextTools *textTools();
     static class AsemanCalendarConverter *calendar(QQmlEngine *engine);
     static class AsemanBackHandler *backHandler(QQmlEngine *engine);
 };

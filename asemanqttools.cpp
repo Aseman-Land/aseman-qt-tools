@@ -29,6 +29,7 @@
 #include "asemannetworksleepmanager.h"
 #include "asemanquickobject.h"
 #include "asemannotification.h"
+#include "asemantexttools.h"
 #include "asemanfiledownloaderqueueitem.h"
 #include "asemanquickitemimagegrabber.h"
 #include "asemanwebpagegrabber.h"
@@ -75,6 +76,7 @@
 
 SINGLETON_PROVIDER(AsemanDevices          , aseman_devices_singleton     , AsemanQtTools::devices())
 SINGLETON_PROVIDER(AsemanTools            , aseman_tools_singleton       , AsemanQtTools::tools())
+SINGLETON_PROVIDER(AsemanTextTools        , aseman_text_tools_singleton  , AsemanQtTools::textTools())
 SINGLETON_PROVIDER(AsemanDesktopTools     , aseman_desktoptools_singleton, AsemanQtTools::desktopTools())
 SINGLETON_PROVIDER(AsemanCalendarConverter, aseman_calendarconv_singleton, AsemanQtTools::calendar(engine))
 SINGLETON_PROVIDER(AsemanBackHandler      , aseman_backhandler_singleton , AsemanQtTools::backHandler(engine))
@@ -143,6 +145,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterUncreatableType<AsemanNetworkManagerItem>(uri, 1,0, "NetworkManagerItem", "It must create using NetworkManager component.");
 
     qmlRegisterSingletonType<AsemanDevices>(uri, 1, 0, "Devices", aseman_devices_singleton);
+    qmlRegisterSingletonType<AsemanTextTools>(uri, 1, 0, "TextTools", aseman_text_tools_singleton);
     qmlRegisterSingletonType<AsemanTools>(uri, 1, 0, "Tools", aseman_tools_singleton);
     qmlRegisterSingletonType<AsemanDesktopTools>(uri, 1, 0, "Desktop", aseman_desktoptools_singleton);
     qmlRegisterSingletonType<AsemanCalendarConverter>(uri, 1, 0, "CalendarConv", aseman_calendarconv_singleton);
@@ -264,6 +267,15 @@ AsemanTools *AsemanQtTools::tools()
     static QPointer<AsemanTools> res = 0;
     if(!res)
         res = new AsemanTools();
+
+    return res;
+}
+
+AsemanTextTools *AsemanQtTools::textTools()
+{
+    static QPointer<AsemanTextTools> res = 0;
+    if(!res)
+        res = new AsemanTextTools();
 
     return res;
 }
