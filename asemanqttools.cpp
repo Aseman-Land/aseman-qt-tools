@@ -39,10 +39,12 @@
 #include "asemantaskbarbutton.h"
 #include "asemanmapdownloader.h"
 #include "asemandragarea.h"
+#include "asemanapplicationitem.h"
 #include "asemancalendarmodel.h"
 #include "asemanmixedlistmodel.h"
 #include "asemanquickviewwrapper.h"
 #include "asemanqmlsmartcomponent.h"
+#include "asemansystemtray.h"
 #ifdef Q_OS_ANDROID
 #include "asemanjavalayer.h"
 #endif
@@ -101,6 +103,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterType<AsemanHashObject>(uri, 1,0, "HashObject");
     qmlRegisterType<AsemanListObject>(uri, 1,0, "ListObject");
     qmlRegisterType<AsemanDownloader>(uri, 1,0, "Downloader");
+    qmlRegisterType<AsemanSystemTray>(uri, 1,0, "SystemTray");
     qmlRegisterType<AsemanWindowDetails>(uri, 1,0, "WindowDetails");
     qmlRegisterType<AsemanQuickObject>(uri, 1,0, "AsemanObject");
     qmlRegisterType<AsemanImageColorAnalizor>(uri, 1,0, "ImageColorAnalizor");
@@ -115,6 +118,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem");
     qmlRegisterType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue");
     qmlRegisterType<AsemanFontHandler>(uri, 1,0, "FontHandler");
+    qmlRegisterType<AsemanApplicationItem>(uri, 1,0, "AsemanApplication");
     qmlRegisterType<AsemanQmlSmartComponent>(uri, 1,0, "SmartComponentCore");
 #ifdef DESKTOP_LINUX
     qmlRegisterType<AsemanMimeApps>(uri, 1,0, "MimeApps");

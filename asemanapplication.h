@@ -20,6 +20,7 @@
 #define ASEMANAPPLICATION_H
 
 #include "aseman_macros.h"
+#include "asemanquickobject.h"
 
 #include <QFont>
 #include <QVariant>
@@ -44,7 +45,7 @@
 
 class QSettings;
 class AsemanApplicationPrivate;
-class AsemanApplication : public QObject
+class AsemanApplication : public AsemanQuickObject
 {
     Q_OBJECT
     Q_ENUMS(ApplicationType)

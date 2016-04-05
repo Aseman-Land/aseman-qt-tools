@@ -1,4 +1,5 @@
 QT += qml quick
+CONFIG +=  c++11
 
 android {
     manifest.source = android-build
@@ -67,10 +68,12 @@ contains(QT,widgets) {
     DEFINES += NATIVE_ASEMAN_NOTIFICATION
     SOURCES +=  \
         $$PWD/asemannativenotification.cpp \
-        $$PWD/asemannativenotificationitem.cpp
+        $$PWD/asemannativenotificationitem.cpp \
+        $$PWD/asemansystemtray.cpp
     HEADERS +=  \
         $$PWD/asemannativenotification.h \
-        $$PWD/asemannativenotificationitem.h
+        $$PWD/asemannativenotificationitem.h \
+        $$PWD/asemansystemtray.h
 }
 contains(QT,multimedia) {
     DEFINES += ASEMAN_MULTIMEDIA
@@ -186,7 +189,8 @@ SOURCES += \
     $$PWD/asemanstoremanagermodel.cpp \
     $$PWD/asemanwindowdetails.cpp \
     $$PWD/asemansettings.cpp \
-    $$PWD/asemantexttools.cpp
+    $$PWD/asemantexttools.cpp \
+    $$PWD/asemanapplicationitem.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -247,7 +251,8 @@ HEADERS += \
     $$PWD/asemanglobals.h \
     $$PWD/asemanwindowdetails.h \
     $$PWD/asemansettings.h \
-    $$PWD/asemantexttools.h
+    $$PWD/asemantexttools.h \
+    $$PWD/asemanapplicationitem.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

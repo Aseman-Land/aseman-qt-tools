@@ -232,7 +232,11 @@ void AsemanCountriesModel::init_buff()
     if( splits.isEmpty() )
         return;
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
     QString country = QLocale::countryToString(QTimeZone::systemTimeZone().country()).toLower().trimmed().remove(" ");
+#else
+    QString country;
+#endif
     QStringList heads = splits.takeFirst().split(";");
 
     foreach( const QString & s, splits )

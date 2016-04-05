@@ -124,7 +124,7 @@ public:
 };
 
 AsemanApplication::AsemanApplication() :
-    QObject()
+    AsemanQuickObject()
 {
     p = new AsemanApplicationPrivate;
     p->app = QCoreApplication::instance();
@@ -166,7 +166,7 @@ AsemanApplication::AsemanApplication() :
 }
 
 AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType appType) :
-    QObject()
+    AsemanQuickObject()
 {
     if(!aseman_app_singleton)
         aseman_app_singleton = this;
@@ -210,6 +210,20 @@ void AsemanApplication::init()
 {
     switch(p->appType)
     {
+#ifdef QT_WIDGETS_LIB
+    case WidgetApplication:
+#ifdef DESKTOP_DEVICE
+        connect(p->app, SIGNAL(messageReceived(QString)), SIGNAL(messageReceived(QString)));
+#endif
+        connect(p->app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), SIGNAL(applicationStateChanged()));
+        p->globalFont = static_cast<QApplication*>(p->app)->font();
+#endif
+#ifdef QT_GUI_LIB
+    case GuiApplication:
+        connect(p->app, SIGNAL(lastWindowClosed()), SIGNAL(lastWindowClosed()));
+        connect(p->app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), SIGNAL(applicationStateChanged()));
+        p->globalFont = static_cast<QGuiApplication*>(p->app)->font();
+#endif
 #ifdef QT_CORE_LIB
     case CoreApplication:
         connect(p->app, SIGNAL(organizationNameChanged())  , SIGNAL(organizationNameChanged()));
@@ -218,22 +232,7 @@ void AsemanApplication::init()
         connect(p->app, SIGNAL(applicationVersionChanged()), SIGNAL(applicationVersionChanged()));
         break;
 #endif
-#ifdef QT_GUI_LIB
-    case GuiApplication:
-        connect(p->app, SIGNAL(lastWindowClosed()), SIGNAL(lastWindowClosed()));
-        connect(p->app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), SIGNAL(applicationStateChanged()));
-        p->globalFont = static_cast<QGuiApplication*>(p->app)->font();
-        break;
-#endif
-#ifdef QT_WIDGETS_LIB
-    case WidgetApplication:
-#ifdef DESKTOP_DEVICE
-        connect(p->app, SIGNAL(messageReceived(QString)), SIGNAL(messageReceived(QString)));
-#endif
-        connect(p->app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), SIGNAL(applicationStateChanged()));
-        p->globalFont = static_cast<QApplication*>(p->app)->font();
-        break;
-#endif
+
     default:
         p->app = 0;
         break;

@@ -11,6 +11,7 @@ public:
     AsemanTextTools(QObject *parent = 0);
     ~AsemanTextTools();
 
+public slots:
     qreal htmlWidth(const QString &html);
 
 private:
