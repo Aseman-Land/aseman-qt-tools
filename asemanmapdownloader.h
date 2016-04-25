@@ -52,6 +52,13 @@ public:
     bool downloading() const;
 
 public slots:
+#ifdef QT_POSITIONING_LIB
+    void download(const QPointF &geo);
+    bool check(const QPointF &geo);
+    QString linkOf(const QPointF &geo);
+    QString webLinkOf(const QPointF &geo);
+    QString pathOf(const QPointF &geo);
+#endif
     void download(const GEO_CLASS_NAME &geo);
     bool check(const GEO_CLASS_NAME &geo);
     QString linkOf(const GEO_CLASS_NAME &geo);

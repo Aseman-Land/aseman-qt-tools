@@ -4,6 +4,7 @@
 #include <QMenu>
 #include <QAction>
 #include <QDebug>
+#include <QGuiApplication>
 
 class AsemanSystemTrayPrivate
 {
@@ -42,6 +43,7 @@ void AsemanSystemTray::setVisible(bool visible)
         return;
 
     p->visible = visible;
+    QGuiApplication::setQuitOnLastWindowClosed(!p->visible);
     refreshVisible();
     Q_EMIT visibleChanged();
 }

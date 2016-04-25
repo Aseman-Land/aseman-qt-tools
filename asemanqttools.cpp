@@ -44,7 +44,9 @@
 #include "asemanmixedlistmodel.h"
 #include "asemanquickviewwrapper.h"
 #include "asemanqmlsmartcomponent.h"
+#ifdef QT_WIDGETS_LIB
 #include "asemansystemtray.h"
+#endif
 #ifdef Q_OS_ANDROID
 #include "asemanjavalayer.h"
 #endif
@@ -103,7 +105,9 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterType<AsemanHashObject>(uri, 1,0, "HashObject");
     qmlRegisterType<AsemanListObject>(uri, 1,0, "ListObject");
     qmlRegisterType<AsemanDownloader>(uri, 1,0, "Downloader");
+#ifdef QT_WIDGETS_LIB
     qmlRegisterType<AsemanSystemTray>(uri, 1,0, "SystemTray");
+#endif
     qmlRegisterType<AsemanWindowDetails>(uri, 1,0, "WindowDetails");
     qmlRegisterType<AsemanQuickObject>(uri, 1,0, "AsemanObject");
     qmlRegisterType<AsemanImageColorAnalizor>(uri, 1,0, "ImageColorAnalizor");

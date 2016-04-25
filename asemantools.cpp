@@ -34,6 +34,7 @@
 #include <QProcess>
 #include <QTimerEvent>
 #include <QUuid>
+#include <QMimeDatabase>
 
 QString aseman_tools_numtranslate_0 = "0";
 QString aseman_tools_numtranslate_1 = "1";
@@ -108,6 +109,12 @@ QString AsemanTools::fileName(const QString &path)
 QString AsemanTools::fileSuffix(const QString &path)
 {
     return QFileInfo(path).suffix().toLower();
+}
+
+QString AsemanTools::fileMime(const QString &path)
+{
+    QMimeDatabase db;
+    return db.mimeTypeForFile(path).name();
 }
 
 QString AsemanTools::fileParent(const QString &path)

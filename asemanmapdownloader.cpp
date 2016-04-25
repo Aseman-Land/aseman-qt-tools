@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QDir>
 #include <QDebug>
+#include <QPointF>
 
 class AsemanMapDownloaderPrivate
 {
@@ -99,6 +100,34 @@ bool AsemanMapDownloader::downloading() const
 {
     return p->downloading;
 }
+
+#ifdef QT_POSITIONING_LIB
+void AsemanMapDownloader::download(const QPointF &geo)
+{
+    download(QGeoCoordinate(geo.x(), geo.y()));
+}
+
+bool AsemanMapDownloader::check(const QPointF &geo)
+{
+    return check(QGeoCoordinate(geo.x(), geo.y()));
+}
+
+QString AsemanMapDownloader::linkOf(const QPointF &geo)
+{
+    return linkOf(QGeoCoordinate(geo.x(), geo.y()));
+}
+
+QString AsemanMapDownloader::webLinkOf(const QPointF &geo)
+{
+    return webLinkOf(QGeoCoordinate(geo.x(), geo.y()));
+}
+
+QString AsemanMapDownloader::pathOf(const QPointF &geo)
+{
+    return pathOf(QGeoCoordinate(geo.x(), geo.y()));
+}
+
+#endif
 
 void AsemanMapDownloader::download(const GEO_CLASS_NAME &geo)
 {
