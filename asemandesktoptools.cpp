@@ -73,6 +73,9 @@ int AsemanDesktopTools::desktopSession()
     if( desktop_session->contains("kde",Qt::CaseInsensitive) )
         result = AsemanDesktopTools::Kde;
     else
+    if( desktop_session->contains("plasma",Qt::CaseInsensitive) )
+        result = AsemanDesktopTools::Plasma;
+    else
     if( desktop_session->contains("ubuntu",Qt::CaseInsensitive) )
         result = AsemanDesktopTools::Unity;
     else

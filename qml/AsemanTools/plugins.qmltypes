@@ -464,8 +464,9 @@ Module {
                 "GnomeFallBack": 2,
                 "Unity": 3,
                 "Kde": 4,
-                "Windows": 5,
-                "Mac": 6
+                "Plasma": 5,
+                "Windows": 6,
+                "Mac": 7
             }
         }
         Enum {
@@ -1479,6 +1480,7 @@ Module {
         Property { name: "root"; type: "QObject"; isPointer: true }
         Property { name: "focusedText"; type: "QQuickItem"; isPointer: true }
         Property { name: "layoutDirection"; type: "int" }
+        Property { name: "offlineStoragePath"; type: "string" }
         Property { name: "flickVelocity"; type: "double"; isReadonly: true }
         Property { name: "window"; type: "QWindow"; isReadonly: true; isPointer: true }
         Signal { name: "fakeSignal" }
@@ -2107,3 +2109,4 @@ Module {
         }
     }
 }
+

@@ -13,7 +13,9 @@ class AsemanMixedListModel : public AsemanAbstractListModel
 
 public:
     enum DataRoles {
-        RolesModelObject = Qt::UserRole + 1000000
+        RolesModelObject = Qt::UserRole + 1000000,
+        RolesModelIndex,
+        RolesModelName
     };
 
     AsemanMixedListModel(QObject *parent = 0);

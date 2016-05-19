@@ -18,6 +18,7 @@
 
 #include "asemantools.h"
 #include "asemandevices.h"
+#include "asemanqttools.h"
 
 #include <QMetaMethod>
 #include <QMetaObject>
@@ -76,6 +77,11 @@ AsemanTools::AsemanTools(QObject *parent) :
 void AsemanTools::debug(const QVariant &var)
 {
     qDebug() << var;
+}
+
+void AsemanTools::exportDocuments(const QString &destination)
+{
+    AsemanQtTools::exportDocuments(destination);
 }
 
 QDateTime AsemanTools::currentDate()

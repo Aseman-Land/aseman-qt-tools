@@ -19,6 +19,7 @@ class AsemanQuickViewWrapper : public QObject
     Q_PROPERTY(QQuickItem* focusedText READ focusedText WRITE setFocusedText NOTIFY focusedTextChanged)
 
     Q_PROPERTY(int layoutDirection READ layoutDirection WRITE setLayoutDirection NOTIFY layoutDirectionChanged)
+    Q_PROPERTY(QString offlineStoragePath READ offlineStoragePath WRITE setOfflineStoragePath NOTIFY offlineStoragePathChanged)
 
     Q_PROPERTY(qreal flickVelocity READ flickVelocity NOTIFY fakeSignal)
     Q_PROPERTY(QWindow* window READ window NOTIFY fakeSignal)
@@ -53,6 +54,9 @@ public:
     QWindow *window() const;
     Q_INVOKABLE QSize screenSize() const;
 
+    void setOfflineStoragePath(const QString &path);
+    QString offlineStoragePath() const;
+
 public slots:
     void discardFocusedText();
     void tryClose();
@@ -71,6 +75,7 @@ signals:
     void reverseScrollChanged();
     void fakeSignal();
     void closeRequest();
+    void offlineStoragePathChanged();
 
 private slots:
     void viewDestroyed();

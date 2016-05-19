@@ -91,105 +91,108 @@ SINGLETON_PROVIDER(AsemanQtLogger         , aseman_logger_singleton      , Asema
 SINGLETON_PROVIDER(AsemanJavaLayer        , aseman_javalayer_singleton   , AsemanQtTools::javaLayer())
 #endif
 
-void AsemanQtTools::registerTypes(const char *uri)
+QStringList aseman_qt_tools_indexCache;
+QString aseman_qt_tools_destination;
+
+void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
 {
     static QSet<QByteArray> register_list;
-    if(register_list.contains(uri))
+    if(register_list.contains(uri) && !exportMode)
         return;
-
-    qmlRegisterUncreatableType<QScreen>(uri, 1, 0, "Screen", "");
     qRegisterMetaType<AsemanMimeData*>("AsemanMimeData*");
 
-    qmlRegisterType<AsemanMimeData>(uri, 1, 0, "MimeData");
-    qmlRegisterType<AsemanDragObject>(uri, 1, 0, "DragObject");
-    qmlRegisterType<AsemanHashObject>(uri, 1,0, "HashObject");
-    qmlRegisterType<AsemanListObject>(uri, 1,0, "ListObject");
-    qmlRegisterType<AsemanDownloader>(uri, 1,0, "Downloader");
+    registerType<AsemanMimeData>(uri, 1, 0, "MimeData", exportMode);
+    registerType<AsemanDragObject>(uri, 1, 0, "DragObject", exportMode);
+    registerType<AsemanHashObject>(uri, 1,0, "HashObject", exportMode);
+    registerType<AsemanListObject>(uri, 1,0, "ListObject", exportMode);
+    registerType<AsemanDownloader>(uri, 1,0, "Downloader", exportMode);
 #ifdef QT_WIDGETS_LIB
-    qmlRegisterType<AsemanSystemTray>(uri, 1,0, "SystemTray");
+    registerType<AsemanSystemTray>(uri, 1,0, "SystemTray", exportMode);
 #endif
-    qmlRegisterType<AsemanWindowDetails>(uri, 1,0, "WindowDetails");
-    qmlRegisterType<AsemanQuickObject>(uri, 1,0, "AsemanObject");
-    qmlRegisterType<AsemanImageColorAnalizor>(uri, 1,0, "ImageColorAnalizor");
-    qmlRegisterType<AsemanCountriesModel>(uri, 1,0, "CountriesModel");
-    qmlRegisterType<AsemanNotification>(uri, 1,0, "Notification");
-    qmlRegisterType<AsemanFileSystemModel>(uri, 1,0, "FileSystemModel");
-    qmlRegisterType<AsemanAutoStartManager>(uri, 1,0, "AutoStartManager");
-    qmlRegisterType<AsemanSettings>(uri, 1,0, "Settings");
-    qmlRegisterType<AsemanStoreManager>(uri, 1,0, "StoreManager");
-    qmlRegisterType<AsemanStoreManagerModel>(uri, 1,0, "StoreManagerModel");
-    qmlRegisterType<AsemanQuickItemImageGrabber>(uri, 1,0, "ItemImageGrabber");
-    qmlRegisterType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem");
-    qmlRegisterType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue");
-    qmlRegisterType<AsemanFontHandler>(uri, 1,0, "FontHandler");
-    qmlRegisterType<AsemanApplicationItem>(uri, 1,0, "AsemanApplication");
-    qmlRegisterType<AsemanQmlSmartComponent>(uri, 1,0, "SmartComponentCore");
+    registerType<AsemanWindowDetails>(uri, 1,0, "WindowDetails", exportMode);
+    registerType<AsemanQuickObject>(uri, 1,0, "AsemanObject", exportMode);
+    registerType<AsemanImageColorAnalizor>(uri, 1,0, "ImageColorAnalizor", exportMode);
+    registerType<AsemanNotification>(uri, 1,0, "Notification", exportMode);
+    registerType<AsemanAutoStartManager>(uri, 1,0, "AutoStartManager", exportMode);
+    registerType<AsemanSettings>(uri, 1,0, "Settings", exportMode);
+    registerType<AsemanStoreManager>(uri, 1,0, "StoreManager", exportMode);
+    registerType<AsemanQuickItemImageGrabber>(uri, 1,0, "ItemImageGrabber", exportMode);
+    registerType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem", exportMode);
+    registerType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue", exportMode);
+    registerType<AsemanFontHandler>(uri, 1,0, "FontHandler", exportMode);
+    registerType<AsemanApplicationItem>(uri, 1,0, "AsemanApplication", exportMode);
+    registerType<AsemanQmlSmartComponent>(uri, 1,0, "SmartComponentCore", exportMode);
 #ifdef DESKTOP_LINUX
-    qmlRegisterType<AsemanMimeApps>(uri, 1,0, "MimeApps");
+    registerType<AsemanMimeApps>(uri, 1,0, "MimeApps", exportMode);
 #endif
-    qmlRegisterType<AsemanWebPageGrabber>(uri, 1,0, "WebPageGrabber");
-    qmlRegisterType<AsemanHostChecker>(uri, 1,0, "HostChecker");
-    qmlRegisterType<AsemanNetworkManager>(uri, 1,0, "NetworkManager");
-    qmlRegisterType<AsemanNetworkSleepManager>(uri, 1,0, "NetworkSleepManager");
-    qmlRegisterType<AsemanTitleBarColorGrabber>(uri, 1,0, "TitleBarColorGrabber");
-    qmlRegisterType<AsemanTaskbarButton>(uri, 1,0, "TaskbarButton");
-    qmlRegisterType<AsemanMapDownloader>(uri, 1,0, "MapDownloader");
-    qmlRegisterType<AsemanDragArea>(uri, 1,0, "MouseDragArea");
-    qmlRegisterType<AsemanCalendarModel>(uri, 1,0, "CalendarModel");
-    qmlRegisterType<AsemanMixedListModel>(uri, 1,0, "MixedListModel");
+    registerType<AsemanWebPageGrabber>(uri, 1,0, "WebPageGrabber", exportMode);
+    registerType<AsemanHostChecker>(uri, 1,0, "HostChecker", exportMode);
+    registerType<AsemanNetworkManager>(uri, 1,0, "NetworkManager", exportMode);
+    registerType<AsemanNetworkSleepManager>(uri, 1,0, "NetworkSleepManager", exportMode);
+    registerType<AsemanTitleBarColorGrabber>(uri, 1,0, "TitleBarColorGrabber", exportMode);
+    registerType<AsemanTaskbarButton>(uri, 1,0, "TaskbarButton", exportMode);
+    registerType<AsemanMapDownloader>(uri, 1,0, "MapDownloader", exportMode);
+    registerType<AsemanDragArea>(uri, 1,0, "MouseDragArea", exportMode);
+    registerType<AsemanCalendarModel>(uri, 1,0, "CalendarModel", exportMode);
 #if defined(Q_OS_LINUX) && defined(QT_DBUS_LIB)
-    qmlRegisterType<AsemanKdeWallet>(uri, 1,0, "KdeWallet");
+    registerType<AsemanKdeWallet>(uri, 1,0, "KdeWallet", exportMode);
 #endif
 
 #ifdef ASEMAN_SENSORS
-    qmlRegisterType<AsemanSensors>(uri, 1,0, "AsemanSensors");
+    registerType<AsemanSensors>(uri, 1,0, "AsemanSensors", exportMode);
 #endif
 #ifdef ASEMAN_MULTIMEDIA
-    qmlRegisterType<AsemanAudioRecorder>(uri, 1,0, "AudioRecorder");
-    qmlRegisterType<AsemanAudioEncoderSettings>(uri, 1,0, "AudioEncoderSettings");
+    registerType<AsemanAudioRecorder>(uri, 1,0, "AudioRecorder", exportMode);
+    registerType<AsemanAudioEncoderSettings>(uri, 1,0, "AudioEncoderSettings", exportMode);
 #endif
 
-    qmlRegisterUncreatableType<AsemanDesktopTools>(uri, 1,0, "AsemanDesktopTools", "It's a singleton class");
-    qmlRegisterUncreatableType<AsemanNetworkManagerItem>(uri, 1,0, "NetworkManagerItem", "It must create using NetworkManager component.");
+    registerModel<AsemanMixedListModel>(uri, 1,0, "MixedListModel", exportMode);
+    registerModel<AsemanCountriesModel>(uri, 1,0, "CountriesModel", exportMode);
+    registerModel<AsemanFileSystemModel>(uri, 1,0, "FileSystemModel", exportMode);
+    registerModel<AsemanStoreManagerModel>(uri, 1,0, "StoreManagerModel", exportMode);
 
-    qmlRegisterSingletonType<AsemanDevices>(uri, 1, 0, "Devices", aseman_devices_singleton);
-    qmlRegisterSingletonType<AsemanTextTools>(uri, 1, 0, "TextTools", aseman_text_tools_singleton);
-    qmlRegisterSingletonType<AsemanTools>(uri, 1, 0, "Tools", aseman_tools_singleton);
-    qmlRegisterSingletonType<AsemanDesktopTools>(uri, 1, 0, "Desktop", aseman_desktoptools_singleton);
-    qmlRegisterSingletonType<AsemanCalendarConverter>(uri, 1, 0, "CalendarConv", aseman_calendarconv_singleton);
-    qmlRegisterSingletonType<AsemanBackHandler>(uri, 1, 0, "BackHandler", aseman_backhandler_singleton);
-    qmlRegisterSingletonType<AsemanApplication>(uri, 1, 0, "AsemanApp", aseman_app_singleton);
-    qmlRegisterSingletonType<AsemanQtLogger>(uri, 1, 0, "Logger", aseman_logger_singleton);
-    qmlRegisterSingletonType<AsemanQuickViewWrapper>(uri, 1, 0, "View", aseman_qview_singleton);
+    registerSingletonType<AsemanDevices>(uri, 1, 0, "Devices", aseman_devices_singleton, exportMode);
+    registerSingletonType<AsemanTextTools>(uri, 1, 0, "TextTools", aseman_text_tools_singleton, exportMode);
+    registerSingletonType<AsemanTools>(uri, 1, 0, "Tools", aseman_tools_singleton, exportMode);
+    registerSingletonType<AsemanDesktopTools>(uri, 1, 0, "Desktop", aseman_desktoptools_singleton, exportMode);
+    registerSingletonType<AsemanCalendarConverter>(uri, 1, 0, "CalendarConv", aseman_calendarconv_singleton, exportMode);
+    registerSingletonType<AsemanBackHandler>(uri, 1, 0, "BackHandler", aseman_backhandler_singleton, exportMode);
+    registerSingletonType<AsemanApplication>(uri, 1, 0, "AsemanApp", aseman_app_singleton, exportMode);
+    registerSingletonType<AsemanQtLogger>(uri, 1, 0, "Logger", aseman_logger_singleton, exportMode);
+    registerSingletonType<AsemanQuickViewWrapper>(uri, 1, 0, "View", aseman_qview_singleton, exportMode);
 #ifdef Q_OS_ANDROID
-    qmlRegisterSingletonType<AsemanJavaLayer>(uri, 1, 0, "JavaLayer", aseman_javalayer_singleton);
+    registerSingletonType<AsemanJavaLayer>(uri, 1, 0, "JavaLayer", aseman_javalayer_singleton, exportMode);
 #endif
+
+    registerUncreatableType<QScreen>(uri, 1, 0, "Screen", "", exportMode);
+    registerUncreatableType<AsemanDesktopTools>(uri, 1,0, "AsemanDesktopTools", "It's a singleton class", exportMode);
+    registerUncreatableType<AsemanNetworkManagerItem>(uri, 1,0, "NetworkManagerItem", "It must create using NetworkManager component.", exportMode);
 
     register_list.insert(uri);
 }
 
-void AsemanQtTools::registerSecureTypes(const char *uri)
+void AsemanQtTools::registerSecureTypes(const char *uri, bool exportMode)
 {
     static QSet<QByteArray> register_list;
     if(register_list.contains(uri))
         return;
 
-    qmlRegisterUncreatableType<QScreen>(uri, 1, 0, "Screen", "");
-    qmlRegisterUncreatableType<QWindow>(uri, 1, 0, "Window", "");
+    registerUncreatableType<QScreen>(uri, 1, 0, "Screen", "", exportMode);
+    registerUncreatableType<QWindow>(uri, 1, 0, "Window", "", exportMode);
 
-    qmlRegisterType<AsemanQuickObject>(uri, 1,0, "AsemanObject");
-    qmlRegisterType<AsemanImageColorAnalizor>(uri, 1,0, "ImageColorAnalizor");
-    qmlRegisterType<AsemanTitleBarColorGrabber>(uri, 1,0, "TitleBarColorGrabber");
-    qmlRegisterType<AsemanStoreManager>(uri, 1,0, "StoreManager");
-    qmlRegisterType<AsemanStoreManagerModel>(uri, 1,0, "StoreManagerModel");
-    qmlRegisterType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem");
-    qmlRegisterType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue");
-    qmlRegisterType<AsemanWindowDetails>(uri, 1,0, "WindowDetails");
+    registerType<AsemanQuickObject>(uri, 1,0, "AsemanObject", exportMode);
+    registerType<AsemanImageColorAnalizor>(uri, 1,0, "ImageColorAnalizor", exportMode);
+    registerType<AsemanTitleBarColorGrabber>(uri, 1,0, "TitleBarColorGrabber", exportMode);
+    registerType<AsemanStoreManager>(uri, 1,0, "StoreManager", exportMode);
+    registerType<AsemanStoreManagerModel>(uri, 1,0, "StoreManagerModel", exportMode);
+    registerType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem", exportMode);
+    registerType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue", exportMode);
+    registerType<AsemanWindowDetails>(uri, 1,0, "WindowDetails", exportMode);
 
-    qmlRegisterSingletonType<AsemanDevices>(uri, 1, 0, "Devices", aseman_devices_singleton);
-    qmlRegisterSingletonType<AsemanDesktopTools>(uri, 1, 0, "Desktop", aseman_desktoptools_singleton);
-    qmlRegisterSingletonType<AsemanBackHandler>(uri, 1, 0, "BackHandler", aseman_backhandler_singleton);
-    qmlRegisterSingletonType<AsemanApplication>(uri, 1, 0, "AsemanApp", aseman_app_singleton);
+    registerSingletonType<AsemanDevices>(uri, 1, 0, "Devices", aseman_devices_singleton, exportMode);
+    registerSingletonType<AsemanDesktopTools>(uri, 1, 0, "Desktop", aseman_desktoptools_singleton, exportMode);
+    registerSingletonType<AsemanBackHandler>(uri, 1, 0, "BackHandler", aseman_backhandler_singleton, exportMode);
+    registerSingletonType<AsemanApplication>(uri, 1, 0, "AsemanApp", aseman_app_singleton, exportMode);
 
     register_list.insert(uri);
 }
@@ -310,4 +313,312 @@ AsemanBackHandler *AsemanQtTools::backHandler(QQmlEngine *engine)
     res = new AsemanBackHandler();
     views[engine] = res;
     return res;
+}
+
+template<typename T>
+int AsemanQtTools::registerType(const char *uri, int versionMajor, int versionMinor, const char *typeName, bool exportMode)
+{
+    if(exportMode)
+        exportItem<T>(uri, versionMajor, versionMinor, typeName);
+    else
+        return qmlRegisterType<T>(uri, versionMajor, versionMinor, typeName);
+    return 0;
+}
+
+template<typename T>
+int AsemanQtTools::registerModel(const char *uri, int versionMajor, int versionMinor, const char *typeName, bool exportMode)
+{
+    if(exportMode)
+        exportModel<T>(uri, versionMajor, versionMinor, typeName);
+    else
+        return qmlRegisterType<T>(uri, versionMajor, versionMinor, typeName);
+    return 0;
+}
+
+template<typename T>
+int AsemanQtTools::registerSingletonType(const char *uri, int versionMajor, int versionMinor, const char *typeName, QObject *(*callback)(QQmlEngine *, QJSEngine *), bool exportMode)
+{
+    if(exportMode)
+        exportItem<T>(uri, versionMajor, versionMinor, typeName);
+    else
+        return qmlRegisterSingletonType<T>(uri, versionMajor, versionMinor, typeName, callback);
+    return 0;
+}
+
+template<typename T>
+int AsemanQtTools::registerUncreatableType(const char *uri, int versionMajor, int versionMinor, const char *qmlName, const QString &reason, bool exportMode)
+{
+    if(exportMode)
+        exportItem<T>(uri, versionMajor, versionMinor, qmlName);
+    else
+        return qmlRegisterUncreatableType<T>(uri, versionMajor, versionMinor, qmlName, reason);
+    return 0;
+}
+
+
+void AsemanQtTools::exportDocuments(const QString &destination)
+{
+    aseman_qt_tools_destination = destination;
+
+    QDir().mkpath(aseman_qt_tools_destination);
+    aseman_qt_tools_indexCache.clear();
+
+    AsemanQtTools::registerTypes("AsemanTools", true);
+
+    QString index = QString("# AsemanTools Documents\n\n");
+    index += "### How to import:\n\n";
+    index += "```c++\nimport AsemanTools 1.0\n```\n\nor\n\n"
+             "```c++\nimport AsemanTools 1.0 as Aseman\n```\n\n";
+    index += "### Types\n\nHere are all components of the AsemanTools:\n\n";
+    Q_FOREACH(const QString cmpnt, aseman_qt_tools_indexCache)
+    {
+        if(cmpnt == "MimeData")
+            index += "\n##### Normal types\n\n";
+        if(cmpnt == "MixedListModel")
+            index += "\n##### Models\n\n";
+        if(cmpnt == "Devices")
+            index += "\n##### Singletons\n\n";
+        if(cmpnt == "Screen")
+            index += "\n##### Uncreatable types\n\n";
+        index += QString(" * [%1](%2.md)\n").arg(cmpnt).arg(cmpnt.toLower());
+    }
+
+    QString path = aseman_qt_tools_destination + "/index.md";
+    aseman_qt_tools_destination.clear();
+    QFile file(path);
+    if(!file.open(QFile::WriteOnly))
+        return;
+
+    file.write(index.toUtf8());
+    file.close();
+}
+
+QString AsemanQtTools::fixType(const QString &type)
+{
+    if(type == "QSizeF" || type == "QSize")
+        return "size";
+    if(type == "QPoint" || type == "QPointF")
+        return "point";
+    if(type == "QUrl")
+        return "url";
+    if(type == "QString")
+        return "string";
+    if(type == "QByteArray")
+        return "byte";
+    if(type == "bool")
+        return "boolean";
+    if(type == "double" || type == "qreal")
+        return "real";
+    if(type == "QVariant")
+        return "variant";
+    if(type == "QJSValue")
+        return "function(){[code]}";
+    if(type == "QVariantMap")
+        return "map";
+    if(type == "QVariantList")
+        return "list&lt;variant&gt;";
+    if(type == "QStringList")
+        return "list&lt;string&gt;";
+    if(type == "QList<qint32>")
+        return "list&lt;int&gt;";
+    if(type.contains("*"))
+    {
+        if(type == "QObject*")
+            return "object";
+        if(type.contains("Telegram"))
+        {
+            QString name = QString(type).remove("*").remove("Telegram");
+            return QString("[%1](%2.md)").arg(name).arg(name.toLower());
+        }
+        if(type.contains("Object"))
+        {
+            QString name = QString(type).remove("*").remove("Object");
+            return QString("[%1](https://github.com/Aseman-Land/libqtelegram-aseman-edition/blob/API51/telegram/documents/types/%2.md)")
+                    .arg(name).arg(name.toLower());
+        }
+        if(type == "QQmlComponent*")
+            return "Component";
+        if(type == "QQuickItem")
+            return "Item";
+    }
+    if(type.contains("Telegram"))
+    {
+        QString name = QString(type).remove("Telegram");
+        return QString("[%1](%2.md)").arg(name).arg(name.toLower());
+    }
+    if(type == "QQuickItem")
+        return "Item";
+    if(type == "QObject")
+        return "object";
+    if(type.contains("Object"))
+    {
+        QString name = QString(type).remove("Object");
+        return QString("[%1](https://github.com/Aseman-Land/libqtelegram-aseman-edition/blob/API51/telegram/documents/types/%2.md)")
+                .arg(name).arg(name.toLower());
+    }
+    return type;
+}
+
+template<typename T>
+QString AsemanQtTools::exportItem(const QString &module, int major, int minor, const QString &component, bool store)
+{
+    QString result;
+    aseman_qt_tools_indexCache << component;
+
+    QMetaObject meta = T::staticMetaObject;
+    QString inherits = fixType(meta.superClass()? meta.superClass()->className() : "");
+    bool isModel = component.toLower().contains("model");
+
+    result += QString("# %1\n\n").arg(component);
+
+    QString headers;
+    headers += QString(" * [Component details](#component-details)\n");
+
+    QString details = QString("\n### Component details:\n\n");
+    details += QString("|Detail|Value|\n"
+                       "|------|-----|\n");
+    details += QString("|%1|%2 %3.%4|\n").arg("Import").arg(module).arg(major).arg(minor);
+    details += QString("|%1|<font color='#074885'>%2</font>|\n").arg("Component").arg(component);
+    details += QString("|%1|<font color='#074885'>%2</font>|\n").arg("C++ class").arg(meta.className());
+    details += QString("|%1|<font color='#074885'>%2</font>|\n").arg("Inherits").arg(inherits);
+    details += QString("|%1|<font color='#074885'>%2</font>|\n").arg("Model").arg(isModel?"Yes":"No");
+
+    QString resultProperties;
+    QStringList propertiesSignals;
+    for(int i=0; i<meta.propertyCount(); i++)
+    {
+        QMetaProperty property = meta.property(i);
+        const QString &propertyName = property.name();
+        const QString &propertyType = fixType(property.typeName());
+        propertiesSignals << property.notifySignal().name();
+
+        QString text = QString("* <font color='#074885'><b>%1</b></font>: %2").arg(propertyName).arg(propertyType);
+        if(!property.isWritable())
+            text += " (readOnly)";
+
+        text += "\n";
+        if(meta.propertyOffset()<=i)
+            resultProperties += text;
+    }
+
+    QString enumResults;
+    for(int i=meta.enumeratorOffset(); i<meta.enumeratorCount(); i++)
+    {
+        QMetaEnum enumerator = meta.enumerator(i);
+        const QString &enumName = enumerator.name();
+
+        enumResults += QString("\n##### %1\n\n").arg(enumName);
+        enumResults += QString("|Key|Value|\n"
+                               "|---|-----|\n");
+
+        for(int j=0; j<enumerator.keyCount(); j++)
+            enumResults += QString("|%1|%2|\n").arg(enumerator.key(j)).arg(enumerator.value(j));
+    }
+
+    QString resultSlots;
+    QString resultSignals;
+    for(int i=meta.methodOffset(); i<meta.methodCount(); i++)
+    {
+        QMetaMethod method = meta.method(i);
+        const QString &methodName = method.name();
+        if(propertiesSignals.contains(methodName))
+            continue;
+
+        const QString &methodType = fixType(method.typeName());
+
+        QString args;
+        const QList<QByteArray> &paramNames = method.parameterNames();
+        const QList<QByteArray> &paramTypes = method.parameterTypes();
+        for(int j=0; j<paramNames.count(); j++)
+        {
+            if(j != 0)
+                args += ", ";
+
+            args += fixType(paramTypes[j]) + " " + paramNames[j];
+        }
+
+        QString text = QString(" * %1 <font color='#074885'><b>%2</b></font>(%3)\n").arg(methodType).arg(methodName).arg(args);
+        switch(static_cast<int>(method.methodType()))
+        {
+        case QMetaMethod::Slot:
+            resultSlots += text;
+            break;
+        case QMetaMethod::Signal:
+            resultSignals += text;
+            break;
+        }
+    }
+
+    if(!resultProperties.isEmpty())
+    {
+        headers += QString(" * [Normal Properties](#normal-properties)\n");
+        resultProperties = QString("\n### Normal Properties\n\n") + resultProperties;
+    }
+    if(!enumResults.isEmpty())
+    {
+        headers += QString(" * [Enumerator](#enumerator)\n");
+        enumResults = QString("\n### Enumerator\n\n") + enumResults;
+    }
+    if(!resultSlots.isEmpty())
+    {
+        headers += QString(" * [Methods](#methods)\n");
+        resultSlots = QString("\n### Methods\n\n") + resultSlots;
+    }
+    if(!resultSignals.isEmpty())
+    {
+        headers += QString(" * [Signals](#signals)\n");
+        resultSignals = QString("\n### Signals\n\n") + resultSignals;
+    }
+    if(isModel)
+        headers += QString(" * [Roles](#roles)\n");
+
+    result += headers + "\n";
+    result += details + "\n";
+    result += resultProperties + "\n";
+    result += resultSlots + "\n";
+    result += resultSignals + "\n";
+    result += enumResults + "\n";
+
+    if(!store)
+        return result;
+
+    QString path = aseman_qt_tools_destination + "/" + component.toLower() + ".md";
+    QFile file(path);
+    if(!file.open(QFile::WriteOnly))
+        return result;
+
+    file.write(result.toUtf8());
+    file.close();
+    return result;
+}
+
+template<typename T>
+QString AsemanQtTools::exportModel(const QString &module, int major, int minor, const QString &component)
+{
+    QString result = exportItem<T>(module, major, minor, component, false);
+    T *model = new T();
+
+    QHash<qint32,QByteArray> roleNames = model->roleNames();
+    QMap<qint32,QByteArray> rolesMap;
+    QHashIterator<qint32,QByteArray> i(roleNames);
+    while(i.hasNext())
+    {
+        i.next();
+        rolesMap[i.key()] = i.value();
+    }
+
+    result += "\n### Roles\n\n";
+    Q_FOREACH(const QByteArray &name, rolesMap)
+        result += QString(" * model.<font color='#074885'>%1</font>\n").arg(QString(name));
+
+    delete model;
+
+    QString path = aseman_qt_tools_destination + "/" + component.toLower() + ".md";
+    QFile file(path);
+    if(!file.open(QFile::WriteOnly))
+        return result;
+
+    file.write(result.toUtf8());
+    file.close();
+    return result;
 }

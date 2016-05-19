@@ -43,6 +43,7 @@ public:
 
 public slots:
     static void debug( const QVariant & var );
+    static void exportDocuments(const QString &destination);
 
     static QDateTime currentDate();
     static QString dateToMSec(const QDateTime &dt);

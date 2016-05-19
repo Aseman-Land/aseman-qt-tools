@@ -15,6 +15,7 @@ AsemanQuickViewWrapper::AsemanQuickViewWrapper(AsemanQuickView *view, QObject *p
     connect(mView, SIGNAL(fakeSignal()), SIGNAL(fakeSignal()));
     connect(mView, SIGNAL(closeRequest()), SIGNAL(closeRequest()));
     connect(mView, SIGNAL(destroyed(QObject*)), SLOT(viewDestroyed()));
+    connect(mView, SIGNAL(offlineStoragePathChanged()), SIGNAL(offlineStoragePathChanged()));
 }
 
 AsemanQuickViewWrapper::~AsemanQuickViewWrapper()
@@ -108,6 +109,16 @@ QWindow *AsemanQuickViewWrapper::window() const
 QSize AsemanQuickViewWrapper::screenSize() const
 {
     return mView->screenSize();
+}
+
+void AsemanQuickViewWrapper::setOfflineStoragePath(const QString &path)
+{
+    mView->setOfflineStoragePath(path);
+}
+
+QString AsemanQuickViewWrapper::offlineStoragePath() const
+{
+    return mView->offlineStoragePath();
 }
 
 void AsemanQuickViewWrapper::discardFocusedText()

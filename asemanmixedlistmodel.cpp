@@ -42,6 +42,12 @@ QVariant AsemanMixedListModel::data(const QModelIndex &index, int role) const
         if(role == RolesModelObject)
             return QVariant::fromValue<QObject*>(model);
         else
+        if(role == RolesModelIndex)
+            return p->models.indexOf(model);
+        else
+        if(role == RolesModelName)
+            return model? model->objectName() : "";
+        else
         if(role < Qt::UserRole)
             return model->data(newIndex, role);
         else
@@ -70,6 +76,8 @@ QHash<qint32, QByteArray> AsemanMixedListModel::roleNames() const
 {
     QHash<qint32, QByteArray> roles;
     roles[RolesModelObject] = "modelObject";
+    roles[RolesModelIndex] = "modelIndex";
+    roles[RolesModelName] = "modelName";
 
     foreach(QAbstractListModel *model, p->models)
         roles.unite( model->roleNames() );

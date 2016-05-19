@@ -54,7 +54,7 @@ STextEdit {
         id: pholder
         anchors.fill: core
         font: core.font
-        color: "#888888"
+        color: CutegramGlobals.baseColor
         visible: privates.last_text.length == 0
         verticalAlignment: Text.AlignVCenter
     }

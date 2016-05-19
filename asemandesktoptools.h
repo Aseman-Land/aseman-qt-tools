@@ -57,6 +57,7 @@ public:
         GnomeFallBack,
         Unity,
         Kde,
+        Plasma,
         Windows,
         Mac
     };

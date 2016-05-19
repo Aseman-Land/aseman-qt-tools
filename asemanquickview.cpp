@@ -293,6 +293,28 @@ QSize AsemanQuickView::screenSize() const
     return result;
 }
 
+void AsemanQuickView::setOfflineStoragePath(const QString &path)
+{
+    if(path == offlineStoragePath())
+        return;
+
+#ifdef ASEMAN_QML_PLUGIN
+    p->engine->setOfflineStoragePath(path);
+#else
+    engine()->setOfflineStoragePath(path);
+#endif
+    emit offlineStoragePathChanged();
+}
+
+QString AsemanQuickView::offlineStoragePath() const
+{
+#ifdef ASEMAN_QML_PLUGIN
+    return p->engine->offlineStoragePath();
+#else
+    return engine()->offlineStoragePath();
+#endif
+}
+
 void AsemanQuickView::discardFocusedText()
 {
     setFocusedText(0);
