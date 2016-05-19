@@ -27,7 +27,6 @@
 ### Methods
 
  * void <font color='#074885'><b>refresh</b></font>()
- * void <font color='#074885'><b>activeChanged</b></font>()
 
 
 

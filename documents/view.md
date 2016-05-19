@@ -39,7 +39,6 @@
  * void <font color='#074885'><b>setMask</b></font>(real x, real y, real width, real height)
  * void <font color='#074885'><b>move</b></font>(real x, real y)
  * void <font color='#074885'><b>resize</b></font>(real w, real h)
- * void <font color='#074885'><b>viewDestroyed</b></font>()
 
 
 ### Signals

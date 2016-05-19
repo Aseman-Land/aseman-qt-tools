@@ -2,7 +2,6 @@
 
  * [Component details](#component-details)
  * [Normal Properties](#normal-properties)
- * [Methods](#methods)
  * [Signals](#signals)
 
 
@@ -25,20 +24,6 @@
 * <font color='#074885'><b>networkManager</b></font>: boolean
 * <font color='#074885'><b>available</b></font>: boolean (readOnly)
 
-
-### Methods
-
- * void <font color='#074885'><b>defaultNetworkChanged</b></font>()
- * void <font color='#074885'><b>networkRecheckAll</b></font>()
- * void <font color='#074885'><b>networkBearerTypeChanged</b></font>()
- * void <font color='#074885'><b>networkBearerTypeFamilyChanged</b></font>()
- * void <font color='#074885'><b>networkIdentifierChanged</b></font>()
- * void <font color='#074885'><b>networkIsValidChanged</b></font>()
- * void <font color='#074885'><b>networkStateChanged</b></font>()
- * void <font color='#074885'><b>networkTypeChanged</b></font>()
- * void <font color='#074885'><b>startResetTimer</b></font>()
- * void <font color='#074885'><b>finishResetTimer</b></font>()
- * void <font color='#074885'><b>updateAvailablity</b></font>()
 
 
 ### Signals

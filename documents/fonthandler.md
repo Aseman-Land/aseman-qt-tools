@@ -24,9 +24,6 @@
 ### Methods
 
  * void <font color='#074885'><b>openFontChooser</b></font>()
- * void <font color='#074885'><b>init</b></font>()
- * void <font color='#074885'><b>currentIndexChanged</b></font>(string key)
- * void <font color='#074885'><b>currentFontChanged</b></font>(QFont font)
 
 
 

@@ -47,10 +47,6 @@
  * void <font color='#074885'><b>zero</b></font>()
  * void <font color='#074885'><b>setZero</b></font>(real xrad, real zrad)
  * void <font color='#074885'><b>refresh</b></font>()
- * void <font color='#074885'><b>acc_reading</b></font>()
- * void <font color='#074885'><b>grv_reading</b></font>()
- * void <font color='#074885'><b>rtt_reading</b></font>()
- * void <font color='#074885'><b>gyr_reading</b></font>()
 
 
 ### Signals

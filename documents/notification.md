@@ -29,8 +29,6 @@
  * uint <font color='#074885'><b>sendNotify</b></font>(string title, string body, string icon, uint replace_id)
  * uint <font color='#074885'><b>sendNotify</b></font>(string title, string body, string icon)
  * void <font color='#074885'><b>closeNotification</b></font>(uint id)
- * void <font color='#074885'><b>notificationClosed</b></font>(QDBusMessage dmsg)
- * void <font color='#074885'><b>actionInvoked</b></font>(QDBusMessage dmsg)
 
 
 ### Signals

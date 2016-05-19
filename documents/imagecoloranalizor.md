@@ -3,7 +3,6 @@
  * [Component details](#component-details)
  * [Normal Properties](#normal-properties)
  * [Enumerator](#enumerator)
- * [Methods](#methods)
 
 
 ### Component details:
@@ -23,11 +22,6 @@
 * <font color='#074885'><b>color</b></font>: QColor (readOnly)
 * <font color='#074885'><b>method</b></font>: int
 
-
-### Methods
-
- * void <font color='#074885'><b>found</b></font>(int method, string path)
- * void <font color='#074885'><b>start</b></font>()
 
 
 

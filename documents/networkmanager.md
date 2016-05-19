@@ -2,7 +2,6 @@
 
  * [Component details](#component-details)
  * [Normal Properties](#normal-properties)
- * [Methods](#methods)
 
 
 ### Component details:
@@ -23,13 +22,6 @@
 * <font color='#074885'><b>defaultNetwork</b></font>: AsemanNetworkManagerItem* (readOnly)
 * <font color='#074885'><b>interval</b></font>: int
 
-
-### Methods
-
- * void <font color='#074885'><b>configureChanged</b></font>(QNetworkConfiguration config)
- * void <font color='#074885'><b>configureAdded</b></font>(QNetworkConfiguration config)
- * void <font color='#074885'><b>configureRemoved</b></font>(QNetworkConfiguration config)
- * void <font color='#074885'><b>updateCheck</b></font>()
 
 
 

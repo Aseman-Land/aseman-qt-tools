@@ -41,8 +41,6 @@
 
  * void <font color='#074885'><b>setConvertDate</b></font>(int yearIdx, int monthIdx, int dayIdx, int hourIdx, int minuteIdx)
  * string <font color='#074885'><b>monthName</b></font>(int month)
- * void <font color='#074885'><b>refreshLists</b></font>()
- * void <font color='#074885'><b>refreshLists_prv</b></font>()
 
 
 ### Signals

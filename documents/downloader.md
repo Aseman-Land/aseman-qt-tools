@@ -29,9 +29,6 @@
 ### Methods
 
  * void <font color='#074885'><b>start</b></font>()
- * void <font color='#074885'><b>downloadFinished</b></font>(QNetworkReply* reply)
- * void <font color='#074885'><b>sslErrors</b></font>(QList<QSslError> list)
- * void <font color='#074885'><b>downloadProgress</b></font>(qlonglong bytesReceived, qlonglong bytesTotal)
 
 
 ### Signals

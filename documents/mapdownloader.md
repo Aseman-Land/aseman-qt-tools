@@ -41,7 +41,6 @@
  * string <font color='#074885'><b>linkOf</b></font>(QGeoCoordinate geo)
  * string <font color='#074885'><b>webLinkOf</b></font>(QGeoCoordinate geo)
  * string <font color='#074885'><b>pathOf</b></font>(QGeoCoordinate geo)
- * void <font color='#074885'><b>finished</b></font>(byte data)
 
 
 ### Signals

@@ -26,7 +26,6 @@
 ### Methods
 
  * void <font color='#074885'><b>start</b></font>()
- * void <font color='#074885'><b>ready</b></font>()
 
 
 

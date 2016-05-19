@@ -32,11 +32,6 @@
  * void <font color='#074885'><b>start</b></font>()
  * url <font color='#074885'><b>check</b></font>(url source, QString* destPath)
  * url <font color='#074885'><b>check</b></font>(url source)
- * void <font color='#074885'><b>completed</b></font>(boolean stt)
- * void <font color='#074885'><b>completed</b></font>()
- * void <font color='#074885'><b>loadProgress</b></font>(int p)
- * void <font color='#074885'><b>createWebView</b></font>()
- * void <font color='#074885'><b>destroyWebView</b></font>()
 
 
 ### Signals

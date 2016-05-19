@@ -19,7 +19,6 @@
 ### Methods
 
  * void <font color='#074885'><b>debug</b></font>(variant var)
- * void <font color='#074885'><b>app_closed</b></font>()
 
 
 

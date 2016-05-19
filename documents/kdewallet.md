@@ -44,8 +44,6 @@
  * boolean <font color='#074885'><b>hasFolder</b></font>(string folder)
  * boolean <font color='#074885'><b>open</b></font>()
  * boolean <font color='#074885'><b>close</b></font>()
- * void <font color='#074885'><b>fetchWalletsList</b></font>()
- * void <font color='#074885'><b>fetchFolderList</b></font>()
 
 
 

@@ -26,8 +26,6 @@
 ### Methods
 
  * void <font color='#074885'><b>download</b></font>(string url, string fileName)
- * void <font color='#074885'><b>finished</b></font>(byte data)
- * void <font color='#074885'><b>recievedBytesChanged</b></font>()
 
 
 ### Signals

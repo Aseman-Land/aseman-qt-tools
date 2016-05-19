@@ -2,7 +2,6 @@
 
  * [Component details](#component-details)
  * [Normal Properties](#normal-properties)
- * [Methods](#methods)
  * [Roles](#roles)
 
 
@@ -22,12 +21,6 @@
 * <font color='#074885'><b>count</b></font>: int (readOnly)
 * <font color='#074885'><b>storeManager</b></font>: AsemanStoreManager*
 
-
-### Methods
-
- * void <font color='#074885'><b>itemDetailsChanged</b></font>()
- * void <font color='#074885'><b>inventoryStateChanged</b></font>(string sku)
- * void <font color='#074885'><b>changed</b></font>(list&lt;string&gt; list)
 
 
 

@@ -32,7 +32,6 @@
  * object <font color='#074885'><b>tryPopHandler</b></font>()
  * object <font color='#074885'><b>forcePopHandler</b></font>()
  * boolean <font color='#074885'><b>back</b></font>()
- * void <font color='#074885'><b>object_destroyed</b></font>(object obj)
 
 
 ### Signals

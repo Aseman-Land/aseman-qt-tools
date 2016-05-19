@@ -520,6 +520,9 @@ QString AsemanQtTools::exportItem(const QString &module, int major, int minor, c
     for(int i=meta.methodOffset(); i<meta.methodCount(); i++)
     {
         QMetaMethod method = meta.method(i);
+        if(method.access() != QMetaMethod::Public)
+            continue;
+
         const QString &methodName = method.name();
         if(propertiesSignals.contains(methodName))
             continue;

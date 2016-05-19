@@ -36,7 +36,6 @@
 ### Methods
 
  * void <font color='#074885'><b>refresh</b></font>()
- * void <font color='#074885'><b>reinit_buffer</b></font>()
 
 
 ### Signals

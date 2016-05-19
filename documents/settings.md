@@ -30,8 +30,6 @@
  * variant <font color='#074885'><b>value</b></font>(string key)
  * void <font color='#074885'><b>remove</b></font>(string key)
  * list&lt;string&gt; <font color='#074885'><b>keys</b></font>()
- * void <font color='#074885'><b>propertyChanged</b></font>()
- * void <font color='#074885'><b>initProperties</b></font>()
 
 
 ### Signals

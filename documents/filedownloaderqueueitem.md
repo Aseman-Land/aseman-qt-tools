@@ -2,7 +2,6 @@
 
  * [Component details](#component-details)
  * [Normal Properties](#normal-properties)
- * [Methods](#methods)
 
 
 ### Component details:
@@ -24,11 +23,6 @@
 * <font color='#074885'><b>downloaderQueue</b></font>: AsemanFileDownloaderQueue*
 * <font color='#074885'><b>result</b></font>: string (readOnly)
 
-
-### Methods
-
- * void <font color='#074885'><b>finished</b></font>(string url, string fileName)
- * void <font color='#074885'><b>progressChanged</b></font>(string url, string fileName, real percent)
 
 
 

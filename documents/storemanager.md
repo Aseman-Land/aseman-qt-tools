@@ -29,8 +29,6 @@
 ### Methods
 
  * boolean <font color='#074885'><b>setup</b></font>()
- * void <font color='#074885'><b>inventoryStateChanged_slt</b></font>(string sku, boolean state)
- * void <font color='#074885'><b>propertyChanged</b></font>()
 
 
 ### Signals

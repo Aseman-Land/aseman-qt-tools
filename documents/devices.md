@@ -74,12 +74,6 @@
  * void <font color='#074885'><b>setClipboardData</b></font>(AsemanMimeData* mime)
  * boolean <font color='#074885'><b>startCameraPicture</b></font>()
  * boolean <font color='#074885'><b>getOpenPictures</b></font>()
- * void <font color='#074885'><b>incoming_share</b></font>(string title, string msg)
- * void <font color='#074885'><b>incoming_image</b></font>(string path)
- * void <font color='#074885'><b>select_image_result</b></font>(string path)
- * void <font color='#074885'><b>activity_paused</b></font>()
- * void <font color='#074885'><b>activity_resumed</b></font>()
- * void <font color='#074885'><b>keyboard_changed</b></font>()
 
 
 ### Signals
