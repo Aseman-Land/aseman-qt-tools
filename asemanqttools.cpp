@@ -366,6 +366,7 @@ void AsemanQtTools::exportDocuments(const QString &destination)
     AsemanQtTools::registerTypes("AsemanTools", true);
 
     QString index = QString("# AsemanTools Documents\n\n");
+    index += "### [Getting Started](gettingstarted.md)\n\n";
     index += "### How to import:\n\n";
     index += "```c++\nimport AsemanTools 1.0\n```\n\nor\n\n"
              "```c++\nimport AsemanTools 1.0 as Aseman\n```\n\n";

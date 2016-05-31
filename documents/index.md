@@ -1,5 +1,7 @@
 # AsemanTools Documents
 
+### [Getting Started](gettingstarted.md)
+
 ### How to import:
 
 ```c++
