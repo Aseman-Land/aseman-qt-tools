@@ -384,7 +384,7 @@ void AsemanQtTools::exportDocuments(const QString &destination)
         index += QString(" * [%1](%2.md)\n").arg(cmpnt).arg(cmpnt.toLower());
     }
 
-    QString path = aseman_qt_tools_destination + "/index.md";
+    QString path = aseman_qt_tools_destination + "/start.md";
     aseman_qt_tools_destination.clear();
     QFile file(path);
     if(!file.open(QFile::WriteOnly))
