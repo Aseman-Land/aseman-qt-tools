@@ -72,4 +72,6 @@ Rectangle {
 }
 ```
 
+You can use AsemanMain component instead of this example.
+
 
