@@ -107,6 +107,7 @@ QColor AsemanDesktopTools::titleBarColor() const
         break;
 
     case AsemanDesktopTools::Kde:
+    case AsemanDesktopTools::Plasma:
         return QPalette().window().color();
         break;
 
@@ -173,6 +174,7 @@ QColor AsemanDesktopTools::titleBarTextColor() const
         break;
 
     case AsemanDesktopTools::Kde:
+    case AsemanDesktopTools::Plasma:
         return QPalette().windowText().color();
         break;
 
@@ -288,6 +290,7 @@ QString AsemanDesktopTools::getOpenFileName(QWindow *window, const QString & tit
     switch( dsession )
     {
     case AsemanDesktopTools::Kde:
+    case AsemanDesktopTools::Plasma:
         if( QFileInfo::exists("/usr/bin/kdialog") )
         {
             QStringList args = QStringList()<< "--title" << title << "--getopenfilename"
@@ -360,6 +363,7 @@ QString AsemanDesktopTools::getSaveFileName(QWindow *window, const QString &titl
     switch( dsession )
     {
     case AsemanDesktopTools::Kde:
+    case AsemanDesktopTools::Plasma:
         if( QFileInfo::exists("/usr/bin/kdialog") )
         {
             QStringList args = QStringList()<< "--title" << title << "--getsavefilename"
@@ -434,6 +438,7 @@ QString AsemanDesktopTools::getExistingDirectory(QWindow *window, const QString 
     switch( dsession )
     {
     case AsemanDesktopTools::Kde:
+    case AsemanDesktopTools::Plasma:
         if( QFileInfo::exists("/usr/bin/kdialog") )
         {
             QStringList args = QStringList()<< "--title" << title << "--getexistingdirectory"
