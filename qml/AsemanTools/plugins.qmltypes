@@ -799,6 +799,23 @@ Module {
         Method { name: "start"; type: "int" }
     }
     Component {
+        name: "AsemanEncrypter"
+        prototype: "QObject"
+        exports: ["AsemanTools/Encrypter 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "key"; type: "string" }
+        Method {
+            name: "encrypt"
+            type: "QByteArray"
+            Parameter { name: "data"; type: "QByteArray" }
+        }
+        Method {
+            name: "decrypt"
+            type: "QByteArray"
+            Parameter { name: "data"; type: "QByteArray" }
+        }
+    }
+    Component {
         name: "AsemanFileDownloaderQueue"
         prototype: "QObject"
         exports: ["AsemanTools/FileDownloaderQueue 1.0"]
@@ -1700,6 +1717,10 @@ Module {
             name: "debug"
             Parameter { name: "var"; type: "QVariant" }
         }
+        Method {
+            name: "exportDocuments"
+            Parameter { name: "destination"; type: "string" }
+        }
         Method { name: "currentDate"; type: "QDateTime" }
         Method {
             name: "dateToMSec"
@@ -2109,4 +2130,3 @@ Module {
         }
     }
 }
-

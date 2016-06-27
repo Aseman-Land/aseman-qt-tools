@@ -190,7 +190,8 @@ SOURCES += \
     $$PWD/asemanwindowdetails.cpp \
     $$PWD/asemansettings.cpp \
     $$PWD/asemantexttools.cpp \
-    $$PWD/asemanapplicationitem.cpp
+    $$PWD/asemanapplicationitem.cpp \
+    $$PWD/asemanencrypter.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -252,7 +253,8 @@ HEADERS += \
     $$PWD/asemanwindowdetails.h \
     $$PWD/asemansettings.h \
     $$PWD/asemantexttools.h \
-    $$PWD/asemanapplicationitem.h
+    $$PWD/asemanapplicationitem.h \
+    $$PWD/asemanencrypter.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \
