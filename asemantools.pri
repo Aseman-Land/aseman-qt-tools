@@ -1,8 +1,6 @@
 QT += qml quick
 CONFIG +=  c++11
 
-LIBS += -lqt5keychain
-
 android {
     manifest.source = android-build
     manifest.target = .
@@ -53,6 +51,11 @@ android {
 QML_IMPORT_PATH = \
     $$PWD/qml/
 
+!contains(DEFINES,DISABLE_KEYCHAIN) {
+    LIBS += -lqt5keychain
+    SOURCES += $$PWD/asemankeychain.cpp
+    HEADERS += $$PWD/asemankeychain.h
+}
 contains(QT,macextras) {
     SOURCES += $$PWD/private/asemanmactaskbarbuttonengine.cpp
     HEADERS += $$PWD/private/asemanmactaskbarbuttonengine.h
@@ -193,8 +196,7 @@ SOURCES += \
     $$PWD/asemansettings.cpp \
     $$PWD/asemantexttools.cpp \
     $$PWD/asemanapplicationitem.cpp \
-    $$PWD/asemanencrypter.cpp \
-    $$PWD/asemankeychain.cpp
+    $$PWD/asemanencrypter.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -257,8 +259,7 @@ HEADERS += \
     $$PWD/asemansettings.h \
     $$PWD/asemantexttools.h \
     $$PWD/asemanapplicationitem.h \
-    $$PWD/asemanencrypter.h \
-    $$PWD/asemankeychain.h
+    $$PWD/asemanencrypter.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

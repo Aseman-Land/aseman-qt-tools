@@ -7,7 +7,7 @@
 
 #### Required dependencies
 
-* [Qt5Keychain](https://github.com/frankosterfeld/qtkeychain.git) to add support of the wallet and keychains.
+* [Qt5Keychain](https://github.com/frankosterfeld/qtkeychain.git) to add support of the wallet and keychains. Disable it using `DEFINES+=DISABLE_KEYCHAIN` flag.
 
 ### QML Module
 

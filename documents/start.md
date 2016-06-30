@@ -26,6 +26,8 @@ Here are all components of the AsemanTools:
  * [HashObject](hashobject.md)
  * [ListObject](listobject.md)
  * [Downloader](downloader.md)
+ * [Encrypter](encrypter.md)
+ * [Keychain](keychain.md)
  * [SystemTray](systemtray.md)
  * [WindowDetails](windowdetails.md)
  * [AsemanObject](asemanobject.md)
