@@ -63,6 +63,7 @@
 #include "asemanaudiorecorder.h"
 #include "asemanaudioencodersettings.h"
 #include "asemanencrypter.h"
+#include "asemankeychain.h"
 #endif
 #if defined(Q_OS_LINUX) && defined(QT_DBUS_LIB)
 #include "asemankdewallet.h"
@@ -108,6 +109,7 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerType<AsemanListObject>(uri, 1,0, "ListObject", exportMode);
     registerType<AsemanDownloader>(uri, 1,0, "Downloader", exportMode);
     registerType<AsemanEncrypter>(uri, 1,0, "Encrypter", exportMode);
+    registerType<AsemanKeychain>(uri, 1,0, "Keychain", exportMode);
 #ifdef QT_WIDGETS_LIB
     registerType<AsemanSystemTray>(uri, 1,0, "SystemTray", exportMode);
 #endif

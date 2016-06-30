@@ -1,6 +1,8 @@
 QT += qml quick
 CONFIG +=  c++11
 
+LIBS += -lqt5keychain
+
 android {
     manifest.source = android-build
     manifest.target = .
@@ -191,7 +193,8 @@ SOURCES += \
     $$PWD/asemansettings.cpp \
     $$PWD/asemantexttools.cpp \
     $$PWD/asemanapplicationitem.cpp \
-    $$PWD/asemanencrypter.cpp
+    $$PWD/asemanencrypter.cpp \
+    $$PWD/asemankeychain.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -254,7 +257,8 @@ HEADERS += \
     $$PWD/asemansettings.h \
     $$PWD/asemantexttools.h \
     $$PWD/asemanapplicationitem.h \
-    $$PWD/asemanencrypter.h
+    $$PWD/asemanencrypter.h \
+    $$PWD/asemankeychain.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

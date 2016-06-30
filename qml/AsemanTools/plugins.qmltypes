@@ -1123,6 +1123,72 @@ Module {
         Method { name: "close"; type: "bool" }
     }
     Component {
+        name: "AsemanKeychain"
+        prototype: "QObject"
+        exports: ["AsemanTools/Keychain 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "service"; type: "string" }
+        Method {
+            name: "read"
+            type: "string"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "jsCallback"; type: "QJSValue" }
+        }
+        Method {
+            name: "read"
+            type: "string"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "readData"
+            type: "QByteArray"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "jsCallback"; type: "QJSValue" }
+        }
+        Method {
+            name: "readData"
+            type: "QByteArray"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "write"
+            type: "bool"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "data"; type: "string" }
+            Parameter { name: "jsCallback"; type: "QJSValue" }
+        }
+        Method {
+            name: "write"
+            type: "bool"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "data"; type: "string" }
+        }
+        Method {
+            name: "writeData"
+            type: "bool"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "data"; type: "QByteArray" }
+            Parameter { name: "jsCallback"; type: "QJSValue" }
+        }
+        Method {
+            name: "writeData"
+            type: "bool"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "data"; type: "QByteArray" }
+        }
+        Method {
+            name: "remove"
+            type: "bool"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "jsCallback"; type: "QJSValue" }
+        }
+        Method {
+            name: "remove"
+            type: "bool"
+            Parameter { name: "key"; type: "string" }
+        }
+    }
+    Component {
         name: "AsemanLinuxNativeNotification"
         prototype: "QObject"
         exports: ["AsemanTools/Notification 1.0"]

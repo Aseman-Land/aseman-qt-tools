@@ -3,11 +3,17 @@
 
 ## How to Build
 
+### Dependencies
+
+#### Required dependencies
+
+* [Qt5Keychain](https://github.com/frankosterfeld/qtkeychain.git) to add support of the wallet and keychains.
+
 ### QML Module
 
 To build AsemanQtTools as QML module, just simply run below commands:
 
-```
+```bash
 mkdir build && cd build
 qmake QT+=widgets QT+=multimedia QT+=dbus QT+=sensors QT+=positioning ../asemantools.pro
 make
