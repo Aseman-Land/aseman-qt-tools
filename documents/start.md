@@ -63,6 +63,7 @@ Here are all components of the AsemanTools:
  * [CountriesModel](countriesmodel.md)
  * [FileSystemModel](filesystemmodel.md)
  * [StoreManagerModel](storemanagermodel.md)
+ * [ContributorsModel](contributorsmodel.md)
 
 ##### Singletons
 

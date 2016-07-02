@@ -407,6 +407,23 @@ Module {
         }
     }
     Component {
+        name: "AsemanContributorsModel"
+        prototype: "AsemanAbstractListModel"
+        exports: ["AsemanTools/ContributorsModel 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "ItemRoles"
+            values: {
+                "TextRole": 256,
+                "LinkRole": 257,
+                "TypeRole": 258
+            }
+        }
+        Property { name: "count"; type: "int"; isReadonly: true }
+        Property { name: "files"; type: "QList<QUrl>" }
+        Method { name: "refresh" }
+    }
+    Component {
         name: "AsemanCountriesModel"
         prototype: "AsemanAbstractListModel"
         exports: ["AsemanTools/CountriesModel 1.0"]

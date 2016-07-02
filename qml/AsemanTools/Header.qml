@@ -95,7 +95,7 @@ Rectangle {
             visible: back_row.visible
             onClicked: {
                 header.beginBack()
-                AsemanApp.back()
+                BackHandler.back()
             }
         }
 

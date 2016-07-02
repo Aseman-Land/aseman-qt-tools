@@ -146,6 +146,12 @@ void AsemanSystemTray::setMenu(const QStringList &menu)
         for(int i=0; i<menu.count(); i++)
         {
             const QString &m = menu.at(i);
+            if(m.isEmpty())
+            {
+                p->menuItem->addSeparator();
+                continue;
+            }
+
             QAction *act = p->menuItem->addAction(m);
             connect(act, &QAction::triggered, this, [this, i](){
                 Q_EMIT menuTriggered(i);

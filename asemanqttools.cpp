@@ -44,6 +44,7 @@
 #include "asemanmixedlistmodel.h"
 #include "asemanquickviewwrapper.h"
 #include "asemanqmlsmartcomponent.h"
+#include "asemancontributorsmodel.h"
 #ifdef QT_WIDGETS_LIB
 #include "asemansystemtray.h"
 #endif
@@ -158,6 +159,7 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerModel<AsemanCountriesModel>(uri, 1,0, "CountriesModel", exportMode);
     registerModel<AsemanFileSystemModel>(uri, 1,0, "FileSystemModel", exportMode);
     registerModel<AsemanStoreManagerModel>(uri, 1,0, "StoreManagerModel", exportMode);
+    registerModel<AsemanContributorsModel>(uri, 1,0, "ContributorsModel", exportMode);
 
     registerSingletonType<AsemanDevices>(uri, 1, 0, "Devices", aseman_devices_singleton, exportMode);
     registerSingletonType<AsemanTextTools>(uri, 1, 0, "TextTools", aseman_text_tools_singleton, exportMode);
