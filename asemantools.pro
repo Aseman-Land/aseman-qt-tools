@@ -3,6 +3,7 @@ TARGET = AsemanToolsQml
 QT += qml quick widgets
 CONFIG += qt plugin
 DESTDIR = qml/AsemanTools/AsemanTools
+VERSION = 1.0.0
 
 TARGET = $$qtLibraryTarget($$TARGET)
 uri = AsemanTools
