@@ -1,4 +1,5 @@
 module AsemanTools
+plugin AsemanToolsQml
 classname AsemanToolsPlugin
 typeinfo plugins.qmltypes
 AnimationItem 1.0 AnimationItem.qml
