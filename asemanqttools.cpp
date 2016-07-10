@@ -42,9 +42,13 @@
 #include "asemanapplicationitem.h"
 #include "asemancalendarmodel.h"
 #include "asemanmixedlistmodel.h"
+#include "asemanencrypter.h"
 #include "asemanquickviewwrapper.h"
 #include "asemanqmlsmartcomponent.h"
 #include "asemancontributorsmodel.h"
+#ifndef DISABLE_KEYCHAIN
+#include "asemankeychain.h"
+#endif
 #ifdef QT_WIDGETS_LIB
 #include "asemansystemtray.h"
 #endif
@@ -63,10 +67,6 @@
 #ifdef ASEMAN_MULTIMEDIA
 #include "asemanaudiorecorder.h"
 #include "asemanaudioencodersettings.h"
-#include "asemanencrypter.h"
-#ifndef DISABLE_KEYCHAIN
-#include "asemankeychain.h"
-#endif
 #endif
 #if defined(Q_OS_LINUX) && defined(QT_DBUS_LIB)
 #include "asemankdewallet.h"

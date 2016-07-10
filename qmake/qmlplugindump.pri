@@ -19,7 +19,7 @@ win32 {
 }
 
 dmpPluginCommand = $(COPY_FILE) $$qmldirSrc $$qmkdirDst
-dmpPluginCommand = $$dmpPluginCommand && echo plugin $$TARGET >> $$qmkdirDst
+#dmpPluginCommand = $$dmpPluginCommand && echo plugin $$TARGET >> $$qmkdirDst
 dmpPluginCommand = $$dmpPluginCommand && $(COPY_FILE) $$qmkdirDst $$qmkdirDst2
 unix {
     #dmpPluginCommand = $$dmpPluginCommand && LD_LIBRARY_PATH=$$OUT_PWD/$$DESTDIR:$$PREFIX
