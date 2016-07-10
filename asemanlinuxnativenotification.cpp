@@ -139,6 +139,7 @@ void AsemanLinuxNativeNotification::actionInvoked(const QDBusMessage &dmsg)
 
 AsemanLinuxNativeNotification::~AsemanLinuxNativeNotification()
 {
+    delete p->connection;
     delete p;
 }
 

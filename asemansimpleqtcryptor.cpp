@@ -136,7 +136,7 @@ Key::~Key() {
     delete[] s32;
     delete[] s64;
 #endif
-    delete serpent;
+    delete[] serpent;
 }
 
 
@@ -249,7 +249,7 @@ void Key::expandKeySerpent() {
 #endif
     }
 
-    delete s;
+    delete[] s;
 }
 
 

@@ -243,7 +243,8 @@ void AsemanSystemTray::refreshVisible()
 
 AsemanSystemTray::~AsemanSystemTray()
 {
-    delete p->menuItem;
+    if(p->menuItem)
+        delete p->menuItem;
     delete p;
 }
 
