@@ -23,8 +23,12 @@ qmlFiles.target = .
 COPYFOLDERS += qmlFiles
 
 include(qmake/qmlplugindump.pri)
-include(qmake/copyData.pri)
-copyData()
+!win32-msvc* {
+        include (qmake/copyData.pri)
+        copyData ()
+    }
+#include(qmake/copyData.pri)
+#copyData()
 
 installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
 qmldir.files = $$OUT_PWD/qmldir $$OUT_PWD/$$DESTDIR/plugins.qmltypes

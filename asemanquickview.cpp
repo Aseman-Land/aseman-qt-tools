@@ -340,6 +340,7 @@ void AsemanQuickView::move(qreal x, qreal y)
 #ifndef ASEMAN_QML_PLUGIN
     QQuickView::setPosition(x, y);
 #endif
+    Q_UNUSED(x)
 }
 
 void AsemanQuickView::resize(qreal w, qreal h)
