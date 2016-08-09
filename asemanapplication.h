@@ -71,8 +71,10 @@ class AsemanApplication : public AsemanQuickObject
     Q_PROPERTY(QString organizationName READ organizationName WRITE setOrganizationName NOTIFY organizationNameChanged)
     Q_PROPERTY(QString organizationDomain READ organizationDomain WRITE setOrganizationDomain NOTIFY organizationDomainChanged)
     Q_PROPERTY(QString applicationAbout READ applicationAbout WRITE setApplicationAbout NOTIFY applicationAboutChanged)
+    Q_PROPERTY(QString applicationId READ applicationId WRITE setApplicationId NOTIFY applicationIdChanged)
 
     Q_PROPERTY(int applicationState READ applicationState NOTIFY applicationStateChanged)
+    Q_PROPERTY(bool isRunning READ isRunning NOTIFY isRunningChanged)
 
     Q_PROPERTY(QString applicationDisplayName READ applicationDisplayName WRITE setApplicationDisplayName NOTIFY fakeSignal)
     Q_PROPERTY(QString platformName READ platformName STORED false)
@@ -133,6 +135,8 @@ public:
     static QString applicationDisplayName();
     static void setApplicationAbout(const QString &desc);
     static QString applicationAbout();
+    static void setApplicationId(const QString &applicationId);
+    static QString applicationId();
 
     static QString platformName();
 
@@ -204,6 +208,9 @@ signals:
     void applicationVersionChanged();
     void applicationStateChanged();
     void applicationAboutChanged();
+    void applicationIdChanged();
+
+    void isRunningChanged();
 
     void lastWindowClosed();
     void messageReceived(const QString &msg);

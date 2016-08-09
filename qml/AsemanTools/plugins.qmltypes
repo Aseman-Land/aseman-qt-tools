@@ -72,7 +72,9 @@ Module {
         Property { name: "organizationName"; type: "string" }
         Property { name: "organizationDomain"; type: "string" }
         Property { name: "applicationAbout"; type: "string" }
+        Property { name: "applicationId"; type: "string" }
         Property { name: "applicationState"; type: "int"; isReadonly: true }
+        Property { name: "isRunning"; type: "bool"; isReadonly: true }
         Property { name: "applicationDisplayName"; type: "string" }
         Property { name: "platformName"; type: "string"; isReadonly: true }
         Property { name: "quitOnLastWindowClosed"; type: "bool" }
@@ -1938,6 +1940,12 @@ Module {
         }
         Method {
             name: "copyDirectory"
+            Parameter { name: "src"; type: "string" }
+            Parameter { name: "dst"; type: "string" }
+        }
+        Method {
+            name: "copy"
+            type: "bool"
             Parameter { name: "src"; type: "string" }
             Parameter { name: "dst"; type: "string" }
         }

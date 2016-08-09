@@ -37,7 +37,9 @@
 * <font color='#074885'><b>organizationName</b></font>: string
 * <font color='#074885'><b>organizationDomain</b></font>: string
 * <font color='#074885'><b>applicationAbout</b></font>: string
+* <font color='#074885'><b>applicationId</b></font>: string
 * <font color='#074885'><b>applicationState</b></font>: int (readOnly)
+* <font color='#074885'><b>isRunning</b></font>: boolean (readOnly)
 * <font color='#074885'><b>applicationDisplayName</b></font>: string
 * <font color='#074885'><b>platformName</b></font>: string (readOnly)
 * <font color='#074885'><b>quitOnLastWindowClosed</b></font>: boolean

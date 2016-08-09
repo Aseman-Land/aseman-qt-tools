@@ -18,6 +18,7 @@
 
 #include "asemanapplication.h"
 #include "asemantools.h"
+#include "qtsingleapplication/qtlocalpeer.h"
 
 #include <QDir>
 #include <QFont>
@@ -91,11 +92,11 @@
 #endif
 #ifdef QT_WIDGETS_LIB
 #include <QApplication>
-#include "qtsingleapplication/qtsingleapplication.h"
 #endif
 
 static QSettings *app_global_settings = 0;
 static AsemanApplication *aseman_app_singleton = 0;
+static QSet<AsemanApplication*> aseman_app_objects;
 static QString *aseman_app_home_path = 0;
 static QString *aseman_app_log_path = 0;
 
@@ -121,7 +122,10 @@ public:
     QCoreApplication *app;
     bool app_owner;
     QString appAbout;
+    static QtLocalPeer *peer;
 };
+
+QtLocalPeer *AsemanApplicationPrivate::peer = 0;
 
 AsemanApplication::AsemanApplication() :
     AsemanQuickObject()
@@ -133,7 +137,7 @@ AsemanApplication::AsemanApplication() :
 
 #ifdef QT_WIDGETS_LIB
 #ifdef DESKTOP_DEVICE
-    if( qobject_cast<QtSingleApplication*>(p->app) )
+    if( qobject_cast<QApplication*>(p->app) )
     {
         p->appType = WidgetApplication;
     }
@@ -158,6 +162,7 @@ AsemanApplication::AsemanApplication() :
         p->appType = CoreApplication;
 #endif
 
+    aseman_app_objects.insert(this);
     if(!aseman_app_singleton)
         aseman_app_singleton = this;
 
@@ -190,7 +195,7 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
 #ifdef QT_WIDGETS_LIB
     case WidgetApplication:
 #ifdef DESKTOP_DEVICE
-        p->app = new QtSingleApplication(argc, argv);
+        p->app = new QApplication(argc, argv);
 #else
         p->app = new QApplication(argc, argv);
 #endif
@@ -201,8 +206,10 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
         break;
     }
 
+    aseman_app_objects.insert(this);
     if(p->app)
         p->app->installEventFilter(this);
+
     init();
 }
 
@@ -212,9 +219,6 @@ void AsemanApplication::init()
     {
 #ifdef QT_WIDGETS_LIB
     case WidgetApplication:
-#ifdef DESKTOP_DEVICE
-        connect(p->app, SIGNAL(messageReceived(QString)), SIGNAL(messageReceived(QString)));
-#endif
         connect(p->app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), SIGNAL(applicationStateChanged()));
         p->globalFont = static_cast<QApplication*>(p->app)->font();
 #endif
@@ -261,6 +265,9 @@ void AsemanApplication::init()
         }
     }
 #endif
+
+    if(AsemanApplicationPrivate::peer)
+        connect(AsemanApplicationPrivate::peer, &QtLocalPeer::messageReceived, this, &AsemanApplication::messageReceived);
 }
 
 QString AsemanApplication::homePath()
@@ -473,6 +480,36 @@ QString AsemanApplication::applicationAbout()
         return QString();
 }
 
+void AsemanApplication::setApplicationId(const QString &applicationId)
+{
+    if(AsemanApplicationPrivate::peer && AsemanApplicationPrivate::peer->applicationId() == applicationId)
+        return;
+    if(AsemanApplicationPrivate::peer)
+        delete AsemanApplicationPrivate::peer;
+
+    AsemanApplicationPrivate::peer = 0;
+    if(!applicationId.isEmpty())
+    {
+        AsemanApplicationPrivate::peer = new QtLocalPeer(0, applicationId);
+        Q_FOREACH(AsemanApplication *app, aseman_app_objects)
+            connect(AsemanApplicationPrivate::peer, &QtLocalPeer::messageReceived, app, &AsemanApplication::messageReceived);
+    }
+
+    Q_FOREACH(AsemanApplication *app, aseman_app_objects)
+    {
+        Q_EMIT app->applicationIdChanged();
+        Q_EMIT app->isRunningChanged();
+    }
+}
+
+QString AsemanApplication::applicationId()
+{
+    if(AsemanApplicationPrivate::peer)
+        return AsemanApplicationPrivate::peer->applicationId();
+    else
+        return QString();
+}
+
 QString AsemanApplication::platformName()
 {
     READ_DEFINITION(platformName, QString())
@@ -520,10 +557,8 @@ QIcon AsemanApplication::windowIcon()
 
 bool AsemanApplication::isRunning()
 {
-#if defined(QT_GUI_LIB) && defined(DESKTOP_DEVICE) && defined(QT_WIDGETS_LIB)
-    if(aseman_app_singleton->p->appType == WidgetApplication)
-        return static_cast<QtSingleApplication*>(QCoreApplication::instance())->isRunning();
-#endif
+    if(AsemanApplicationPrivate::peer)
+        return AsemanApplicationPrivate::peer->isClient();
 
     return false;
 }
@@ -544,12 +579,8 @@ bool AsemanApplication::isDebug()
 
 void AsemanApplication::sendMessage(const QString &msg)
 {
-#if defined(QT_GUI_LIB) && defined(DESKTOP_DEVICE) && defined(QT_WIDGETS_LIB)
-    if(aseman_app_singleton->p->appType == WidgetApplication)
-        static_cast<QtSingleApplication*>(QCoreApplication::instance())->sendMessage(msg);
-#else
-    Q_UNUSED(msg)
-#endif
+    if(AsemanApplicationPrivate::peer)
+        AsemanApplicationPrivate::peer->sendMessage(msg, 5000);
 }
 
 AsemanApplication *AsemanApplication::instance()
@@ -679,8 +710,16 @@ bool AsemanApplication::eventFilter(QObject *o, QEvent *e)
 
 AsemanApplication::~AsemanApplication()
 {
+    aseman_app_objects.remove(this);
     if(aseman_app_singleton == this)
+    {
+        if(AsemanApplicationPrivate::peer)
+        {
+            delete AsemanApplicationPrivate::peer;
+            AsemanApplicationPrivate::peer = 0;
+        }
         aseman_app_singleton = 0;
+    }
 
     if(p->app && p->app_owner)
         delete p->app;

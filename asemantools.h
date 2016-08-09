@@ -86,6 +86,7 @@ public slots:
     static QString htmlToPlaintText(const QString &html);
 
     static void copyDirectory( const QString & src, const QString & dst );
+    static bool copy( const QString & src, const QString & dst );
     static void deleteFile(const QString &file);
     static void clearDirectory(const QString &dir);
 

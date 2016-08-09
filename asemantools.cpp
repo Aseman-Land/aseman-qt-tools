@@ -112,9 +112,22 @@ QString AsemanTools::fileName(const QString &path)
     return QFileInfo(path).baseName();
 }
 
-QString AsemanTools::fileSuffix(const QString &path)
+QString AsemanTools::fileSuffix(const QString &_path)
 {
-    return QFileInfo(path).suffix().toLower();
+    QString path = _path;
+    if(path.left(AsemanDevices::localFilesPrePath().size()) == AsemanDevices::localFilesPrePath())
+        path = path.mid(AsemanDevices::localFilesPrePath().size());
+
+    QString result = QFileInfo(path).suffix().toLower();
+    if(!result.isEmpty())
+        return result;
+
+    QMimeDatabase db;
+    const QStringList &suffixes = db.mimeTypeForFile(path).suffixes();
+    if(!suffixes.isEmpty())
+        result = suffixes.first().toLower();
+
+    return result;
 }
 
 QString AsemanTools::fileMime(const QString &path)
@@ -342,6 +355,18 @@ void AsemanTools::copyDirectory(const QString &_src, const QString &_dst)
     const QStringList & files = QDir(src).entryList(QDir::Files);
     foreach( const QString & f, files )
         QFile::copy(src+"/"+f, dst+"/"+f);
+}
+
+bool AsemanTools::copy(const QString &_src, const QString &_dst)
+{
+    QString src = _src;
+    if(src.left(AsemanDevices::localFilesPrePath().size()) == AsemanDevices::localFilesPrePath())
+        src = src.mid(AsemanDevices::localFilesPrePath().size());
+    QString dst = _dst;
+    if(dst.left(AsemanDevices::localFilesPrePath().size()) == AsemanDevices::localFilesPrePath())
+        dst = dst.mid(AsemanDevices::localFilesPrePath().size());
+
+    return QFile::copy(src, dst);
 }
 
 void AsemanTools::deleteFile(const QString &pt)

@@ -31,15 +31,11 @@ android {
 
             HEADERS += \
                 $$PWD/qtsingleapplication/qtsinglecoreapplication.h \
-                $$PWD/qtsingleapplication/qtsingleapplication.h \
-                $$PWD/qtsingleapplication/qtlockedfile.h \
-                $$PWD/qtsingleapplication/qtlocalpeer.h
+                $$PWD/qtsingleapplication/qtsingleapplication.h
 
             SOURCES += \
                 $$PWD/qtsingleapplication/qtsinglecoreapplication.cpp \
-                $$PWD/qtsingleapplication/qtsingleapplication.cpp \
-                $$PWD/qtsingleapplication/qtlockedfile.cpp \
-                $$PWD/qtsingleapplication/qtlocalpeer.cpp
+                $$PWD/qtsingleapplication/qtsingleapplication.cpp
 
             win32: SOURCES += $$PWD/qtsingleapplication/qtlockedfile_win.cpp
             unix:  SOURCES += $$PWD/qtsingleapplication/qtlockedfile_unix.cpp
@@ -197,7 +193,9 @@ SOURCES += \
     $$PWD/asemantexttools.cpp \
     $$PWD/asemanapplicationitem.cpp \
     $$PWD/asemanencrypter.cpp \
-    $$PWD/asemancontributorsmodel.cpp
+    $$PWD/asemancontributorsmodel.cpp \
+    $$PWD/qtsingleapplication/qtlockedfile.cpp \
+    $$PWD/qtsingleapplication/qtlocalpeer.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -261,7 +259,9 @@ HEADERS += \
     $$PWD/asemantexttools.h \
     $$PWD/asemanapplicationitem.h \
     $$PWD/asemanencrypter.h \
-    $$PWD/asemancontributorsmodel.h
+    $$PWD/asemancontributorsmodel.h \
+    $$PWD/qtsingleapplication/qtlockedfile.h \
+    $$PWD/qtsingleapplication/qtlocalpeer.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \
