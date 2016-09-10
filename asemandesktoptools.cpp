@@ -425,7 +425,7 @@ QStringList AsemanDesktopTools::getOpenFileNames(QWindow *window, const QString 
     Q_UNUSED(title)
     Q_UNUSED(filter)
     Q_UNUSED(startPath)
-    return QString();
+    return QStringList();
 #endif
 }
 

@@ -3,7 +3,7 @@ TARGET = AsemanToolsQml
 QT += qml quick widgets
 CONFIG += qt plugin
 DESTDIR = qml/AsemanTools/AsemanTools
-VERSION = 1.0.0
+#VERSION = 1.0.0
 
 TARGET = $$qtLibraryTarget($$TARGET)
 uri = AsemanTools
@@ -24,11 +24,9 @@ COPYFOLDERS += qmlFiles
 
 include(qmake/qmlplugindump.pri)
 !win32-msvc* {
-        include (qmake/copyData.pri)
-        copyData ()
-    }
-#include(qmake/copyData.pri)
-#copyData()
+    include (qmake/copyData.pri)
+    copyData ()
+}
 
 installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
 qmldir.files = $$OUT_PWD/qmldir $$OUT_PWD/$$DESTDIR/plugins.qmltypes
