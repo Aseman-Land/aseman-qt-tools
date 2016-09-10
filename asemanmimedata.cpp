@@ -1,6 +1,7 @@
 #include "asemanmimedata.h"
 
 #include <QClipboard>
+#include <QDataStream>
 #include <QGuiApplication>
 #include <QMimeData>
 
@@ -93,7 +94,14 @@ void AsemanMimeData::fetchClipboard()
 
     QVariantMap data;
     foreach(const QString &format, mime->formats())
-        data[format] = mime->data(format);
+    {
+        QVariant var;
+        QByteArray bytes = mime->data(format);
+        QDataStream stream(&bytes, QIODevice::ReadOnly);
+        stream >> var;
+
+        data[format] = var;
+    }
     setDataMap(data);
 }
 

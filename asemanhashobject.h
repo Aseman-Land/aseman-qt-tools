@@ -49,8 +49,9 @@ public:
     Q_INVOKABLE QVariant contains( const QString & key, const QVariant & value );
 
     Q_INVOKABLE void clear();
-
     Q_INVOKABLE int count();
+
+    Q_INVOKABLE QVariantMap toMap() const;
 
 signals:
     void countChanged();

@@ -115,6 +115,18 @@ int AsemanHashObject::count()
     return p->hash.count();
 }
 
+QVariantMap AsemanHashObject::toMap() const
+{
+    QVariantMap map;
+    QHashIterator<QString, QVariant> i(p->hash);
+    while(i.hasNext())
+    {
+        i.next();
+        map.insertMulti(i.key(), i.value());
+    }
+    return map;
+}
+
 AsemanHashObject::~AsemanHashObject()
 {
     delete p;

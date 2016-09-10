@@ -47,6 +47,7 @@
 
 #ifdef ASEMAN_MULTIMEDIA
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
+#include <QBuffer>
 #include <QCameraInfo>
 #endif
 #endif
@@ -698,7 +699,11 @@ void AsemanDevices::setClipboardData(AsemanMimeData *mime)
         while(i.hasNext())
         {
             i.next();
-            data->setData(i.key(), i.value().toByteArray());
+            QByteArray bytes;
+            QDataStream stream(&bytes, QIODevice::WriteOnly);
+            stream << i.value();
+
+            data->setData(i.key(), bytes);
         }
     }
     QGuiApplication::clipboard()->setMimeData(data);

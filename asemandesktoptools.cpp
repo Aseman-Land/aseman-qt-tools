@@ -356,6 +356,79 @@ QString AsemanDesktopTools::getOpenFileName(QWindow *window, const QString & tit
 #endif
 }
 
+QStringList AsemanDesktopTools::getOpenFileNames(QWindow *window, const QString &title, const QString &filter, const QString &startPath)
+{
+#if defined(DESKTOP_DEVICE) && defined(QT_WIDGETS_LIB)
+    const int dsession = desktopSession();
+    switch( dsession )
+    {
+    case AsemanDesktopTools::Kde:
+    case AsemanDesktopTools::Plasma:
+        if( QFileInfo::exists("/usr/bin/kdialog") )
+        {
+            QStringList args = QStringList()<< "--title" << title << "--getopenfilename"
+                                            << startPath << filter;
+            if( window )
+                args << "--attach" << QString::number(window->winId());
+
+            QProcess process;
+            QEventLoop loop;
+            connect(&process, SIGNAL(finished(int)), &loop, SLOT(quit()), Qt::QueuedConnection );
+
+            process.start("/usr/bin/kdialog", args );
+            loop.exec(QEventLoop::ExcludeUserInputEvents);
+
+            if( process.exitStatus() == QProcess::NormalExit )
+                return QStringList() << QString(process.readAll()).remove("\n");
+            else
+                return QFileDialog::getOpenFileNames(0, title, startPath, filter);
+        }
+        else
+            return QFileDialog::getOpenFileNames(0, title, startPath, filter);
+        break;
+
+    case AsemanDesktopTools::Unity:
+    case AsemanDesktopTools::GnomeFallBack:
+    case AsemanDesktopTools::Gnome:
+        if( QFileInfo::exists("/usr/bin/zenity") )
+        {
+            QStringList args = QStringList()<< "--title=" << "--file-selection" <<
+                                               "--class=Cutegram" << "--name=Cutegram";
+            if(!filter.isEmpty())
+                args << "--file-filter=" + filter;
+
+            QProcess process;
+            QEventLoop loop;
+            connect(&process, SIGNAL(finished(int)), &loop, SLOT(quit()), Qt::QueuedConnection );
+
+            process.start("/usr/bin/zenity", args );
+            loop.exec(QEventLoop::ExcludeUserInputEvents);
+
+            if( process.exitStatus() == QProcess::NormalExit )
+                return QStringList() << QString(process.readAll()).remove("\n");
+            else
+                return QFileDialog::getOpenFileNames(0, title, startPath, filter);
+        }
+        else
+            return QFileDialog::getOpenFileNames(0, title, startPath, filter);
+        break;
+
+    case AsemanDesktopTools::Mac:
+    case AsemanDesktopTools::Windows:
+        return QFileDialog::getOpenFileNames(0, title, startPath, filter);
+        break;
+    }
+
+    return QStringList();
+#else
+    Q_UNUSED(window)
+    Q_UNUSED(title)
+    Q_UNUSED(filter)
+    Q_UNUSED(startPath)
+    return QString();
+#endif
+}
+
 QString AsemanDesktopTools::getSaveFileName(QWindow *window, const QString &title, const QString &filter, const QString &startPath)
 {
 #if defined(DESKTOP_DEVICE) && defined(QT_WIDGETS_LIB)
