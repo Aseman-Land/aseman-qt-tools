@@ -1,5 +1,8 @@
 QT += qml quick
 CONFIG +=  c++11
+contains(DEFINES,ASEMAN_TOOLS_FULL) {
+    QT += multimedia dbus sensors positioning widgets
+}
 
 android {
     manifest.source = android-build

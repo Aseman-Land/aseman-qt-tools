@@ -4,7 +4,7 @@ isEmpty(QMAKE_QMLPLUGINDUMP) {
 }
 
 qmldirSrc = $$_PRO_FILE_PWD_/qml/AsemanTools/qmldir
-qmkdirDst = $$OUT_PWD/$$DESTDIR/qmldir
+qmkdirDst = $$DESTDIR/qmldir
 qmkdirDst2 = $$OUT_PWD/qmldir
 
 win32 {
@@ -19,26 +19,7 @@ win32 {
 }
 
 dmpPluginCommand = $(COPY_FILE) $$qmldirSrc $$qmkdirDst
-#dmpPluginCommand = $$dmpPluginCommand && echo plugin $$TARGET >> $$qmkdirDst
 dmpPluginCommand = $$dmpPluginCommand && $(COPY_FILE) $$qmkdirDst $$qmkdirDst2
-unix {
-    #dmpPluginCommand = $$dmpPluginCommand && LD_LIBRARY_PATH=$$OUT_PWD/$$DESTDIR:$$PREFIX
-    #dmpPluginCommand = $$dmpPluginCommand $$QMAKE_QMLPLUGINDUMP  -nonrelocatable $$uri 1.0 $$OUT_PWD/$$DESTDIR/.. > $$OUT_PWD/$$DESTDIR/plugins.qmltypes
-} win32 {
-    CONFIG(debug, debug|release) {
-    } else {
-        libsPath = $$OUT_PWD/../build
-        libsPath = $$replace(libsPath, /, \\)
-        libsPath ~= s,\\\\\\.?\\\\,\\,
-
-        prefixPath = $$PREFIX
-        prefixPath = $$replace(prefixPath, /, \\)
-        prefixPath ~= s,\\\\\\.?\\\\,\\,
-
-        #dmpPluginCommand = $$dmpPluginCommand && SET PATH=%PATH%;$$libsPath;$$prefixPath
-        #dmpPluginCommand = $$dmpPluginCommand&& $$QMAKE_QMLPLUGINDUMP  -nonrelocatable $$uri 1.0 $$OUT_PWD/$$DESTDIR/.. > $$OUT_PWD/$$DESTDIR/plugins.qmltypes
-    }
-}
 dmpPluginCommand = @echo Generating plugin types file... && $$dmpPluginCommand
 
 dmpPluginDeploymentfolders.commands = $$dmpPluginCommand

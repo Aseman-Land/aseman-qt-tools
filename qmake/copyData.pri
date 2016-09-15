@@ -13,6 +13,8 @@ for(deploymentfolder, COPYFOLDERS) {
 
 COPY_MAINPROFILEPWD = $$PWD
 
+isEmpty(ASEMAN_BUILD_DEST): DEST_OUT_PWD = $$OUT_PWD/
+
 copyCommand =
 for(deploymentfolder, COPYFOLDERS) {
 for(sourceFiles, $${deploymentfolder}.source) {
@@ -22,13 +24,13 @@ for(sourceFiles, $${deploymentfolder}.source) {
     !isEqual(source,$$target) {
         !isEmpty(copyCommand):copyCommand += &&
         win32 {
-            target = $$OUT_PWD/$$eval($${deploymentfolder}.target)/$$dirname(sourceFiles)/$$last(sourcePathSegments)
+            target = $$DEST_OUT_PWD$$eval($${deploymentfolder}.target)/$$last(sourcePathSegments)
             target = $$replace(target, /, \\)
             target ~= s,\\\\\\.?\\\\,\\,
             copyCommand += cmd /c echo F | xcopy /E /Y /I \"$$source\" \"$$target\"
         } else {
             source = $$replace(source, \\\\, /)
-            target = $$OUT_PWD/$$eval($${deploymentfolder}.target)/$$dirname(sourceFiles)
+            target = $$DEST_OUT_PWD$$eval($${deploymentfolder}.target)/
             target = $$replace(target, \\\\, /)
             copyCommand += test -d \"$$target\" || mkdir -p \"$$target\" && cp -f -u -r \"$$source\" \"$$target\"
         }
