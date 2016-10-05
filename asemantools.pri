@@ -2,7 +2,7 @@ QT += qml quick
 CONFIG +=  c++11
 contains(DEFINES,ASEMAN_TOOLS_FULL) {
     QT += multimedia sensors positioning widgets
-    linux: QT += dbus
+    !android: linux: QT += dbus
 }
 
 android {

@@ -42,7 +42,7 @@ Item {
     }
 
     property int layoutDirection: View.layoutDirection
-    property bool showed: item_frame.x > -menuWidth
+    readonly property bool showed: item_frame.x > -menuWidth
 
     onDelegateChanged: {
         if( item )
