@@ -23,11 +23,13 @@ SOURCES += \
 HEADERS += \
     asemantoolsplugin.h
 
+QMLDIR_VALUE = $$cat(qmldir, blob) 'plugin AsemanToolsQml'
+write_file($$OUT_PWD/$$DESTDIR/qmldir, QMLDIR_VALUE)
+
 qmlFiles.source = qml/AsemanTools/
 qmlFiles.target = $$DESTDIR/../
 COPYFOLDERS += qmlFiles
 
-include(qmake/qmlplugindump.pri)
 !win32-msvc* {
     include (qmake/copyData.pri)
     copyData ()
@@ -38,7 +40,7 @@ isEmpty(PREFIX) {
 }
 
 installPath = $$PREFIX/$$replace(uri, \\., /)
-qmldir.files = $$OUT_PWD/qmldir $$OUT_PWD/$$DESTDIR/plugins.qmltypes
+qmldir.files = $$OUT_PWD/$$DESTDIR/qmldir $$OUT_PWD/$$DESTDIR/plugins.qmltypes
 qmldir.path = $$installPath
 qmlFile.files = qml/AsemanTools/
 qmlFile.path = $$PREFIX

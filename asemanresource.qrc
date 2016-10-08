@@ -36,7 +36,6 @@
         <file>qml/AsemanTools/PasteButton.qml</file>
         <file>qml/AsemanTools/CradleBits.qml</file>
         <file>qml/AsemanTools/CradleIndicator.qml</file>
-        <file>qml/AsemanTools/qmldir</file>
         <file>qml/AsemanTools/files/pointer-dialog.png</file>
         <file>qml/AsemanTools/files/pointer.png</file>
         <file>qml/AsemanTools/files/back_32.png</file>
@@ -152,5 +151,8 @@
         <file>qml/AsemanTools/files/aseman-silver-shadowed.png</file>
         <file>qml/AsemanTools/AsemanProductsList.qml</file>
         <file>qml/AsemanTools/MessageDialogOkCancelWarning.qml</file>
+    </qresource>
+    <qresource prefix="/asemantools/qml/AsemanTools/">
+        <file>qmldir</file>
     </qresource>
 </RCC>
