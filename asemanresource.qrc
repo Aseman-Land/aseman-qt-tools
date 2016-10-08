@@ -151,8 +151,11 @@
         <file>qml/AsemanTools/files/aseman-silver-shadowed.png</file>
         <file>qml/AsemanTools/AsemanProductsList.qml</file>
         <file>qml/AsemanTools/MessageDialogOkCancelWarning.qml</file>
+        <file>qml/AsemanTools/CursorShapeArea.qml</file>
+        <file>qml/AsemanTools/NullMouseArea.qml</file>
+        <file>qml/AsemanTools/plugins.qmltypes</file>
     </qresource>
-    <qresource prefix="/asemantools/qml/AsemanTools/">
+    <qresource prefix="/asemantools/qml/AsemanTools">
         <file>qmldir</file>
     </qresource>
 </RCC>
