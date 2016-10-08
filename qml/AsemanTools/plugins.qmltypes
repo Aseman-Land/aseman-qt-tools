@@ -535,6 +535,33 @@ Module {
         }
         Method { name: "getOpenFileName"; type: "string" }
         Method {
+            name: "getOpenFileNames"
+            type: "QStringList"
+            Parameter { name: "window"; type: "QWindow"; isPointer: true }
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "filter"; type: "string" }
+            Parameter { name: "startPath"; type: "string" }
+        }
+        Method {
+            name: "getOpenFileNames"
+            type: "QStringList"
+            Parameter { name: "window"; type: "QWindow"; isPointer: true }
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "filter"; type: "string" }
+        }
+        Method {
+            name: "getOpenFileNames"
+            type: "QStringList"
+            Parameter { name: "window"; type: "QWindow"; isPointer: true }
+            Parameter { name: "title"; type: "string" }
+        }
+        Method {
+            name: "getOpenFileNames"
+            type: "QStringList"
+            Parameter { name: "window"; type: "QWindow"; isPointer: true }
+        }
+        Method { name: "getOpenFileNames"; type: "QStringList" }
+        Method {
             name: "getSaveFileName"
             type: "string"
             Parameter { name: "window"; type: "QWindow"; isPointer: true }
@@ -1003,6 +1030,7 @@ Module {
         }
         Method { name: "clear" }
         Method { name: "count"; type: "int" }
+        Method { name: "toMap"; type: "QVariantMap" }
     }
     Component {
         name: "AsemanHostChecker"
