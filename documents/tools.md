@@ -50,6 +50,7 @@
  * string <font color='#074885'><b>createUuid</b></font>()
  * string <font color='#074885'><b>htmlToPlaintText</b></font>(string html)
  * void <font color='#074885'><b>copyDirectory</b></font>(string src, string dst)
+ * boolean <font color='#074885'><b>copy</b></font>(string src, string dst)
  * void <font color='#074885'><b>deleteFile</b></font>(string file)
  * void <font color='#074885'><b>clearDirectory</b></font>(string dir)
  * void <font color='#074885'><b>setProperty</b></font>(object obj, string property, variant v)

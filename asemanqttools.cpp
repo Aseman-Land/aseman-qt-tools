@@ -129,7 +129,7 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem", exportMode);
     registerType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue", exportMode);
     registerType<AsemanFontHandler>(uri, 1,0, "FontHandler", exportMode);
-    registerType<AsemanApplicationItem>(uri, 1,0, "AsemanApplication", exportMode);
+    registerType<AsemanApplication>(uri, 1,0, "AsemanApplication", exportMode);
     registerType<AsemanQmlSmartComponent>(uri, 1,0, "SmartComponentCore", exportMode);
 #ifdef DESKTOP_LINUX
     registerType<AsemanMimeApps>(uri, 1,0, "MimeApps", exportMode);
