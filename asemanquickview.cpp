@@ -102,10 +102,8 @@ AsemanQuickView::AsemanQuickView(QWindow *parent) :
     p->reverseScroll = false;
 
 #ifndef ASEMAN_QML_PLUGIN
-    AsemanQtTools::registerTypes("AsemanTools");
-    AsemanQtTools::registerSecureTypes("AsemanTools.Secure");
+    AsemanQtTools::safeRegisterTypes("AsemanTools", engine());
     setResizeMode(QQuickView::SizeRootObjectToView);
-    engine()->setImportPathList( QStringList()<< engine()->importPathList() << "qrc:///asemantools/qml" );
 #endif
 }
 

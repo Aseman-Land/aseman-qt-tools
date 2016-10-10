@@ -12,6 +12,7 @@ class AsemanQtTools
 public:
     static void registerTypes(const char *uri, bool exportMode = false);
     static void registerSecureTypes(const char *uri, bool exportMode = false);
+    static bool safeRegisterTypes(const char *uri, QQmlEngine *engine);
 
     template<typename T>
     static int registerType(const char *uri, int versionMajor, int versionMinor, const char *typeName, bool exportMode);
