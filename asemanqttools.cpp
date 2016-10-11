@@ -209,17 +209,20 @@ void AsemanQtTools::registerSecureTypes(const char *uri, bool exportMode)
 
 bool AsemanQtTools::safeRegisterTypes(const char *uri, QQmlEngine *engine)
 {
+#ifndef Q_OS_ANDROID
     QString data = QString("import %1 %2.%3\nAsemanObject {}").arg(QString(uri)).arg(1).arg(0);
     QQmlComponent component(engine);
     component.setData(data.toUtf8(), QUrl());
     QQuickItem *item = qobject_cast<QQuickItem *>(component.create());
     if(!item) /*! Test if registered before !*/
         return false;
+    else
+        delete item;
+#endif
 
     registerTypes(uri);
     registerSecureTypes( QString("%1.Secure").arg(QString(uri)).toUtf8() );
     engine->setImportPathList( QStringList()<< engine->importPathList() << "qrc:///asemantools/qml" );
-    delete item;
     return true;
 }
 

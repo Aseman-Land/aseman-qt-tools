@@ -134,6 +134,11 @@ QObject *AsemanBackHandler::forcePopHandler()
     return item.obj;
 }
 
+void AsemanBackHandler::clear()
+{
+    p->stack.clear();
+}
+
 bool AsemanBackHandler::back()
 {
     if( p->stack.isEmpty() )

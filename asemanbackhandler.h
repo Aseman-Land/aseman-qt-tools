@@ -47,6 +47,7 @@ public slots:
 
     QObject *tryPopHandler();
     QObject *forcePopHandler();
+    void clear();
 
     bool back();
 
