@@ -63,4 +63,5 @@ AsemanProductsList 1.0 AsemanProductsList.qml
 MessageDialogOkCancelWarning 1.0 MessageDialogOkCancelWarning.qml
 NullMouseArea 1.0 NullMouseArea.qml
 CursorShapeArea 1.0 CursorShapeArea.qml
+AsemanWindow 1.0 AsemanWindow.qml
 ArrayTools 1.0 ArrayFunctions.js

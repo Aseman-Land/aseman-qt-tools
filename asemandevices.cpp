@@ -94,24 +94,24 @@ AsemanDevices::AsemanDevices(QObject *parent) :
         connect( scr, SIGNAL(geometryChanged(QRect)), SIGNAL(geometryChanged()) );
 }
 
-bool AsemanDevices::isMobile() const
+bool AsemanDevices::isMobile()
 {
     return isTouchDevice() && !isTablet();
 }
 
-bool AsemanDevices::isTablet() const
+bool AsemanDevices::isTablet()
 {
 #ifdef Q_OS_ANDROID
-    return isTouchDevice() && p->java_layer->isTablet();
+    return isTouchDevice() && AsemanJavaLayer::instance()->isTablet();
 #else
     return isTouchDevice() && lcdPhysicalSize() >= 6;
 #endif
 }
 
-bool AsemanDevices::isLargeTablet() const
+bool AsemanDevices::isLargeTablet()
 {
 #ifdef Q_OS_ANDROID
-    return isTablet() && p->java_layer->getSizeName() == 3;
+    return isTablet() && AsemanJavaLayer::instance()->getSizeName() == 3;
 #else
     return isTouchDevice() && lcdPhysicalSize() >= 9;
 #endif
@@ -200,7 +200,7 @@ bool AsemanDevices::isWindows8()
 #endif
 }
 
-QScreen *AsemanDevices::screen() const
+QScreen *AsemanDevices::screen()
 {
     const QList<QScreen*> & screens = QGuiApplication::screens();
     if( screens.isEmpty() )
@@ -214,7 +214,7 @@ QObject *AsemanDevices::screenObj() const
     return screen();
 }
 
-qreal AsemanDevices::lcdPhysicalSize() const
+qreal AsemanDevices::lcdPhysicalSize()
 {
     qreal w = lcdPhysicalWidth();
     qreal h = lcdPhysicalHeight();
@@ -222,7 +222,7 @@ qreal AsemanDevices::lcdPhysicalSize() const
     return qSqrt( h*h + w*w );
 }
 
-qreal AsemanDevices::lcdPhysicalWidth() const
+qreal AsemanDevices::lcdPhysicalWidth()
 {
     if( QGuiApplication::screens().isEmpty() )
         return 0;
@@ -230,7 +230,7 @@ qreal AsemanDevices::lcdPhysicalWidth() const
     return (qreal)screenSize().width()/lcdDpiX();
 }
 
-qreal AsemanDevices::lcdPhysicalHeight() const
+qreal AsemanDevices::lcdPhysicalHeight()
 {
     if( QGuiApplication::screens().isEmpty() )
         return 0;
@@ -238,10 +238,10 @@ qreal AsemanDevices::lcdPhysicalHeight() const
     return (qreal)screenSize().height()/lcdDpiY();
 }
 
-qreal AsemanDevices::lcdDpiX() const
+qreal AsemanDevices::lcdDpiX()
 {
 #ifdef Q_OS_ANDROID
-    return p->java_layer->densityDpi();
+    return AsemanJavaLayer::instance()->densityDpi();
 #else
     if( QGuiApplication::screens().isEmpty() )
         return 0;
@@ -251,10 +251,10 @@ qreal AsemanDevices::lcdDpiX() const
 #endif
 }
 
-qreal AsemanDevices::lcdDpiY() const
+qreal AsemanDevices::lcdDpiY()
 {
 #ifdef Q_OS_ANDROID
-    return p->java_layer->densityDpi();
+    return AsemanJavaLayer::instance()->densityDpi();
 #else
     if( QGuiApplication::screens().isEmpty() )
         return 0;
@@ -264,11 +264,11 @@ qreal AsemanDevices::lcdDpiY() const
 #endif
 }
 
-QSize AsemanDevices::screenSize() const
+QSize AsemanDevices::screenSize()
 {
 #ifdef Q_OS_ANDROID
-    return QSize(p->java_layer->screenSizeWidth(),
-                 p->java_layer->screenSizeHeight());
+    return QSize(AsemanJavaLayer::instance()->screenSizeWidth(),
+                 AsemanJavaLayer::instance()->screenSizeHeight());
 #else
     if( QGuiApplication::screens().isEmpty() )
         return QSize();
@@ -342,19 +342,19 @@ QString AsemanDevices::deviceId()
 #endif
 }
 
-bool AsemanDevices::transparentStatusBar() const
+bool AsemanDevices::transparentStatusBar()
 {
 #ifdef Q_OS_ANDROID
-    return p->java_layer->transparentStatusBar();
+    return AsemanJavaLayer::instance()->transparentStatusBar();
 #else
     return false;
 #endif
 }
 
-bool AsemanDevices::transparentNavigationBar() const
+bool AsemanDevices::transparentNavigationBar()
 {
 #ifdef Q_OS_ANDROID
-    return p->java_layer->transparentNavigationBar();
+    return AsemanJavaLayer::instance()->transparentNavigationBar();
 #else
     return false;
 #endif
@@ -374,33 +374,33 @@ qreal AsemanDevices::standardTitleBarHeight() const
     return res;
 }
 
-qreal AsemanDevices::statusBarHeight() const
+qreal AsemanDevices::statusBarHeight()
 {
     return transparentStatusBar()? 24*density() : 0;
 }
 
-qreal AsemanDevices::navigationBarHeight() const
+qreal AsemanDevices::navigationBarHeight()
 {
     return transparentNavigationBar()? 44*density() : 0;
 }
 
-int AsemanDevices::densityDpi() const
+int AsemanDevices::densityDpi()
 {
 #ifdef Q_OS_ANDROID
-    return p->java_layer->densityDpi();
+    return AsemanJavaLayer::instance()->densityDpi();
 #else
     return lcdDpiX();
 #endif
 }
 
-qreal AsemanDevices::density() const
+qreal AsemanDevices::density()
 {
 #ifdef Q_OS_ANDROID
     qreal ratio = isTablet()? 1.28 : 1;
 //    if( isLargeTablet() )
 //        ratio = 1.6;
 
-    return p->java_layer->density()*ratio;
+    return AsemanJavaLayer::instance()->density()*ratio;
 #else
 #ifdef Q_OS_IOS
     qreal ratio = isTablet()? 1.28 : 1;
@@ -423,11 +423,11 @@ qreal AsemanDevices::density() const
 #endif
 }
 
-qreal AsemanDevices::fontDensity() const
+qreal AsemanDevices::fontDensity()
 {
 #ifdef Q_OS_ANDROID
     qreal ratio = isMobile()? (1.28)*1.25 : (1.28)*1.35;
-    return p->java_layer->density()*ratio;
+    return AsemanJavaLayer::instance()->density()*ratio;
 #else
 #ifdef Q_OS_IOS
     return 1.4;

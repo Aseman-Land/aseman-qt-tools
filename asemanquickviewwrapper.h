@@ -8,8 +8,6 @@ class AsemanQuickViewWrapper : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool fullscreen READ fullscreen WRITE setFullscreen NOTIFY fullscreenChanged)
-    Q_PROPERTY(bool backController READ backController WRITE setBackController NOTIFY backControllerChanged)
     Q_PROPERTY(bool reverseScroll READ reverseScroll WRITE setReverseScroll NOTIFY reverseScrollChanged)
 
     Q_PROPERTY(qreal statusBarHeight READ statusBarHeight NOTIFY statusBarHeightChanged)
@@ -28,12 +26,6 @@ public:
     AsemanQuickViewWrapper(AsemanQuickView *view, QObject *parent = 0);
     ~AsemanQuickViewWrapper();
 
-    void setFullscreen( bool stt );
-    bool fullscreen() const;
-
-    void setBackController(bool stt);
-    bool backController() const;
-
     void setReverseScroll(bool stt);
     bool reverseScroll() const;
 
@@ -49,20 +41,20 @@ public:
     int layoutDirection() const;
     void setLayoutDirection( int l );
 
+    void setBackController(bool stt);
+    bool backController() const;
+
     qreal flickVelocity() const;
 
     QWindow *window() const;
-    Q_INVOKABLE QSize screenSize() const;
 
     void setOfflineStoragePath(const QString &path);
     QString offlineStoragePath() const;
 
+    Q_INVOKABLE void registerWindow(QQuickWindow *window);
+
 public slots:
     void discardFocusedText();
-    void tryClose();
-    void setMask(qreal x, qreal y, qreal width, qreal height);
-    void move(qreal x, qreal y);
-    void resize(qreal w, qreal h);
 
 signals:
     void fullscreenChanged();

@@ -33,10 +33,13 @@ Module {
         name: "AsemanApplication"
         defaultProperty: "items"
         prototype: "AsemanQuickObject"
-        exports: ["AsemanTools/AsemanApp 1.0"]
+        exports: [
+            "AsemanTools/AsemanApp 1.0",
+            "AsemanTools/AsemanApplication 1.0"
+        ]
         isCreatable: false
         isSingleton: true
-        exportMetaObjectRevisions: [0]
+        exportMetaObjectRevisions: [0, 0]
         Enum {
             name: "ApplicationType"
             values: {
@@ -121,13 +124,6 @@ Module {
             type: "QVariant"
             Parameter { name: "key"; type: "string" }
         }
-    }
-    Component {
-        name: "AsemanApplicationItem"
-        defaultProperty: "items"
-        prototype: "AsemanApplication"
-        exports: ["AsemanTools/AsemanApplication 1.0"]
-        exportMetaObjectRevisions: [0]
     }
     Component {
         name: "AsemanAudioEncoderSettings"
@@ -243,6 +239,7 @@ Module {
         }
         Method { name: "tryPopHandler"; type: "QObject*" }
         Method { name: "forcePopHandler"; type: "QObject*" }
+        Method { name: "clear" }
         Method { name: "back"; type: "bool" }
     }
     Component {
@@ -1602,8 +1599,6 @@ Module {
         isCreatable: false
         isSingleton: true
         exportMetaObjectRevisions: [0]
-        Property { name: "fullscreen"; type: "bool" }
-        Property { name: "backController"; type: "bool" }
         Property { name: "reverseScroll"; type: "bool" }
         Property { name: "statusBarHeight"; type: "double"; isReadonly: true }
         Property { name: "navigationBarHeight"; type: "double"; isReadonly: true }
@@ -1613,28 +1608,15 @@ Module {
         Property { name: "offlineStoragePath"; type: "string" }
         Property { name: "flickVelocity"; type: "double"; isReadonly: true }
         Property { name: "window"; type: "QWindow"; isReadonly: true; isPointer: true }
+        Signal { name: "fullscreenChanged" }
+        Signal { name: "backControllerChanged" }
         Signal { name: "fakeSignal" }
         Signal { name: "closeRequest" }
         Method { name: "discardFocusedText" }
-        Method { name: "tryClose" }
         Method {
-            name: "setMask"
-            Parameter { name: "x"; type: "double" }
-            Parameter { name: "y"; type: "double" }
-            Parameter { name: "width"; type: "double" }
-            Parameter { name: "height"; type: "double" }
+            name: "registerWindow"
+            Parameter { name: "window"; type: "QQuickWindow"; isPointer: true }
         }
-        Method {
-            name: "move"
-            Parameter { name: "x"; type: "double" }
-            Parameter { name: "y"; type: "double" }
-        }
-        Method {
-            name: "resize"
-            Parameter { name: "w"; type: "double" }
-            Parameter { name: "h"; type: "double" }
-        }
-        Method { name: "screenSize"; type: "QSize" }
     }
     Component {
         name: "AsemanSensors"

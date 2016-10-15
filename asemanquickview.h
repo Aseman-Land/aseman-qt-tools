@@ -22,12 +22,6 @@
 #include <QQuickView>
 #include <QQmlEngine>
 
-#ifdef ASEMAN_QML_PLUGIN
-#define INHERIT_VIEW QObject
-#else
-#define INHERIT_VIEW QQuickView
-#endif
-
 class AsemanBackHandler;
 class AsemanDesktopTools;
 class AsemanDevices;
@@ -36,12 +30,10 @@ class AsemanQtLogger;
 class AsemanTools;
 class AsemanCalendarConverter;
 class AsemanQuickViewPrivate;
-class AsemanQuickView : public INHERIT_VIEW
+class AsemanQuickView : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool fullscreen READ fullscreen WRITE setFullscreen NOTIFY fullscreenChanged)
-    Q_PROPERTY(bool backController READ backController WRITE setBackController NOTIFY backControllerChanged)
     Q_PROPERTY(bool reverseScroll READ reverseScroll WRITE setReverseScroll NOTIFY reverseScrollChanged)
 
     Q_PROPERTY(qreal statusBarHeight READ statusBarHeight NOTIFY statusBarHeightChanged)
@@ -56,12 +48,7 @@ class AsemanQuickView : public INHERIT_VIEW
     Q_PROPERTY(qreal flickVelocity READ flickVelocity NOTIFY fakeSignal)
 
 public:
-
-#ifdef ASEMAN_QML_PLUGIN
     AsemanQuickView(QQmlEngine *engine, QObject *parent = 0);
-#else
-    AsemanQuickView(QWindow *parent = 0);
-#endif
     ~AsemanQuickView();
 
     AsemanDesktopTools *desktopTools() const;
@@ -73,12 +60,6 @@ public:
 #endif
     AsemanCalendarConverter *calendar() const;
     AsemanBackHandler *backHandler() const;
-
-    void setFullscreen( bool stt );
-    bool fullscreen() const;
-
-    void setBackController(bool stt);
-    bool backController() const;
 
     void setReverseScroll(bool stt);
     bool reverseScroll() const;
@@ -96,33 +77,28 @@ public:
     void setLayoutDirection( int l );
 
     qreal flickVelocity() const;
-    Q_INVOKABLE QSize screenSize() const;
 
     void setOfflineStoragePath(const QString &path);
     QString offlineStoragePath() const;
 
+    Q_INVOKABLE void registerWindow(QQuickWindow *window);
+
 public slots:
     void discardFocusedText();
-    void tryClose();
-    void setMask(qreal x, qreal y, qreal width, qreal height);
-    void move(qreal x, qreal y);
-    void resize(qreal w, qreal h);
 
 signals:
-    void fullscreenChanged();
     void statusBarHeightChanged();
     void navigationBarHeightChanged();
     void rootChanged();
     void focusedTextChanged();
     void layoutDirectionChanged();
-    void backControllerChanged();
     void reverseScrollChanged();
     void fakeSignal();
     void closeRequest();
     void offlineStoragePathChanged();
 
 protected:
-    bool event(QEvent *e);
+    bool eventFilter(QObject *watched, QEvent *event);
 
 private:
     AsemanQuickViewPrivate *p;

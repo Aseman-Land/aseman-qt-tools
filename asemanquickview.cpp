@@ -66,6 +66,7 @@
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QScreen>
+#include <QSet>
 
 class AsemanQuickViewPrivate
 {
@@ -73,38 +74,19 @@ public:
     QPointer<QObject> root;
     QPointer<QQuickItem> focused_text;
 
-    bool tryClose;
-    bool fullscreen;
-    bool backController;
     int layoutDirection;
     bool reverseScroll;
 
-#ifdef ASEMAN_QML_PLUGIN
     QQmlEngine *engine;
-#endif
 };
 
-#ifdef ASEMAN_QML_PLUGIN
 AsemanQuickView::AsemanQuickView(QQmlEngine *engine, QObject *parent ) :
-#else
-AsemanQuickView::AsemanQuickView(QWindow *parent) :
-#endif
-    INHERIT_VIEW(parent)
+    QObject(parent)
 {
     p = new AsemanQuickViewPrivate;
-#ifdef ASEMAN_QML_PLUGIN
     p->engine = engine;
-#endif
-    p->fullscreen = false;
-    p->backController = false;
     p->layoutDirection = Qt::LeftToRight;
-    p->tryClose  = false;
     p->reverseScroll = false;
-
-#ifndef ASEMAN_QML_PLUGIN
-    AsemanQtTools::safeRegisterTypes("AsemanTools", engine());
-    setResizeMode(QQuickView::SizeRootObjectToView);
-#endif
 }
 
 AsemanDesktopTools *AsemanQuickView::desktopTools() const
@@ -136,57 +118,12 @@ AsemanJavaLayer *AsemanQuickView::javaLayer() const
 
 AsemanCalendarConverter *AsemanQuickView::calendar() const
 {
-#ifdef ASEMAN_QML_PLUGIN
     return AsemanQtTools::calendar(p->engine);
-#else
-    return AsemanQtTools::calendar(engine());
-#endif
 }
 
 AsemanBackHandler *AsemanQuickView::backHandler() const
 {
-#ifdef ASEMAN_QML_PLUGIN
     return AsemanQtTools::backHandler(p->engine);
-#else
-    return AsemanQtTools::backHandler(engine());
-#endif
-}
-
-void AsemanQuickView::setFullscreen(bool stt)
-{
-    if( p->fullscreen == stt )
-        return;
-
-    p->fullscreen = stt;
-#ifndef ASEMAN_QML_PLUGIN
-    if( p->fullscreen )
-        showFullScreen();
-    else
-        showNormal();
-#endif
-
-    emit fullscreenChanged();
-    emit navigationBarHeightChanged();
-    emit statusBarHeightChanged();
-}
-
-bool AsemanQuickView::fullscreen() const
-{
-    return p->fullscreen;
-}
-
-void AsemanQuickView::setBackController(bool stt)
-{
-    if(p->backController == stt)
-        return;
-
-    p->backController = stt;
-    emit backControllerChanged();
-}
-
-bool AsemanQuickView::backController() const
-{
-    return p->backController;
 }
 
 void AsemanQuickView::setReverseScroll(bool stt)
@@ -205,14 +142,12 @@ bool AsemanQuickView::reverseScroll() const
 
 qreal AsemanQuickView::statusBarHeight() const
 {
-    AsemanDevices *dv = devices();
-    return !fullscreen()? dv->statusBarHeight() : 0;
+    return AsemanDevices::statusBarHeight();
 }
 
 qreal AsemanQuickView::navigationBarHeight() const
 {
-    AsemanDevices *dv = devices();
-    return !fullscreen()? dv->navigationBarHeight() : 0;
+    return AsemanDevices::navigationBarHeight();
 }
 
 void AsemanQuickView::setRoot(QObject *root)
@@ -281,36 +216,23 @@ qreal AsemanQuickView::flickVelocity() const
 #endif
 }
 
-QSize AsemanQuickView::screenSize() const
-{
-    QSize result;
-#ifndef ASEMAN_QML_PLUGIN
-    if(screen())
-        result = screen()->size();
-#endif
-    return result;
-}
-
 void AsemanQuickView::setOfflineStoragePath(const QString &path)
 {
     if(path == offlineStoragePath())
         return;
 
-#ifdef ASEMAN_QML_PLUGIN
     p->engine->setOfflineStoragePath(path);
-#else
-    engine()->setOfflineStoragePath(path);
-#endif
     emit offlineStoragePathChanged();
 }
 
 QString AsemanQuickView::offlineStoragePath() const
 {
-#ifdef ASEMAN_QML_PLUGIN
     return p->engine->offlineStoragePath();
-#else
-    return engine()->offlineStoragePath();
-#endif
+}
+
+void AsemanQuickView::registerWindow(QQuickWindow *window)
+{
+    window->installEventFilter(this);
 }
 
 void AsemanQuickView::discardFocusedText()
@@ -318,56 +240,30 @@ void AsemanQuickView::discardFocusedText()
     setFocusedText(0);
 }
 
-void AsemanQuickView::tryClose()
+bool AsemanQuickView::eventFilter(QObject *o, QEvent *e)
 {
-    p->tryClose = true;
-#ifndef ASEMAN_QML_PLUGIN
-    close();
-#endif
-}
-
-void AsemanQuickView::setMask(qreal x, qreal y, qreal width, qreal height)
-{
-#ifndef ASEMAN_QML_PLUGIN
-    QQuickView::setMask(QRegion(x,y,width,height));
-#endif
-}
-
-void AsemanQuickView::move(qreal x, qreal y)
-{
-#ifndef ASEMAN_QML_PLUGIN
-    QQuickView::setPosition(x, y);
-#endif
-    Q_UNUSED(x)
-}
-
-void AsemanQuickView::resize(qreal w, qreal h)
-{
-#ifndef ASEMAN_QML_PLUGIN
-    QQuickView::resize(QSize(w,h));
-#endif
-}
-
-bool AsemanQuickView::event(QEvent *e)
-{
-    switch( static_cast<int>(e->type()) )
+    QQuickWindow *win = qobject_cast<QQuickWindow*>(o);
+    if(win)
     {
-    case QEvent::Close:
-        if(p->backController)
+        switch( static_cast<int>(e->type()) )
         {
-            QCloseEvent *ce = static_cast<QCloseEvent*>(e);
-            if( p->tryClose || devices()->isDesktop() )
-                ce->accept();
-            else
+        case QEvent::Close:
+            if(o->property("backController").toBool())
             {
-                ce->ignore();
-                emit closeRequest();
+                QCloseEvent *ce = static_cast<QCloseEvent*>(e);
+                if( o->property("try_close").toBool() || AsemanDevices::isDesktop() )
+                    ce->accept();
+                else
+                {
+                    ce->ignore();
+                    QMetaObject::invokeMethod(o, "closeRequest");
+                }
             }
+            break;
         }
-        break;
     }
 
-    return INHERIT_VIEW::event(e);
+    return QObject::eventFilter(o,e);
 }
 
 AsemanQuickView::~AsemanQuickView()

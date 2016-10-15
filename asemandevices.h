@@ -88,9 +88,9 @@ public:
     AsemanDevices(QObject *parent = 0);
     ~AsemanDevices();
 
-    bool isMobile() const;
-    bool isTablet() const;
-    bool isLargeTablet() const;
+    static bool isMobile();
+    static bool isTablet();
+    static bool isLargeTablet();
     static bool isTouchDevice();
     static bool isDesktop();
     static bool isMacX();
@@ -102,34 +102,34 @@ public:
     static bool isWindowsPhone();
     static bool isWindows8();
 
-    QScreen *screen() const;
+    static QScreen *screen();
     QObject *screenObj() const;
 
-    qreal lcdPhysicalSize() const;
-    qreal lcdPhysicalWidth() const;
-    qreal lcdPhysicalHeight() const;
-    qreal lcdDpiX() const;
-    qreal lcdDpiY() const;
+    static qreal lcdPhysicalSize();
+    static qreal lcdPhysicalWidth();
+    static qreal lcdPhysicalHeight();
+    static qreal lcdDpiX();
+    static qreal lcdDpiY();
 
-    QSize screenSize() const;
+    static QSize screenSize();
     qreal keyboardHeight() const;
     static QString deviceName();
     static QString deviceId();
 
-    int densityDpi() const;
-    qreal density() const;
-    qreal fontDensity() const;
+    static int densityDpi();
+    static qreal density();
+    static qreal fontDensity();
 
     bool cameraIsAvailable() const;
 
     static QString localFilesPrePath();
 
-    bool transparentStatusBar() const;
-    bool transparentNavigationBar() const;
+    static bool transparentStatusBar();
+    static bool transparentNavigationBar();
     qreal standardTitleBarHeight() const;
 
-    qreal statusBarHeight() const;
-    qreal navigationBarHeight() const;
+    static qreal statusBarHeight();
+    static qreal navigationBarHeight();
 
     QString clipboard() const;
     bool keyboard() const;

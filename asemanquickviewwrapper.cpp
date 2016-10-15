@@ -4,13 +4,11 @@ AsemanQuickViewWrapper::AsemanQuickViewWrapper(AsemanQuickView *view, QObject *p
     QObject(parent),
     mView(view)
 {
-    connect(mView, SIGNAL(fullscreenChanged()), SIGNAL(fullscreenChanged()));
     connect(mView, SIGNAL(statusBarHeightChanged()), SIGNAL(statusBarHeightChanged()));
     connect(mView, SIGNAL(navigationBarHeightChanged()), SIGNAL(navigationBarHeightChanged()));
     connect(mView, SIGNAL(rootChanged()), SIGNAL(rootChanged()));
     connect(mView, SIGNAL(focusedTextChanged()), SIGNAL(focusedTextChanged()));
     connect(mView, SIGNAL(layoutDirectionChanged()), SIGNAL(layoutDirectionChanged()));
-    connect(mView, SIGNAL(backControllerChanged()), SIGNAL(backControllerChanged()));
     connect(mView, SIGNAL(reverseScrollChanged()), SIGNAL(reverseScrollChanged()));
     connect(mView, SIGNAL(fakeSignal()), SIGNAL(fakeSignal()));
     connect(mView, SIGNAL(closeRequest()), SIGNAL(closeRequest()));
@@ -20,26 +18,6 @@ AsemanQuickViewWrapper::AsemanQuickViewWrapper(AsemanQuickView *view, QObject *p
 
 AsemanQuickViewWrapper::~AsemanQuickViewWrapper()
 {
-}
-
-void AsemanQuickViewWrapper::setFullscreen(bool stt)
-{
-    mView->setFullscreen(stt);
-}
-
-bool AsemanQuickViewWrapper::fullscreen() const
-{
-    return mView->fullscreen();
-}
-
-void AsemanQuickViewWrapper::setBackController(bool stt)
-{
-    mView->setBackController(stt);
-}
-
-bool AsemanQuickViewWrapper::backController() const
-{
-    return mView->backController();
 }
 
 void AsemanQuickViewWrapper::setReverseScroll(bool stt)
@@ -99,16 +77,7 @@ qreal AsemanQuickViewWrapper::flickVelocity() const
 
 QWindow *AsemanQuickViewWrapper::window() const
 {
-#ifdef ASEMAN_QML_PLUGIN
     return 0;
-#else
-    return mView;
-#endif
-}
-
-QSize AsemanQuickViewWrapper::screenSize() const
-{
-    return mView->screenSize();
 }
 
 void AsemanQuickViewWrapper::setOfflineStoragePath(const QString &path)
@@ -121,29 +90,14 @@ QString AsemanQuickViewWrapper::offlineStoragePath() const
     return mView->offlineStoragePath();
 }
 
+void AsemanQuickViewWrapper::registerWindow(QQuickWindow *window)
+{
+    mView->registerWindow(window);
+}
+
 void AsemanQuickViewWrapper::discardFocusedText()
 {
     mView->discardFocusedText();
-}
-
-void AsemanQuickViewWrapper::tryClose()
-{
-    mView->tryClose();
-}
-
-void AsemanQuickViewWrapper::setMask(qreal x, qreal y, qreal width, qreal height)
-{
-    mView->setMask(x, y, width, height);
-}
-
-void AsemanQuickViewWrapper::move(qreal x, qreal y)
-{
-    mView->move(x, y);
-}
-
-void AsemanQuickViewWrapper::resize(qreal w, qreal h)
-{
-    mView->resize(w, h);
 }
 
 void AsemanQuickViewWrapper::viewDestroyed()
