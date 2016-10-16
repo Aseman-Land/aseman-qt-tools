@@ -23,6 +23,7 @@ Item {
     id: sidemenu
     width: 100
     height: 62
+    clip: true
 
     property Component delegate
     property variant item
@@ -31,7 +32,7 @@ Item {
 
     property alias menuWidth: item_frame.width
     property alias pressed: marea.pressed
-    property real percent: {
+    readonly property real percent: {
         var res = (menuWidth+item_frame.x)/menuWidth
         if(res < 0)
             res = 0
@@ -124,7 +125,14 @@ Item {
             width: Devices.isMobile? sidemenu.width-50*Devices.density : sidemenu.width/2 + 20*Devices.density
             height: parent.height
             x: -width
-//            visible: x > -width
+
+            onWidthChanged: {
+                if(!marea.lastState)
+                {
+                    item_frame.anim = false
+                    item_frame.x = -menuWidth
+                }
+            }
 
             property bool anim: false
 

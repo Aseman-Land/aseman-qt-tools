@@ -27,12 +27,12 @@ Rectangle {
 
     property alias text: title_txt.text
     property alias titleFont: title_txt.font
-    property bool light: false
-    property bool backButton: !Devices.isAndroid && !View.fullscreen
+    property bool light: true
+    property bool backButton: false
     property real backScale: 1
     property alias backButtonText: back_txt.text
     property alias shadow: shadow_rct.visible
-    property bool statusBar: false
+    property bool statusBar: Devices.isAndroid
 
     signal beginBack()
 

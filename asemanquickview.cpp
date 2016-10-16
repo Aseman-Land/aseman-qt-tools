@@ -67,6 +67,7 @@
 #include <QQuickItem>
 #include <QScreen>
 #include <QSet>
+#include <QDebug>
 
 class AsemanQuickViewPrivate
 {
@@ -259,6 +260,17 @@ bool AsemanQuickView::eventFilter(QObject *o, QEvent *e)
                     QMetaObject::invokeMethod(o, "closeRequest");
                 }
             }
+            break;
+        case QEvent::KeyPress:
+        {
+            QKeyEvent *ke = static_cast<QKeyEvent*>(e);
+            switch(ke->key())
+            {
+            case Qt::Key_Escape:
+                QMetaObject::invokeMethod(o, "closeRequest");
+                break;
+            }
+        }
             break;
         }
     }

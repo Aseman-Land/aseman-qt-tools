@@ -17,7 +17,7 @@ Column {
 
     Text {
         id: msg
-        width: main.width - 60*Devices.density
+        width: column.width - 60*Devices.density
         anchors.horizontalCenter: parent.horizontalCenter
         font.family: AsemanApp.globalFont.family
         font.pixelSize: 9*Devices.fontDensity

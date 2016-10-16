@@ -53,7 +53,7 @@ Item {
     QtObject {
         id: privates
         property variant item
-        property real sourceScale: (menuc.width-menuWidth*ratio/2)/source.width
+        property real sourceScale: (menuc.width-menuWidth*ratio)/source.width
         onSourceScaleChanged: if(source) source.scale = sourceScale
     }
 

@@ -3,7 +3,6 @@
         <file>qml/AsemanTools/AnimationItem.qml</file>
         <file>qml/AsemanTools/Button.qml</file>
         <file>qml/AsemanTools/CheckBox.qml</file>
-        <file>qml/AsemanTools/ColorList.qml</file>
         <file>qml/AsemanTools/CursorPicker.qml</file>
         <file>qml/AsemanTools/DateTimeChooser.qml</file>
         <file>qml/AsemanTools/GetPassDialog.qml</file>
@@ -13,7 +12,6 @@
         <file>qml/AsemanTools/STextInput.qml</file>
         <file>qml/AsemanTools/LineEdit.qml</file>
         <file>qml/AsemanTools/MenuButton.qml</file>
-        <file>qml/AsemanTools/ModernProgressBar.qml</file>
         <file>qml/AsemanTools/MenuController.qml</file>
         <file>qml/AsemanTools/NormalWheelScroll.qml</file>
         <file>qml/AsemanTools/PhysicalScrollBar.qml</file>

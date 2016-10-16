@@ -58,6 +58,12 @@ Item {
         opacity: pbar_scene.height/pbar_scene.destHeight
     }
 
+    MouseArea {
+        anchors.fill: parent
+        visible: item? true : false
+        onClicked: hide()
+    }
+
     Rectangle {
         id: pbar_scene
         anchors.left: parent.left
