@@ -22,7 +22,7 @@ Item {
     Text {
         id: txt
         anchors.verticalCenter: parent.verticalCenter
-        font.pixelSize: 11*Devices.fontDensity
+        font.pixelSize: 10*Devices.fontDensity
         x: View.layoutDirection==Qt.LeftToRight? 20*Devices.density : parent.width - width - 10*Devices.density
     }
 

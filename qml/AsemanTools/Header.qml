@@ -101,7 +101,7 @@ Rectangle {
 
         Text {
             id: title_txt
-            font.pixelSize: Math.floor(16*Devices.fontDensity)
+            font.pixelSize: Math.floor(13*Devices.fontDensity)
             font.family: AsemanApp.globalFont.family
             y: parent.height/2 - height/2
             anchors.horizontalCenter: parent.horizontalCenter

@@ -17,6 +17,8 @@
 */
 
 #include "asemanapplication.h"
+#include "asemandevices.h"
+#include "asemanjavalayer.h"
 #include "asemantools.h"
 #include "qtsingleapplication/qtlocalpeer.h"
 
@@ -136,19 +138,11 @@ AsemanApplication::AsemanApplication() :
     p->app_owner = false;
 
 #ifdef QT_WIDGETS_LIB
-#ifdef DESKTOP_DEVICE
     if( qobject_cast<QApplication*>(p->app) )
     {
         p->appType = WidgetApplication;
     }
     else
-#else
-    if( qobject_cast<QApplication*>(p->app) )
-    {
-        p->appType = WidgetApplication;
-    }
-    else
-#endif
 #endif
 #ifdef QT_GUI_LIB
     if( qobject_cast<QGuiApplication*>(p->app) )
@@ -176,6 +170,14 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
     if(!aseman_app_singleton)
         aseman_app_singleton = this;
 
+#ifdef Q_OS_ANDROID
+    if(qgetenv("QT_SCALE_FACTOR").isNull())
+    {
+        qreal ratio = AsemanJavaLayer::instance()->density()*(AsemanDevices::isTablet()? 1.28 : 1);
+        qputenv("QT_SCALE_FACTOR",QByteArray::number(ratio));
+    }
+#endif
+
     p = new AsemanApplicationPrivate;
     p->appType = appType;
     p->app_owner = true;
@@ -194,11 +196,7 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
 #endif
 #ifdef QT_WIDGETS_LIB
     case WidgetApplication:
-#ifdef DESKTOP_DEVICE
         p->app = new QApplication(argc, argv);
-#else
-        p->app = new QApplication(argc, argv);
-#endif
         break;
 #endif
     default:
@@ -215,6 +213,9 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
 
 void AsemanApplication::init()
 {
+    if(!qgetenv("QT_SCALE_FACTOR").isNull())
+        AsemanDevices::setFlag(AsemanDevices::DisableDensities);
+
     switch(p->appType)
     {
 #ifdef QT_WIDGETS_LIB

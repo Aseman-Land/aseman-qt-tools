@@ -47,6 +47,10 @@ AsemanWindow {
                         onClicked: pageManger.append(materialButton_component)
                     }
                     MainMenuItem {
+                        text: "Back Handler"
+                        onClicked: pageManger.append(backHandler_component)
+                    }
+                    MainMenuItem {
                         text: "Settings"
                         onClicked: pageManger.append(settings_component)
                     }
@@ -61,6 +65,10 @@ AsemanWindow {
                     MainMenuItem {
                         text: "Show Message"
                         onClicked: msgDialog.show(okCancelMsg_component)
+                    }
+                    MainMenuItem {
+                        text: "AsemanQtTools Github"
+                        onClicked: Qt.openUrlExternally("https://github.com/Aseman-Land/aseman-qt-tools")
                     }
                 }
             }
@@ -110,6 +118,13 @@ AsemanWindow {
     Component {
         id: materialButton_component
         MaterialButtonExample {
+            anchors.fill: parent
+        }
+    }
+
+    Component {
+        id: backHandler_component
+        BackHandlerExample {
             anchors.fill: parent
         }
     }

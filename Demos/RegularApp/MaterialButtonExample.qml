@@ -17,6 +17,7 @@ Item {
             Label {
                 x: 20*Devices.density
                 text: "Item " + model.index
+                font.pixelSize: 10*Devices.fontDensity
                 anchors.verticalCenter: parent.verticalCenter
             }
         }

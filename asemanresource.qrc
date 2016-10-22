@@ -2,7 +2,6 @@
     <qresource prefix="/asemantools">
         <file>qml/AsemanTools/AnimationItem.qml</file>
         <file>qml/AsemanTools/Button.qml</file>
-        <file>qml/AsemanTools/CheckBox.qml</file>
         <file>qml/AsemanTools/CursorPicker.qml</file>
         <file>qml/AsemanTools/DateTimeChooser.qml</file>
         <file>qml/AsemanTools/GetPassDialog.qml</file>
@@ -11,7 +10,6 @@
         <file>qml/AsemanTools/STextEdit.qml</file>
         <file>qml/AsemanTools/STextInput.qml</file>
         <file>qml/AsemanTools/LineEdit.qml</file>
-        <file>qml/AsemanTools/MenuButton.qml</file>
         <file>qml/AsemanTools/MenuController.qml</file>
         <file>qml/AsemanTools/NormalWheelScroll.qml</file>
         <file>qml/AsemanTools/PhysicalScrollBar.qml</file>
@@ -25,7 +23,6 @@
         <file>qml/AsemanTools/ShadowRectangle.qml</file>
         <file>qml/AsemanTools/ShareDialog.qml</file>
         <file>qml/AsemanTools/AsemanMain.qml</file>
-        <file>qml/AsemanTools/SlideMenu.qml</file>
         <file>qml/AsemanTools/SubMessage.qml</file>
         <file>qml/AsemanTools/TextAreaCore.qml</file>
         <file>qml/AsemanTools/TextLineCore.qml</file>

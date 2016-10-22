@@ -32,7 +32,6 @@ Rectangle {
     }
 
     HeaderMenuButton {
-        anchors.verticalCenter: header.verticalCenter
         ratio: sidebar.percent
         buttonColor: Qt.rgba(1-ratio, 1-ratio, 1-ratio, 1)
         onClicked: {

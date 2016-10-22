@@ -44,6 +44,7 @@
 #include <QDebug>
 #include <QMimeData>
 #include <QProcess>
+#include <QGuiApplication>
 
 #ifdef ASEMAN_MULTIMEDIA
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
@@ -67,7 +68,11 @@ public:
 #ifdef Q_OS_ANDROID
     AsemanJavaLayer *java_layer;
 #endif
+
+    static QHash<AsemanDevices::Flags, bool> flags;
 };
+
+QHash<AsemanDevices::Flags, bool> AsemanDevicesPrivate::flags = QHash<AsemanDevices::Flags, bool>();
 
 AsemanDevices::AsemanDevices(QObject *parent) :
     QObject(parent)
@@ -384,6 +389,16 @@ qreal AsemanDevices::navigationBarHeight()
     return transparentNavigationBar()? 44*density() : 0;
 }
 
+void AsemanDevices::setFlag(AsemanDevices::Flags flag, bool state)
+{
+    AsemanDevicesPrivate::flags[flag] = state;
+}
+
+bool AsemanDevices::flag(AsemanDevices::Flags flag)
+{
+    return AsemanDevicesPrivate::flags.value(flag);
+}
+
 int AsemanDevices::densityDpi()
 {
 #ifdef Q_OS_ANDROID
@@ -395,6 +410,15 @@ int AsemanDevices::densityDpi()
 
 qreal AsemanDevices::density()
 {
+    const bool disabled = AsemanDevices::flag(DisableDensities);
+    if(disabled)
+        return 1;
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    if(QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling))
+        return screen()->devicePixelRatio();
+#endif
+
 #ifdef Q_OS_ANDROID
     qreal ratio = isTablet()? 1.28 : 1;
 //    if( isLargeTablet() )
@@ -426,8 +450,17 @@ qreal AsemanDevices::density()
 qreal AsemanDevices::fontDensity()
 {
 #ifdef Q_OS_ANDROID
+    const bool disabled = AsemanDevices::flag(DisableDensities);
     qreal ratio = isMobile()? (1.28)*1.25 : (1.28)*1.35;
-    return AsemanJavaLayer::instance()->density()*ratio;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    if(QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling))
+        return screen()->devicePixelRatio()*ratio/1.28;
+    else
+#endif
+    if(disabled)
+        return ratio/1.28;
+    else
+        return AsemanJavaLayer::instance()->density()*ratio;
 #else
 #ifdef Q_OS_IOS
     return 1.4;

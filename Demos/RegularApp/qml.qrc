@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>AppWindow.qml</file>
+        <file>BackHandlerExample.qml</file>
+        <file>main.qml</file>
+        <file>MainMenuItem.qml</file>
+        <file>MainPage.qml</file>
+        <file>MaterialButtonExample.qml</file>
+        <file>MenuControllerExample.qml</file>
+        <file>QmlControls.qml</file>
+        <file>SettingsExample.qml</file>
+        <file>SideMenuExample.qml</file>
+        <file>qtquickcontrols2.conf</file>
+    </qresource>
+</RCC>

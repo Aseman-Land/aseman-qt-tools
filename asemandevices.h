@@ -85,6 +85,10 @@ class AsemanDevices : public QObject
     Q_PROPERTY(QString deviceName READ deviceName NOTIFY deviceNameChanged)
 
 public:
+    enum Flags {
+        DisableDensities,
+    };
+
     AsemanDevices(QObject *parent = 0);
     ~AsemanDevices();
 
@@ -130,6 +134,9 @@ public:
 
     static qreal statusBarHeight();
     static qreal navigationBarHeight();
+
+    static void setFlag(Flags flag, bool state = true);
+    static bool flag(Flags flag);
 
     QString clipboard() const;
     bool keyboard() const;
