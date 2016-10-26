@@ -9,12 +9,17 @@ Item {
     property real ratio: 0
     property variant source
     property int layoutDirection: View.layoutDirection
-    property real menuWidth: Devices.isMobile? parent.width-100*Devices.density : parent.width/2 + 20*Devices.density
     property alias isVisible: marea.isVisible
     property alias menuTopMargin: menu_frame.y
     property alias pressed: marea.pressed
     property alias animating: anim_timer.running
     property Component component
+    property real menuWidth: {
+        var res = Devices.isMobile? width-100*Devices.density : width/2 + 20*Devices.density
+        if(res > 250*Devices.density)
+            res = 250*Devices.density
+        return res
+    }
 
     onSourceChanged: refreshSource()
     onRatioChanged: refresh()

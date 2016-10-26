@@ -170,13 +170,13 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
     if(!aseman_app_singleton)
         aseman_app_singleton = this;
 
-//#ifdef Q_OS_ANDROID
-//    if(qgetenv("QT_SCALE_FACTOR").isNull())
-//    {
-//        qreal ratio = AsemanJavaLayer::instance()->density()*(AsemanDevices::isTablet()? 1.28 : 1);
-//        qputenv("QT_SCALE_FACTOR",QByteArray::number(ratio));
-//    }
-//#endif
+#ifdef Q_OS_ANDROID
+    if(qgetenv("QT_SCALE_FACTOR").isNull())
+    {
+        qreal ratio = AsemanJavaLayer::instance()->density()*(AsemanDevices::isTablet()? 1.28 : 1);
+        qputenv("QT_SCALE_FACTOR",QByteArray::number(ratio));
+    }
+#endif
 
     p = new AsemanApplicationPrivate;
     p->appType = appType;

@@ -122,7 +122,12 @@ Item {
 
         Item {
             id: item_frame
-            width: Devices.isMobile? sidemenu.width-50*Devices.density : sidemenu.width/2 + 20*Devices.density
+            width: {
+                var res = Devices.isMobile? sidemenu.width-50*Devices.density : sidemenu.width/2 + 20*Devices.density
+                if(res > 250*Devices.density)
+                    res = 250*Devices.density
+                return res
+            }
             height: parent.height
             x: -width
 

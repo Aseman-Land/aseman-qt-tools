@@ -27,7 +27,6 @@ Rectangle {
     MenuController {
         id: menuController
         anchors.fill: parent
-        menuWidth: width/2
         source: rect
         component: Item {
             anchors.fill: parent

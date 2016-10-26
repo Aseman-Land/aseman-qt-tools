@@ -1,8 +1,10 @@
 import QtQuick 2.7
 import QtQuick.Window 2.2
-import AsemanTools 1.0
+import AsemanTools 1.1
+import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
+import QtQuick.Dialogs 1.2
 
 AsemanWindow {
     id: mainWin
@@ -15,12 +17,20 @@ AsemanWindow {
     Material.accent: Material.LightBlue
     Material.theme: Material.Light
 
+    Rectangle {
+        anchors.fill: parent
+        color: "#000000"
+    }
+
     SlidePageManager {
         id: pageManger
         anchors.fill: parent
+        direction: (mainItem && mainItem.pageManagerDirection? Qt.Vertical : Qt.Horizontal)
 
-        mainComponent: Item {
+        mainComponent: Rectangle {
             anchors.fill: parent
+
+            property alias pageManagerDirection: pManagerSwitch.checked
 
             AsemanFlickable {
                 id: flick
@@ -55,16 +65,31 @@ AsemanWindow {
                         onClicked: pageManger.append(settings_component)
                     }
                     MainMenuItem {
-                        text: "Switch Layout"
-                        onClicked: View.layoutDirection = (View.layoutDirection==Qt.LeftToRight? Qt.RightToLeft : Qt.LeftToRight)
+                        text: "Vertical page manager"
+                        onClicked: pManagerSwitch.checked = !pManagerSwitch.checked
+                        Switch {
+                            id: pManagerSwitch
+                            anchors.verticalCenter: parent.verticalCenter
+                            x: View.layoutDirection==Qt.LeftToRight? parent.width - width : 0
+                        }
+                    }
+                    MainMenuItem {
+                        text: "Right To Left"
+                        onClicked: layoutSwitch.checked = !layoutSwitch.checked
+                        Switch {
+                            id: layoutSwitch
+                            anchors.verticalCenter: parent.verticalCenter
+                            x: View.layoutDirection==Qt.LeftToRight? parent.width - width : 0
+                            onCheckedChanged: View.layoutDirection = (checked? Qt.RightToLeft : Qt.LeftToRight)
+                        }
                     }
                     MainMenuItem {
                         text: "Show Panel"
                         onClicked: btmPanel.item = qmlcontrols_component.createObject(btmPanel)
                     }
                     MainMenuItem {
-                        text: "Show Message"
-                        onClicked: msgDialog.show(okCancelMsg_component)
+                        text: "Show Popup"
+                        onClicked: msgDialog.visible = true
                     }
                     MainMenuItem {
                         text: "AsemanQtTools Github"
@@ -96,9 +121,46 @@ AsemanWindow {
         id: btmPanel
     }
 
-    MessageDialog {
+    Popup {
         id: msgDialog
-        anchors.fill: parent
+        x: (mainWin.width - width) / 2
+        y: (mainWin.height - height) / 2
+        width: Math.min(mainWin.width, mainWin.height) / 3 * 2
+        height: settingsColumn.implicitHeight + topPadding + bottomPadding
+        modal: true
+        focus: true
+
+        contentItem: ColumnLayout {
+            id: settingsColumn
+            spacing: 20
+            z: 100
+
+            Label {
+                text: "Message"
+                font.bold: true
+            }
+
+            Label {
+                text: "It's just a test message :)"
+            }
+
+            RowLayout {
+                spacing: 10
+
+                Button {
+                    id: okButton
+                    text: "Ok"
+                    onClicked: msgDialog.close()
+
+                    Material.foreground: Material.LightBlue
+                    Material.background: "transparent"
+                    Material.elevation: 0
+
+                    Layout.preferredWidth: 0
+                    Layout.fillWidth: true
+                }
+            }
+        }
     }
 
     Component {
@@ -143,15 +205,6 @@ AsemanWindow {
             width: mainWin.width
             NullMouseArea { anchors.fill: parent }
             QmlControls { anchors.fill: parent }
-        }
-    }
-
-    Component {
-        id: okCancelMsg_component
-        MessageDialogOkCancelWarning {
-            message: "It's a test message"
-            onOk: { console.debug("Ok"); msgDialog.hide() }
-            onCanceled: console.debug("Cancel")
         }
     }
 }
