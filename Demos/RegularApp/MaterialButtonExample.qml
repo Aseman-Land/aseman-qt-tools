@@ -15,7 +15,7 @@ Item {
             height: 50*Devices.density
 
             Label {
-                x: 20*Devices.density
+                x: View.layoutDirection==Qt.LeftToRight? 20*Devices.density : parent.width - width - 20*Devices.density
                 text: "Item " + model.index
                 font.pixelSize: 10*Devices.fontDensity
                 anchors.verticalCenter: parent.verticalCenter

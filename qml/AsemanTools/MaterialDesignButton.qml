@@ -134,7 +134,8 @@ Item {
                     text: model.name
                     icon: model.icon
                     height: parent.height
-                    x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
+                    layoutDirection: md_btn.layoutDirection
+                    x: md_btn.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
 
                     MouseArea {
                         anchors.fill: parent

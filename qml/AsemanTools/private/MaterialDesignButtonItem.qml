@@ -10,7 +10,12 @@ Item {
     property alias text: txt.text
     property alias icon: img.source
 
+    property alias layoutDirection: row.layoutDirection
+
     signal clicked()
+
+    LayoutMirroring.enabled: false
+    LayoutMirroring.childrenInherit: true
 
     Row {
         id: row

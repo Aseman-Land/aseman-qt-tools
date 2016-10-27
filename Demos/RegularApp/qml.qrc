@@ -11,5 +11,13 @@
         <file>SettingsExample.qml</file>
         <file>SideMenuExample.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>StaticComponentsExample.qml</file>
+        <file>GraphicalComponentsExample.qml</file>
+        <file>DevicesExample.qml</file>
+        <file>TextToolsExample.qml</file>
+        <file>ToolsExample.qml</file>
+        <file>DesktopExample.qml</file>
+        <file>AsemanAppExample.qml</file>
+        <file>ViewExample.qml</file>
     </qresource>
 </RCC>

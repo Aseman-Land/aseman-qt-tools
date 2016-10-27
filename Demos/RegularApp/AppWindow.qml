@@ -27,6 +27,9 @@ AsemanWindow {
         anchors.fill: parent
         direction: (mainItem && mainItem.pageManagerDirection? Qt.Vertical : Qt.Horizontal)
 
+        LayoutMirroring.enabled: View.layoutDirection == Qt.RightToLeft
+        LayoutMirroring.childrenInherit: true
+
         mainComponent: Rectangle {
             anchors.fill: parent
 
@@ -44,26 +47,6 @@ AsemanWindow {
                     id: column
                     width: flick.width
 
-                    MainMenuItem {
-                        text: "Side Menu"
-                        onClicked: pageManger.append(sideMenu_component)
-                    }
-                    MainMenuItem {
-                        text: "Menu Controller"
-                        onClicked: pageManger.append(menuController_component)
-                    }
-                    MainMenuItem {
-                        text: "Material Button"
-                        onClicked: pageManger.append(materialButton_component)
-                    }
-                    MainMenuItem {
-                        text: "Back Handler"
-                        onClicked: pageManger.append(backHandler_component)
-                    }
-                    MainMenuItem {
-                        text: "Settings"
-                        onClicked: pageManger.append(settings_component)
-                    }
                     MainMenuItem {
                         text: "Vertical page manager"
                         onClicked: pManagerSwitch.checked = !pManagerSwitch.checked
@@ -84,12 +67,12 @@ AsemanWindow {
                         }
                     }
                     MainMenuItem {
-                        text: "Show Panel"
-                        onClicked: btmPanel.item = qmlcontrols_component.createObject(btmPanel)
+                        text: "Graphical Components"
+                        onClicked: pageManger.append(graphicalComponents)
                     }
                     MainMenuItem {
-                        text: "Show Popup"
-                        onClicked: msgDialog.visible = true
+                        text: "Static Components"
+                        onClicked: pageManger.append(staticComponents)
                     }
                     MainMenuItem {
                         text: "AsemanQtTools Github"
@@ -117,94 +100,19 @@ AsemanWindow {
         }
     }
 
-    BottomPanel {
-        id: btmPanel
-    }
-
-    Popup {
-        id: msgDialog
-        x: (mainWin.width - width) / 2
-        y: (mainWin.height - height) / 2
-        width: Math.min(mainWin.width, mainWin.height) / 3 * 2
-        height: settingsColumn.implicitHeight + topPadding + bottomPadding
-        modal: true
-        focus: true
-
-        contentItem: ColumnLayout {
-            id: settingsColumn
-            spacing: 20
-            z: 100
-
-            Label {
-                text: "Message"
-                font.bold: true
-            }
-
-            Label {
-                text: "It's just a test message :)"
-            }
-
-            RowLayout {
-                spacing: 10
-
-                Button {
-                    id: okButton
-                    text: "Ok"
-                    onClicked: msgDialog.close()
-
-                    Material.foreground: Material.LightBlue
-                    Material.background: "transparent"
-                    Material.elevation: 0
-
-                    Layout.preferredWidth: 0
-                    Layout.fillWidth: true
-                }
-            }
-        }
-    }
-
     Component {
-        id: menuController_component
-        MenuControllerExample {
+        id: staticComponents
+        StaticComponentsExample {
             anchors.fill: parent
+            onAppendRequest: pageManger.append(component)
         }
     }
 
     Component {
-        id: sideMenu_component
-        SideMenuExample {
+        id: graphicalComponents
+        GraphicalComponentsExample {
             anchors.fill: parent
-        }
-    }
-
-    Component {
-        id: materialButton_component
-        MaterialButtonExample {
-            anchors.fill: parent
-        }
-    }
-
-    Component {
-        id: backHandler_component
-        BackHandlerExample {
-            anchors.fill: parent
-        }
-    }
-
-    Component {
-        id: settings_component
-        SettingsExample {
-            anchors.fill: parent
-        }
-    }
-
-    Component {
-        id: qmlcontrols_component
-        Rectangle {
-            height: mainWin.height/2
-            width: mainWin.width
-            NullMouseArea { anchors.fill: parent }
-            QmlControls { anchors.fill: parent }
+            onAppendRequest: pageManger.append(component)
         }
     }
 }

@@ -78,7 +78,7 @@ class AsemanApplication : public AsemanQuickObject
 
     Q_PROPERTY(QString applicationDisplayName READ applicationDisplayName WRITE setApplicationDisplayName NOTIFY fakeSignal)
     Q_PROPERTY(QString platformName READ platformName STORED false)
-    Q_PROPERTY(bool quitOnLastWindowClosed  READ quitOnLastWindowClosed WRITE setQuitOnLastWindowClosed)
+    Q_PROPERTY(bool quitOnLastWindowClosed  READ quitOnLastWindowClosed WRITE setQuitOnLastWindowClosed NOTIFY fakeSignal)
 
 public:
     enum ApplicationType {

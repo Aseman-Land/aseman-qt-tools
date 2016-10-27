@@ -44,5 +44,6 @@ ApplicationWindow {
 
     Component.onCompleted: {
         View.registerWindow(appWin)
+        View.root = appWin
     }
 }
