@@ -19,5 +19,9 @@
         <file>DesktopExample.qml</file>
         <file>AsemanAppExample.qml</file>
         <file>ViewExample.qml</file>
+        <file>NonGraphicalComponentsExample.qml</file>
+        <file>DownloaderExample.qml</file>
+        <file>EncrypterExample.qml</file>
+        <file>ImageColorAnalizorExample.qml</file>
     </qresource>
 </RCC>

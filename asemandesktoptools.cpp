@@ -590,7 +590,7 @@ QFont AsemanDesktopTools::getFont(QWindow *window, const QString &title, const Q
 #endif
 }
 
-QColor AsemanDesktopTools::getColor(const QColor &color) const
+QColor AsemanDesktopTools::getColor(const QColor &color)
 {
 #if defined(DESKTOP_DEVICE) && defined(QT_WIDGETS_LIB)
     return QColorDialog::getColor(color);

@@ -156,6 +156,28 @@ QStringList AsemanTools::filesOf(const QString &path)
     return QDir(path).entryList(QDir::Files);
 }
 
+bool AsemanTools::writeFile(const QString &path, const QByteArray &data)
+{
+    QFile file(path);
+    if(!file.open(QFile::WriteOnly))
+        return false;
+
+    file.write(data);
+    file.close();
+    return true;
+}
+
+QByteArray AsemanTools::readFile(const QString &path)
+{
+    QFile file(path);
+    if(!file.open(QFile::WriteOnly))
+        return QByteArray();
+
+    const QByteArray &res = file.readAll();
+    file.close();
+    return res;
+}
+
 QString AsemanTools::className(QObject *obj)
 {
     QString result;

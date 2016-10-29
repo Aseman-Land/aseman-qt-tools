@@ -57,6 +57,9 @@ public slots:
     static QString readText( const QString & path );
     static QStringList filesOf(const QString &path);
 
+    static bool writeFile(const QString &path, const QByteArray &data);
+    static QByteArray readFile(const QString &path);
+
     static QString className(QObject *obj);
 
     static QStringList stringLinks(const QString &str);

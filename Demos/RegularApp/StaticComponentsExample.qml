@@ -44,10 +44,6 @@ Rectangle {
                 onClicked: appendRequest(toolsComponent)
             }
             MainMenuItem {
-                text: "Settings"
-                onClicked: appendRequest(settings_component)
-            }
-            MainMenuItem {
                 text: "View"
                 onClicked: appendRequest(view_component)
             }
@@ -115,13 +111,6 @@ Rectangle {
     Component {
         id: toolsComponent
         ToolsExample {
-            anchors.fill: parent
-        }
-    }
-
-    Component {
-        id: settings_component
-        SettingsExample {
             anchors.fill: parent
         }
     }

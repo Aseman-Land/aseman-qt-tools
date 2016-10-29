@@ -23,6 +23,7 @@
 #include "asemandevices.h"
 #include "asemanapplication.h"
 #include "asemanmimedata.h"
+#include "asemandesktoptools.h"
 
 #ifdef Q_OS_ANDROID
 #include "asemanjavalayer.h"
@@ -756,7 +757,12 @@ bool AsemanDevices::getOpenPictures()
 #ifdef Q_OS_ANDROID
     return p->java_layer->getOpenPictures();
 #else
-    return false;
+    QString path = AsemanDesktopTools::getOpenFileName();
+    if(path.isEmpty())
+        return false;
+
+    Q_EMIT selectImageResult(path);
+    return true;
 #endif
 }
 

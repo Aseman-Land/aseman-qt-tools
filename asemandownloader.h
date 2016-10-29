@@ -32,6 +32,7 @@ class AsemanDownloader : public QObject
     Q_PROPERTY(QString destination READ destination WRITE setDestination NOTIFY destinationChanged)
     Q_PROPERTY(QString path READ path WRITE setPath NOTIFY pathChanged)
     Q_PROPERTY(int downloaderId READ downloaderId WRITE setDownloaderId NOTIFY downloaderIdChanged)
+    Q_PROPERTY(bool downloading READ downloading NOTIFY downloadingChanged)
 
     Q_OBJECT
 public:
@@ -50,8 +51,11 @@ public:
     void setDownloaderId( int id );
     int downloaderId() const;
 
+    bool downloading() const;
+
 public slots:
     void start();
+    void stop();
 
 signals:
     void recievedBytesChanged();
@@ -59,6 +63,7 @@ signals:
     void destinationChanged();
     void downloaderIdChanged();
     void pathChanged();
+    void downloadingChanged();
     void error( const QStringList & error );
     void finished( const QByteArray & data );
     void finishedWithId( int id, const QByteArray & data );

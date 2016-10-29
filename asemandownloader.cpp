@@ -45,8 +45,8 @@ AsemanDownloader::AsemanDownloader(QObject *parent) :
 {
     p = new AsemanDownloaderPrivate;
     p->reply = 0;
-    p->recieved_bytes = -1;
-    p->total_bytes = -1;
+    p->recieved_bytes = 0;
+    p->total_bytes = 1;
     p->manager = 0;
     p->downloader_id = -1;
 }
@@ -103,6 +103,11 @@ int AsemanDownloader::downloaderId() const
     return p->downloader_id;
 }
 
+bool AsemanDownloader::downloading() const
+{
+    return p->reply;
+}
+
 void AsemanDownloader::start()
 {
     if( p->path.isEmpty() )
@@ -117,6 +122,24 @@ void AsemanDownloader::start()
 
     connect(p->reply, SIGNAL(sslErrors(QList<QSslError>)), SLOT(sslErrors(QList<QSslError>)));
     connect(p->reply, SIGNAL(downloadProgress(qint64,qint64)), SLOT(downloadProgress(qint64,qint64)) );
+
+    Q_EMIT downloadingChanged();
+}
+
+void AsemanDownloader::stop()
+{
+    if( !p->reply )
+        return;
+
+    p->reply->deleteLater();
+    p->reply = 0;
+    p->recieved_bytes = 0;
+    p->total_bytes = 1;
+    Q_EMIT downloadingChanged();
+    Q_EMIT finished( QByteArray() );
+    Q_EMIT finishedWithId( p->downloader_id, QByteArray() );
+    Q_EMIT totalBytesChanged();
+    Q_EMIT recievedBytesChanged();
 }
 
 void AsemanDownloader::downloadFinished(QNetworkReply *reply)
@@ -130,11 +153,12 @@ void AsemanDownloader::downloadFinished(QNetworkReply *reply)
     {
         emit error( QStringList()<<"Failed" );
         emit failed();
+        Q_EMIT downloadingChanged();
         return;
     }
 
-    p->recieved_bytes = -1;
-    p->total_bytes = -1;
+    p->recieved_bytes = 0;
+    p->total_bytes = 1;
 
     if( !p->dest.isEmpty() )
     {
@@ -146,6 +170,9 @@ void AsemanDownloader::downloadFinished(QNetworkReply *reply)
         {
             emit error( QStringList()<<"Can't write to file." );
             emit failed();
+            Q_EMIT downloadingChanged();
+            Q_EMIT totalBytesChanged();
+            Q_EMIT recievedBytesChanged();
             return;
         }
 
@@ -157,6 +184,9 @@ void AsemanDownloader::downloadFinished(QNetworkReply *reply)
 
     emit finished( res );
     emit finishedWithId( p->downloader_id, res );
+    Q_EMIT downloadingChanged();
+    Q_EMIT totalBytesChanged();
+    Q_EMIT recievedBytesChanged();
 }
 
 void AsemanDownloader::sslErrors(const QList<QSslError> &list)

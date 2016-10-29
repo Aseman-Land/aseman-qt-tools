@@ -71,6 +71,10 @@ AsemanWindow {
                         onClicked: pageManger.append(graphicalComponents)
                     }
                     MainMenuItem {
+                        text: "Non-Graphical Components"
+                        onClicked: pageManger.append(nonGraphicalComponents)
+                    }
+                    MainMenuItem {
                         text: "Static Components"
                         onClicked: pageManger.append(staticComponents)
                     }
@@ -111,6 +115,14 @@ AsemanWindow {
     Component {
         id: graphicalComponents
         GraphicalComponentsExample {
+            anchors.fill: parent
+            onAppendRequest: pageManger.append(component)
+        }
+    }
+
+    Component {
+        id: nonGraphicalComponents
+        NonGraphicalComponentsExample {
             anchors.fill: parent
             onAppendRequest: pageManger.append(component)
         }

@@ -87,16 +87,16 @@ public:
     QObject *currentMenuObject() const;
 
 public slots:
-    QString getOpenFileName(QWindow *window = 0, const QString &title = QString(), const QString &filter = QString(), const QString & startPath = QDir::homePath() );
-    QStringList getOpenFileNames(QWindow *window = 0, const QString &title = QString(), const QString &filter = QString(), const QString & startPath = QDir::homePath() );
-    QString getSaveFileName(QWindow *window = 0, const QString &title = QString(), const QString &filter = QString(), const QString & startPath = QDir::homePath() );
-    QString getExistingDirectory(QWindow *window = 0, const QString &title = QString(), const QString & startPath = QDir::homePath());
-    QFont getFont(QWindow *window = 0, const QString &title = QString(), const QFont &font = QFont());
-    QColor getColor(const QColor &color = QColor()) const;
-    QString getText(QWindow *window = 0, const QString &title = QString(), const QString &text = QString(), const QString &defaultText = QString());
+    static QString getOpenFileName(QWindow *window = 0, const QString &title = QString(), const QString &filter = QString(), const QString & startPath = QDir::homePath() );
+    static QStringList getOpenFileNames(QWindow *window = 0, const QString &title = QString(), const QString &filter = QString(), const QString & startPath = QDir::homePath() );
+    static QString getSaveFileName(QWindow *window = 0, const QString &title = QString(), const QString &filter = QString(), const QString & startPath = QDir::homePath() );
+    static QString getExistingDirectory(QWindow *window = 0, const QString &title = QString(), const QString & startPath = QDir::homePath());
+    static QFont getFont(QWindow *window = 0, const QString &title = QString(), const QFont &font = QFont());
+    static QColor getColor(const QColor &color = QColor());
+    static QString getText(QWindow *window = 0, const QString &title = QString(), const QString &text = QString(), const QString &defaultText = QString());
     int showMenu( const QVariantList & actions, QPoint point = QPoint() );
-    bool yesOrNo(QWindow *window, const QString &title, const QString &text, int type = Warning);
-    void showMessage(QWindow *window, const QString &title, const QString &text, int type = Information);
+    static bool yesOrNo(QWindow *window, const QString &title, const QString &text, int type = Warning);
+    static void showMessage(QWindow *window, const QString &title, const QString &text, int type = Information);
 
 signals:
     void titleBarColorChanged();
