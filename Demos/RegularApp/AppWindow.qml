@@ -5,6 +5,11 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 import QtQuick.Dialogs 1.2
+import "graphical"
+import "nongraphical"
+import "static"
+import "models"
+import "global"
 
 AsemanWindow {
     id: mainWin
@@ -71,6 +76,10 @@ AsemanWindow {
                         onClicked: pageManger.append(graphicalComponents)
                     }
                     MainMenuItem {
+                        text: "Model Components"
+                        onClicked: pageManger.append(modelComponents)
+                    }
+                    MainMenuItem {
                         text: "Non-Graphical Components"
                         onClicked: pageManger.append(nonGraphicalComponents)
                     }
@@ -115,6 +124,14 @@ AsemanWindow {
     Component {
         id: graphicalComponents
         GraphicalComponentsExample {
+            anchors.fill: parent
+            onAppendRequest: pageManger.append(component)
+        }
+    }
+
+    Component {
+        id: modelComponents
+        ModelComponentExamples {
             anchors.fill: parent
             onAppendRequest: pageManger.append(component)
         }

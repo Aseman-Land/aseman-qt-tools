@@ -1,12 +1,12 @@
 import QtQuick 2.0
 import AsemanTools 1.0
-import QtQuick.Controls 2.0
-import QtQuick.Layouts 1.3
-import QtQuick.Controls.Material 2.0
+import "../global"
 
 Rectangle {
+    id: scItem
     color: masterPalette.window
-    clip: true
+
+    signal appendRequest(variant component)
 
     AsemanFlickable {
         id: flick
@@ -21,8 +21,13 @@ Rectangle {
             width: flick.width
 
             MainMenuItem {
-                text: "Visit Documents on Github"
-                onClicked: Qt.openUrlExternally("https://github.com/Aseman-Land/aseman-qt-tools/blob/master/documents/tools.md")
+                text: "CountriesModel"
+                onClicked: appendRequest(countriesModel_component)
+            }
+
+            MainMenuItem {
+                text: "FileSystemModel"
+                onClicked: appendRequest(fileSystemModel_component)
             }
         }
     }
@@ -40,7 +45,7 @@ Rectangle {
         id: header
         width: parent.width
         color: masterPalette.highlight
-        text: qsTr("Tools")
+        text: qsTr("Model Components")
         shadow: true
     }
 
@@ -48,5 +53,19 @@ Rectangle {
         ratio: 1
         buttonColor: "#ffffff"
         onClicked: BackHandler.back()
+    }
+
+    Component {
+        id: countriesModel_component
+        CountriesModelExample {
+            anchors.fill: parent
+        }
+    }
+
+    Component {
+        id: fileSystemModel_component
+        FileSystemModelExample {
+            anchors.fill: parent
+        }
     }
 }

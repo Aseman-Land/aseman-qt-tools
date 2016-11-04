@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import AsemanTools 1.0
+import "../global"
 
 Rectangle {
     id: scItem
@@ -30,6 +31,18 @@ Rectangle {
             MainMenuItem {
                 text: "ImageColorAnalizor"
                 onClicked: appendRequest(imageColorAnalizor_component)
+            }
+            MainMenuItem {
+                text: "MapDownloader"
+                onClicked: appendRequest(mapDownloader_component)
+            }
+            MainMenuItem {
+                text: "NetworkSleepManager"
+                onClicked: appendRequest(networkSleepManager_component)
+            }
+            MainMenuItem {
+                text: "Notification"
+                onClicked: appendRequest(notification_component)
             }
             MainMenuItem {
                 text: "Settings"
@@ -85,6 +98,27 @@ Rectangle {
     Component {
         id: imageColorAnalizor_component
         ImageColorAnalizorExample {
+            anchors.fill: parent
+        }
+    }
+
+    Component {
+        id: mapDownloader_component
+        MapDownloaderExample {
+            anchors.fill: parent
+        }
+    }
+
+    Component {
+        id: networkSleepManager_component
+        NetworkSleepManagerExample {
+            anchors.fill: parent
+        }
+    }
+
+    Component {
+        id: notification_component
+        NotificationExample {
             anchors.fill: parent
         }
     }
