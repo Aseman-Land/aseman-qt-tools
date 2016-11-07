@@ -150,8 +150,8 @@
         <file>qml/AsemanTools/NullMouseArea.qml</file>
         <file>qml/AsemanTools/plugins.qmltypes</file>
         <file>qml/AsemanTools/AsemanWindow.qml</file>
-        <file>qml/AsemanTools/AsemanWindow1.1.qml</file>
-        <file>qml/AsemanTools/SlidePageManager1.1.qml</file>
+        <file>qml/AsemanTools/AsemanWindow1_1.qml</file>
+        <file>qml/AsemanTools/SlidePageManager1_1.qml</file>
     </qresource>
     <qresource prefix="/asemantools/qml/AsemanTools">
         <file>qmldir</file>

@@ -7,6 +7,12 @@ Item {
 
     property Component mainComponent
     property alias mainItem: scene.itemObject
+    readonly property variant currentItem: {
+        if(list.count == 0)
+            return null
+        else
+            return list.last().itemObject
+    }
 
     property int animationDuration: 400
     property int easingType: Easing.OutCubic
@@ -179,6 +185,14 @@ Item {
                 BackHandler.pushHandler(item, item.back)
             }
         }
+    }
+
+    function closeLast() {
+        if(list.count == 0)
+            return false
+
+        list.last().back()
+        return true
     }
 }
 

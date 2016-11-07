@@ -62,5 +62,5 @@ CursorShapeArea 1.0 CursorShapeArea.qml
 AsemanWindow 1.0 AsemanWindow.qml
 ArrayTools 1.0 ArrayFunctions.js
 
-SlidePageManager 1.1 SlidePageManager1.1.qml
-AsemanWindow 1.1 AsemanWindow1.1.qml
+SlidePageManager 1.1 SlidePageManager1_1.qml
+AsemanWindow 1.1 AsemanWindow1_1.qml
