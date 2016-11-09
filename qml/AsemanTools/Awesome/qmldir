@@ -1,0 +1,2 @@
+module AsemanTools.Awesome
+singleton Awesome 1.0 Awesome.qml

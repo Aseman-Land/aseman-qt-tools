@@ -13,6 +13,7 @@ public:
 
 public slots:
     qreal htmlWidth(const QString &html);
+    static Qt::LayoutDirection directionOf( const QString & str );
 
 private:
     AsemanTextToolsPrivate *p;

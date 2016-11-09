@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import AsemanTools 1.0
 import QtGraphicalEffects 1.0
+import AsemanTools.Awesome 1.0
 
 Item {
     id: mdb_item
@@ -9,6 +10,7 @@ Item {
     property alias buttonHeight: button_frame.height
     property alias text: txt.text
     property alias icon: img.source
+    property alias iconText: icon_txt.text
 
     property alias layoutDirection: row.layoutDirection
 
@@ -82,6 +84,15 @@ Item {
                 anchors.margins: 18*Devices.density
                 fillMode: Image.PreserveAspectFit
                 sourceSize: Qt.size(width, height)
+            }
+
+            Text {
+                id: icon_txt
+                anchors.centerIn: parent
+                color: "#333333"
+                font.family: Awesome.family
+                font.pixelSize: 11*Devices.fontDensity
+                font.bold: false
             }
         }
     }

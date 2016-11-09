@@ -152,6 +152,9 @@
         <file>qml/AsemanTools/AsemanWindow.qml</file>
         <file>qml/AsemanTools/AsemanWindow1_1.qml</file>
         <file>qml/AsemanTools/SlidePageManager1_1.qml</file>
+        <file>qml/AsemanTools/Awesome/Awesome.qml</file>
+        <file>qml/AsemanTools/Awesome/fontawesome-webfont.ttf</file>
+        <file>qml/AsemanTools/Awesome/qmldir</file>
     </qresource>
     <qresource prefix="/asemantools/qml/AsemanTools">
         <file>qmldir</file>

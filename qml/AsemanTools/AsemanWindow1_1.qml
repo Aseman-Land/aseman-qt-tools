@@ -37,6 +37,10 @@ ApplicationWindow {
         }
     }
 
+    FontLoader {
+        source: "Awesome/fontawesome-webfont.ttf"
+    }
+
     function tryClose() {
         try_close = true
         close()

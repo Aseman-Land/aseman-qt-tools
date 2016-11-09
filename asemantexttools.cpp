@@ -1,4 +1,5 @@
 #include "asemantexttools.h"
+#include "asemantools.h"
 
 #include <QTextDocument>
 
@@ -19,6 +20,11 @@ qreal AsemanTextTools::htmlWidth(const QString &html)
 {
     p->doc->setHtml(html);
     return p->doc->size().width() + 10;
+}
+
+Qt::LayoutDirection AsemanTextTools::directionOf(const QString &str)
+{
+    return AsemanTools::directionOf(str);
 }
 
 AsemanTextTools::~AsemanTextTools()

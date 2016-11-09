@@ -131,8 +131,9 @@ Item {
                 }
 
                 MaterialDesignButtonItem {
-                    text: model.name
-                    icon: model.icon
+                    text: model.name? model.name : ""
+                    icon: model.icon? model.icon : ""
+                    iconText: model.iconText? model.iconText : ""
                     height: parent.height
                     layoutDirection: md_btn.layoutDirection
                     x: md_btn.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
@@ -156,7 +157,7 @@ Item {
                 clear()
                 for(var i=0; i<md_btn.list.length; i++) {
                     var map = md_btn.list[i]
-                    model.append({"name": map.name, "icon": map.icon})
+                    model.append({"name": map.name, "icon": map.icon, "iconText": map.iconText})
                 }
             }
         }
