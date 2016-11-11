@@ -375,14 +375,14 @@ qreal AsemanDevices::standardTitleBarHeight() const
     if(isDesktop() || lcdPhysicalSize()<5)
         res = 50*density()*1.2;
     else
-        res = 50*density();
+        res = 54*density();
 
     return res;
 }
 
 qreal AsemanDevices::statusBarHeight()
 {
-    return transparentStatusBar()? 24*density() : 0;
+    return transparentStatusBar()? 20*density() : 0;
 }
 
 qreal AsemanDevices::navigationBarHeight()

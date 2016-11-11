@@ -78,14 +78,15 @@ Item {
         property bool closed
     }
 
-    function append(component) {
+    function append(component, properties) {
         var last = list.lastItem()
         var iscene = item_component.createObject(pmanager)
 
         last.closed = true
         list.append(iscene)
 
-        iscene.itemObject = component.createObject(iscene.itemScene)
+        iscene.itemObject = properties? component.createObject(iscene.itemScene, properties) : component.createObject(iscene.itemScene)
+        return iscene.itemObject
     }
 
     Component {

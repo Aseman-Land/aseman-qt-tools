@@ -16,7 +16,12 @@ Item {
         anchors.centerIn: parent
         spacing: 3*Devices.density
         rotation: ratio*180
-        transform: Scale { origin.x: width/2; origin.y: height/2; xScale: layoutDirection==Qt.LeftToRight?1:-1}
+        transform: Scale {
+            origin.x: width/2
+            origin.y: height/2
+            xScale: (layoutDirection==Qt.LeftToRight?1:-1)*yScale
+            yScale: 1-ratio/6
+        }
 
         Rectangle {
             x: parent.width - width
