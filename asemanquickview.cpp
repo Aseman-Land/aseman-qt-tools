@@ -267,6 +267,7 @@ bool AsemanQuickView::eventFilter(QObject *o, QEvent *e)
             switch(ke->key())
             {
             case Qt::Key_Escape:
+            case Qt::Key_Back:
                 QMetaObject::invokeMethod(o, "closeRequest");
                 break;
             }

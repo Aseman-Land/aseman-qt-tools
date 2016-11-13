@@ -17,6 +17,8 @@ class AsemanQuickViewWrapper : public QObject
     Q_PROPERTY(QQuickItem* focusedText READ focusedText WRITE setFocusedText NOTIFY focusedTextChanged)
 
     Q_PROPERTY(int layoutDirection READ layoutDirection WRITE setLayoutDirection NOTIFY layoutDirectionChanged)
+    Q_PROPERTY(bool reverseLayout READ reverseLayout NOTIFY layoutDirectionChanged)
+    Q_PROPERTY(bool defaultLayout READ defaultLayout NOTIFY layoutDirectionChanged)
     Q_PROPERTY(QString offlineStoragePath READ offlineStoragePath WRITE setOfflineStoragePath NOTIFY offlineStoragePathChanged)
 
     Q_PROPERTY(qreal flickVelocity READ flickVelocity NOTIFY fakeSignal)
@@ -39,6 +41,8 @@ public:
     QQuickItem *focusedText() const;
 
     int layoutDirection() const;
+    bool reverseLayout() const;
+    bool defaultLayout() const;
     void setLayoutDirection( int l );
 
     void setBackController(bool stt);

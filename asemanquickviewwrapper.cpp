@@ -65,6 +65,16 @@ int AsemanQuickViewWrapper::layoutDirection() const
     return mView->layoutDirection();
 }
 
+bool AsemanQuickViewWrapper::reverseLayout() const
+{
+    return mView->layoutDirection() == Qt::RightToLeft;
+}
+
+bool AsemanQuickViewWrapper::defaultLayout() const
+{
+    return mView->layoutDirection() != Qt::RightToLeft;
+}
+
 void AsemanQuickViewWrapper::setLayoutDirection(int l)
 {
     mView->setLayoutDirection(l);
