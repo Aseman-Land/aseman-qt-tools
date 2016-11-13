@@ -41,9 +41,10 @@ public:
     QQuickItem *focusedText() const;
 
     int layoutDirection() const;
+    void setLayoutDirection( int l );
+
     bool reverseLayout() const;
     bool defaultLayout() const;
-    void setLayoutDirection( int l );
 
     void setBackController(bool stt);
     bool backController() const;
