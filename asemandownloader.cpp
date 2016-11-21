@@ -24,6 +24,7 @@
 #include <QUrl>
 #include <QSslError>
 #include <QFile>
+#include <QDir>
 
 class AsemanDownloaderPrivate
 {
@@ -162,6 +163,7 @@ void AsemanDownloader::downloadFinished(QNetworkReply *reply)
 
     if( !p->dest.isEmpty() )
     {
+        QDir().mkpath( QFileInfo(p->dest).dir().path() );
         if( QFile::exists(p->dest) )
             QFile::remove(p->dest);
 

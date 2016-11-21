@@ -46,6 +46,7 @@
 #include "asemanquickviewwrapper.h"
 #include "asemanqmlsmartcomponent.h"
 #include "asemancontributorsmodel.h"
+#include "asemansysteminfo.h"
 #ifndef DISABLE_KEYCHAIN
 #include "asemankeychain.h"
 #endif
@@ -92,6 +93,7 @@ SINGLETON_PROVIDER(AsemanBackHandler      , aseman_backhandler_singleton , Asema
 SINGLETON_PROVIDER(AsemanApplication      , aseman_app_singleton         , AsemanQtTools::application())
 SINGLETON_PROVIDER(AsemanQuickViewWrapper , aseman_qview_singleton       , AsemanQtTools::quickView(engine))
 SINGLETON_PROVIDER(AsemanQtLogger         , aseman_logger_singleton      , AsemanQtTools::qtLogger())
+SINGLETON_PROVIDER(AsemanSystemInfo       , aseman_sysinfo_singleton     , AsemanQtTools::systemInfo())
 #ifdef Q_OS_ANDROID
 SINGLETON_PROVIDER(AsemanJavaLayer        , aseman_javalayer_singleton   , AsemanQtTools::javaLayer())
 #endif
@@ -170,6 +172,7 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerSingletonType<AsemanApplication>(uri, 1, 0, "AsemanApp", aseman_app_singleton, exportMode);
     registerSingletonType<AsemanQtLogger>(uri, 1, 0, "Logger", aseman_logger_singleton, exportMode);
     registerSingletonType<AsemanQuickViewWrapper>(uri, 1, 0, "View", aseman_qview_singleton, exportMode);
+    registerSingletonType<AsemanSystemInfo>(uri, 1, 0, "SystemInfo", aseman_sysinfo_singleton, exportMode);
 #ifdef Q_OS_ANDROID
     registerSingletonType<AsemanJavaLayer>(uri, 1, 0, "JavaLayer", aseman_javalayer_singleton, exportMode);
 #endif
@@ -301,6 +304,15 @@ AsemanTools *AsemanQtTools::tools()
     static QPointer<AsemanTools> res = 0;
     if(!res)
         res = new AsemanTools();
+
+    return res;
+}
+
+AsemanSystemInfo *AsemanQtTools::systemInfo()
+{
+    static QPointer<AsemanSystemInfo> res = 0;
+    if(!res)
+        res = new AsemanSystemInfo();
 
     return res;
 }

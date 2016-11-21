@@ -118,6 +118,7 @@ bool dockClickHandler(id self,SEL _cmd,...)
 class AsemanApplicationPrivate
 {
 public:
+    QUrl windowIcon;
     QTimer *clickOnDock_timer;
     QFont globalFont;
     int appType;
@@ -536,25 +537,28 @@ QClipboard *AsemanApplication::clipboard()
     READ_DEFINITION(clipboard, 0)
 }
 
-#ifdef QT_GUI_LIB
-void AsemanApplication::setWindowIcon(const QIcon &icon)
+void AsemanApplication::setWindowIcon(const QUrl &icon)
 {
+    if(p->windowIcon == icon)
+        return;
+
+    p->windowIcon = icon;
+    QString file = icon.toString();
+    if(file.left(6) == "qrc://")
+        file = file.replace(0, 6, ":/");
+
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
-    SET_DIFINITION(setWindowIcon, icon)
+    SET_DIFINITION(setWindowIcon, QIcon(file))
 #else
     Q_UNUSED(icon)
 #endif
+    Q_EMIT windowIconChanged();
 }
 
-QIcon AsemanApplication::windowIcon()
+QUrl AsemanApplication::windowIcon() const
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
-    READ_DEFINITION(windowIcon, QIcon())
-#else
-    return QIcon();
-#endif
+    return p->windowIcon;
 }
-#endif
 
 bool AsemanApplication::isRunning()
 {

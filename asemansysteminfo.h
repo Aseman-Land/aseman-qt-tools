@@ -25,6 +25,9 @@ class AsemanSystemInfoPrivate;
 class AsemanSystemInfo : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(quint64 cpuCores READ cpuCores NOTIFY fakeSignal)
+    Q_PROPERTY(quint64 cpuFreq READ cpuFreq NOTIFY fakeSignal)
+
 public:
     AsemanSystemInfo(QObject *parent = 0);
     ~AsemanSystemInfo();
@@ -32,6 +35,9 @@ public:
 public slots:
     quint64 cpuCores();
     quint64 cpuFreq();
+
+signals:
+    void fakeSignal();
 
 private:
     AsemanSystemInfoPrivate *p;

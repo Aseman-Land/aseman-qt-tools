@@ -26,6 +26,7 @@
 #include <QVariant>
 #include <QCoreApplication>
 #include <QClipboard>
+#include <QUrl>
 
 #ifdef QT_GUI_LIB
 #include <QIcon>
@@ -72,6 +73,7 @@ class AsemanApplication : public AsemanQuickObject
     Q_PROPERTY(QString organizationDomain READ organizationDomain WRITE setOrganizationDomain NOTIFY organizationDomainChanged)
     Q_PROPERTY(QString applicationAbout READ applicationAbout WRITE setApplicationAbout NOTIFY applicationAboutChanged)
     Q_PROPERTY(QString applicationId READ applicationId WRITE setApplicationId NOTIFY applicationIdChanged)
+    Q_PROPERTY(QUrl windowIcon READ windowIcon WRITE setWindowIcon NOTIFY windowIconChanged)
 
     Q_PROPERTY(int applicationState READ applicationState NOTIFY applicationStateChanged)
     Q_PROPERTY(bool isRunning READ isRunning NOTIFY isRunningChanged)
@@ -147,10 +149,8 @@ public:
 
     static QClipboard *clipboard();
 
-#ifdef QT_GUI_LIB
-    static void setWindowIcon(const QIcon &icon);
-    static QIcon windowIcon();
-#endif
+    void setWindowIcon(const QUrl &icon);
+    QUrl windowIcon() const;
 
     static bool isRunning();
     static int appType();
@@ -209,6 +209,7 @@ signals:
     void applicationStateChanged();
     void applicationAboutChanged();
     void applicationIdChanged();
+    void windowIconChanged();
 
     void isRunningChanged();
 
