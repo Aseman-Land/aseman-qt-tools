@@ -10,6 +10,8 @@ Item {
     property real maximumTabSize: width - 40*Devices.density
     property real tabsHeight: 50*Devices.density
 
+    property alias currentIndex: tabs_list.currentIndex
+
     AsemanListView {
         id: tabs_list
         width: parent.width

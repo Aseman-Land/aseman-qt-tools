@@ -172,7 +172,7 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
         aseman_app_singleton = this;
 
 #ifdef Q_OS_ANDROID
-    if(qgetenv("QT_SCALE_FACTOR").isNull())
+    if(qgetenv("QT_SCALE_FACTOR").isNull() && qgetenv("ASEMAN_SCALE_FACTOR").isNull())
     {
         qreal ratio = AsemanJavaLayer::instance()->density()*(AsemanDevices::isTablet()? 1.28 : 1);
         qputenv("QT_SCALE_FACTOR",QByteArray::number(ratio));
@@ -214,6 +214,9 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
 
 void AsemanApplication::init()
 {
+    if(!qgetenv("ASEMAN_SCALE_FACTOR").isNull())
+        AsemanDevices::setFlag(AsemanDevices::AsemanScaleFactorEnable);
+    else
     if(!qgetenv("QT_SCALE_FACTOR").isNull())
         AsemanDevices::setFlag(AsemanDevices::DisableDensities);
 

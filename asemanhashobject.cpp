@@ -106,6 +106,8 @@ QVariant AsemanHashObject::contains(const QString &key, const QVariant &value)
 
 void AsemanHashObject::clear()
 {
+    if(p->hash.isEmpty())
+        return;
     p->hash.clear();
     emit countChanged();
 }

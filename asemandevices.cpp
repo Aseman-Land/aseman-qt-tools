@@ -70,10 +70,10 @@ public:
     AsemanJavaLayer *java_layer;
 #endif
 
-    static QHash<AsemanDevices::Flags, bool> flags;
+    static QHash<int, bool> flags;
 };
 
-QHash<AsemanDevices::Flags, bool> AsemanDevicesPrivate::flags = QHash<AsemanDevices::Flags, bool>();
+QHash<int, bool> AsemanDevicesPrivate::flags = QHash<int, bool>();
 
 AsemanDevices::AsemanDevices(QObject *parent) :
     QObject(parent)
@@ -390,12 +390,12 @@ qreal AsemanDevices::navigationBarHeight()
     return transparentNavigationBar()? 44*density() : 0;
 }
 
-void AsemanDevices::setFlag(AsemanDevices::Flags flag, bool state)
+void AsemanDevices::setFlag(int flag, bool state)
 {
     AsemanDevicesPrivate::flags[flag] = state;
 }
 
-bool AsemanDevices::flag(AsemanDevices::Flags flag)
+bool AsemanDevices::flag(int flag)
 {
     return AsemanDevicesPrivate::flags.value(flag);
 }
@@ -412,9 +412,17 @@ int AsemanDevices::densityDpi()
 qreal AsemanDevices::density()
 {
     const bool disabled = AsemanDevices::flag(DisableDensities);
+    if(AsemanDevices::flag(AsemanScaleFactorEnable))
+        return qgetenv("ASEMAN_SCALE_FACTOR").toDouble();
+    else
     if(disabled)
         return 1;
+    else
+        return deviceDensity();
+}
 
+qreal AsemanDevices::deviceDensity()
+{
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
     if(QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling))
         return screen()->devicePixelRatio();
@@ -451,14 +459,16 @@ qreal AsemanDevices::density()
 qreal AsemanDevices::fontDensity()
 {
 #ifdef Q_OS_ANDROID
-    const bool disabled = AsemanDevices::flag(DisableDensities);
     qreal ratio = isMobile()? (1.28)*1.25 : (1.28)*1.35;
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
     if(QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling))
         return screen()->devicePixelRatio()*ratio/1.28;
     else
 #endif
-    if(disabled)
+    if(AsemanDevices::flag(AsemanScaleFactorEnable))
+        return density()*ratio;
+    else
+    if(AsemanDevices::flag(DisableDensities))
         return ratio/1.28;
     else
         return AsemanJavaLayer::instance()->density()*ratio;

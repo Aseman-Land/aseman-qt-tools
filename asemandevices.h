@@ -59,9 +59,10 @@ class AsemanDevices : public QObject
 
     Q_PROPERTY(QString localFilesPrePath READ localFilesPrePath NOTIFY localFilesPrePathChanged)
 
-    Q_PROPERTY(int   densityDpi  READ densityDpi  NOTIFY densityDpiChanged  )
-    Q_PROPERTY(qreal density     READ density     NOTIFY densityChanged     )
-    Q_PROPERTY(qreal fontDensity READ fontDensity NOTIFY fontDensityChanged )
+    Q_PROPERTY(int   densityDpi    READ densityDpi    NOTIFY densityDpiChanged  )
+    Q_PROPERTY(qreal density       READ density       NOTIFY densityChanged     )
+    Q_PROPERTY(qreal deviceDensity READ deviceDensity NOTIFY densityChanged     )
+    Q_PROPERTY(qreal fontDensity   READ fontDensity   NOTIFY fontDensityChanged )
 
     Q_PROPERTY(bool  transparentStatusBar     READ transparentStatusBar     NOTIFY transparentStatusBarChanged    )
     Q_PROPERTY(bool  transparentNavigationBar READ transparentNavigationBar NOTIFY transparentNavigationBarChanged)
@@ -87,6 +88,7 @@ class AsemanDevices : public QObject
 public:
     enum Flags {
         DisableDensities,
+        AsemanScaleFactorEnable
     };
 
     AsemanDevices(QObject *parent = 0);
@@ -122,6 +124,7 @@ public:
 
     static int densityDpi();
     static qreal density();
+    static qreal deviceDensity();
     static qreal fontDensity();
 
     bool cameraIsAvailable() const;
@@ -135,8 +138,8 @@ public:
     static qreal statusBarHeight();
     static qreal navigationBarHeight();
 
-    static void setFlag(Flags flag, bool state = true);
-    static bool flag(Flags flag);
+    Q_INVOKABLE static void setFlag(int flag, bool state = true);
+    Q_INVOKABLE static bool flag(int flag);
 
     QString clipboard() const;
     bool keyboard() const;
