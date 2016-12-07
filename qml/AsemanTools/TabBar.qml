@@ -18,8 +18,6 @@ Item {
         anchors.fill: parent
         orientation: Qt.Horizontal
         layoutDirection: View.layoutDirection
-        currentIndex: view.currentIndex
-        onCurrentIndexChanged: view.currentIndex = currentIndex
 
         property real itemWidth: {
             var res = tabBar.width/tabBar.count
@@ -46,7 +44,7 @@ Item {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: view.currentIndex = index
+                onClicked: tabBar.currentIndex = index
             }
         }
         highlightMoveDuration: 400
