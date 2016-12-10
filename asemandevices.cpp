@@ -417,17 +417,17 @@ qreal AsemanDevices::density()
     else
     if(disabled)
         return 1;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    else
+    if(QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling))
+        return deviceDensity()/screen()->devicePixelRatio();
+#endif
     else
         return deviceDensity();
 }
 
 qreal AsemanDevices::deviceDensity()
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-    if(QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling))
-        return screen()->devicePixelRatio();
-#endif
-
 #ifdef Q_OS_ANDROID
     qreal ratio = isTablet()? 1.28 : 1;
 //    if( isLargeTablet() )
@@ -460,16 +460,16 @@ qreal AsemanDevices::fontDensity()
 {
 #ifdef Q_OS_ANDROID
     qreal ratio = isMobile()? (1.28)*1.25 : (1.28)*1.35;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-    if(QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling))
-        return screen()->devicePixelRatio()*ratio/1.28;
-    else
-#endif
     if(AsemanDevices::flag(AsemanScaleFactorEnable))
         return density()*ratio;
     else
     if(AsemanDevices::flag(DisableDensities))
         return ratio/1.28;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    else
+    if(QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling))
+        return AsemanJavaLayer::instance()->density()*ratio/screen()->devicePixelRatio();
+#endif
     else
         return AsemanJavaLayer::instance()->density()*ratio;
 #else
