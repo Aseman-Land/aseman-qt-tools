@@ -152,6 +152,12 @@ int AsemanJavaLayer::getSizeName()
     return res;
 }
 
+int AsemanJavaLayer::statusBarHeight()
+{
+    jint res = p->object.callMethod<jint>(__FUNCTION__, "()I" );
+    return res;
+}
+
 bool AsemanJavaLayer::isTablet()
 {
     jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "()Z");

@@ -20,6 +20,9 @@
 #define WINDOWS_DEFAULT_DPI 96
 #define UTOUCH_DEFAULT_DPI 76
 
+#define TABLET_RATIO 1.28
+#define FONT_RATIO 1.28
+
 #include "asemandevices.h"
 #include "asemanapplication.h"
 #include "asemanmimedata.h"
@@ -382,7 +385,19 @@ qreal AsemanDevices::standardTitleBarHeight() const
 
 qreal AsemanDevices::statusBarHeight()
 {
-    return transparentStatusBar()? 20*density() : 0;
+    if(!transparentStatusBar())
+        return 0;
+
+    static qreal result = 0;
+    if(!result)
+    {
+#ifdef Q_OS_ANDROID
+        result = density()*(AsemanJavaLayer::instance()->statusBarHeight()/deviceDensity());
+#else
+        result = 20*density();
+#endif
+    }
+    return result;
 }
 
 qreal AsemanDevices::navigationBarHeight()
@@ -429,14 +444,14 @@ qreal AsemanDevices::density()
 qreal AsemanDevices::deviceDensity()
 {
 #ifdef Q_OS_ANDROID
-    qreal ratio = isTablet()? 1.28 : 1;
+    qreal ratio = isTablet()? TABLET_RATIO : 1;
 //    if( isLargeTablet() )
 //        ratio = 1.6;
 
     return AsemanJavaLayer::instance()->density()*ratio;
 #else
 #ifdef Q_OS_IOS
-    qreal ratio = isTablet()? 1.28 : 1;
+    qreal ratio = isTablet()? TABLET_RATIO : 1;
     return ratio*densityDpi()/180.0;
 #else
 #if defined(Q_OS_LINUX) || defined(Q_OS_OPENBSD)
@@ -459,12 +474,12 @@ qreal AsemanDevices::deviceDensity()
 qreal AsemanDevices::fontDensity()
 {
 #ifdef Q_OS_ANDROID
-    qreal ratio = isMobile()? (1.28)*1.25 : (1.28)*1.35;
+    qreal ratio = isMobile()? FONT_RATIO*1.25 : FONT_RATIO*1.35;
     if(AsemanDevices::flag(AsemanScaleFactorEnable))
         return density()*ratio;
     else
     if(AsemanDevices::flag(DisableDensities))
-        return ratio/1.28;
+        return ratio/FONT_RATIO;
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
     else
     if(QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling))

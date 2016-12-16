@@ -306,6 +306,16 @@ public class AsemanJavaLayer
         return getMetrics().heightPixels;
     }
 
+    int statusBarHeight() {
+        int result = 0;
+        Context context = AsemanApplication.getAppContext();
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
     boolean isTablet()
     {
         Context context = AsemanApplication.getAppContext();

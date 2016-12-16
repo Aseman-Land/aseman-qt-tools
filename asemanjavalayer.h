@@ -44,6 +44,7 @@ public:
     int screenSizeWidth();
     int screenSizeHeight();
     int getSizeName();
+    int statusBarHeight();
     bool isTablet();
     qreal density();
 
