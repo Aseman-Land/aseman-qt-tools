@@ -27,7 +27,8 @@ AsemanGridView {
     property alias root: fsmodel.folder
     property alias filters: fsmodel.nameFilters
     property alias showDotAndDotDot: fsmodel.showDotAndDotDot
-
+    property color itemsLabelColor: "#333333"
+    
     signal clickedOnFile(variant fileUrl)
 
     FileSystemModel {
@@ -93,7 +94,7 @@ AsemanGridView {
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: model.fileName
-                color: "#333333"
+                color: itemsLabelColor
                 wrapMode: Text.WrapAnywhere
                 elide: Text.ElideRight
                 maximumLineCount: 1
