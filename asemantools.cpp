@@ -554,7 +554,10 @@ QVariant AsemanTools::call(QObject *obj, const QString &member, Qt::ConnectionTy
 
     QVariant result;
     if( !done )
+    {
+        QMetaType::destroy(type, res);
         return result;
+    }
 
     if( type == QMetaType::Void )
         result = QVariant();

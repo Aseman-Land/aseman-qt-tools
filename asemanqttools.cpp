@@ -63,6 +63,7 @@
 #include "asemanencrypter.h"
 #include "asemanquickviewwrapper.h"
 #include "asemanqmlsmartcomponent.h"
+#include "asemanmouseeventlistener.h"
 #include "asemancontributorsmodel.h"
 #include "asemansysteminfo.h"
 #ifndef DISABLE_KEYCHAIN
@@ -148,6 +149,7 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerType<AsemanQuickItemImageGrabber>(uri, 1,0, "ItemImageGrabber", exportMode);
     registerType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem", exportMode);
     registerType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue", exportMode);
+    registerType<AsemanMouseEventListener>(uri, 1,0, "MouseEventListener", exportMode);
     registerType<AsemanFontHandler>(uri, 1,0, "FontHandler", exportMode);
     registerType<AsemanApplication>(uri, 1,0, "AsemanApplication", exportMode);
     registerType<AsemanQmlSmartComponent>(uri, 1,0, "SmartComponentCore", exportMode);

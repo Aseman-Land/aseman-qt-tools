@@ -20,11 +20,16 @@
 #include "../../asemanqmlengine.h"
 
 #include <QGuiApplication>
+#include <QPalette>
 
 int main(int argc, char *argv[])
 {
 //    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     AsemanApplication app(argc, argv);
+
+    QPalette palette = app.palette();
+    palette.setColor(QPalette::Highlight, QColor("#0d80ec"));
 
     AsemanQmlEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

@@ -22,7 +22,7 @@ import AsemanTools 1.0
 Rectangle {
     id: header
     width: 100
-    height: Devices.standardTitleBarHeight + (statusBar? View.statusBarHeight : 0)
+    height: defaultHeight
     color: "#00000000"
 
     property alias text: title_txt.text
@@ -33,6 +33,10 @@ Rectangle {
     property alias backButtonText: back_txt.text
     property alias shadow: shadow_rct.visible
     property bool statusBar: Devices.isAndroid
+    property bool centerText: true
+    property int layoutDirection: View.layoutDirection
+
+    readonly property real defaultHeight: Devices.standardTitleBarHeight + (statusBar? View.statusBarHeight : 0)
 
     signal beginBack()
 
@@ -103,8 +107,17 @@ Rectangle {
             id: title_txt
             font.pixelSize: Math.floor(13*Devices.fontDensity)
             font.family: AsemanApp.globalFont.family
-            y: parent.height/2 - height/2
-            anchors.horizontalCenter: parent.horizontalCenter
+            y: Devices.standardTitleBarHeight/2 - height/2
+            x: {
+                if(centerText)
+                    return parent.width/2 - width/2
+                else
+                if(layoutDirection == Qt.RightToLeft)
+                    return parent.width - Devices.standardTitleBarHeight - width
+                else
+                    return Devices.standardTitleBarHeight
+            }
+
             color: header.light? "#ffffff" : "#333333"
         }
     }

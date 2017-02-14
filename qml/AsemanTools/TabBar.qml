@@ -22,14 +22,19 @@ import AsemanTools 1.0
 Item {
     height: 50*Devices.density
 
+    property alias color: back.color
     property real minimumWidth: 120*Devices.density
     property alias model: tabBar.model
     property alias currentIndex: tabBar.currentIndex
     property alias layoutDirection: tabBar.layoutDirection
     property color highlightColor: "#03A9F4"
+    property color textColor: "#333333"
     property real fontSize: 12*Devices.fontDensity
 
-    Rectangle { anchors.fill: tabBar }
+    Rectangle {
+        id: back
+        anchors.fill: tabBar
+    }
 
     AsemanListView {
         id: tabBar
@@ -56,7 +61,7 @@ Item {
                 maximumLineCount: 1
                 elide: Text.ElideRight
                 font.pixelSize: fontSize
-                color: tabBar.currentIndex==index? highlightColor : "#333333"
+                color: tabBar.currentIndex==index? highlightColor : textColor
                 text: tabBar.model[index]
             }
 

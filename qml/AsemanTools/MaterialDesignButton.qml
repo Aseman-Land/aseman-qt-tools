@@ -106,8 +106,8 @@ Item {
 
     Item {
         id: main_scene
-        width: 64*Devices.density
-        height: 64*Devices.density
+        width: 70*Devices.density
+        height: 70*Devices.density
         x: md_btn.layoutDirection==Qt.LeftToRight? parent.width-width-10*Devices.density : 10*Devices.density
         anchors.bottom: parent.bottom
         anchors.margins: 10*Devices.density

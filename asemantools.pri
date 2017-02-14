@@ -48,7 +48,7 @@ android {
     }
 }
 
-QML_IMPORT_PATH = \
+QML_IMPORT_PATH += \
     $$PWD/qml/
 
 !contains(DEFINES,DISABLE_KEYCHAIN) {
@@ -200,7 +200,8 @@ SOURCES += \
     $$PWD/asemancontributorsmodel.cpp \
     $$PWD/qtsingleapplication/qtlockedfile.cpp \
     $$PWD/qtsingleapplication/qtlocalpeer.cpp \
-    $$PWD/asemanqmlengine.cpp
+    $$PWD/asemanqmlengine.cpp \
+    $$PWD/asemanmouseeventlistener.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -267,7 +268,8 @@ HEADERS += \
     $$PWD/asemancontributorsmodel.h \
     $$PWD/qtsingleapplication/qtlockedfile.h \
     $$PWD/qtsingleapplication/qtlocalpeer.h \
-    $$PWD/asemanqmlengine.h
+    $$PWD/asemanqmlengine.h \
+    $$PWD/asemanmouseeventlistener.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

@@ -155,6 +155,7 @@
         <file>qml/AsemanTools/Awesome/fontawesome-webfont.ttf</file>
         <file>qml/AsemanTools/Awesome/qmldir</file>
         <file>qml/AsemanTools/TabBar.qml</file>
+        <file>qml/AsemanTools/AndroidListEffect.qml</file>
     </qresource>
     <qresource prefix="/asemantools/qml/AsemanTools">
         <file>qmldir</file>
