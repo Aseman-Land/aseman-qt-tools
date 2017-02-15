@@ -49,7 +49,7 @@ Rectangle {
             height: 3*Devices.density
             width: parent.width
             anchors.top: parent.bottom
-            visible: false
+            visible: !Devices.isIOS
             gradient: Gradient {
                 GradientStop { position: 0.0; color: "#55000000" }
                 GradientStop { position: 1.0; color: "#00000000" }

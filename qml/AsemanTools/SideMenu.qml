@@ -57,7 +57,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         color: "#000000"
-        opacity: percent*0.7
+        opacity: Devices.isIOS? percent*0.7 : percent*0.5
     }
 
     Item {
@@ -151,6 +151,22 @@ Item {
                 height: parent.height
                 transformOrigin: Item.Center
                 rotation: layoutDirection==Qt.RightToLeft? 180 : 0
+            }
+        }
+
+        Rectangle {
+            id: shadow_rct
+            y: -height
+            x: item_frame.x + item_frame.width
+            height: 5*Devices.density
+            width: parent.height
+            transformOrigin: Item.BottomLeft
+            opacity: Math.pow(percent, 0.1)
+            rotation: 90
+            visible: !Devices.isIOS
+            gradient: Gradient {
+                GradientStop { position: 1.0; color: "#33000000" }
+                GradientStop { position: 0.0; color: "#00000000" }
             }
         }
     }

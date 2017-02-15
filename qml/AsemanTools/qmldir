@@ -66,3 +66,5 @@ ArrayTools 1.0 ArrayFunctions.js
 TabBar 1.1 TabBar.qml
 SlidePageManager 1.1 SlidePageManager1_1.qml
 AsemanWindow 1.1 AsemanWindow1_1.qml
+Drawer 1.1 SideMenu.qml
+SideMenu 1.1 SideMenu1_1.qml

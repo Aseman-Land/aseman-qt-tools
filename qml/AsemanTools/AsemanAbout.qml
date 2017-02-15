@@ -113,7 +113,6 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
-        shadow: true
         backButton: false
         color: aseman_splash.highlightColor
         light: darkBackground

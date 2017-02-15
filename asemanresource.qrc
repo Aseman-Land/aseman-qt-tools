@@ -156,6 +156,7 @@
         <file>qml/AsemanTools/Awesome/qmldir</file>
         <file>qml/AsemanTools/TabBar.qml</file>
         <file>qml/AsemanTools/AndroidListEffect.qml</file>
+        <file>qml/AsemanTools/SideMenu1_1.qml</file>
     </qresource>
     <qresource prefix="/asemantools/qml/AsemanTools">
         <file>qmldir</file>
