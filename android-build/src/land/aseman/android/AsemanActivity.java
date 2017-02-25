@@ -40,6 +40,10 @@ import android.database.Cursor;
 import android.util.Log;
 import java.util.HashMap;
 import java.util.Iterator;
+import android.graphics.Color;
+
+//import com.google.android.gms.common.api.GoogleApiClient;
+//import com.google.android.gms.common.api.GoogleSignInOptions;
 
 public class AsemanActivity extends QtActivity
 {
@@ -54,10 +58,23 @@ public class AsemanActivity extends QtActivity
     boolean _storeHasFound;
     String _storeManagerLastPurchaseSku;
     IabHelper mStoreManagerHelper;
+//    GoogleApiClient mGoogleApiClient;
 
     public AsemanActivity() {
         AsemanActivity.instance = this;
     }
+
+//    public void initGoogleApiClient() {
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestEmail()
+//            .build();
+
+//        // Build a GoogleApiClient with access to GoogleSignIn.API and the options above.
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//            .enableAutoManage(this, this)
+//            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//            .build();
+//    }
 
     public static AsemanActivity getActivityInstance() {
         return AsemanActivity.instance;
@@ -69,6 +86,67 @@ public class AsemanActivity extends QtActivity
 
     public boolean transparentNavigationBar() {
         return _transparentNavigationBar;
+    }
+
+    boolean setLayoutNoLimit(boolean stt)
+    {
+        Window w = getWindow();
+        if(stt) {
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            _transparentStatusBar = true;
+        } else {
+            w.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            _transparentStatusBar = false;
+        }
+        _transparentNavigationBar = false;
+
+        return true;
+    }
+
+    boolean setStatusBarColor(int color)
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+            return false;
+
+        Window w = getWindow();
+        w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        w.setStatusBarColor(color);
+
+        return true;
+    }
+
+    boolean setTranslucentStatusBar(boolean stt)
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+            return false;
+
+        Window w = getWindow();
+        if(stt) {
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            _transparentStatusBar = true;
+        } else {
+            w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            _transparentStatusBar = false;
+        }
+
+        return true;
+    }
+
+    boolean setTranslucentNavigationBar(boolean stt)
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+            return false;
+
+        Window w = getWindow();
+        if(stt) {
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            _transparentNavigationBar = true;
+        } else {
+            w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            _transparentNavigationBar = false;
+        }
+
+        return true;
     }
 
     public void setKeepScreenOn(boolean status) {
@@ -120,19 +198,17 @@ public class AsemanActivity extends QtActivity
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-
         Window w = getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            _transparentStatusBar = true;
-            //_transparentNavigationBar = true;
-        } else {
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            _transparentStatusBar = true;
-        }
+        w.getDecorView().setBackgroundColor(0xff111111);
 
+        int resID = getResources().getIdentifier("splash" , "drawable", getPackageName());
+        if(resID != 0)
+            w.setBackgroundDrawableResource(resID);
+
+        if( !setTranslucentStatusBar(true) )
+            setLayoutNoLimit(true);
+
+        super.onCreate(savedInstanceState);
         checkIntent(getIntent());
     }
 

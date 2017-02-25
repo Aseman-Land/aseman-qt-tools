@@ -386,4 +386,8 @@ public class AsemanJavaLayer
     {
         return true;
     }
+
+//    boolean googleSignIn(String clientId)
+//    {
+//    }
 }

@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import AsemanTools 1.0
+import QtQuick.Controls 2.0 as QtControls
 
 Item {
     height: 50*Devices.density
@@ -49,9 +50,10 @@ Item {
             return res
         }
 
-        delegate: Item {
+        delegate: QtControls.ItemDelegate {
             height: tabBar.height
             width: tabBar.itemWidth
+            onClicked: tabBar.currentIndex = index
 
             Text {
                 width: parent.width
@@ -63,11 +65,6 @@ Item {
                 font.pixelSize: fontSize
                 color: tabBar.currentIndex==index? highlightColor : textColor
                 text: tabBar.model[index]
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: tabBar.currentIndex = index
             }
         }
         highlightMoveDuration: 400

@@ -31,6 +31,7 @@
 #include <QScreen>
 #include <QGuiApplication>
 #include <QPointer>
+#include <QColor>
 
 #include <jni.h>
 

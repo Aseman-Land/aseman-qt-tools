@@ -172,11 +172,15 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
         aseman_app_singleton = this;
 
 #ifdef Q_OS_ANDROID
+#ifndef FORCE_ASEMAN_DENSITY
     if(!QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling) && qgetenv("QT_SCALE_FACTOR").isNull() && qgetenv("ASEMAN_SCALE_FACTOR").isNull())
     {
         qreal ratio = AsemanJavaLayer::instance()->density()*(AsemanDevices::isTablet()? 1.28 : 1);
-        qputenv("QT_SCALE_FACTOR",QByteArray::number(ratio));
+        qreal newRatio = qRound((ratio*20) + 0.01)/20.0;
+        qputenv("QT_SCALE_FACTOR",QByteArray::number(newRatio));
+        qputenv("ASEMAN_SCALE_FACTOR",QByteArray::number(ratio/newRatio));
     }
+#endif
 #endif
 
     p = new AsemanApplicationPrivate;
