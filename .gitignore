@@ -25,6 +25,7 @@ Makefile*
 build-*
 build
 buildkde
+qml/AsemanTools/qmldir
 
 
 # QtCreator
