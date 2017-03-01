@@ -103,18 +103,19 @@
         return singleton; \
     }
 
-SINGLETON_PROVIDER(AsemanDevices          , aseman_devices_singleton     , AsemanQtTools::devices())
-SINGLETON_PROVIDER(AsemanTools            , aseman_tools_singleton       , AsemanQtTools::tools())
-SINGLETON_PROVIDER(AsemanTextTools        , aseman_text_tools_singleton  , AsemanQtTools::textTools())
-SINGLETON_PROVIDER(AsemanDesktopTools     , aseman_desktoptools_singleton, AsemanQtTools::desktopTools())
-SINGLETON_PROVIDER(AsemanCalendarConverter, aseman_calendarconv_singleton, AsemanQtTools::calendar(engine))
-SINGLETON_PROVIDER(AsemanBackHandler      , aseman_backhandler_singleton , AsemanQtTools::backHandler(engine))
-SINGLETON_PROVIDER(AsemanApplication      , aseman_app_singleton         , AsemanQtTools::application())
-SINGLETON_PROVIDER(AsemanQuickViewWrapper , aseman_qview_singleton       , AsemanQtTools::quickView(engine))
-SINGLETON_PROVIDER(AsemanQtLogger         , aseman_logger_singleton      , AsemanQtTools::qtLogger())
-SINGLETON_PROVIDER(AsemanSystemInfo       , aseman_sysinfo_singleton     , AsemanQtTools::systemInfo())
+SINGLETON_PROVIDER(AsemanDevices            , aseman_devices_singleton         , AsemanQtTools::devices())
+SINGLETON_PROVIDER(AsemanTools              , aseman_tools_singleton           , AsemanQtTools::tools())
+SINGLETON_PROVIDER(AsemanTextTools          , aseman_text_tools_singleton      , AsemanQtTools::textTools())
+SINGLETON_PROVIDER(AsemanDesktopTools       , aseman_desktoptools_singleton    , AsemanQtTools::desktopTools())
+SINGLETON_PROVIDER(AsemanCalendarConverter  , aseman_calendarconv_singleton    , AsemanQtTools::calendar(engine))
+SINGLETON_PROVIDER(AsemanBackHandler        , aseman_backhandler_singleton     , AsemanQtTools::backHandler(engine))
+SINGLETON_PROVIDER(AsemanApplication        , aseman_app_singleton             , AsemanQtTools::application())
+SINGLETON_PROVIDER(AsemanQuickViewWrapper   , aseman_qview_singleton           , AsemanQtTools::quickView(engine))
+SINGLETON_PROVIDER(AsemanQtLogger           , aseman_logger_singleton          , AsemanQtTools::qtLogger())
+SINGLETON_PROVIDER(AsemanSystemInfo         , aseman_sysinfo_singleton         , AsemanQtTools::systemInfo())
+SINGLETON_PROVIDER(AsemanFileDownloaderQueue, aseman_downloader_queue_singleton, AsemanQtTools::getDownloaderQueue(engine))
 #ifdef Q_OS_ANDROID
-SINGLETON_PROVIDER(AsemanJavaLayer        , aseman_javalayer_singleton   , AsemanQtTools::javaLayer())
+SINGLETON_PROVIDER(AsemanJavaLayer          , aseman_javalayer_singleton       , AsemanQtTools::javaLayer())
 #endif
 
 QStringList aseman_qt_tools_indexCache;
@@ -193,6 +194,7 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerSingletonType<AsemanQtLogger>(uri, 1, 0, "Logger", aseman_logger_singleton, exportMode);
     registerSingletonType<AsemanQuickViewWrapper>(uri, 1, 0, "View", aseman_qview_singleton, exportMode);
     registerSingletonType<AsemanSystemInfo>(uri, 1, 0, "SystemInfo", aseman_sysinfo_singleton, exportMode);
+    registerSingletonType<AsemanFileDownloaderQueue>(uri, 1, 0, "DownloaderQueue", aseman_downloader_queue_singleton, exportMode);
 #ifdef Q_OS_ANDROID
     registerSingletonType<AsemanJavaLayer>(uri, 1, 0, "JavaLayer", aseman_javalayer_singleton, exportMode);
 #endif
@@ -334,6 +336,18 @@ AsemanSystemInfo *AsemanQtTools::systemInfo()
     if(!res)
         res = new AsemanSystemInfo();
 
+    return res;
+}
+
+AsemanFileDownloaderQueue *AsemanQtTools::getDownloaderQueue(QQmlEngine *engine)
+{
+    static QHash<QQmlEngine*, QPointer<AsemanFileDownloaderQueue> > views;
+    AsemanFileDownloaderQueue *res = views.value(engine);
+    if(res)
+        return res;
+
+    res = new AsemanFileDownloaderQueue(engine);
+    views[engine] = res;
     return res;
 }
 

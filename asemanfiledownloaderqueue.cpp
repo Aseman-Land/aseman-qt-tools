@@ -42,7 +42,7 @@ AsemanFileDownloaderQueue::AsemanFileDownloaderQueue(QObject *parent) :
     QObject(parent)
 {
     p = new AsemanFileDownloaderQueuePrivate;
-    p->capacity = 2;
+    p->capacity = 10;
 }
 
 void AsemanFileDownloaderQueue::setCapacity(int cap)

@@ -347,6 +347,11 @@ QString AsemanTools::passToMd5(const QString &pass)
     return QCryptographicHash::hash( pass.toUtf8(), QCryptographicHash::Md5 ).toHex();
 }
 
+QString AsemanTools::md5(const QString &str)
+{
+    return QCryptographicHash::hash( str.toUtf8(), QCryptographicHash::Md5 ).toHex();
+}
+
 QString AsemanTools::createUuid()
 {
     return QUuid::createUuid().toString();

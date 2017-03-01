@@ -84,6 +84,7 @@ public slots:
 
     static QString translateNumbers( QString input );
     static QString passToMd5( const QString & pass );
+    static QString md5(const QString & str );
     static QString createUuid();
 
     static QString htmlToPlaintText(const QString &html);
