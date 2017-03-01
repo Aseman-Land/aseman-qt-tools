@@ -1,8 +1,10 @@
 import QtQuick 2.0
 import AsemanTools 1.0
+import QtGraphicalEffects 1.0
 
 Item {
 
+    property alias radius: mask.radius
     property alias source: queueItem.source
     property alias percent: queueItem.percent
 
@@ -10,10 +12,24 @@ Item {
     property alias asynchronous: image.asynchronous
     property alias sourceSize: image.sourceSize
 
+
+    Rectangle {
+        id: mask
+        anchors.fill: parent
+        visible: false
+    }
+
     Image {
         id: image
         anchors.fill: parent
         source: queueItem.result
+        visible: false
+    }
+
+    OpacityMask {
+        anchors.fill: parent
+        source: image
+        maskSource: mask
     }
 
     FileDownloaderQueueItem {
