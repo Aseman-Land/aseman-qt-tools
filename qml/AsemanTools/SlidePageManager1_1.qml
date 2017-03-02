@@ -27,7 +27,7 @@ Item {
     property alias mainItem: scene.itemObject
     readonly property variant currentItem: {
         if(list.count == 0)
-            return null
+            return scene.itemObject
         else
             return list.last().itemObject
     }

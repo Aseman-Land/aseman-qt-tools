@@ -93,6 +93,7 @@ Item {
                 radius: 8.0
                 samples: 16
                 color: "#66000000"
+                cached: true
                 source: btn_rect
             }
 

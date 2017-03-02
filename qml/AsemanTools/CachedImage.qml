@@ -30,6 +30,7 @@ Item {
         anchors.fill: parent
         source: image
         maskSource: mask
+        cached: true
     }
 
     FileDownloaderQueueItem {

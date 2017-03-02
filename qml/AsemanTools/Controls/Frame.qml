@@ -51,6 +51,7 @@ Item {
             horizontalOffset: 0
             verticalOffset: 1
             opacity: 0.4
+            cached: true
             color: "#000000"
         }
 

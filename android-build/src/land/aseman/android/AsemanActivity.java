@@ -199,8 +199,6 @@ public class AsemanActivity extends QtActivity
     public void onCreate(Bundle savedInstanceState)
     {
         Window w = getWindow();
-        w.getDecorView().setBackgroundColor(0xff111111);
-
         int resID = getResources().getIdentifier("splash" , "drawable", getPackageName());
         if(resID != 0)
             w.setBackgroundDrawableResource(resID);

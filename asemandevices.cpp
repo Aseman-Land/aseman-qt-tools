@@ -375,8 +375,11 @@ qreal AsemanDevices::standardTitleBarHeight() const
     if(res)
         return res;
 
-    if(isDesktop() || lcdPhysicalSize()<5)
-        res = 50*density()*1.2;
+    if(isDesktop())
+        res = 60*density();
+    else
+    if(isMobile())
+        res = 56*density();
     else
         res = 54*density();
 
@@ -474,12 +477,12 @@ qreal AsemanDevices::deviceDensity()
 qreal AsemanDevices::fontDensity()
 {
 #ifdef Q_OS_ANDROID
-    qreal ratio = isMobile()? FONT_RATIO*1.25 : FONT_RATIO*1.35;
+    const qreal ratio = isMobile()? FONT_RATIO*1.25 : FONT_RATIO*1.35;
     if(AsemanDevices::flag(AsemanScaleFactorEnable))
         return density()*ratio;
     else
     if(AsemanDevices::flag(DisableDensities))
-        return ratio/FONT_RATIO;
+        return ratio;
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
     else
     if(QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling))

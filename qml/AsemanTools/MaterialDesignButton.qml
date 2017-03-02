@@ -212,6 +212,7 @@ Item {
             samples: 16
             color: "#aa000000"
             source: btn_rect
+            cached: true
         }
 
         MouseArea {
