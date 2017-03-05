@@ -84,6 +84,7 @@ class AsemanDevices : public QObject
     Q_PROPERTY(QString libsPath          READ libsPath          NOTIFY libsPathChanged          )
 
     Q_PROPERTY(QString deviceName READ deviceName NOTIFY deviceNameChanged)
+    Q_PROPERTY(QString deviceId   READ deviceId   NOTIFY deviceIdChanged)
 
 public:
     enum Flags {
@@ -190,6 +191,7 @@ signals:
     void isWindowsPhoneChanged();
 
     void deviceNameChanged();
+    void deviceIdChanged();
 
     void cameraIsAvailableChanged();
 

@@ -314,11 +314,7 @@ qreal AsemanDevices::keyboardHeight() const
 QString AsemanDevices::deviceName()
 {
     if(isDesktop())
-#ifdef Q_OS_WIN
         return QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture();
-#else
-        return "desktop";
-#endif
 #ifdef Q_OS_ANDROID
     else
         return AsemanJavaLayer::instance()->deviceName();

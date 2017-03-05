@@ -10,7 +10,16 @@ Item {
 
     property alias fillMode: image.fillMode
     property alias asynchronous: image.asynchronous
+    property alias cache: image.cache
+    property alias horizontalAlignment: image.horizontalAlignment
+    property alias mirror: image.mirror
+    property alias paintedHeight: image.paintedHeight
+    property alias paintedWidth: image.paintedWidth
+    property alias progress: image.progress
+    property alias smooth: image.smooth
     property alias sourceSize: image.sourceSize
+    property alias status: image.status
+    property alias verticalAlignment: image.verticalAlignment
 
 
     Rectangle {

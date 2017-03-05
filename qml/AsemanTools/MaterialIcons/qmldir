@@ -1,0 +1,2 @@
+module AsemanTools.MaterialIcons
+singleton MaterialIcons 1.0 MaterialIcons.qml

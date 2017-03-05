@@ -59,6 +59,10 @@ ApplicationWindow {
         source: "Awesome/fontawesome-webfont.ttf"
     }
 
+    FontLoader {
+        source: "MaterialIcons/MaterialIcons-Regular.ttf"
+    }
+
     function tryClose() {
         try_close = true
         close()
