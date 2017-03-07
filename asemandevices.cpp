@@ -738,6 +738,14 @@ void AsemanDevices::shareFile(const QString &address)
 #endif
 }
 
+void AsemanDevices::callNumber(const QString &number)
+{
+#ifdef Q_OS_ANDROID
+    p->java_layer->callNumber(number);
+#else
+#endif
+}
+
 void AsemanDevices::setClipboard(const QString &text)
 {
     QGuiApplication::clipboard()->setText( text );

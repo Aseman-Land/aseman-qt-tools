@@ -170,7 +170,7 @@ bool AsemanTools::writeFile(const QString &path, const QByteArray &data)
 QByteArray AsemanTools::readFile(const QString &path)
 {
     QFile file(path);
-    if(!file.open(QFile::WriteOnly))
+    if(!file.open(QFile::ReadOnly))
         return QByteArray();
 
     const QByteArray &res = file.readAll();

@@ -42,6 +42,14 @@ ApplicationWindow {
         repeat: false
     }
 
+    Tooltip {
+        id: tool_tip
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottomMargin: 32*Devices.density + View.navigationBarHeight
+        z: 100
+    }
+
     Connections {
         target: AsemanApp
         onBackRequest: {
@@ -66,6 +74,10 @@ ApplicationWindow {
     function tryClose() {
         try_close = true
         close()
+    }
+
+    function showTooltip( text ){
+        tool_tip.showText(text)
     }
 
     Component.onCompleted: {

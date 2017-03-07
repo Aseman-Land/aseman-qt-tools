@@ -372,6 +372,19 @@ public class AsemanJavaLayer
         return true;
     }
 
+    boolean callNumber( String number )
+    {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:" + number));
+
+        try {
+            AsemanActivity.getActivityInstance().startActivity(intent);
+        } catch(Exception e) {
+            return false;
+        }
+        return true;
+    }
+
     boolean transparentStatusBar()
     {
         return AsemanActivity.getActivityInstance().transparentStatusBar();

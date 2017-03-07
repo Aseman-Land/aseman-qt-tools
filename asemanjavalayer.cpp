@@ -99,6 +99,13 @@ bool AsemanJavaLayer::startCamera(const QString &output)
     return res;
 }
 
+bool AsemanJavaLayer::callNumber(const QString &number)
+{
+    jstring jnumber = p->env->NewString(reinterpret_cast<const jchar*>(number.constData()), number.length());
+    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;)Z", jnumber );
+    return res;
+}
+
 bool AsemanJavaLayer::getOpenPictures()
 {
     jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "()Z");

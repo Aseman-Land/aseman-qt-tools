@@ -35,6 +35,7 @@ public:
     bool shareFile( const QString & path, const QString & type );
     bool openFile( const QString & path, const QString & type );
     bool startCamera( const QString & output );
+    bool callNumber( const QString & number );
     bool getOpenPictures();
 
     bool transparentStatusBar();

@@ -164,6 +164,7 @@ public slots:
     void share(const QString & subject, const QString & message );
     void openFile( const QString & address );
     void shareFile(const QString &address);
+    void callNumber( const QString & number );
     void setClipboard( const QString & text );
     void setClipboardData(AsemanMimeData *mime);
 

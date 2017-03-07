@@ -32,14 +32,15 @@ Item {
         id: image
         anchors.fill: parent
         source: queueItem.result
-        visible: false
+        visible: radius == 0
     }
 
     OpacityMask {
         anchors.fill: parent
-        source: image
+        source: radius != 0? image : null
         maskSource: mask
         cached: true
+        visible: radius != 0
     }
 
     FileDownloaderQueueItem {
