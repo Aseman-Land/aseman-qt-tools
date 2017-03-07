@@ -26,6 +26,7 @@ import land.aseman.android.store.util.IabResult;
 import land.aseman.android.store.util.Inventory;
 import land.aseman.android.store.util.Purchase;
 import com.android.vending.billing.IInAppBillingService;
+import com.hmkcode.android.image.RealPathUtil;
 
 import android.app.Activity;
 import android.content.Context;
@@ -178,21 +179,35 @@ public class AsemanActivity extends QtActivity
     }
 
     public String getPath(Uri uri) {
-        String selectedImagePath;
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        if(cursor != null){
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            selectedImagePath = cursor.getString(column_index);
-        }else{
-            selectedImagePath = null;
-        }
+        try {
+            String realPath;
+            // SDK < API11
+            if (Build.VERSION.SDK_INT < 11)
+                    realPath = RealPathUtil.getRealPathFromURI_BelowAPI11(this, uri);
+            // SDK >= 11 && SDK < 19
+            else if (Build.VERSION.SDK_INT < 19)
+                    realPath = RealPathUtil.getRealPathFromURI_API11to18(this, uri);
+            // SDK > 19 (Android 4.4)
+            else
+                realPath = RealPathUtil.getRealPathFromURI_API19(this, uri);
+            return realPath;
+        } catch(Exception e) {
+            String selectedImagePath;
+            String[] projection = { MediaStore.Images.Media.DATA };
+            Cursor cursor = managedQuery(uri, projection, null, null, null);
+            if(cursor != null){
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                cursor.moveToFirst();
+                selectedImagePath = cursor.getString(column_index);
+            }else{
+                selectedImagePath = null;
+            }
 
-        if(selectedImagePath == null){
-            selectedImagePath = uri.getPath();
+            if(selectedImagePath == null){
+                selectedImagePath = uri.getPath();
+            }
+            return selectedImagePath;
         }
-        return selectedImagePath;
     }
 
     @Override

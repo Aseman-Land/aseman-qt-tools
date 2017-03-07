@@ -105,7 +105,7 @@ Rectangle {
 
         Text {
             id: title_txt
-            font.pixelSize: Math.floor(13*Devices.fontDensity)
+            font.pixelSize: Math.floor(10*Devices.fontDensity)
             font.family: AsemanApp.globalFont.family
             y: Devices.standardTitleBarHeight/2 - height/2
             x: {
