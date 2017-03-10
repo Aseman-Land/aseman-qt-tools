@@ -99,6 +99,15 @@ QDateTime AsemanTools::mSecToDate(const QString &ms)
     return QDateTime::fromMSecsSinceEpoch(ms.toLongLong());
 }
 
+qint64 AsemanTools::dateToSec(const QDateTime &dt)
+{
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 8, 0))
+    return dt.toSecsSinceEpoch();
+#else
+   return dt.toMSecsSinceEpoch()/1000;
+#endif
+}
+
 QString AsemanTools::dateToString(const QDateTime &dt, const QString & format)
 {
     if(format.isEmpty())

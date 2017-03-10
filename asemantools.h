@@ -48,6 +48,7 @@ public slots:
     static QDateTime currentDate();
     static QString dateToMSec(const QDateTime &dt);
     static QDateTime mSecToDate(const QString &ms);
+    static qint64 dateToSec(const QDateTime &dt);
     static QString dateToString(const QDateTime &dt, const QString &format = QString());
 
     static QString fileName( const QString & path );
