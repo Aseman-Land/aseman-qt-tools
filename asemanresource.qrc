@@ -161,6 +161,8 @@
         <file>qml/AsemanTools/MaterialIcons/MaterialIcons-Regular.ttf</file>
         <file>qml/AsemanTools/MaterialIcons/MaterialIcons.qml</file>
         <file>qml/AsemanTools/MaterialIcons/qmldir</file>
+        <file>qml/AsemanTools/MaterialFrame.qml</file>
+        <file>qml/AsemanTools/Button1_1.qml</file>
     </qresource>
     <qresource prefix="/asemantools/qml/AsemanTools">
         <file>qmldir</file>

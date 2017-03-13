@@ -62,6 +62,7 @@ CursorShapeArea 1.0 CursorShapeArea.qml
 AsemanWindow 1.0 AsemanWindow.qml
 AndroidListEffect 1.0 AndroidListEffect.qml
 CachedImage 1.0 CachedImage.qml
+MaterialFrame 1.0 MaterialFrame.qml
 ArrayTools 1.0 ArrayFunctions.js
 
 TabBar 1.1 TabBar.qml
@@ -69,3 +70,4 @@ SlidePageManager 1.1 SlidePageManager1_1.qml
 AsemanWindow 1.1 AsemanWindow1_1.qml
 Drawer 1.1 SideMenu.qml
 SideMenu 1.1 SideMenu1_1.qml
+Button 1.1 Button1_1.qml
