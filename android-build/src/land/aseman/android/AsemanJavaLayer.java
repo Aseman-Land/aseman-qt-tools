@@ -46,9 +46,10 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 
+//import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 public class AsemanJavaLayer
 {
-
     private static native void _sendNote( String title, String msg );
     private static native void _sendImage( String path );
     private static native void _activityPaused();
@@ -402,5 +403,8 @@ public class AsemanJavaLayer
 
 //    boolean googleSignIn(String clientId)
 //    {
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestIdToken(getString(clientId))
+//            .build();
 //    }
 }
