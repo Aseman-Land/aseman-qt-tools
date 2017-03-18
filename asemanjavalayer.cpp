@@ -345,6 +345,14 @@ static void activityDestroyed( JNIEnv *env, jobject obj )
         emit sjl->activityDestroyed();
 }
 
+static void keyboardVisiblityChanged( JNIEnv *env, jobject obj, jint height )
+{
+    Q_UNUSED(env)
+    Q_UNUSED(obj)
+    foreach( AsemanJavaLayer *sjl, java_layers_objects )
+        emit sjl->keyboardVisiblityChanged(height);
+}
+
 bool aseman_jlayer_registerNativeMethods() {
     JNINativeMethod methods[] {{"_sendNote", "(Ljava/lang/String;Ljava/lang/String;)V", reinterpret_cast<void *>(noteRecieved)},
                                {"_sendImage", "(Ljava/lang/String;)V", reinterpret_cast<void *>(imageRecieved)},
@@ -354,7 +362,8 @@ bool aseman_jlayer_registerNativeMethods() {
                                {"_activityResumed", "()V", reinterpret_cast<void *>(activityResumed)},
                                {"_activityStarted", "()V", reinterpret_cast<void *>(activityStarted)},
                                {"_activityRestarted", "()V", reinterpret_cast<void *>(activityRestarted)},
-                               {"_activityDestroyed", "()V", reinterpret_cast<void *>(activityDestroyed)}};
+                               {"_activityDestroyed", "()V", reinterpret_cast<void *>(activityDestroyed)},
+                               {"_keyboardVisiblityChanged", "(I)V", reinterpret_cast<void *>(keyboardVisiblityChanged)}};
 
     QAndroidJniObject javaClass("land/aseman/android/AsemanJavaLayer");
     QAndroidJniEnvironment env;

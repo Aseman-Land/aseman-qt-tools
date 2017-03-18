@@ -59,6 +59,7 @@ public class AsemanJavaLayer
     private static native void _activityRestarted();
     private static native void _activityDestroyed();
     private static native void _selectImageResult( String path );
+    private static native void _keyboardVisiblityChanged(int height);
 
     public AsemanJavaLayer() {
     }
@@ -85,6 +86,10 @@ public class AsemanJavaLayer
 
     public static void activityDestroyed(){
         _activityDestroyed();
+    }
+
+    public static void keyboardVisiblityChanged(int height){
+        _keyboardVisiblityChanged(height);
     }
 
     public static void sendNote( String title, String msg ) {

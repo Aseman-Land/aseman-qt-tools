@@ -65,6 +65,7 @@ signals:
     void incomingShare( const QString & title, const QString & msg );
     void incomingImage( const QString & path );
     void selectImageResult( const QString & path );
+    void keyboardVisiblityChanged(qint32 height);
     void activityPaused();
     void activityStopped();
     void activityResumed();

@@ -71,6 +71,7 @@ public:
 
 #ifdef Q_OS_ANDROID
     AsemanJavaLayer *java_layer;
+    qint32 androidKeyboardHeight;
 #endif
 
     static QHash<int, bool> flags;
@@ -86,6 +87,7 @@ AsemanDevices::AsemanDevices(QObject *parent) :
     p->keyboard_stt = false;
 
 #ifdef Q_OS_ANDROID
+    p->androidKeyboardHeight = 0;
     p->java_layer = AsemanJavaLayer::instance();
 
     connect( p->java_layer, SIGNAL(incomingShare(QString,QString)), SLOT(incoming_share(QString,QString)), Qt::QueuedConnection );
@@ -93,6 +95,14 @@ AsemanDevices::AsemanDevices(QObject *parent) :
     connect( p->java_layer, SIGNAL(selectImageResult(QString))    , SLOT(select_image_result(QString))   , Qt::QueuedConnection );
     connect( p->java_layer, SIGNAL(activityPaused())              , SLOT(activity_paused())              , Qt::QueuedConnection );
     connect( p->java_layer, SIGNAL(activityResumed())             , SLOT(activity_resumed())             , Qt::QueuedConnection );
+    connect( p->java_layer, &AsemanJavaLayer::keyboardVisiblityChanged, this, [this](qint32 height){
+        height = height/deviceDensity();
+        if(p->androidKeyboardHeight == height)
+            return;
+
+        p->androidKeyboardHeight = height;
+        Q_EMIT geometryChanged();
+    });
 #endif
 
     connect( QGuiApplication::inputMethod(), SIGNAL(visibleChanged()), SLOT(keyboard_changed()) );
@@ -289,6 +299,9 @@ QSize AsemanDevices::screenSize()
 
 qreal AsemanDevices::keyboardHeight() const
 {
+#ifdef Q_OS_ANDROID
+    return p->androidKeyboardHeight*density();
+#else
 #ifdef Q_OS_UBUNTUTOUCH
     return screenSize().height()*0.5;
 #else
@@ -308,6 +321,7 @@ qreal AsemanDevices::keyboardHeight() const
         else
             return screenSize().height()*0.5;
     }
+#endif
 #endif
 }
 

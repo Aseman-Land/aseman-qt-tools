@@ -36,8 +36,11 @@ import android.os.Bundle;
 import android.os.Build;
 import android.view.WindowManager;
 import android.view.Window;
+import android.view.View ;
+import android.view.ViewTreeObserver ;
 import android.provider.MediaStore;
 import android.database.Cursor;
+import android.graphics.Rect ;
 import android.util.Log;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -52,6 +55,8 @@ public class AsemanActivity extends QtActivity
     static final int STORE_MANAGER_RC_REQUEST = 0;
 
     private static AsemanActivity instance;
+    private int keyboardExtraHeight = 0;
+
     public boolean _transparentStatusBar = false;
     public boolean _transparentNavigationBar = false;
     public static final int SELECT_IMAGE = 1;
@@ -220,6 +225,23 @@ public class AsemanActivity extends QtActivity
 
         if( !setTranslucentStatusBar(true) )
             setLayoutNoLimit(true);
+
+        final View dview = w.getDecorView();
+        dview.getRootView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener(){
+            public void onGlobalLayout(){
+                  Rect r = new Rect();
+                  dview.getWindowVisibleDisplayFrame(r);
+
+                  int screenHeight = dview.getRootView().getHeight();
+                  int heightDifference = screenHeight - (r.bottom - r.top);
+                  if(heightDifference > screenHeight/4) {
+                      AsemanJavaLayer.keyboardVisiblityChanged(heightDifference - keyboardExtraHeight);
+                  } else {
+                      keyboardExtraHeight = heightDifference;
+                      AsemanJavaLayer.keyboardVisiblityChanged(0);
+                  }
+               }
+         });
 
         super.onCreate(savedInstanceState);
         checkIntent(getIntent());
