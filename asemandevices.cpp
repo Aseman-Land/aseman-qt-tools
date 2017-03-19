@@ -305,6 +305,9 @@ qreal AsemanDevices::keyboardHeight() const
 #ifdef Q_OS_UBUNTUTOUCH
     return screenSize().height()*0.5;
 #else
+#ifdef DESKTOP_DEVICE
+    return 0;
+#else
     const QSize & scr_size = screenSize();
     bool portrait = scr_size.width()<scr_size.height();
     if( portrait )
@@ -321,6 +324,7 @@ qreal AsemanDevices::keyboardHeight() const
         else
             return screenSize().height()*0.5;
     }
+#endif
 #endif
 #endif
 }
