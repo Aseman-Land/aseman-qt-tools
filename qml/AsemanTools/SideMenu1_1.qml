@@ -132,6 +132,7 @@ Item {
             source: sideMenu.source
             component: sideMenu.delegate
             layoutDirection: sideMenu.layoutDirection
+            handleWidth: sideMenu.handleWidth
         }
     }
 

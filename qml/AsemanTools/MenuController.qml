@@ -31,6 +31,7 @@ Item {
     property alias menuTopMargin: menu_frame.y
     property alias pressed: marea.pressed
     property alias animating: anim_timer.running
+    property real handleWidth: 20*Devices.density
     property Component component
     property real menuWidth: {
         var res = Devices.isMobile? width-100*Devices.density : width/2 + 20*Devices.density
@@ -87,7 +88,7 @@ Item {
 
         MouseArea {
             id: marea
-            width: isVisible? parent.width : 10*Devices.density
+            width: isVisible? parent.width : handleWidth
             height: parent.height
 
             property real pinX: 0
