@@ -4,35 +4,34 @@ import QtQuick.Controls 2.0 as QtControls
 import QtGraphicalEffects 1.0
 import QtQuick.Window 2.2
 import QtQuick.Controls.Private 1.0
+import AsemanTools.MaterialIcons 1.0
 
 Item {
     id: tcarea
     anchors.fill: textItem
 
-    property color color: "#00BCD4"
+    property color color: "#03A9F4"
+    property color backgroundColor: "#ffffff"
+
     property Item textItem
     property Item cursorParent: Window.contentItem
 
     readonly property bool selected: textItem && textItem.selectionStart != textItem.selectionEnd
     property alias menuMore: menuRect.more
 
-    property variant menuMap: [
-        {"name": (selected? qsTr("Copy") : qsTr("Paste")), "action": function() {
-            if(selected)
-                textItem.copy()
-            else
-                textItem.paste()
-            hideMenu()
-        }},
-        {"name": (selected? qsTr("More") : qsTr("Select All")), "action": function() {
-            if(selected)
-                menuMore = true
-            else {
-                textItem.selectAll()
-                menuRect.showCursor()
-            }
-        }}
-    ]
+    property variant menuMap: {
+        if(selected)
+            return [
+                        {"name": qsTr("Copy"), "action": function() { textItem.copy(); hideMenu() }},
+                        {"name": qsTr("Delete"), "action": function() { textItem.remove(textItem.selectionStart, textItem.selectionEnd); hideMenu() }},
+                        {"name": "<font family=\"%1\">%2</font>".arg(MaterialIcons.family).arg(MaterialIcons.mi_more_vert), "action": function() { menuMore = true }}
+                    ]
+        else
+            return [
+                        {"name": qsTr("Paste"), "action": function() { textItem.paste(); hideMenu() }},
+                        {"name": qsTr("Select All"), "action": function() { textItem.selectAll(); menuRect.showCursor() }}
+                    ]
+    }
     property variant menuMoreMap: [
         {"name": qsTr("Cut"), "action": function() { textItem.cut(); hideMenu() }},
         {"name": (selected? qsTr("Paste") : qsTr("Copy")), "action": function() {
@@ -43,7 +42,7 @@ Item {
             hideMenu()
         }},
         {"name": qsTr("Select All"), "action": function() { textItem.selectAll(); menuRect.showCursor() }},
-        {"name": qsTr("Back"), "action": function() { menuMore = false }}
+        {"name": "<font family=\"%1\">%2</font>".arg(MaterialIcons.family).arg(MaterialIcons.mi_arrow_back), "action": function() { menuMore = false }}
     ]
 
     onCursorParentChanged: if(menuRect.visible) menuRect.showCursor()
@@ -53,6 +52,7 @@ Item {
         property Item cursor0
         property Item cursor1
         property bool forceHidden: true
+
         property string itemText: textItem? textItem.text : ""
 
         onItemTextChanged: forceHidden = true
@@ -116,7 +116,8 @@ Item {
                 anchors.centerIn: parent
                 width: menuRect.more? menuColumn.width : menuRow.width
                 height: menuRect.more? menuColumn.height : menuRow.height
-                color: "#ffffff"
+                color: tcarea.backgroundColor
+                radius: 3*Devices.density
 
                 Behavior on width {
                     NumberAnimation { easing.type: Easing.OutCubic; duration: 300 }
@@ -139,9 +140,15 @@ Item {
                     delegate: QtControls.Button {
                         text: data.name
                         flat: true
+                        width: 128*Devices.density
                         onClicked: data.action()
 
                         property variant data: menuMoreMap[index]
+                        Component.onCompleted: {
+                            if(text.indexOf(MaterialIcons.family) != -1) {
+                                font.pixelSize = 13*Devices.fontDensity
+                            }
+                        }
                     }
                 }
             }
@@ -157,9 +164,16 @@ Item {
                     delegate: QtControls.Button {
                         text: data.name
                         flat: true
+                        anchors.verticalCenter: parent.verticalCenter
                         onClicked: data.action()
 
                         property variant data: menuMap[index]
+                        Component.onCompleted: {
+                            if(text.indexOf(MaterialIcons.family) != -1) {
+                                font.pixelSize = 13*Devices.fontDensity
+                                width = height*0.75
+                            }
+                        }
                     }
                 }
             }
@@ -281,7 +295,7 @@ Item {
             property string propertyName: "selectionStart"
 
             property point pnt: {
-                if(!textItem || !textItem[propertyName])
+                if(!textItem)
                     return Qt.point(-1, -1)
                 if(textItem.selectionStart == textItem.selectionEnd && propertyName == "selectionEnd")
                     return Qt.point(-1, -1)
@@ -382,6 +396,11 @@ Item {
 
     function hideMenu() {
         menuRect.visible = false
+    }
+
+    function close() {
+        hideMenu()
+        prv.forceHidden = true
     }
 
     Component.onCompleted: {
