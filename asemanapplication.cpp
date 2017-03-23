@@ -189,8 +189,6 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
         else
             qputenv("QT_SCALE_FACTOR",QByteArray::number(ratio));
     }
-#else
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 #endif
 
