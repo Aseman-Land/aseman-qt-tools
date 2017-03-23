@@ -44,6 +44,7 @@
 * <font color='#074885'><b>localFilesPrePath</b></font>: string (readOnly)
 * <font color='#074885'><b>densityDpi</b></font>: int (readOnly)
 * <font color='#074885'><b>density</b></font>: real (readOnly)
+* <font color='#074885'><b>deviceDensity</b></font>: real (readOnly)
 * <font color='#074885'><b>fontDensity</b></font>: real (readOnly)
 * <font color='#074885'><b>transparentStatusBar</b></font>: boolean (readOnly)
 * <font color='#074885'><b>transparentNavigationBar</b></font>: boolean (readOnly)
@@ -61,6 +62,7 @@
 * <font color='#074885'><b>resourcePath</b></font>: string (readOnly)
 * <font color='#074885'><b>libsPath</b></font>: string (readOnly)
 * <font color='#074885'><b>deviceName</b></font>: string (readOnly)
+* <font color='#074885'><b>deviceId</b></font>: string (readOnly)
 
 
 ### Methods
@@ -70,6 +72,7 @@
  * void <font color='#074885'><b>share</b></font>(string subject, string message)
  * void <font color='#074885'><b>openFile</b></font>(string address)
  * void <font color='#074885'><b>shareFile</b></font>(string address)
+ * void <font color='#074885'><b>callNumber</b></font>(string number)
  * void <font color='#074885'><b>setClipboard</b></font>(string text)
  * void <font color='#074885'><b>setClipboardData</b></font>(AsemanMimeData* mime)
  * boolean <font color='#074885'><b>startCameraPicture</b></font>()

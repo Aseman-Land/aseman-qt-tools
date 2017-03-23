@@ -2,7 +2,6 @@
 
  * [Component details](#component-details)
  * [Normal Properties](#normal-properties)
- * [Methods](#methods)
 
 
 ### Component details:
@@ -20,10 +19,6 @@
 
 * <font color='#074885'><b>fonts</b></font>: map
 
-
-### Methods
-
- * void <font color='#074885'><b>openFontChooser</b></font>()
 
 
 

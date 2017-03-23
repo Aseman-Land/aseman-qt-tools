@@ -38,6 +38,7 @@
 * <font color='#074885'><b>organizationDomain</b></font>: string
 * <font color='#074885'><b>applicationAbout</b></font>: string
 * <font color='#074885'><b>applicationId</b></font>: string
+* <font color='#074885'><b>windowIcon</b></font>: url
 * <font color='#074885'><b>applicationState</b></font>: int (readOnly)
 * <font color='#074885'><b>isRunning</b></font>: boolean (readOnly)
 * <font color='#074885'><b>applicationDisplayName</b></font>: string
@@ -80,7 +81,6 @@
 |NoneApplication|0|
 |GuiApplication|1|
 |CoreApplication|2|
-|WidgetApplication|3|
 
 ##### ApplicationState
 

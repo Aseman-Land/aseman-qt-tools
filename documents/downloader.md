@@ -24,11 +24,13 @@
 * <font color='#074885'><b>destination</b></font>: string
 * <font color='#074885'><b>path</b></font>: string
 * <font color='#074885'><b>downloaderId</b></font>: int
+* <font color='#074885'><b>downloading</b></font>: boolean (readOnly)
 
 
 ### Methods
 
  * void <font color='#074885'><b>start</b></font>()
+ * void <font color='#074885'><b>stop</b></font>()
 
 
 ### Signals

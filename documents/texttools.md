@@ -19,6 +19,7 @@
 ### Methods
 
  * real <font color='#074885'><b>htmlWidth</b></font>(string html)
+ * Qt::LayoutDirection <font color='#074885'><b>directionOf</b></font>(string str)
 
 
 

@@ -22,7 +22,7 @@
 
 * <font color='#074885'><b>destination</b></font>: url
 * <font color='#074885'><b>image</b></font>: url (readOnly)
-* <font color='#074885'><b>currentGeo</b></font>: QGeoCoordinate (readOnly)
+* <font color='#074885'><b>currentGeo</b></font>: point (readOnly)
 * <font color='#074885'><b>mapProvider</b></font>: int
 * <font color='#074885'><b>size</b></font>: size
 * <font color='#074885'><b>zoom</b></font>: int
@@ -36,11 +36,6 @@
  * string <font color='#074885'><b>linkOf</b></font>(point geo)
  * string <font color='#074885'><b>webLinkOf</b></font>(point geo)
  * string <font color='#074885'><b>pathOf</b></font>(point geo)
- * void <font color='#074885'><b>download</b></font>(QGeoCoordinate geo)
- * boolean <font color='#074885'><b>check</b></font>(QGeoCoordinate geo)
- * string <font color='#074885'><b>linkOf</b></font>(QGeoCoordinate geo)
- * string <font color='#074885'><b>webLinkOf</b></font>(QGeoCoordinate geo)
- * string <font color='#074885'><b>pathOf</b></font>(QGeoCoordinate geo)
 
 
 ### Signals
