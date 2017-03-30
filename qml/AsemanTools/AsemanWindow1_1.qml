@@ -27,6 +27,7 @@ ApplicationWindow {
     property bool try_close: false
     property alias masterPalette: palette
     readonly property bool portrait: width<height
+    property alias tooltip: tool_tip
 
     signal closeRequest()
 
@@ -47,7 +48,7 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottomMargin: 32*Devices.density + View.navigationBarHeight
-        z: 100
+        z: 100000001
     }
 
     Connections {
@@ -78,6 +79,15 @@ ApplicationWindow {
 
     function showTooltip( text ){
         tool_tip.showText(text)
+    }
+
+    function showGlobalWait(text, blockBack) {
+        var component = Qt.createComponent("private/GlobalBusyDialog.qml")
+        var obj = component.createObject(appWin)
+        obj.z = 100000000
+        obj.text = text
+        obj.blockBack = blockBack
+        return obj
     }
 
     Component.onCompleted: {

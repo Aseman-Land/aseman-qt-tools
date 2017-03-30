@@ -65,6 +65,7 @@ CachedImage 1.0 CachedImage.qml
 MaterialFrame 1.0 MaterialFrame.qml
 TextCursorArea 1.0 TextCursorArea.qml
 PointMapListener 1.0 PointMapListener.qml
+BackAction 1.0 BackAction.qml
 ArrayTools 1.0 ArrayFunctions.js
 
 TabBar 1.1 TabBar.qml

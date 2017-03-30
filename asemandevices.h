@@ -86,6 +86,9 @@ class AsemanDevices : public QObject
     Q_PROPERTY(QString deviceName READ deviceName NOTIFY deviceNameChanged)
     Q_PROPERTY(QString deviceId   READ deviceId   NOTIFY deviceIdChanged)
 
+    Q_PROPERTY(QString qtVersion READ qtVersion NOTIFY qtVersionChanged)
+    Q_PROPERTY(qreal qtMajorVersion READ qtMajorVersion NOTIFY qtVersionChanged)
+
 public:
     enum Flags {
         DisableDensities,
@@ -122,6 +125,9 @@ public:
     qreal keyboardHeight() const;
     static QString deviceName();
     static QString deviceId();
+
+    static QString qtVersion();
+    static qreal qtMajorVersion();
 
     static int densityDpi();
     static qreal density();
@@ -193,6 +199,7 @@ signals:
 
     void deviceNameChanged();
     void deviceIdChanged();
+    void qtVersionChanged();
 
     void cameraIsAvailableChanged();
 

@@ -89,13 +89,9 @@ Item {
                 BackHandler.removeHandler(menuRect)
         }
 
-        property bool more: false
-        onMoreChanged: {
-            if(more)
-                BackHandler.pushHandler(menuItem, function(){ menuRect.more = false } )
-            else
-                BackHandler.removeHandler(menuItem)
-        }
+        property alias more: moreHandler.active
+
+        BackAction { id: moreHandler }
 
         DropShadow {
             anchors.fill: menuItem
@@ -305,7 +301,7 @@ Item {
             }
             property point customPoint: Qt.point(0, 0)
 
-            Canvas {
+            Item {
                   id: mycanvas
                   anchors.fill: parent
                   rotation: {
@@ -320,18 +316,25 @@ Item {
                   }
                   transformOrigin: Item.Top
 
-                  property color fillColor: tcarea.color
-                  onFillColorChanged: requestPaint()
+                  Rectangle {
+                      id: src
+                      anchors.fill: parent
+                      color: tcarea.color
+                      visible: false
+                  }
 
-                  onPaint: {
-                      var ctx = getContext("2d");
-                      ctx.fillStyle = fillColor
-                      ctx.moveTo(width/2, 0)
-                      ctx.lineTo(width, height/2)
-                      ctx.bezierCurveTo(width, height/2, width, height, width/2, height)
-                      ctx.bezierCurveTo(width/2, height, 0, height, 0, height/2)
-                      ctx.lineTo(width/2, 0)
-                      ctx.fill()
+                  Image {
+                      id: mask
+                      anchors.fill: parent
+                      source: "files/text_select_handle_middle.png"
+                      visible: false
+                  }
+
+                  OpacityMask {
+                      anchors.fill: parent
+                      source: src
+                      maskSource: mask
+                      cached: true
                   }
 
                   Behavior on rotation {

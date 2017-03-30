@@ -18,45 +18,72 @@
 
 import QtQuick 2.0
 import AsemanTools 1.0
+import QtGraphicalEffects 1.0
 
-Rectangle {
+Item {
     id: tooltip
-    width: txt.width + padding*2
-    height: txt.height + padding*1.5
-    radius: 3*Devices.density
-    smooth: true
-    opacity: 0
-    color: "#333333"
-    visible: opacity != 0
+    width: tooltipScene.width
+    height: tooltipScene.height
 
     property int interval: 1500
     property real padding: 8*Devices.density
 
     property alias textFont: txt.font
     property alias textColor: txt.color
+    property alias color: tooltipRect.color
 
-    Behavior on opacity {
-        NumberAnimation { id: anim_item; easing.type: Easing.OutCubic; duration: 250 }
+    DropShadow {
+        anchors.fill: tooltipScene
+        horizontalOffset: 0
+        verticalOffset: 3*Devices.density
+        radius: 16*Devices.density
+        samples: 32
+        color: "#80000000"
+        source: tooltipScene
+        cached: true
+        opacity: tooltipScene.opacity
     }
 
-    Text{
-        id: txt
+    Item {
+        id: tooltipScene
+        width: tooltipRect.width + 32*Devices.density
+        height: tooltipRect.height + 32*Devices.density
         anchors.centerIn: parent
-        font.pixelSize: Math.floor(10*Devices.fontDensity)
-        font.family: AsemanApp.globalFont.family
-        color: "#ffffff"
+        visible: opacity != 0
+        opacity: 0
+
+        Behavior on opacity {
+            NumberAnimation { id: anim_item; easing.type: Easing.OutCubic; duration: 250 }
+        }
+
+        Rectangle {
+            id: tooltipRect
+            width: txt.width + padding*2
+            height: txt.height + padding*1.5
+            anchors.centerIn: parent
+            radius: 3*Devices.density
+            color: "#fefefe"
+
+            Text{
+                id: txt
+                anchors.centerIn: parent
+                font.pixelSize: Math.floor(10*Devices.fontDensity)
+                font.family: AsemanApp.globalFont.family
+                color: "#333333"
+            }
+        }
     }
 
     Timer{
         id: hide_timer
         interval: tooltip.interval + 250
         repeat: false
-        onTriggered: tooltip.opacity = 0
+        onTriggered: tooltipScene.opacity = 0
     }
 
     function showText( text ){
         txt.text = text
-        opacity = 0.9
+        tooltipScene.opacity = 0.9
         hide_timer.restart()
     }
 }

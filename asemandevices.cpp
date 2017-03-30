@@ -365,6 +365,24 @@ QString AsemanDevices::deviceId()
 #endif
 }
 
+QString AsemanDevices::qtVersion()
+{
+    return QT_VERSION_STR;
+}
+
+qreal AsemanDevices::qtMajorVersion()
+{
+    static qreal result = 0;
+    if(result)
+        return result;
+
+    const QString &qv = qtVersion();
+    int idx0 = qv.indexOf(".");
+    int idx1 = qv.indexOf(".", idx0+1);
+    result = qv.left(idx1).toDouble();
+    return result;
+}
+
 bool AsemanDevices::transparentStatusBar()
 {
 #ifdef Q_OS_ANDROID

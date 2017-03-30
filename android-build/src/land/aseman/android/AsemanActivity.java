@@ -223,6 +223,7 @@ public class AsemanActivity extends QtActivity
         if(resID != 0)
             w.setBackgroundDrawableResource(resID);
 
+//        setTranslucentNavigationBar(true);
         if( !setTranslucentStatusBar(true) )
             setLayoutNoLimit(true);
 
