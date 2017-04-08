@@ -227,6 +227,7 @@ public class AsemanActivity extends QtActivity
         if( !setTranslucentStatusBar(true) )
             setLayoutNoLimit(true);
 
+        super.onCreate(savedInstanceState);
         final View dview = w.getDecorView();
         dview.getRootView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener(){
             public void onGlobalLayout(){
@@ -244,7 +245,6 @@ public class AsemanActivity extends QtActivity
                }
          });
 
-        super.onCreate(savedInstanceState);
         checkIntent(getIntent());
     }
 
