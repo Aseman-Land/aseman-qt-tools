@@ -225,7 +225,10 @@ void AsemanCountriesModel::init_buff()
 {
     QFile file(":/asemantools/files/countries.csv");
     if( !file.open(QFile::ReadOnly) )
+    {
+        qDebug() << __PRETTY_FUNCTION__ << "Can't load countries.csv file";
         return;
+    }
 
     QString data = file.readAll();
     QStringList splits = data.split("\n",QString::SkipEmptyParts);

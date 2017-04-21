@@ -36,6 +36,7 @@
 #include <QTimerEvent>
 #include <QUuid>
 #include <QMimeDatabase>
+#include <QImageReader>
 
 QString aseman_tools_numtranslate_0 = "0";
 QString aseman_tools_numtranslate_1 = "1";
@@ -163,6 +164,16 @@ QString AsemanTools::readText(const QString &path)
 QStringList AsemanTools::filesOf(const QString &path)
 {
     return QDir(path).entryList(QDir::Files);
+}
+
+QSize AsemanTools::imageSize(const QString &_path)
+{
+    QString path = _path;
+    if(path.left(AsemanDevices::localFilesPrePath().size()) == AsemanDevices::localFilesPrePath())
+        path = path.mid(AsemanDevices::localFilesPrePath().size());
+
+    QImageReader image(path);
+    return image.size();
 }
 
 bool AsemanTools::writeFile(const QString &path, const QByteArray &data)

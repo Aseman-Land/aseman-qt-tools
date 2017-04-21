@@ -58,7 +58,7 @@ public:
     quint64 num;
 };
 
-QList<SortUnitType> analize_file_name(const QString &fileName)
+QList<SortUnitType> aseman_analize_file_name(const QString &fileName)
 {
     QList<SortUnitType> res;
     for(int i=0; i<fileName.length(); i++)
@@ -85,7 +85,7 @@ QList<SortUnitType> analize_file_name(const QString &fileName)
 }
 
 AsemanFileSystemModelPrivate *fileListSort_private_data = 0;
-bool fileListSort(const QFileInfo &f1, const QFileInfo &f2)
+bool aseman_fileListSort(const QFileInfo &f1, const QFileInfo &f2)
 {
     if(fileListSort_private_data->showDirsFirst)
     {
@@ -98,8 +98,8 @@ bool fileListSort(const QFileInfo &f1, const QFileInfo &f2)
     const QString & s1 = f1.fileName();
     const QString & s2 = f2.fileName();
 
-    const QList<SortUnitType> &ul1 = analize_file_name(s1);
-    const QList<SortUnitType> &ul2 = analize_file_name(s2);
+    const QList<SortUnitType> &ul1 = aseman_analize_file_name(s1);
+    const QList<SortUnitType> &ul2 = aseman_analize_file_name(s2);
 
     for(int i=0; i<ul1.length() && i<ul2.length(); i++)
     {
@@ -435,7 +435,7 @@ void AsemanFileSystemModel::reinit_buffer()
         }
 
     fileListSort_private_data = p;
-    qStableSort(res.begin(), res.end(), fileListSort);
+    qStableSort(res.begin(), res.end(), aseman_fileListSort);
 
     changed(res);
 }

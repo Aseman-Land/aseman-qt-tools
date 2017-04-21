@@ -58,6 +58,8 @@ public slots:
     static QString readText( const QString & path );
     static QStringList filesOf(const QString &path);
 
+    static QSize imageSize(const QString &path);
+
     static bool writeFile(const QString &path, const QByteArray &data);
     static QByteArray readFile(const QString &path);
 

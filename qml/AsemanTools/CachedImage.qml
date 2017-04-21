@@ -3,10 +3,16 @@ import AsemanTools 1.0
 import QtGraphicalEffects 1.0
 
 Item {
+    width: image.width
+    height: image.height
+
+    onWidthChanged: image.width = width
+    onHeightChanged: image.height = height
 
     property alias radius: mask.radius
     property alias source: queueItem.source
     property alias percent: queueItem.percent
+    readonly property string cachedSource: image.source
 
     property alias fillMode: image.fillMode
     property alias asynchronous: image.asynchronous
@@ -30,7 +36,6 @@ Item {
 
     Image {
         id: image
-        anchors.fill: parent
         source: queueItem.result
         visible: radius == 0
     }

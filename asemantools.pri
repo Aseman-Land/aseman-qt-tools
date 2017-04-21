@@ -201,7 +201,8 @@ SOURCES += \
     $$PWD/qtsingleapplication/qtlockedfile.cpp \
     $$PWD/qtsingleapplication/qtlocalpeer.cpp \
     $$PWD/asemanqmlengine.cpp \
-    $$PWD/asemanmouseeventlistener.cpp
+    $$PWD/asemanmouseeventlistener.cpp \
+    $$PWD/asemanitemgrabber.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -269,7 +270,8 @@ HEADERS += \
     $$PWD/qtsingleapplication/qtlockedfile.h \
     $$PWD/qtsingleapplication/qtlocalpeer.h \
     $$PWD/asemanqmlengine.h \
-    $$PWD/asemanmouseeventlistener.h
+    $$PWD/asemanmouseeventlistener.h \
+    $$PWD/asemanitemgrabber.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \
@@ -292,10 +294,10 @@ OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/extra/AsemanLocationListener.java
 
 
-!contains(DEFINES,ASEMAN_QML_PLUGIN) {
+#!contains(DEFINES,ASEMAN_QML_PLUGIN) {
     RESOURCES += \
         $$PWD/asemanresource.qrc
-}
+#}
 
 DISTFILES += \
     $$PWD/android-build/src/land/aseman/android/extra/AsemanCameraCapture.java

@@ -27,11 +27,13 @@ Rectangle {
 
     property alias text: title_txt.text
     property alias titleFont: title_txt.font
+    property alias titleFontSize: title_txt.font.pixelSize
     property bool light: true
     property bool backButton: false
     property real backScale: 1
     property alias backButtonText: back_txt.text
     property alias shadow: shadow_rct.visible
+    property alias shadowOpacity: shadow_rct.opacity
     property bool statusBar: Devices.isAndroid
     property bool centerText: true
     property int layoutDirection: View.layoutDirection
