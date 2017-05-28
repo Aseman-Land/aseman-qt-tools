@@ -49,6 +49,7 @@
 #include <QMimeData>
 #include <QProcess>
 #include <QGuiApplication>
+#include <QCryptographicHash>
 
 #ifdef ASEMAN_MULTIMEDIA
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
@@ -369,6 +370,12 @@ QString AsemanDevices::deviceId()
 #else
     return QString();
 #endif
+}
+
+QString AsemanDevices::deviceShortId()
+{
+    QString hash = QCryptographicHash::hash(deviceId().toUtf8(), QCryptographicHash::Md5).toHex();
+    return hash.remove("-").left(8);
 }
 
 QString AsemanDevices::qtVersion()

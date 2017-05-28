@@ -85,6 +85,7 @@ class AsemanDevices : public QObject
 
     Q_PROPERTY(QString deviceName READ deviceName NOTIFY deviceNameChanged)
     Q_PROPERTY(QString deviceId   READ deviceId   NOTIFY deviceIdChanged)
+    Q_PROPERTY(QString deviceShortId   READ deviceShortId   NOTIFY deviceIdChanged)
 
     Q_PROPERTY(QString qtVersion READ qtVersion NOTIFY qtVersionChanged)
     Q_PROPERTY(qreal qtMajorVersion READ qtMajorVersion NOTIFY qtVersionChanged)
@@ -127,6 +128,7 @@ public:
     qreal keyboardHeight() const;
     static QString deviceName();
     static QString deviceId();
+    static QString deviceShortId();
 
     static QString qtVersion();
     static qreal qtMajorVersion();
