@@ -43,6 +43,11 @@ QQmlListProperty<QObject> AsemanQuickObject::items()
                                      QQmlListProperty<QObject>::ClearFunction(clear) );
 }
 
+QList<QObject *> AsemanQuickObject::itemsList() const
+{
+    return p->items;
+}
+
 bool AsemanQuickObject::isValid(AsemanQuickObject *obj)
 {
     return aseman_quick_objs.contains(obj);

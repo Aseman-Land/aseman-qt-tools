@@ -75,9 +75,13 @@ public:
 #endif
 
     static QHash<int, bool> flags;
+    static qreal fontScale;
+    static QSet<AsemanDevices*> devicesObjs;
 };
 
-QHash<int, bool> AsemanDevicesPrivate::flags = QHash<int, bool>();
+QHash<int, bool> AsemanDevicesPrivate::flags;
+qreal AsemanDevicesPrivate::fontScale = 1;
+QSet<AsemanDevices*> AsemanDevicesPrivate::devicesObjs;
 
 AsemanDevices::AsemanDevices(QObject *parent) :
     QObject(parent)
@@ -111,6 +115,8 @@ AsemanDevices::AsemanDevices(QObject *parent) :
     QScreen *scr = screen();
     if( scr )
         connect( scr, SIGNAL(geometryChanged(QRect)), SIGNAL(geometryChanged()) );
+
+    AsemanDevicesPrivate::devicesObjs.insert(this);
 }
 
 bool AsemanDevices::isMobile()
@@ -509,7 +515,7 @@ qreal AsemanDevices::deviceDensity()
 qreal AsemanDevices::fontDensity()
 {
 #ifdef Q_OS_ANDROID
-    const qreal ratio = isMobile()? FONT_RATIO*1.25 : FONT_RATIO*1.35;
+    const qreal ratio = AsemanDevicesPrivate::fontScale*(isMobile()? FONT_RATIO*1.25 : FONT_RATIO*1.35);
     if(AsemanDevices::flag(AsemanScaleFactorEnable))
         return density()*ratio;
     else
@@ -545,6 +551,24 @@ qreal AsemanDevices::fontDensity()
 #endif
 #endif
 #endif
+}
+
+void AsemanDevices::setFontScale(qreal fontScale)
+{
+    if(AsemanDevicesPrivate::fontScale == fontScale)
+        return;
+
+    AsemanDevicesPrivate::fontScale = fontScale;
+    for(AsemanDevices *dvc: AsemanDevicesPrivate::devicesObjs)
+    {
+        Q_EMIT dvc->fontScaleChanged();
+        Q_EMIT dvc->fontDensityChanged();
+    }
+}
+
+qreal AsemanDevices::fontScale()
+{
+    return AsemanDevicesPrivate::fontScale;
 }
 
 bool AsemanDevices::cameraIsAvailable() const
@@ -880,5 +904,6 @@ void AsemanDevices::timerEvent(QTimerEvent *e)
 
 AsemanDevices::~AsemanDevices()
 {
+    AsemanDevicesPrivate::devicesObjs.remove(this);
     delete p;
 }

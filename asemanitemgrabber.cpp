@@ -30,12 +30,14 @@ public:
     QPointer<QQuickItem> item;
     QSharedPointer<QQuickItemGrabResult> result;
     QString dest;
+    QString suffix;
 };
 
 AsemanItemGrabber::AsemanItemGrabber(QObject *parent) :
     QObject(parent)
 {
     p = new AsemanItemGrabberPrivate;
+    p->suffix = "png";
 }
 
 void AsemanItemGrabber::setItem(QQuickItem *item)
@@ -50,6 +52,20 @@ void AsemanItemGrabber::setItem(QQuickItem *item)
 QQuickItem *AsemanItemGrabber::item() const
 {
     return p->item;
+}
+
+void AsemanItemGrabber::setSuffix(const QString &suffix)
+{
+    if(p->suffix == suffix)
+        return;
+
+    p->suffix = suffix;
+    Q_EMIT suffixChanged();
+}
+
+QString AsemanItemGrabber::suffix() const
+{
+    return p->suffix;
 }
 
 void AsemanItemGrabber::save(const QString &dest, const QSize &size)
@@ -70,7 +86,7 @@ void AsemanItemGrabber::save(const QString &dest, const QSize &size)
     connect(p->result.data(), SIGNAL(ready()), this, SLOT(ready()));
 
     QDir().mkpath(dest);
-    p->dest = dest + "/" + QUuid::createUuid().toString().remove("{").remove("}") + ".png";
+    p->dest = dest + "/" + QUuid::createUuid().toString().remove("{").remove("}") + "." + p->suffix;
 }
 
 void AsemanItemGrabber::ready()

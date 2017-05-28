@@ -26,15 +26,15 @@
 
 #define aqobject_cast(OBJECT) static_cast<AsemanQuickObject*>(OBJECT)
 
-#define DEFINE_QML_PROEPRTY(PNAME) \
+#define DEFINE_QML_PROEPRTY(TYPE, PNAME) \
     private: \
         QVariant _##PNAME; \
     Q_SIGNALS: \
         void PNAME##Changed(); \
     public: \
-        Q_PROPERTY(int PNAME READ PNAME WRITE set##PNAME NOTIFY PNAME##Changed) \
-        int PNAME() const { return _##PNAME.toInt(); } \
-        void set##PNAME(int PNAME) { SET_PROPERTY(PNAME) }
+        Q_PROPERTY(TYPE PNAME READ PNAME WRITE set##PNAME NOTIFY PNAME##Changed) \
+        TYPE PNAME() const { return _##PNAME.value<TYPE>(); } \
+        void set##PNAME(TYPE PNAME) { SET_PROPERTY(PNAME) }
 
 class AsemanQuickObjectPrivate;
 class AsemanQuickObject : public QObject
@@ -49,6 +49,8 @@ public:
     ~AsemanQuickObject();
 
     QQmlListProperty<QObject> items();
+    QList<QObject*> itemsList() const;
+
     static bool isValid(AsemanQuickObject* obj);
 
 signals:

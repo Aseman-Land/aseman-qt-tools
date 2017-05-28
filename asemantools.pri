@@ -202,7 +202,8 @@ SOURCES += \
     $$PWD/qtsingleapplication/qtlocalpeer.cpp \
     $$PWD/asemanqmlengine.cpp \
     $$PWD/asemanmouseeventlistener.cpp \
-    $$PWD/asemanitemgrabber.cpp
+    $$PWD/asemanitemgrabber.cpp \
+    $$PWD/asemantranslationmanager.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -271,7 +272,8 @@ HEADERS += \
     $$PWD/qtsingleapplication/qtlocalpeer.h \
     $$PWD/asemanqmlengine.h \
     $$PWD/asemanmouseeventlistener.h \
-    $$PWD/asemanitemgrabber.h
+    $$PWD/asemanitemgrabber.h \
+    $$PWD/asemantranslationmanager.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

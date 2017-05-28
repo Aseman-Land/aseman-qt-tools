@@ -50,6 +50,9 @@ public slots:
     static QDateTime mSecToDate(const QString &ms);
     static qint64 dateToSec(const QDateTime &dt);
     static QString dateToString(const QDateTime &dt, const QString &format = QString());
+    static QDate dateAddDays(const QDate &date, int days);
+
+    static QStringList toStringList(const QVariant &value);
 
     static QString fileName( const QString & path );
     static QString fileSuffix( const QString & path );
@@ -86,6 +89,7 @@ public slots:
     static bool createVideoThumbnail(const QString &video, const QString &output, QString ffmpegPath = QString());
 
     static QString translateNumbers( QString input );
+    static QString trNums(QString input);
     static QString passToMd5( const QString & pass );
     static QString md5(const QString & str );
     static QString createUuid();
@@ -116,6 +120,8 @@ public slots:
 #ifdef QT_QML_LIB
     void jsDelayCall(int ms, const QJSValue &value);
 #endif
+
+    static void setInAppStoreProperty(QObject *store, const QString &propertyName, const QString &value);
 
 protected:
     void timerEvent(QTimerEvent *e);

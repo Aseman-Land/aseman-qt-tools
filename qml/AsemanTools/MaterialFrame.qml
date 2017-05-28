@@ -6,16 +6,19 @@ Item {
 
     property alias color: backFrame.color
     property alias radius: backFrame.radius
+    property alias shadowColor: shadow.color
 
     DropShadow {
+        id: shadow
         anchors.fill: source
         cached: true
         horizontalOffset: 1*Devices.density
         verticalOffset: 1*Devices.density
         radius: 6*Devices.density
         samples: 16
-        color: "#30000000"
+        color: "#000000"
         source: scene
+        opacity: 0.3
     }
 
     Item {

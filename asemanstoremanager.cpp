@@ -56,6 +56,8 @@ AsemanStoreManager::AsemanStoreManager(QObject *parent) :
 {
     p = new AsemanStoreManagerPrivate;
     p->settings = 0;
+
+    connect(this, &AsemanStoreManager::itemsChanged, this, &AsemanStoreManager::initItemChilds);
 }
 
 void AsemanStoreManager::setPublicKey(const QString &publicKey)
@@ -153,6 +155,7 @@ bool AsemanStoreManager::setup()
 
     initCore();
     initProperties();
+    initItemChilds();
     p->core->setup(p->publicKey, p->packageName, p->bindIntent);
     return true;
 }
@@ -166,7 +169,16 @@ void AsemanStoreManager::inventoryStateChanged_slt(const QString &sku, bool stat
 
     const bool purchased = (property(sku.toUtf8()).toInt() == InventoryStatePurchased);
     if(purchasing && purchased)
-        emit inventoryPurchased(sku);
+        Q_EMIT inventoryPurchased(sku);
+
+    const QList<QObject*> &list = itemsList();
+    for(QObject *obj: list)
+    {
+        AsemanStoreManagerProduct *prd = qobject_cast<AsemanStoreManagerProduct*>(obj);
+        if(!prd || prd->store() != this) continue;
+        if(prd->sku() == sku)
+            Q_EMIT prd->skuChanged();
+    }
 }
 
 void AsemanStoreManager::propertyChanged()
@@ -201,6 +213,12 @@ void AsemanStoreManager::propertyChanged()
     p->core->purchaseInventory(propertyName);
 }
 
+AsemanAbstractStoreManagerCore *AsemanStoreManager::core()
+{
+    initCore();
+    return p->core;
+}
+
 void AsemanStoreManager::initProperties()
 {
     initCore();
@@ -226,6 +244,17 @@ void AsemanStoreManager::initProperties()
 
         connect(this, QByteArray::number(QSIGNAL_CODE)+signalSign,
                 this, SLOT(propertyChanged()));
+    }
+}
+
+void AsemanStoreManager::initItemChilds()
+{
+    const QList<QObject*> &list = itemsList();
+    for(QObject *obj: list)
+    {
+        AsemanStoreManagerProduct *prd = qobject_cast<AsemanStoreManagerProduct*>(obj);
+        if(!prd || prd->store()) continue;
+        prd->setStore(this);
     }
 }
 
@@ -256,4 +285,63 @@ void AsemanStoreManager::initCore()
 AsemanStoreManager::~AsemanStoreManager()
 {
     delete p;
+}
+
+
+
+AsemanStoreManagerProduct::AsemanStoreManagerProduct(QObject *parent)
+{
+
+}
+
+AsemanStoreManager *AsemanStoreManagerProduct::store() const
+{
+    return _store;
+}
+
+void AsemanStoreManagerProduct::setStore(AsemanStoreManager *store)
+{
+    if(_store == store)
+        return;
+
+    beginUpdate();
+    _store = store;
+    endUpdate();
+
+    Q_EMIT storeChanged();
+}
+
+void AsemanStoreManagerProduct::beginUpdate()
+{
+    if(_sku.isEmpty() || !_store)
+        return;
+
+    _store->core()->removeInventory(_sku);
+    _store->core()->updateStates();
+}
+
+void AsemanStoreManagerProduct::endUpdate()
+{
+    if(_sku.isEmpty() || !_store)
+        return;
+
+    _store->core()->insertInventory(_sku);
+    _store->core()->updateStates();
+}
+
+void AsemanStoreManagerProduct::setSku(const QString &sku)
+{
+    if(sku == _sku)
+        return;
+
+    beginUpdate();
+    _sku = sku;
+    endUpdate();
+
+    Q_EMIT skuChanged();
+}
+
+AsemanStoreManagerProduct::~AsemanStoreManagerProduct()
+{
+
 }

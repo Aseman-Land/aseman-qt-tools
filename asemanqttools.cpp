@@ -65,6 +65,7 @@
 #include "asemanqmlsmartcomponent.h"
 #include "asemanmouseeventlistener.h"
 #include "asemancontributorsmodel.h"
+#include "asemantranslationmanager.h"
 #include "asemansysteminfo.h"
 #include "asemanitemgrabber.h"
 #ifndef DISABLE_KEYCHAIN
@@ -148,6 +149,7 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerType<AsemanAutoStartManager>(uri, 1,0, "AutoStartManager", exportMode);
     registerType<AsemanSettings>(uri, 1,0, "Settings", exportMode);
     registerType<AsemanStoreManager>(uri, 1,0, "StoreManager", exportMode);
+    registerType<AsemanStoreManagerProduct>(uri, 1,0, "StoreManagerProduct", exportMode);
     registerType<AsemanQuickItemImageGrabber>(uri, 1,0, "ItemImageGrabber", exportMode);
     registerType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem", exportMode);
     registerType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue", exportMode);
@@ -155,6 +157,7 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerType<AsemanFontHandler>(uri, 1,0, "FontHandler", exportMode);
     registerType<AsemanItemGrabber>(uri, 1,0, "ItemGrabber", exportMode);
     registerType<AsemanApplication>(uri, 1,0, "AsemanApplication", exportMode);
+    registerType<AsemanTranslationManager>(uri, 1,0, "TranslationManager", exportMode);
     registerType<AsemanQmlSmartComponent>(uri, 1,0, "SmartComponentCore", exportMode);
 #ifdef DESKTOP_LINUX
     registerType<AsemanMimeApps>(uri, 1,0, "MimeApps", exportMode);
@@ -220,8 +223,6 @@ void AsemanQtTools::registerSecureTypes(const char *uri, bool exportMode)
     registerType<AsemanQuickObject>(uri, 1,0, "AsemanObject", exportMode);
     registerType<AsemanImageColorAnalizor>(uri, 1,0, "ImageColorAnalizor", exportMode);
     registerType<AsemanTitleBarColorGrabber>(uri, 1,0, "TitleBarColorGrabber", exportMode);
-    registerType<AsemanStoreManager>(uri, 1,0, "StoreManager", exportMode);
-    registerType<AsemanStoreManagerModel>(uri, 1,0, "StoreManagerModel", exportMode);
     registerType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem", exportMode);
     registerType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue", exportMode);
     registerType<AsemanWindowDetails>(uri, 1,0, "WindowDetails", exportMode);

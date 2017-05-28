@@ -89,6 +89,8 @@ class AsemanDevices : public QObject
     Q_PROPERTY(QString qtVersion READ qtVersion NOTIFY qtVersionChanged)
     Q_PROPERTY(qreal qtMajorVersion READ qtMajorVersion NOTIFY qtVersionChanged)
 
+    Q_PROPERTY(qreal fontScale READ fontScale WRITE setFontScale NOTIFY fontScaleChanged)
+
 public:
     enum Flags {
         DisableDensities,
@@ -133,6 +135,9 @@ public:
     static qreal density();
     static qreal deviceDensity();
     static qreal fontDensity();
+
+    static void setFontScale(qreal fontScale);
+    static qreal fontScale();
 
     bool cameraIsAvailable() const;
 
@@ -223,6 +228,7 @@ signals:
 
     void densityDpiChanged();
     void densityChanged();
+    void fontScaleChanged();
     void fontDensityChanged();
 
     void clipboardChanged();

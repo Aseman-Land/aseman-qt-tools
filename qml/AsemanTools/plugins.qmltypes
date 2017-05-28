@@ -1953,6 +1953,12 @@ Module {
             Parameter { name: "dt"; type: "QDateTime" }
         }
         Method {
+            name: "dateAddDays"
+            type: "QDate"
+            Parameter { name: "date"; type: "QDate" }
+            Parameter { name: "days"; type: "int" }
+        }
+        Method {
             name: "fileName"
             type: "string"
             Parameter { name: "path"; type: "string" }
@@ -2256,6 +2262,17 @@ Module {
             Parameter { name: "ms"; type: "int" }
             Parameter { name: "value"; type: "QJSValue" }
         }
+    }
+    Component {
+        name: "AsemanTranslationManager"
+        defaultProperty: "items"
+        prototype: "AsemanQuickObject"
+        exports: ["AsemanTools/TranslationManager 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "sourceDirectory"; type: "QUrl" }
+        Property { name: "localeName"; type: "string" }
+        Property { name: "fileName"; type: "string" }
+        Property { name: "delimiters"; type: "string" }
     }
     Component {
         name: "AsemanWebPageGrabber"
@@ -3132,8 +3149,8 @@ Module {
     }
     Component {
         prototype: "QQuickRectangle"
-        name: "QtQuick.Controls.impl/CheckIndicator 2.0"
-        exports: ["QtQuick.Controls.impl/CheckIndicator 2.0"]
+        name: "QtQuick.Controls.Material.impl/CheckIndicator 2.0"
+        exports: ["QtQuick.Controls.Material.impl/CheckIndicator 2.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
@@ -3141,8 +3158,8 @@ Module {
     }
     Component {
         prototype: "QQuickRectangle"
-        name: "QtQuick.Controls.Material.impl/CheckIndicator 2.0"
-        exports: ["QtQuick.Controls.Material.impl/CheckIndicator 2.0"]
+        name: "QtQuick.Controls.impl/CheckIndicator 2.0"
+        exports: ["QtQuick.Controls.impl/CheckIndicator 2.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
@@ -3156,7 +3173,7 @@ Module {
         isComposite: true
         defaultProperty: "data"
         Property { name: "isDefault"; type: "bool" }
-        Property { name: "menu"; type: "Menu_QMLTYPE_45"; isPointer: true }
+        Property { name: "menu"; type: "Menu_QMLTYPE_49"; isPointer: true }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
         Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
@@ -3300,7 +3317,7 @@ Module {
         Property { name: "progress"; type: "double"; isReadonly: true }
         Signal { name: "activated" }
         Property { name: "isDefault"; type: "bool" }
-        Property { name: "menu"; type: "Menu_QMLTYPE_45"; isPointer: true }
+        Property { name: "menu"; type: "Menu_QMLTYPE_49"; isPointer: true }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
         Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
@@ -3325,6 +3342,14 @@ Module {
         Property { name: "__panel"; type: "QQuickItem"; isPointer: true }
         Property { name: "styleHints"; type: "QVariant" }
         Property { name: "__styleData"; type: "QObject"; isPointer: true }
+    }
+    Component {
+        prototype: "QQuickDial"
+        name: "QtQuick.Controls/Dial 2.0"
+        exports: ["QtQuick.Controls/Dial 2.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
     }
     Component {
         prototype: "QQuickFocusScope"
@@ -3369,14 +3394,6 @@ Module {
         Property { name: "__panel"; type: "QQuickItem"; isPointer: true }
         Property { name: "styleHints"; type: "QVariant" }
         Property { name: "__styleData"; type: "QObject"; isPointer: true }
-    }
-    Component {
-        prototype: "QQuickDial"
-        name: "QtQuick.Controls/Dial 2.0"
-        exports: ["QtQuick.Controls/Dial 2.0"]
-        exportMetaObjectRevisions: [0]
-        isComposite: true
-        defaultProperty: "data"
     }
     Component {
         prototype: "QQuickDrawer"
@@ -4624,9 +4641,9 @@ Module {
     }
     Component {
         prototype: "QQuickFocusScope"
-        name: "QtQuick.Extras/StatusIndicator 1.0"
-        exports: ["QtQuick.Extras/StatusIndicator 1.0"]
-        exportMetaObjectRevisions: [0]
+        name: "QtQuick.Extras/StatusIndicator 1.1"
+        exports: ["QtQuick.Extras/StatusIndicator 1.1"]
+        exportMetaObjectRevisions: [1]
         isComposite: true
         defaultProperty: "data"
         Property { name: "active"; type: "bool" }
@@ -4640,9 +4657,9 @@ Module {
     }
     Component {
         prototype: "QQuickFocusScope"
-        name: "QtQuick.Extras/StatusIndicator 1.1"
-        exports: ["QtQuick.Extras/StatusIndicator 1.1"]
-        exportMetaObjectRevisions: [1]
+        name: "QtQuick.Extras/StatusIndicator 1.0"
+        exports: ["QtQuick.Extras/StatusIndicator 1.0"]
+        exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
         Property { name: "active"; type: "bool" }
@@ -4687,15 +4704,6 @@ Module {
         defaultProperty: "data"
     }
     Component {
-        prototype: "QQuickItem"
-        name: "QtQuick.Controls.impl/SwitchIndicator 2.0"
-        exports: ["QtQuick.Controls.impl/SwitchIndicator 2.0"]
-        exportMetaObjectRevisions: [0]
-        isComposite: true
-        defaultProperty: "data"
-        Property { name: "control"; type: "QQuickItem"; isPointer: true }
-    }
-    Component {
         prototype: "QQuickRectangle"
         name: "QtQuick.Controls.Universal.impl/SwitchIndicator 2.0"
         exports: ["QtQuick.Controls.Universal.impl/SwitchIndicator 2.0"]
@@ -4708,6 +4716,15 @@ Module {
         prototype: "QQuickItem"
         name: "QtQuick.Controls.Material.impl/SwitchIndicator 2.0"
         exports: ["QtQuick.Controls.Material.impl/SwitchIndicator 2.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "control"; type: "QQuickItem"; isPointer: true }
+    }
+    Component {
+        prototype: "QQuickItem"
+        name: "QtQuick.Controls.impl/SwitchIndicator 2.0"
+        exports: ["QtQuick.Controls.impl/SwitchIndicator 2.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
@@ -4763,7 +4780,7 @@ Module {
         isComposite: true
         defaultProperty: "data"
         Property { name: "isDefault"; type: "bool" }
-        Property { name: "menu"; type: "Menu_QMLTYPE_45"; isPointer: true }
+        Property { name: "menu"; type: "Menu_QMLTYPE_49"; isPointer: true }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
         Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
@@ -4812,6 +4829,14 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "contentData"
+    }
+    Component {
+        prototype: "QQuickTumbler"
+        name: "QtQuick.Controls/Tumbler 2.0"
+        exports: ["QtQuick.Controls/Tumbler 2.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
     }
     Component {
         prototype: "QQuickFocusScope"
@@ -4873,14 +4898,6 @@ Module {
         Property { name: "__panel"; type: "QQuickItem"; isPointer: true }
         Property { name: "styleHints"; type: "QVariant" }
         Property { name: "__styleData"; type: "QObject"; isPointer: true }
-    }
-    Component {
-        prototype: "QQuickTumbler"
-        name: "QtQuick.Controls/Tumbler 2.0"
-        exports: ["QtQuick.Controls/Tumbler 2.0"]
-        exportMetaObjectRevisions: [0]
-        isComposite: true
-        defaultProperty: "data"
     }
     Component {
         prototype: "QObject"

@@ -21,11 +21,12 @@
 
 #include <QObject>
 #include <QList>
+#include <QPointer>
 
 #include "asemanquickobject.h"
 
 #define DEFINE_STORE_MANAGER_INVENTORY(SKU) \
-    DEFINE_QML_PROEPRTY(SKU) \
+    DEFINE_QML_PROEPRTY(int, SKU) \
     Q_SIGNALS: \
         void SKU##_fakeSignal(); \
     public: \
@@ -57,6 +58,7 @@ public:
     QString description;
 };
 
+class AsemanStoreManagerProduct;
 class AsemanStoreManagerPrivate;
 class AsemanStoreManager : public AsemanQuickObject
 {
@@ -66,6 +68,8 @@ class AsemanStoreManager : public AsemanQuickObject
     Q_PROPERTY(QString packageName READ packageName WRITE setPackageName NOTIFY packageNameChanged)
     Q_PROPERTY(QString bindIntent  READ bindIntent  WRITE setBindIntent  NOTIFY bindIntentChanged )
     Q_PROPERTY(QString cacheSource READ cacheSource WRITE setCacheSource NOTIFY cacheSourceChanged)
+
+    friend class AsemanStoreManagerProduct;
 
 public:
     enum InventoryState {
@@ -111,13 +115,68 @@ private slots:
     void inventoryStateChanged_slt(const QString &sku, bool state);
     void propertyChanged();
 
+protected:
+    class AsemanAbstractStoreManagerCore *core();
+
 private:
     void initProperties();
+    void initItemChilds();
     void reinitCache();
     void initCore();
 
 private:
     AsemanStoreManagerPrivate *p;
+};
+
+
+class AsemanStoreManagerProduct : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(bool IsPurchased READ IsPurchased NOTIFY skuChanged)
+    Q_PROPERTY(bool IsPurchasing READ IsPurchasing NOTIFY skuChanged)
+    Q_PROPERTY(QString price READ price NOTIFY fakeSignal)
+    Q_PROPERTY(QString title READ title NOTIFY fakeSignal)
+    Q_PROPERTY(QString description READ description NOTIFY fakeSignal)
+    Q_PROPERTY(QString type READ type NOTIFY fakeSignal)
+    Q_PROPERTY(QString sku READ sku WRITE setSku NOTIFY skuChanged)
+    Q_PROPERTY(AsemanStoreManager* store READ store WRITE setStore NOTIFY storeChanged)
+
+public:
+    AsemanStoreManagerProduct(QObject *parent = Q_NULLPTR);
+    ~AsemanStoreManagerProduct();
+
+    bool IsPurchased() const { return _sku == AsemanStoreManager::InventoryStatePurchased; }
+    bool IsPurchasing() const { return _sku == AsemanStoreManager::InventoryStatePurchasing; }
+    QString price() const { return detail(_sku).price; }
+    QString title() const { return detail(_sku).title; }
+    QString description() const { return detail(_sku).description; }
+    QString type() const { return detail(_sku).type; }
+
+    QString sku() const { return _sku; }
+    void setSku(const QString &sku);
+
+    AsemanStoreManager *store() const;
+    void setStore(AsemanStoreManager *store);
+
+Q_SIGNALS:
+    void fakeSignal();
+    void skuChanged();
+    void storeChanged();
+
+protected:
+    AsemanStoreManagerInventoryItem detail(const QString &sku) const {
+        if(store())
+            return store()->detail(sku);
+        else
+            return AsemanStoreManagerInventoryItem();
+    }
+
+    void beginUpdate();
+    void endUpdate();
+
+private:
+    QString _sku;
+    QPointer<AsemanStoreManager> _store;
 };
 
 #endif // ASEMANSTOREMANAGER_H

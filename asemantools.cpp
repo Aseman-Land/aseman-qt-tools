@@ -38,17 +38,9 @@
 #include <QMimeDatabase>
 #include <QImageReader>
 
-QString aseman_tools_numtranslate_0 = "0";
-QString aseman_tools_numtranslate_1 = "1";
-QString aseman_tools_numtranslate_2 = "2";
-QString aseman_tools_numtranslate_3 = "3";
-QString aseman_tools_numtranslate_4 = "4";
-QString aseman_tools_numtranslate_5 = "5";
-QString aseman_tools_numtranslate_6 = "6";
-QString aseman_tools_numtranslate_7 = "7";
-QString aseman_tools_numtranslate_8 = "8";
-QString aseman_tools_numtranslate_9 = "9";
-
+#ifdef QT_PURCHASING_LIB
+#include <QInAppStore>
+#endif
 
 class AsemanToolsPrivate
 {
@@ -62,17 +54,6 @@ AsemanTools::AsemanTools(QObject *parent) :
     QObject(parent)
 {
     p = new AsemanToolsPrivate;
-
-    aseman_tools_numtranslate_0 = AsemanTools::tr("0");
-    aseman_tools_numtranslate_1 = AsemanTools::tr("1");
-    aseman_tools_numtranslate_2 = AsemanTools::tr("2");
-    aseman_tools_numtranslate_3 = AsemanTools::tr("3");
-    aseman_tools_numtranslate_4 = AsemanTools::tr("4");
-    aseman_tools_numtranslate_5 = AsemanTools::tr("5");
-    aseman_tools_numtranslate_6 = AsemanTools::tr("6");
-    aseman_tools_numtranslate_7 = AsemanTools::tr("7");
-    aseman_tools_numtranslate_8 = AsemanTools::tr("8");
-    aseman_tools_numtranslate_9 = AsemanTools::tr("9");
 }
 
 void AsemanTools::debug(const QVariant &var)
@@ -115,6 +96,16 @@ QString AsemanTools::dateToString(const QDateTime &dt, const QString & format)
         return dt.toString();
     else
         return dt.toString(format);
+}
+
+QDate AsemanTools::dateAddDays(const QDate &date, int days)
+{
+    return date.addDays(days);
+}
+
+QStringList AsemanTools::toStringList(const QVariant &value)
+{
+    return value.toStringList();
 }
 
 QString AsemanTools::fileName(const QString &path)
@@ -346,17 +337,22 @@ bool AsemanTools::createVideoThumbnail(const QString &video, const QString &outp
 
 QString AsemanTools::translateNumbers(QString input)
 {
-    input.replace("0",aseman_tools_numtranslate_0);
-    input.replace("1",aseman_tools_numtranslate_1);
-    input.replace("2",aseman_tools_numtranslate_2);
-    input.replace("3",aseman_tools_numtranslate_3);
-    input.replace("4",aseman_tools_numtranslate_4);
-    input.replace("5",aseman_tools_numtranslate_5);
-    input.replace("6",aseman_tools_numtranslate_6);
-    input.replace("7",aseman_tools_numtranslate_7);
-    input.replace("8",aseman_tools_numtranslate_8);
-    input.replace("9",aseman_tools_numtranslate_9);
+    input.replace("0", AsemanTools::tr("0"));
+    input.replace("1", AsemanTools::tr("1"));
+    input.replace("2", AsemanTools::tr("2"));
+    input.replace("3", AsemanTools::tr("3"));
+    input.replace("4", AsemanTools::tr("4"));
+    input.replace("5", AsemanTools::tr("5"));
+    input.replace("6", AsemanTools::tr("6"));
+    input.replace("7", AsemanTools::tr("7"));
+    input.replace("8", AsemanTools::tr("8"));
+    input.replace("9", AsemanTools::tr("9"));
     return input;
+}
+
+QString AsemanTools::trNums(QString input)
+{
+    return AsemanTools::translateNumbers(input);
 }
 
 QString AsemanTools::passToMd5(const QString &pass)
@@ -604,6 +600,23 @@ void AsemanTools::jsDelayCall(int ms, const QJSValue &value)
     p->js_delay_call_timers[ startTimer(ms) ] = value;
 }
 #endif
+
+void AsemanTools::setInAppStoreProperty(QObject *store, const QString &propertyName, const QString &value)
+{
+#ifdef QT_PURCHASING_LIB
+    if(!store)
+        return;
+    QList<QObject*> childs = store->children();
+    childs.prepend(store);
+    for(QObject *obj: childs)
+        if( qobject_cast<QInAppStore*>(obj) )
+            qobject_cast<QInAppStore*>(obj)->setPlatformProperty(propertyName, value);
+#else
+    Q_UNUSED(store)
+    Q_UNUSED(propertyName)
+    Q_UNUSED(value)
+#endif
+}
 
 void AsemanTools::timerEvent(QTimerEvent *e)
 {
