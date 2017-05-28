@@ -28,6 +28,7 @@ class AsemanItemGrabber : public QObject
     Q_OBJECT
     Q_PROPERTY(QQuickItem* item READ item WRITE setItem NOTIFY itemChanged)
     Q_PROPERTY(QString suffix READ suffix WRITE setSuffix NOTIFY suffixChanged)
+    Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
 
 public:
     AsemanItemGrabber(QObject *parent = 0);
@@ -39,12 +40,16 @@ public:
     void setSuffix(const QString &suffix);
     QString suffix() const;
 
+    void setFileName(const QString &fileName);
+    QString fileName() const;
+
 public slots:
     void save(const QString &dest, const QSize &size);
 
 signals:
     void itemChanged();
     void suffixChanged();
+    void fileNameChanged();
     void saved(const QString &dest);
     void failed();
 

@@ -31,6 +31,7 @@ public:
     QSharedPointer<QQuickItemGrabResult> result;
     QString dest;
     QString suffix;
+    QString fileName;
 };
 
 AsemanItemGrabber::AsemanItemGrabber(QObject *parent) :
@@ -68,25 +69,46 @@ QString AsemanItemGrabber::suffix() const
     return p->suffix;
 }
 
+void AsemanItemGrabber::setFileName(const QString &fileName)
+{
+    if(p->fileName == fileName)
+        return;
+
+    p->fileName = fileName;
+    Q_EMIT fileNameChanged();
+}
+
+QString AsemanItemGrabber::fileName() const
+{
+    return p->fileName;
+}
+
 void AsemanItemGrabber::save(const QString &dest, const QSize &size)
 {
     if(!p->item)
     {
-        emit failed();
+        Q_EMIT failed();
         return;
     }
 
     p->result = p->item->grabToImage(size);
     if(!p->result)
     {
-        emit failed();
+        Q_EMIT failed();
         return;
     }
 
     connect(p->result.data(), SIGNAL(ready()), this, SLOT(ready()));
 
     QDir().mkpath(dest);
-    p->dest = dest + "/" + QUuid::createUuid().toString().remove("{").remove("}") + "." + p->suffix;
+
+    QString fileName = p->fileName;
+    if(fileName.isEmpty())
+        fileName = QUuid::createUuid().toString().remove("{").remove("}");
+    if(!p->suffix.isEmpty())
+        fileName += "." + p->suffix;
+
+    p->dest = dest + "/" + fileName;
 }
 
 void AsemanItemGrabber::ready()
