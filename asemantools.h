@@ -63,8 +63,8 @@ public slots:
 
     static QSize imageSize(const QString &path);
 
-    static bool writeFile(const QString &path, const QByteArray &data);
-    static QByteArray readFile(const QString &path);
+    static bool writeFile(const QString &path, const QVariant &data, bool compress = false);
+    static QByteArray readFile(const QString &path, bool uncompress = false);
 
     static QString className(QObject *obj);
 

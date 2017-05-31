@@ -167,25 +167,44 @@ QSize AsemanTools::imageSize(const QString &_path)
     return image.size();
 }
 
-bool AsemanTools::writeFile(const QString &path, const QByteArray &data)
+bool AsemanTools::writeFile(const QString &path, const QVariant &data, bool compress)
 {
+    QString dir = path.left(path.lastIndexOf("/")+1);
+    QDir().mkpath(dir);
+
     QFile file(path);
     if(!file.open(QFile::WriteOnly))
         return false;
 
-    file.write(data);
+    QByteArray bytes;
+    if(data.type() == QVariant::ByteArray)
+        bytes = data.toByteArray();
+    else
+    {
+        QDataStream stream(&bytes, QIODevice::WriteOnly);
+        stream << data;
+    }
+
+    if(compress)
+        bytes = qCompress(bytes);
+
+    file.write(bytes);
     file.close();
     return true;
 }
 
-QByteArray AsemanTools::readFile(const QString &path)
+QByteArray AsemanTools::readFile(const QString &path, bool uncompress)
 {
     QFile file(path);
     if(!file.open(QFile::ReadOnly))
         return QByteArray();
 
-    const QByteArray &res = file.readAll();
+    QByteArray res = file.readAll();
     file.close();
+
+    if(uncompress)
+        res = qUncompress(res);
+
     return res;
 }
 
