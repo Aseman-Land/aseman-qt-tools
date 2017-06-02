@@ -17,7 +17,7 @@
 */
 
 #include "asemanandroidservice.h"
-#include "asemantools/asemanjavalayer.h"
+#include "asemanjavalayer.h"
 
 #include <QtGlobal>
 #include <QAndroidJniObject>

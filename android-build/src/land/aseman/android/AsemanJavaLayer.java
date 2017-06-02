@@ -249,13 +249,18 @@ public class AsemanJavaLayer
         oContext = AsemanApplication.getAppContext();
 
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setType(type);
         intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+path));
 
         try {
-            oContext.startActivity(Intent.createChooser(intent, "Share To"));
+        
+            Intent new_intent = Intent.createChooser(intent , "Share Via");
+            new_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            oContext.startActivity(new_intent);
+            
         } catch(Exception e) {
+            Log.e("Share" , "Exception:" , e);
             return false;
         }
         return true;
