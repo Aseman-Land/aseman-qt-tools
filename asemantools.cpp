@@ -392,6 +392,14 @@ QString AsemanTools::createUuid()
     return QUuid::createUuid().toString();
 }
 
+QString AsemanTools::stringRemove(QString str, const QString &text, bool regExp)
+{
+    if(regExp)
+        return str.remove( QRegExp(text) );
+    else
+        return str.remove(text);
+}
+
 QString AsemanTools::htmlToPlaintText(const QString &html)
 {
     QTextDocument doc;

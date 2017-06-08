@@ -23,3 +23,9 @@ void AsemanToolsPlugin::registerTypes(const char *uri)
 {
     AsemanQtTools::registerTypes(uri);
 }
+
+void AsemanToolsPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
+{
+    QQmlExtensionPlugin::initializeEngine(engine, uri);
+    AsemanQtTools::initializeEngine(engine, uri);
+}

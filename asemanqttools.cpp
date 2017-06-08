@@ -253,6 +253,12 @@ bool AsemanQtTools::safeRegisterTypes(const char *uri, QQmlEngine *engine)
     return true;
 }
 
+void AsemanQtTools::initializeEngine(QQmlEngine *engine, const char *uri)
+{
+    Q_UNUSED(uri)
+    Q_UNUSED(engine)
+}
+
 AsemanQuickViewWrapper *AsemanQtTools::quickView(QQmlEngine *engine)
 {
     static QHash<QQmlEngine*, QPointer<AsemanQuickViewWrapper> > views;

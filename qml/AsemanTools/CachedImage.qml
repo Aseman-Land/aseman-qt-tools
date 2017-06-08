@@ -3,6 +3,7 @@ import AsemanTools 1.0
 import QtGraphicalEffects 1.0
 
 Item {
+    id: cimage
     width: image.width
     height: image.height
 
@@ -26,6 +27,8 @@ Item {
     property alias sourceSize: image.sourceSize
     property alias status: image.status
     property alias verticalAlignment: image.verticalAlignment
+
+    property string fileName: Tools.md5(source) + "." + Tools.fileSuffix(source)
 
 
     Rectangle {
@@ -54,7 +57,8 @@ Item {
         fileName: {
             if(source.length == 0)
                 return ""
-            return Tools.md5(source) + "." + Tools.fileSuffix(source)
+
+            return cimage.fileName
         }
     }
 }

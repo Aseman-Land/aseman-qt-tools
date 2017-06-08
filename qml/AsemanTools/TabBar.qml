@@ -53,6 +53,7 @@ Item {
         delegate: QtControls.ItemDelegate {
             height: tabBar.height
             width: tabBar.itemWidth
+            hoverEnabled: false
             onClicked: tabBar.currentIndex = index
 
             Text {

@@ -94,6 +94,8 @@ public slots:
     static QString md5(const QString & str );
     static QString createUuid();
 
+    static QString stringRemove(QString str, const QString &text, bool regExp = false);
+
     static QString htmlToPlaintText(const QString &html);
 
     static void copyDirectory( const QString & src, const QString & dst );
