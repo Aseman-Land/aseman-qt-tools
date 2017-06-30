@@ -145,8 +145,8 @@ public:
     AsemanStoreManagerProduct(QObject *parent = Q_NULLPTR);
     ~AsemanStoreManagerProduct();
 
-    bool IsPurchased() const { return _sku == AsemanStoreManager::InventoryStatePurchased; }
-    bool IsPurchasing() const { return _sku == AsemanStoreManager::InventoryStatePurchasing; }
+    bool IsPurchased() const { return _skuState == AsemanStoreManager::InventoryStatePurchased; }
+    bool IsPurchasing() const { return _skuState == AsemanStoreManager::InventoryStatePurchasing; }
     QString price() const { return detail(_sku).price; }
     QString title() const { return detail(_sku).title; }
     QString description() const { return detail(_sku).description; }
@@ -176,6 +176,7 @@ protected:
 
 private:
     QString _sku;
+    int _skuState;
     QPointer<AsemanStoreManager> _store;
 };
 

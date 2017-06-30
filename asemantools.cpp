@@ -108,6 +108,16 @@ QStringList AsemanTools::toStringList(const QVariant &value)
     return value.toStringList();
 }
 
+QVariantMap AsemanTools::toVariantMap(const QVariant &value)
+{
+    return value.toMap();
+}
+
+QVariantList AsemanTools::toVariantList(const QVariant &value)
+{
+    return value.toList();
+}
+
 QString AsemanTools::fileName(const QString &path)
 {
     return QFileInfo(path).baseName();

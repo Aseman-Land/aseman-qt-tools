@@ -53,6 +53,8 @@ public slots:
     static QDate dateAddDays(const QDate &date, int days);
 
     static QStringList toStringList(const QVariant &value);
+    static QVariantMap toVariantMap(const QVariant &value);
+    static QVariantList toVariantList(const QVariant &value);
 
     static QString fileName( const QString & path );
     static QString fileSuffix( const QString & path );

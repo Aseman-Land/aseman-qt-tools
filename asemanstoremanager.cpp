@@ -289,7 +289,8 @@ AsemanStoreManager::~AsemanStoreManager()
 
 
 
-AsemanStoreManagerProduct::AsemanStoreManagerProduct(QObject *parent)
+AsemanStoreManagerProduct::AsemanStoreManagerProduct(QObject *parent) :
+    _skuState(AsemanStoreManager::InventoryStateNone)
 {
 
 }
