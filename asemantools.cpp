@@ -37,6 +37,7 @@
 #include <QUuid>
 #include <QMimeDatabase>
 #include <QImageReader>
+#include <QJsonDocument>
 
 #ifdef QT_PURCHASING_LIB
 #include <QInAppStore>
@@ -116,6 +117,46 @@ QVariantMap AsemanTools::toVariantMap(const QVariant &value)
 QVariantList AsemanTools::toVariantList(const QVariant &value)
 {
     return value.toList();
+}
+
+QString AsemanTools::toJson(QVariant value)
+{
+#ifdef QT_QML_LIB
+    value = value.value<QJSValue>().toVariant();
+#endif
+    return QJsonDocument::fromVariant(value).toJson(QJsonDocument::Indented);
+}
+
+QString AsemanTools::byteArrayToString(const QVariant &value)
+{
+    return value.toByteArray();
+}
+
+QByteArray AsemanTools::compress(const QByteArray &data, int level)
+{
+    return qCompress(data, level);
+}
+
+QByteArray AsemanTools::uncompress(const QByteArray &data)
+{
+    return qUncompress(data);
+}
+
+QVariant AsemanTools::bytesToVariant(const QByteArray &_data)
+{
+    QVariant result;
+    QByteArray data = _data;
+    QDataStream stream(&data, QIODevice::ReadOnly);
+    stream >> result;
+    return result;
+}
+
+QByteArray AsemanTools::variantToBytes(const QVariant &var)
+{
+    QByteArray result;
+    QDataStream stream(&result, QIODevice::WriteOnly);
+    stream << var;
+    return result;
 }
 
 QString AsemanTools::fileName(const QString &path)

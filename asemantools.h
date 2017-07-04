@@ -55,6 +55,14 @@ public slots:
     static QStringList toStringList(const QVariant &value);
     static QVariantMap toVariantMap(const QVariant &value);
     static QVariantList toVariantList(const QVariant &value);
+    static QString toJson(QVariant value);
+    static QString byteArrayToString(const QVariant &value);
+
+    static QByteArray compress(const QByteArray &data, int level = -1);
+    static QByteArray uncompress(const QByteArray &data);
+
+    QVariant bytesToVariant(const QByteArray &data);
+    QByteArray variantToBytes(const QVariant &var);
 
     static QString fileName( const QString & path );
     static QString fileSuffix( const QString & path );
