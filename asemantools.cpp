@@ -119,7 +119,12 @@ QVariantList AsemanTools::toVariantList(const QVariant &value)
     return value.toList();
 }
 
-QString AsemanTools::toJson(QVariant value)
+QVariant AsemanTools::jsonToVariant(const QString &json)
+{
+    return QJsonDocument::fromJson(json.toUtf8()).toVariant();
+}
+
+QString AsemanTools::variantToJson(QVariant value)
 {
 #ifdef QT_QML_LIB
     value = value.value<QJSValue>().toVariant();
