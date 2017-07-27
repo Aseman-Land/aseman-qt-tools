@@ -69,6 +69,11 @@ QStringList AsemanHashObject::keys(const QVariant &value)
     return p->hash.keys(value);
 }
 
+QStringList AsemanHashObject::uniqueKeys()
+{
+    return p->hash.uniqueKeys();
+}
+
 QStringList AsemanHashObject::keys()
 {
     return p->hash.keys();

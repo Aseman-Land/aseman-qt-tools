@@ -39,6 +39,7 @@ public:
 
     Q_INVOKABLE QVariant key( const QVariant & value );
     Q_INVOKABLE QStringList keys( const QVariant & value );
+    Q_INVOKABLE QStringList uniqueKeys();
     Q_INVOKABLE QStringList keys();
     Q_INVOKABLE QVariant value( const QString & key );
     Q_INVOKABLE QVariantList values( const QString & key );

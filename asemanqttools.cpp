@@ -65,6 +65,7 @@
 #include "asemanqmlsmartcomponent.h"
 #include "asemanmouseeventlistener.h"
 #include "asemancontributorsmodel.h"
+#include "asemanqmlimage.h"
 #include "asemantranslationmanager.h"
 #include "asemansysteminfo.h"
 #include "asemanitemgrabber.h"
@@ -157,6 +158,7 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerType<AsemanFontHandler>(uri, 1,0, "FontHandler", exportMode);
     registerType<AsemanItemGrabber>(uri, 1,0, "ItemGrabber", exportMode);
     registerType<AsemanApplication>(uri, 1,0, "AsemanApplication", exportMode);
+    registerType<AsemanQmlImage>(uri, 1,0, "AsemanImage", exportMode);
     registerType<AsemanTranslationManager>(uri, 1,0, "TranslationManager", exportMode);
     registerType<AsemanQmlSmartComponent>(uri, 1,0, "SmartComponentCore", exportMode);
 #ifdef DESKTOP_LINUX
