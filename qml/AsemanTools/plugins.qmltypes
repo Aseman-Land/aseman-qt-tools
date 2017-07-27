@@ -14,7 +14,7 @@ Module {
         "AsemanTools.MaterialIcons 1.0",
         "QtGraphicalEffects 1.0",
         "QtQml.Models 2.2",
-        "QtQuick 2.7",
+        "QtQuick 2.5",
         "QtQuick.Controls 2.0",
         "QtQuick.Controls.Material 2.0",
         "QtQuick.Controls.Material.impl 2.0",

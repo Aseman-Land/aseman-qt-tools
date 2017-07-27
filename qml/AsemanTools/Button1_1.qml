@@ -17,7 +17,7 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 2.0
+import Qt.labs.controls 1.0
 import AsemanTools 1.0
 
 Rectangle {
@@ -32,7 +32,7 @@ Rectangle {
     property alias fontSize: txt.font.pixelSize
     property alias textFont: txt.font
 
-    property alias hoverEnabled: idel.hoverEnabled
+    property bool hoverEnabled: false
     property alias containsMouse: marea.containsMouse
 
     property alias iconHeight: icn.height

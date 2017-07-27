@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import AsemanTools 1.0
-import QtQuick.Controls 2.0 as QtControls
+import Qt.labs.controls 1.0 as QtControls
 import QtGraphicalEffects 1.0
 import QtQuick.Window 2.2
 import QtQuick.Controls.Private 1.0
@@ -35,7 +35,7 @@ Item {
     property Item cursorParent: Window.contentItem
 
     readonly property bool selected: textItem && textItem.selectionStart != textItem.selectionEnd
-    property alias menuMore: menuRect.more
+    property bool menuMore: false
 
     property variant menuMap: {
         if(selected)
@@ -153,7 +153,7 @@ Item {
                     model: menuMoreMap
                     delegate: QtControls.Button {
                         text: data.name
-                        flat: true
+//                        flat: true
                         width: 128*Devices.density
                         onClicked: data.action()
 
@@ -177,7 +177,7 @@ Item {
                     model: menuMap
                     delegate: QtControls.Button {
                         text: data.name
-                        flat: true
+//                        flat: true
                         anchors.verticalCenter: parent.verticalCenter
                         onClicked: data.action()
 
