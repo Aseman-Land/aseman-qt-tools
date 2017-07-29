@@ -32,12 +32,24 @@ Item {
     property bool blockBack: false
     property alias delegate: rptr.delegate
 
+    property bool autoDestroy: false
+
     property variant buttons: new Array
     property real margins: 10*Devices.density
 
     signal buttonClicked(int index)
 
     property bool opened: false
+
+    onVisibleChanged: {
+        if(visible)
+            BackHandler.pushHandler(this, function(){opened = false})
+        else {
+            BackHandler.removeHandler(this)
+            if(autoDestroy)
+                Tools.jsDelayCall(100, gbDialog.destroy)
+        }
+    }
 
     onOpenedChanged: {
         if(opened)
