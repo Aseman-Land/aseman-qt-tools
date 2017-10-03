@@ -32,7 +32,9 @@
 #include <QDir>
 #include <QStringList>
 #include <QTextDocument>
+#ifndef Q_OS_IOS
 #include <QProcess>
+#endif
 #include <QTimerEvent>
 #include <QUuid>
 #include <QMimeDatabase>
@@ -371,6 +373,12 @@ QVariantMap AsemanTools::colorHsl(const QColor &clr)
 
 bool AsemanTools::createVideoThumbnail(const QString &video, const QString &output, QString ffmpegPath)
 {
+#ifdef Q_OS_IOS
+    Q_UNUSED(video)
+    Q_UNUSED(output)
+    Q_UNUSED(ffmpegPath)
+    return false;
+#else
     if(ffmpegPath.isEmpty())
 #ifdef Q_OS_WIN
         ffmpegPath = QCoreApplication::applicationDirPath() + "/ffmpeg.exe";
@@ -408,6 +416,7 @@ bool AsemanTools::createVideoThumbnail(const QString &video, const QString &outp
     prc.waitForFinished();
 
     return prc.exitCode() == 0;
+#endif
 }
 
 QString AsemanTools::translateNumbers(QString input)

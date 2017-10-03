@@ -180,12 +180,23 @@ Item {
             }
         }
 
+        DropShadow {
+            anchors.fill: btn_rect
+            horizontalOffset: 0
+            verticalOffset: 1
+            radius: 8.0
+            samples: 16
+            color: "#aa000000"
+            source: btn_rect
+            cached: true
+            visible: !Devices.isIOS
+        }
+
         Item {
             id: btn_rect
             y: hideState? parent.height+20*Devices.density+View.navigationBarHeight : 0
             width: parent.width
             height: parent.height
-            visible: false
 
             Behavior on y {
                 NumberAnimation{easing.type: Easing.OutCubic; duration: 400}
@@ -202,17 +213,6 @@ Item {
                     ColorAnimation{easing.type: Easing.OutCubic; duration: 400}
                 }
             }
-        }
-
-        DropShadow {
-            anchors.fill: btn_rect
-            horizontalOffset: 0
-            verticalOffset: 1
-            radius: 8.0
-            samples: 16
-            color: "#aa000000"
-            source: btn_rect
-            cached: true
         }
 
         MouseArea {

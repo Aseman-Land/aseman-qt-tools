@@ -24,7 +24,9 @@
 #include <QDir>
 #include <QHash>
 #include <QSettings>
+#ifndef Q_OS_IOS
 #include <QProcess>
+#endif
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QFile>
@@ -196,6 +198,9 @@ void AsemanMimeApps::openFiles(const QString &app, const QStringList &files)
     if( !mime_apps_items.contains(app) )
         return;
 
+#ifdef Q_OS_IOS
+    Q_UNUSED(files)
+#else
     const AsemanMimeAppsItem & item = mime_apps_items.value(app);
 
     QString cmd;
@@ -263,6 +268,7 @@ void AsemanMimeApps::openFiles(const QString &app, const QStringList &files)
             QProcess::startDetached( cmd, targs );
         }
     }
+#endif
 }
 
 AsemanMimeApps::~AsemanMimeApps()

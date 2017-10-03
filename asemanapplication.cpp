@@ -267,6 +267,7 @@ void AsemanApplication::init()
     p->clickOnDock_timer->setInterval(500);
 
 #if defined(Q_OS_MAC) && defined(Q_PROCESSOR_X86_32)
+#ifndef Q_OS_IOS
     objc_object* cls = objc_getClass("NSApplication");
     SEL sharedApplication = sel_registerName("sharedApplication");
     objc_object* appInst = objc_msgSend(cls,sharedApplication);
@@ -284,6 +285,7 @@ void AsemanApplication::init()
             // failed to register handler...
         }
     }
+#endif
 #endif
 
     if(AsemanApplicationPrivate::peer)

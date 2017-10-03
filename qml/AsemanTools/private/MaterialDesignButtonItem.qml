@@ -65,10 +65,21 @@ Item {
             height: 64*Devices.density
             anchors.verticalCenter: parent.verticalCenter
 
+            DropShadow {
+                anchors.fill: btn_rect
+                horizontalOffset: 0
+                verticalOffset: 1
+                radius: 8.0
+                samples: 16
+                color: "#66000000"
+                cached: true
+                source: btn_rect
+                visible: !Devices.isIOS
+            }
+
             Item {
                 id: btn_rect
                 anchors.fill: parent
-                visible: false
 
                 Behavior on y {
                     NumberAnimation{easing.type: Easing.OutCubic; duration: 400}
@@ -84,17 +95,6 @@ Item {
                         ColorAnimation{easing.type: Easing.OutCubic; duration: 400}
                     }
                 }
-            }
-
-            DropShadow {
-                anchors.fill: btn_rect
-                horizontalOffset: 0
-                verticalOffset: 1
-                radius: 8.0
-                samples: 16
-                color: "#66000000"
-                cached: true
-                source: btn_rect
             }
 
             Image {

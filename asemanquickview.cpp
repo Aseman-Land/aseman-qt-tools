@@ -233,6 +233,9 @@ QString AsemanQuickView::offlineStoragePath() const
 
 void AsemanQuickView::registerWindow(QQuickWindow *window)
 {
+#ifdef Q_OS_IOS
+    window->setFlag(Qt::MaximizeUsingFullscreenGeometryHint, true);
+#endif
     window->installEventFilter(this);
 }
 
