@@ -401,7 +401,11 @@ bool AsemanDevices::transparentStatusBar()
 #ifdef Q_OS_ANDROID
     return AsemanJavaLayer::instance()->transparentStatusBar();
 #else
+#ifdef Q_OS_IOS
+    return true;
+#else
     return false;
+#endif
 #endif
 }
 
@@ -721,7 +725,11 @@ QString AsemanDevices::resourcePath()
     else
         return QCoreApplication::applicationDirPath() + "/";
 #else
+#ifdef Q_OS_IOS
+    return QCoreApplication::applicationDirPath() + "/";
+#else
     return QCoreApplication::applicationDirPath() + "/../Resources/";
+#endif
 #endif
 #endif
 }
@@ -745,7 +753,11 @@ QString AsemanDevices::libsPath()
     else
         return QCoreApplication::applicationDirPath() + "/";
 #else
+#ifdef Q_OS_IOS
+    return QCoreApplication::applicationDirPath() + "/";
+#else
     return QCoreApplication::applicationDirPath() + "/../Resources/";
+#endif
 #endif
 }
 

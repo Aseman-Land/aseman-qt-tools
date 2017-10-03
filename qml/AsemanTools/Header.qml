@@ -34,7 +34,7 @@ Rectangle {
     property alias backButtonText: back_txt.text
     property alias shadow: shadow_rct.visible
     property alias shadowOpacity: shadow_rct.opacity
-    property bool statusBar: Devices.isAndroid
+    property bool statusBar: Devices.transparentStatusBar
     property bool centerText: true
     property int layoutDirection: View.layoutDirection
 

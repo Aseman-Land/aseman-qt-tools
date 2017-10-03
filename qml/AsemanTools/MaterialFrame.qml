@@ -19,6 +19,7 @@ Item {
         color: "#000000"
         source: scene
         opacity: 0.3
+        visible: !Devices.isIOS
     }
 
     Item {
