@@ -21,11 +21,15 @@ import AsemanTools 1.0
 
 GridView {
     maximumFlickVelocity: View.flickVelocity
-    boundsBehavior: Flickable.StopAtBounds
-    rebound: Transition {
+    boundsBehavior: Devices.isIOS? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
+
+    Transition {
+        id: android_transition
         NumberAnimation {
             properties: "x,y"
             duration: 0
         }
     }
+
+    Component.onCompleted: if(!Devices.isIOS) rebound = android_transition
 }
