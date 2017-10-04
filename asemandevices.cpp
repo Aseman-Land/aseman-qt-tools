@@ -646,7 +646,11 @@ QString AsemanDevices::picturesLocation()
 #ifdef Q_OS_ANDROID
     probs << "/sdcard/Pictures";
 #else
+#ifdef Q_OS_IOS
+    probs << QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first() + "/Pictures";
+#else
     probs << QDir::homePath() + "/Pictures";
+#endif
 #endif
 
     foreach( const QString & prob, probs )
@@ -664,7 +668,11 @@ QString AsemanDevices::musicsLocation()
 #ifdef Q_OS_ANDROID
     probs << "/sdcard/Music";
 #else
+#ifdef Q_OS_IOS
+    probs << QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first() + "/Music";
+#else
     probs << QDir::homePath() + "/Music";
+#endif
 #endif
 
     foreach( const QString & prob, probs )
@@ -683,7 +691,11 @@ QString AsemanDevices::documentsLocation()
     probs << "/sdcard/documents";
     probs << "/sdcard/Documents";
 #else
+#ifdef Q_OS_IOS
+    probs << QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first() + "/Documents";
+#else
     probs << QDir::homePath() + "/Documents";
+#endif
 #endif
 
     foreach( const QString & prob, probs )
@@ -702,7 +714,11 @@ QString AsemanDevices::downloadsLocation()
     probs << "/sdcard/downloads";
     probs << "/sdcard/Downloads";
 #else
+#ifdef Q_OS_IOS
+    probs << QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first() + "/Downloads";
+#else
     probs << QDir::homePath() + "/Downloads";
+#endif
 #endif
 
     foreach( const QString & prob, probs )

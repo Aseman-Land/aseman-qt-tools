@@ -30,6 +30,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QTimer>
+#include <QStandardPaths>
 
 #ifdef QT_WIDGETS_LIB
 #define READ_DEFINITION(FUNCTION, DEFAULT_VALUE) \
@@ -303,7 +304,7 @@ QString AsemanApplication::homePath()
     *aseman_app_home_path = QDir::homePath();
 #else
 #ifdef Q_OS_IOS
-    *aseman_app_home_path = QDir::homePath();
+    *aseman_app_home_path = QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first();
 #else
 #ifdef Q_OS_WIN
     *aseman_app_home_path = QDir::homePath() + "/AppData/Local/" + QCoreApplication::applicationName();
@@ -335,7 +336,11 @@ QString AsemanApplication::startPath()
 #ifdef Q_OS_ANDROID
     return "/sdcard/";
 #else
+#ifdef Q_OS_IOS
+    return QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first();
+#else
     return QDir::homePath();
+#endif
 #endif
 }
 
@@ -385,7 +390,7 @@ QString AsemanApplication::tempPath()
     return "/sdcard/" + QCoreApplication::organizationDomain() + "/" + QCoreApplication::applicationName() + "/temp";
 #else
 #ifdef Q_OS_IOS
-    return QDir::homePath() + "/tmp/";
+    return QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first() + "/tmp/";
 #else
     return QDir::tempPath();
 #endif
@@ -398,7 +403,7 @@ QString AsemanApplication::backupsPath()
     return "/sdcard/" + QCoreApplication::organizationDomain() + "/" + QCoreApplication::applicationName() + "/backups";
 #else
 #ifdef Q_OS_IOS
-    return QDir::homePath() + "/backups/";
+    return QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first() + "/backups/";
 #else
     return homePath() + "/backups";
 #endif
@@ -411,7 +416,7 @@ QString AsemanApplication::cameraPath()
     return "/sdcard/DCIM";
 #else
 #ifdef Q_OS_IOS
-    return QDir::homePath() + "/camera/";
+    return QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first() + "/camera/";
 #else
     return QDir::homePath() + "/Pictures/Camera";
 #endif
