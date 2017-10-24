@@ -31,3 +31,7 @@ qml/AsemanTools/qmldir
 # QtCreator
 
 *.autosave
+
+# Thirdparty
+
+qzxing
