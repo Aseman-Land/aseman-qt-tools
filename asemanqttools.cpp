@@ -84,6 +84,9 @@
 #ifdef ASEMAN_SENSORS
 #include "asemansensors.h"
 #endif
+#ifdef QZXING_SUPPORTED
+#include "QZXing.h"
+#endif
 #ifdef ASEMAN_NOTIFICATION
 #include "asemannotification.h"
 #endif
@@ -209,6 +212,10 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerUncreatableType<QScreen>(uri, 1, 0, "Screen", "", exportMode);
     registerUncreatableType<AsemanDesktopTools>(uri, 1,0, "AsemanDesktopTools", "It's a singleton class", exportMode);
     registerUncreatableType<AsemanNetworkManagerItem>(uri, 1,0, "NetworkManagerItem", "It must create using NetworkManager component.", exportMode);
+
+#ifdef QZXING_SUPPORTED
+    QZXing::registerQMLTypes();
+#endif
 
     register_list.insert(uri);
 }

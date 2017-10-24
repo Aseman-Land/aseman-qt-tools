@@ -52,6 +52,12 @@ android {
     }
 }
 
+contains(DEFINES,QZXING_SUPPORTED) {
+    QT += multimedia
+    CONFIG += qzxing_qml qzxing_multimedia
+    include(qzxing/src/QZXing.pri)
+}
+
 QML_IMPORT_PATH += \
     $$PWD/qml/
 

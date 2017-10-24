@@ -169,6 +169,7 @@
         <file>qml/AsemanTools/BackAction.qml</file>
         <file>qml/AsemanTools/private/GlobalBusyDialog.qml</file>
         <file>qml/AsemanTools/Dialog.qml</file>
+        <file>qml/AsemanTools/BarcodeScanner.qml</file>
     </qresource>
     <qresource prefix="/asemantools/qml/AsemanTools">
         <file>qmldir</file>
