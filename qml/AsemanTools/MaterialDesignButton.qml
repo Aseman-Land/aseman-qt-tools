@@ -29,7 +29,7 @@ Item {
 
     property int layoutDirection: View.layoutDirection
 
-    property bool hasMenu: true
+    property bool hasMenu: list.length
     property variant list: new Array
     property int rotateCount: 0
     property alias icon: btn_img.source
