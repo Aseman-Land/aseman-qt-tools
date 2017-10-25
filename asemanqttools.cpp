@@ -86,6 +86,9 @@
 #endif
 #ifdef QZXING_SUPPORTED
 #include "QZXing.h"
+#ifdef QZXING_MULTIMEDIA
+#include "QZXingFilter.h"
+#endif
 #endif
 #ifdef ASEMAN_NOTIFICATION
 #include "asemannotification.h"
@@ -214,7 +217,10 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerUncreatableType<AsemanNetworkManagerItem>(uri, 1,0, "NetworkManagerItem", "It must create using NetworkManager component.", exportMode);
 
 #ifdef QZXING_SUPPORTED
-    QZXing::registerQMLTypes();
+    registerType<QZXing>(uri, 1, 0, "QZXing", exportMode);
+#ifdef QZXING_MULTIMEDIA
+    registerType<QZXingFilter>(uri, 1, 0, "QZXingFilter", exportMode);
+#endif //QZXING_MULTIMEDIA
 #endif
 
     register_list.insert(uri);

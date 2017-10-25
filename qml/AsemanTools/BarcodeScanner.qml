@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import QZXing 2.3
 import QtMultimedia 5.8
 import QtQuick.Controls 2.2 as QtControls
 import AsemanTools 1.1
