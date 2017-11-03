@@ -252,9 +252,6 @@ void AsemanQtTools::registerSecureTypes(const char *uri, bool exportMode)
 
 bool AsemanQtTools::safeRegisterTypes(const char *uri, QQmlEngine *engine)
 {
-    if(QFile::exists(":/asemanclient/qml"))
-        engine->setImportPathList( QStringList()<< engine->importPathList() << "qrc:///asemanclient/qml" );
-
     QString data = QString("import %1 %2.%3\nAsemanObject {}").arg(QString(uri)).arg(1).arg(0);
     QQmlComponent component(engine);
     component.setData(data.toUtf8(), QUrl());
