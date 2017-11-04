@@ -99,7 +99,7 @@ public:
     };
 
     AsemanDevices(QObject *parent = 0);
-    ~AsemanDevices();
+    virtual ~AsemanDevices();
 
     static bool isMobile();
     static bool isTablet();

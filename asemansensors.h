@@ -54,7 +54,7 @@ class AsemanSensors : public QObject
 
 public:
     AsemanSensors(QObject *parent = 0);
-    ~AsemanSensors();
+    virtual ~AsemanSensors();
 
     enum SensorType {
         RotationSensor      = 1,

@@ -29,7 +29,7 @@ class AsemanAbstractStoreManagerCore : public QObject
     Q_OBJECT
 public:
     AsemanAbstractStoreManagerCore();
-    ~AsemanAbstractStoreManagerCore();
+    virtual ~AsemanAbstractStoreManagerCore();
 
     virtual void setup(const QString &base64EncodedPublicKey, const QString &storePackageName, const QString &billingBindIntentPath) = 0;
 

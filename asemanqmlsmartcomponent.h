@@ -35,7 +35,7 @@ class AsemanQmlSmartComponent : public QObject
 
 public:
     AsemanQmlSmartComponent(QObject *parent = 0);
-    ~AsemanQmlSmartComponent();
+    virtual ~AsemanQmlSmartComponent();
 
     void setSource(const QUrl &url);
     QUrl source() const;

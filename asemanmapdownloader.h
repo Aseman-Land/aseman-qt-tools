@@ -50,7 +50,7 @@ public:
     };
 
     AsemanMapDownloader(QObject *parent = 0);
-    ~AsemanMapDownloader();
+    virtual ~AsemanMapDownloader();
 
     void setDestination(const QUrl &dest);
     QUrl destination() const;

@@ -27,7 +27,7 @@ class AsemanNullStoreManagerCore : public AsemanAbstractStoreManagerCore
     Q_OBJECT
 public:
     AsemanNullStoreManagerCore();
-    ~AsemanNullStoreManagerCore();
+    virtual ~AsemanNullStoreManagerCore();
 
     void setup(const QString &base64EncodedPublicKey, const QString &storePackageName, const QString &billingBindIntentPath);
     void updateStates();

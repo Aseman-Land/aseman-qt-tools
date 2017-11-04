@@ -34,7 +34,7 @@ class AsemanHostChecker : public QObject
 
 public:
     AsemanHostChecker(QObject *parent = 0);
-    ~AsemanHostChecker();
+    virtual ~AsemanHostChecker();
 
     void setHost(const QString &host);
     QString host() const;

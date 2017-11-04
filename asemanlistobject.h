@@ -31,7 +31,7 @@ class AsemanListObject : public QObject
     Q_OBJECT
 public:
     AsemanListObject(QObject *parent = 0);
-    ~AsemanListObject();
+    virtual ~AsemanListObject();
 
 public slots:
     void removeAll( const QVariant & v );

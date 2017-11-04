@@ -62,7 +62,7 @@ public:
     };
 
     AsemanFileSystemModel(QObject *parent = 0);
-    ~AsemanFileSystemModel();
+    virtual ~AsemanFileSystemModel();
 
     void setShowDirs(bool stt);
     bool showDirs() const;

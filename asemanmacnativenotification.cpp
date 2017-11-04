@@ -30,7 +30,7 @@ public:
         setContextMenu(new QMenu());
         show();
     }
-    ~AsemanMacNativeNotificationItem(){}
+    virtual ~AsemanMacNativeNotificationItem(){}
 
     QStringList actions;
     QString icon;

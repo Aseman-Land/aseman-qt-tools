@@ -25,7 +25,7 @@ class AsemanWinTaskbarButtonEngine : public AsemanAbstractTaskbarButtonEngine
 {
 public:
     AsemanWinTaskbarButtonEngine();
-    ~AsemanWinTaskbarButtonEngine();
+    virtual ~AsemanWinTaskbarButtonEngine();
 
     void updateBadgeNumber(int number);
     void updateProgress(qreal progress);

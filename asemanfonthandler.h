@@ -33,7 +33,7 @@ class AsemanFontHandler : public QObject
 
 public:
     AsemanFontHandler(QObject *parent = 0);
-    ~AsemanFontHandler();
+    virtual ~AsemanFontHandler();
 
     QVariantMap fonts();
     void setFonts(const QVariantMap &fonts);

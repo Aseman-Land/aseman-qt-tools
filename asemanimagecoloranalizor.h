@@ -40,7 +40,7 @@ public:
     };
 
     AsemanImageColorAnalizor(QObject *parent = 0);
-    ~AsemanImageColorAnalizor();
+    virtual ~AsemanImageColorAnalizor();
 
     QUrl source() const;
     void setSource( const QUrl & source );
@@ -73,7 +73,7 @@ class AsemanImageColorAnalizorThread: public QObject
     Q_OBJECT
 public:
     AsemanImageColorAnalizorThread(QObject *parent = 0);
-    ~AsemanImageColorAnalizorThread();
+    virtual ~AsemanImageColorAnalizorThread();
 
     const QHash<int, QHash<QString, QColor> > &results() const;
 
@@ -100,7 +100,7 @@ class AsemanImageColorAnalizorCore: public QObject
     Q_OBJECT
 public:
     AsemanImageColorAnalizorCore(QObject *parent = 0);
-    ~AsemanImageColorAnalizorCore();
+    virtual ~AsemanImageColorAnalizorCore();
 
 public slots:
     void analize( int method, const QString & path );

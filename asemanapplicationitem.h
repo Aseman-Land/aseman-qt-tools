@@ -27,7 +27,7 @@ class AsemanApplicationItem : public AsemanApplication
     Q_OBJECT
 public:
     AsemanApplicationItem();
-    ~AsemanApplicationItem();
+    virtual ~AsemanApplicationItem();
 
 signals:
 

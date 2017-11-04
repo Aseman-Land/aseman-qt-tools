@@ -35,7 +35,7 @@ class AsemanNetworkManager : public QObject
 
 public:
     AsemanNetworkManager(QObject *parent = 0);
-    ~AsemanNetworkManager();
+    virtual ~AsemanNetworkManager();
 
     QString defaultNetworkIdentifier() const;
     AsemanNetworkManagerItem *defaultNetwork() const;

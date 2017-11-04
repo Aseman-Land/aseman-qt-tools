@@ -30,7 +30,7 @@ class AsemanHashObject : public QObject
 
 public:
     AsemanHashObject(QObject *parent = 0);
-    ~AsemanHashObject();
+    virtual ~AsemanHashObject();
 
     Q_INVOKABLE void insert(const QString & key, const QVariant & value );
     Q_INVOKABLE void insertMulti(const QString & key, const QVariant & value );

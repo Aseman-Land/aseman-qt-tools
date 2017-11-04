@@ -44,7 +44,7 @@ class AsemanQuickViewWrapper : public QObject
 
 public:
     AsemanQuickViewWrapper(AsemanQuickView *view, QObject *parent = 0);
-    ~AsemanQuickViewWrapper();
+    virtual ~AsemanQuickViewWrapper();
 
     void setReverseScroll(bool stt);
     bool reverseScroll() const;

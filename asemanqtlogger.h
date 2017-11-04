@@ -27,7 +27,7 @@ class AsemanQtLogger : public QObject
     Q_OBJECT
 public:
     AsemanQtLogger(const QString & path, QObject *parent = 0);
-    ~AsemanQtLogger();
+    virtual ~AsemanQtLogger();
 
     virtual void logMsg(QtMsgType type , const QMessageLogContext &context, const QString &msg);
 

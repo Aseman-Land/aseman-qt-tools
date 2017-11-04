@@ -58,7 +58,7 @@ public:
     };
 
     AsemanCalendarModel(QObject *parent = 0);
-    ~AsemanCalendarModel();
+    virtual ~AsemanCalendarModel();
 
     QList<int> years() const;
     QList<int> months() const;

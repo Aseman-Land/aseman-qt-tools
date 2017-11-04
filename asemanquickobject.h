@@ -46,7 +46,7 @@ class AsemanQuickObject : public QObject
 
 public:
     Q_INVOKABLE explicit AsemanQuickObject(QObject *parent = 0);
-    ~AsemanQuickObject();
+    virtual ~AsemanQuickObject();
 
     QQmlListProperty<QObject> items();
     QList<QObject*> itemsList() const;

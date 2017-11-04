@@ -49,7 +49,7 @@ class AsemanDesktopTools : public QObject
     Q_OBJECT
 public:
     AsemanDesktopTools(QObject *parent = 0);
-    ~AsemanDesktopTools();
+    virtual ~AsemanDesktopTools();
 
     enum DesktopSession {
         Unknown,

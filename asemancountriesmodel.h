@@ -58,7 +58,7 @@ public:
     };
 
     AsemanCountriesModel(QObject *parent = 0);
-    ~AsemanCountriesModel();
+    virtual ~AsemanCountriesModel();
 
     QString id( const QModelIndex &index ) const;
 

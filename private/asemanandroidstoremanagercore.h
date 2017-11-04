@@ -27,7 +27,7 @@ class AsemanAndroidStoreManagerCore : public AsemanAbstractStoreManagerCore
     Q_OBJECT
 public:
     AsemanAndroidStoreManagerCore();
-    ~AsemanAndroidStoreManagerCore();
+    virtual ~AsemanAndroidStoreManagerCore();
 
     void setup(const QString &base64EncodedPublicKey, const QString &storePackageName, const QString &billingBindIntentPath);
     void updateStates();

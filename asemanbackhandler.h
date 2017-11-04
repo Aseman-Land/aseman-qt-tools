@@ -33,7 +33,7 @@ class AsemanBackHandler : public QObject
 
 public:
     AsemanBackHandler(QObject *parent = 0);
-    ~AsemanBackHandler();
+    virtual ~AsemanBackHandler();
 
     QObject *topHandlerObject() const;
     QJSValue topHandlerMethod() const;

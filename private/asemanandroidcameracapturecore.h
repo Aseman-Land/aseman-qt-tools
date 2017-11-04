@@ -27,7 +27,7 @@ class AsemanAndroidCameraCaptureCore : public AsemanAbstractCameraCaptureCore
     Q_OBJECT
 public:
     AsemanAndroidCameraCaptureCore(QObject *parent = 0);
-    ~AsemanAndroidCameraCaptureCore();
+    virtual ~AsemanAndroidCameraCaptureCore();
 
     int capture(const QString &dest, AsemanCameraCapture::CameraFace face);
 

@@ -34,7 +34,7 @@ class AsemanQuickItemImageGrabber : public QObject
 
 public:
     AsemanQuickItemImageGrabber(QObject *parent = 0);
-    ~AsemanQuickItemImageGrabber();
+    virtual ~AsemanQuickItemImageGrabber();
 
     void setItem(QQuickItem *item);
     QQuickItem *item() const;

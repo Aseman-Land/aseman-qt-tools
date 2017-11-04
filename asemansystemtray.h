@@ -48,7 +48,7 @@ public:
     };
 
     AsemanSystemTray(QObject *parent = 0);
-    ~AsemanSystemTray();
+    virtual ~AsemanSystemTray();
 
     void setVisible(bool visible);
     bool visible() const;

@@ -63,7 +63,7 @@ public:
     };
 
     AsemanAudioRecorder(QObject *parent = 0);
-    ~AsemanAudioRecorder();
+    virtual ~AsemanAudioRecorder();
 
     AsemanAudioEncoderSettings *encoderSettings() const;
     void setEncoderSettings(AsemanAudioEncoderSettings *settings);

@@ -42,7 +42,7 @@ class DialogScene: public QWidget
 {
 public:
     DialogScene( QWidget *parent = 0 ): QWidget(parent){    }
-    ~DialogScene(){}
+    virtual ~DialogScene(){}
 
 protected:
     void paintEvent(QPaintEvent *e){

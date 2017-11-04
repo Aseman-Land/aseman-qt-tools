@@ -41,7 +41,7 @@ class AsemanCalendarConverter : public QObject
 
 public:
     AsemanCalendarConverter(QObject *parent = 0);
-    ~AsemanCalendarConverter();
+    virtual ~AsemanCalendarConverter();
 
     void setCalendar( int t );
     int calendar() const;

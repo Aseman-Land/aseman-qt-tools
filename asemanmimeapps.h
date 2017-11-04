@@ -28,7 +28,7 @@ class AsemanMimeApps: public QObject
     Q_OBJECT
 public:
     AsemanMimeApps( QObject *parent = 0 );
-    ~AsemanMimeApps();
+    virtual ~AsemanMimeApps();
 
     Q_INVOKABLE QStringList appsOfMime( const QString & mime );
     Q_INVOKABLE QStringList appsOfFile( const QString & file );

@@ -33,7 +33,7 @@ class AsemanTitleBarColorGrabber : public QObject
 
 public:
     AsemanTitleBarColorGrabber(QObject *parent = 0);
-    ~AsemanTitleBarColorGrabber();
+    virtual ~AsemanTitleBarColorGrabber();
 
     void setWindow(QWindow *win);
     QWindow *window() const;

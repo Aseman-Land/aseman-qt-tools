@@ -32,7 +32,7 @@ class AsemanFileDownloaderQueue : public QObject
 
 public:
     AsemanFileDownloaderQueue(QObject *parent = 0);
-    ~AsemanFileDownloaderQueue();
+    virtual ~AsemanFileDownloaderQueue();
 
     void setCapacity(int cap);
     int capacity() const;

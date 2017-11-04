@@ -105,7 +105,7 @@ public:
 
     AsemanApplication();
     AsemanApplication(int &argc, char **argv, ApplicationType appType = DEFAULT_AAPP_TYPE);
-    ~AsemanApplication();
+    virtual ~AsemanApplication();
 
     static QString homePath();
     static void setHomePath(const QString &path);

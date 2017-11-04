@@ -31,7 +31,7 @@ class AsemanNativeNotification : public QObject
 
 public:
     AsemanNativeNotification(QObject *parent = 0);
-    ~AsemanNativeNotification();
+    virtual ~AsemanNativeNotification();
 
     void setColor(const QColor &color);
     QColor color() const;

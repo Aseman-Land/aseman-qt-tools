@@ -32,7 +32,7 @@ class AsemanWindowDetails : public QObject
 
 public:
     AsemanWindowDetails(QObject *parent = 0);
-    ~AsemanWindowDetails();
+    virtual ~AsemanWindowDetails();
 
     QWindow *window() const;
     void setWindow(QWindow *window);

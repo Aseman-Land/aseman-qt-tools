@@ -35,7 +35,7 @@ class AsemanKdeWallet : public QObject
 
 public:
     AsemanKdeWallet(QObject *parent = 0);
-    ~AsemanKdeWallet();
+    virtual ~AsemanKdeWallet();
 
     QStringList availableWallets() const;
     QStringList folderList() const;

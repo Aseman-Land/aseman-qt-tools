@@ -38,7 +38,7 @@ class AsemanTranslationManager : public AsemanQuickObject
 
 public:
     AsemanTranslationManager(QObject *parent = Q_NULLPTR);
-    ~AsemanTranslationManager();
+    virtual ~AsemanTranslationManager();
 
     void setSourceDirectory(const QUrl &source);
     QUrl sourceDirectory() const;

@@ -93,7 +93,7 @@ public:
 
     QtLockedFile();
     QtLockedFile(const QString &name);
-    ~QtLockedFile();
+    virtual ~QtLockedFile();
 
     bool open(OpenMode mode);
 

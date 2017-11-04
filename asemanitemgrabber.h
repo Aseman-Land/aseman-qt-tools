@@ -32,7 +32,7 @@ class AsemanItemGrabber : public QObject
 
 public:
     AsemanItemGrabber(QObject *parent = 0);
-    ~AsemanItemGrabber();
+    virtual ~AsemanItemGrabber();
 
     void setItem(QQuickItem *item);
     QQuickItem *item() const;

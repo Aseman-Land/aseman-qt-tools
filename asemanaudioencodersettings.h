@@ -58,7 +58,7 @@ public:
     };
 
     AsemanAudioEncoderSettings(QObject *parent = 0);
-    ~AsemanAudioEncoderSettings();
+    virtual ~AsemanAudioEncoderSettings();
 
     int bitRate() const;
     void setBitRate(int rate);

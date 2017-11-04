@@ -37,7 +37,7 @@ class AsemanDownloader : public QObject
     Q_OBJECT
 public:
     AsemanDownloader(QObject *parent = 0);
-    ~AsemanDownloader();
+    virtual ~AsemanDownloader();
 
     qint64 recievedBytes() const;
     qint64 totalBytes() const;

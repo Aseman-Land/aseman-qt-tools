@@ -27,7 +27,7 @@ class AsemanAbstractLocationListenerCore : public QObject
     Q_OBJECT
 public:
     AsemanAbstractLocationListenerCore(QObject *parent = 0);
-    ~AsemanAbstractLocationListenerCore();
+    virtual ~AsemanAbstractLocationListenerCore();
 
     virtual void requestLocationUpdates(int interval) = 0;
     virtual void getLastKnownLocation();

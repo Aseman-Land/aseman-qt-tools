@@ -32,7 +32,7 @@ class AsemanLinuxNativeNotification : public QObject
 
 public:
     AsemanLinuxNativeNotification(QObject *parent = 0);
-    ~AsemanLinuxNativeNotification();
+    virtual ~AsemanLinuxNativeNotification();
 
     void setColor(const QColor &color);
     QColor color() const;

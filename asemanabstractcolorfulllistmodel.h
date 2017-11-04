@@ -39,7 +39,7 @@ public:
     };
 
     AsemanAbstractColorfullListModel(QObject *parent = 0);
-    ~AsemanAbstractColorfullListModel();
+    virtual ~AsemanAbstractColorfullListModel();
 
     virtual QHash<qint32,QByteArray> roleNames() const;
     virtual int count() const = 0;
@@ -62,7 +62,7 @@ class AsemanColorfullListItem: public QObject
 
 public:
     AsemanColorfullListItem( QObject *parent = 0 );
-    ~AsemanColorfullListItem();
+    virtual ~AsemanColorfullListItem();
 
     void setTitle( const QString & title );
     QString title() const;

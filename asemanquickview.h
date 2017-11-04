@@ -49,7 +49,7 @@ class AsemanQuickView : public QObject
 
 public:
     AsemanQuickView(QQmlEngine *engine, QObject *parent = 0);
-    ~AsemanQuickView();
+    virtual ~AsemanQuickView();
 
     AsemanDesktopTools *desktopTools() const;
     AsemanDevices *devices() const;

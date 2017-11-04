@@ -30,7 +30,7 @@ class AsemanNativeNotificationItem : public QWidget
 
 public:
     AsemanNativeNotificationItem(QWidget *parent = 0);
-    ~AsemanNativeNotificationItem();
+    virtual ~AsemanNativeNotificationItem();
 
     void setColor(const QColor &color);
     QColor color() const;

@@ -31,7 +31,7 @@ class AsemanMouseEventListener : public QQuickItem
 
 public:
     AsemanMouseEventListener(QQuickItem *parent = Q_NULLPTR);
-    ~AsemanMouseEventListener();
+    virtual ~AsemanMouseEventListener();
 
     qreal mouseX() const;
     qreal mouseY() const;

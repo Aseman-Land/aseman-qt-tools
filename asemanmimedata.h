@@ -36,7 +36,7 @@ class AsemanMimeData : public QObject
 
 public:
     AsemanMimeData(QObject *parent = 0);
-    ~AsemanMimeData();
+    virtual ~AsemanMimeData();
 
     void setText(const QString &txt);
     QString text() const;

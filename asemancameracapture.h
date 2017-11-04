@@ -32,7 +32,7 @@ public:
     };
 
     AsemanCameraCapture(QObject *parent = 0);
-    ~AsemanCameraCapture();
+    virtual ~AsemanCameraCapture();
 
 public slots:
     int capture(const QString &dest, AsemanCameraCapture::CameraFace face);

@@ -39,7 +39,7 @@ class AsemanTools : public QObject
     Q_OBJECT
 public:
     AsemanTools(QObject *parent = 0);
-    ~AsemanTools();
+    virtual ~AsemanTools();
 
 public slots:
     static void debug( const QVariant & var );

@@ -27,7 +27,7 @@ class AsemanDebugObjectCounter : public QObject
     Q_OBJECT
 public:
     AsemanDebugObjectCounter(QObject *parent = 0);
-    ~AsemanDebugObjectCounter();
+    virtual ~AsemanDebugObjectCounter();
 
 public slots:
     void start(QObject *object, int interval);

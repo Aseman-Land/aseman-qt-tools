@@ -36,7 +36,7 @@ public:
     };
 
     AsemanQmlImage(QQuickItem *parent = Q_NULLPTR);
-    ~AsemanQmlImage();
+    virtual ~AsemanQmlImage();
 
     virtual void paint(QPainter *painter);
 

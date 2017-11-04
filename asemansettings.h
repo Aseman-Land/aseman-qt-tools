@@ -30,7 +30,7 @@ class AsemanSettings : public QObject
     Q_PROPERTY(QString source READ source WRITE setSource NOTIFY sourceChanged)
 public:
     AsemanSettings(QObject *parent = 0);
-    ~AsemanSettings();
+    virtual ~AsemanSettings();
 
     void setCategory(const QString &category);
     QString category() const;

@@ -26,7 +26,7 @@ class AsemanQtLocationListenerCore: public AsemanAbstractLocationListenerCore
 {
 public:
     AsemanQtLocationListenerCore(QObject *parent = 0);
-    ~AsemanQtLocationListenerCore();
+    virtual ~AsemanQtLocationListenerCore();
 
     void requestLocationUpdates(int interval);
     void stop();

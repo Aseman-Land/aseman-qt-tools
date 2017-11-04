@@ -40,7 +40,7 @@ class AsemanDragObject : public QObject
 
 public:
     AsemanDragObject(QObject *parent = 0);
-    ~AsemanDragObject();
+    virtual ~AsemanDragObject();
 
     void setMimeData(AsemanMimeData *mime);
     AsemanMimeData *mimeData() const;

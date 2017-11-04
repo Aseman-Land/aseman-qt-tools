@@ -79,7 +79,7 @@ public:
     };
 
     AsemanStoreManager(QObject *parent = 0);
-    ~AsemanStoreManager();
+    virtual ~AsemanStoreManager();
 
     void setPublicKey(const QString &pkey);
     QString publicKey() const;
@@ -143,7 +143,7 @@ class AsemanStoreManagerProduct : public QObject
 
 public:
     AsemanStoreManagerProduct(QObject *parent = Q_NULLPTR);
-    ~AsemanStoreManagerProduct();
+    virtual ~AsemanStoreManagerProduct();
 
     bool IsPurchased() const { return _skuState == AsemanStoreManager::InventoryStatePurchased; }
     bool IsPurchasing() const { return _skuState == AsemanStoreManager::InventoryStatePurchasing; }

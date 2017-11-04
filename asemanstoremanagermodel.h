@@ -41,7 +41,7 @@ public:
     };
 
     AsemanStoreManagerModel(QObject *parent = 0);
-    ~AsemanStoreManagerModel();
+    virtual ~AsemanStoreManagerModel();
 
     void setStoreManager(AsemanStoreManager *stm);
     AsemanStoreManager *storeManager() const;

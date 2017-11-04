@@ -41,7 +41,7 @@ public:
     };
 
     AsemanContributorsModel(QObject *parent = 0);
-    ~AsemanContributorsModel();
+    virtual ~AsemanContributorsModel();
 
     void setFiles(const QList<QUrl> & urls);
     QList<QUrl> files() const;

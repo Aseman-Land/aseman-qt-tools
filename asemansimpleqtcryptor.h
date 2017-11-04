@@ -124,7 +124,7 @@ public:
     Key();
     Key(const QByteArray &key);
     Key(const QString &key);
-    ~Key();
+    virtual ~Key();
 
     // not for use by end application
 #ifdef WITHRC5
@@ -163,7 +163,7 @@ class Encryptor : public QObject {
     Q_OBJECT
 public:
     Encryptor(QSharedPointer<Key> k, Algorithm a, Mode m, Checksum c);
-    ~Encryptor();   
+    virtual ~Encryptor();   
     Error encrypt(const QByteArray &plain, QByteArray &cipher, bool end);
     void reset();
 private:
@@ -184,7 +184,7 @@ class DecryptorWizard {
 public:
     DecryptorWizard();
     DecryptorWizard(QSharedPointer<Key> k, Algorithm a = DetectAlgorithm, Mode m = DetectMode);
-    ~DecryptorWizard();
+    virtual ~DecryptorWizard();
 
     void addParameters(QSharedPointer<Key> k, Algorithm a = DetectAlgorithm, Mode m = DetectMode);
 
@@ -200,7 +200,7 @@ class Decryptor : public QObject {
     Q_OBJECT
 public:
     Decryptor(QSharedPointer<Key> k, Algorithm a, Mode m);
-    ~Decryptor();
+    virtual ~Decryptor();
     Error decrypt(const QByteArray &cipher, QByteArray &plain, bool end);
     void reset();
     Checksum getChecksumType();
@@ -241,7 +241,7 @@ public:
 class CFB : public LayerMode {
 public:
     CFB(QSharedPointer<Key> k, Algorithm a);
-    ~CFB();
+    virtual ~CFB();
     QByteArray encrypt(const QByteArray plain, bool end = false);
     QByteArray decrypt(const QByteArray cipher, bool end = false);
     void reset();
@@ -255,7 +255,7 @@ private:
 class CBC : public LayerMode {
 public:
     CBC(QSharedPointer<Key> k, Algorithm a);
-    ~CBC();
+    virtual ~CBC();
     QByteArray encrypt(const QByteArray plain, bool end);
     QByteArray decrypt(const QByteArray cipher, bool end);
     void reset();

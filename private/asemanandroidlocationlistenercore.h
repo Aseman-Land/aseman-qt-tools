@@ -28,7 +28,7 @@ class AsemanAndroidLocationListenerCore : public AsemanAbstractLocationListenerC
     Q_OBJECT
 public:
     AsemanAndroidLocationListenerCore(QObject *parent = 0);
-    ~AsemanAndroidLocationListenerCore();
+    virtual ~AsemanAndroidLocationListenerCore();
 
     void requestLocationUpdates(int interval);
     void getLastKnownLocation();

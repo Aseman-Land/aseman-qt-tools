@@ -30,7 +30,7 @@ class AsemanSystemInfo : public QObject
 
 public:
     AsemanSystemInfo(QObject *parent = 0);
-    ~AsemanSystemInfo();
+    virtual ~AsemanSystemInfo();
 
 public slots:
     quint64 cpuCores();

@@ -29,7 +29,7 @@ class AsemanKeychain : public QObject
     Q_PROPERTY(QString service READ service WRITE setService NOTIFY serviceChanged)
 public:
     AsemanKeychain(QObject *parent = 0);
-    ~AsemanKeychain();
+    virtual ~AsemanKeychain();
 
     void setService(const QString &service);
     QString service() const;

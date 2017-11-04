@@ -35,7 +35,7 @@ class AsemanAutoStartManager : public QObject
 
 public:
     AsemanAutoStartManager(QObject *parent = 0);
-    ~AsemanAutoStartManager();
+    virtual ~AsemanAutoStartManager();
 
     void setCommand(const QString &cmd);
     QString command() const;

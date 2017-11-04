@@ -79,7 +79,7 @@ public:
     };
 
     AsemanNetworkManagerItem(QObject *parent = 0);
-    ~AsemanNetworkManagerItem();
+    virtual ~AsemanNetworkManagerItem();
 
     int bearerType() const;
     int bearerTypeFamily() const;

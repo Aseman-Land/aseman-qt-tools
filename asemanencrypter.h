@@ -28,7 +28,7 @@ class AsemanEncrypter: public QObject
 
 public:
     AsemanEncrypter(QObject *parent = 0): QObject(parent){}
-    ~AsemanEncrypter(){}
+    virtual ~AsemanEncrypter(){}
 
     void setKey(const QString &key);
     QString key() const;

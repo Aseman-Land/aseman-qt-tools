@@ -34,7 +34,7 @@ class AsemanNetworkSleepManager : public QObject
 
 public:
     AsemanNetworkSleepManager(QObject *parent = 0);
-    ~AsemanNetworkSleepManager();
+    virtual ~AsemanNetworkSleepManager();
 
     void setHost(const QString &host);
     QString host() const;

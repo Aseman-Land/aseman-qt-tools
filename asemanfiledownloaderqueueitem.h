@@ -34,7 +34,7 @@ class AsemanFileDownloaderQueueItem : public QObject
 
 public:
     AsemanFileDownloaderQueueItem(QObject *parent = 0);
-    ~AsemanFileDownloaderQueueItem();
+    virtual ~AsemanFileDownloaderQueueItem();
 
     void setSource(const QString &url);
     QString source() const;

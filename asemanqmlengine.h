@@ -27,7 +27,7 @@ class AsemanQmlEngine : public QQmlApplicationEngine
     Q_OBJECT
 public:
     AsemanQmlEngine(QObject *parent = 0);
-    ~AsemanQmlEngine();
+    virtual ~AsemanQmlEngine();
 
 signals:
 

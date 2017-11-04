@@ -34,7 +34,7 @@ class AsemanWebPageGrabber : public AsemanQuickObject
 
 public:
     AsemanWebPageGrabber(QObject *parent = 0);
-    ~AsemanWebPageGrabber();
+    virtual ~AsemanWebPageGrabber();
 
     void setSource(const QUrl &source);
     QUrl source() const;

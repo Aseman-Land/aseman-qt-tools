@@ -45,7 +45,7 @@ class AsemanCalendarConverterCore
 {
 public:
     AsemanCalendarConverterCore();
-    ~AsemanCalendarConverterCore();
+    virtual ~AsemanCalendarConverterCore();
 
     enum CalendarTypes{
         Gregorian,

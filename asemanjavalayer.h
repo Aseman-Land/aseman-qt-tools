@@ -27,7 +27,7 @@ class AsemanJavaLayer : public QObject
     Q_OBJECT
 public:
     AsemanJavaLayer();
-    ~AsemanJavaLayer();
+    virtual ~AsemanJavaLayer();
 
     static AsemanJavaLayer *instance();
 

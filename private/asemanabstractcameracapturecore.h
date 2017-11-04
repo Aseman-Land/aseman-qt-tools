@@ -27,7 +27,7 @@ class AsemanAbstractCameraCaptureCore : public QObject
     Q_OBJECT
 public:
     AsemanAbstractCameraCaptureCore(QObject *parent = 0);
-    ~AsemanAbstractCameraCaptureCore();
+    virtual ~AsemanAbstractCameraCaptureCore();
 
     virtual int capture(const QString &dest, AsemanCameraCapture::CameraFace face) = 0;
 

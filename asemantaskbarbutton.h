@@ -34,7 +34,7 @@ class AsemanTaskbarButton : public QObject
 
 public:
     AsemanTaskbarButton(QObject *parent = 0);
-    ~AsemanTaskbarButton();
+    virtual ~AsemanTaskbarButton();
 
     void setBadgeNumber(int num);
     int badgeNumber() const;

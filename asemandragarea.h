@@ -32,7 +32,7 @@ class AsemanDragArea : public QQuickItem
 
 public:
     AsemanDragArea(QQuickItem *parent = 0);
-    ~AsemanDragArea();
+    virtual ~AsemanDragArea();
 
     void setMinimum(int min);
     int minimum() const;
