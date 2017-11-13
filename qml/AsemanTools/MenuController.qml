@@ -77,8 +77,25 @@ Item {
     QtObject {
         id: privates
         property variant item
-        property real sourceScale: (menuc.width-menuWidth*ratio)/source.width
-        onSourceScaleChanged: if(source) source.scale = sourceScale
+        property real sourceScale: (menuc.width-menuWidth*(ratio/2))/source.width
+    }
+
+    Scale {
+        id: sourceScaleItem
+        origin.x: {
+            if(!source)
+                return menuc.width
+
+            switch(layoutDirection) {
+            case Qt.RightToLeft:
+                return -source.width
+            default:
+                return source.width*2
+            }
+        }
+        origin.y: menuc.height/2
+        xScale: privates.sourceScale
+        yScale: xScale
     }
 
     Item {
@@ -166,15 +183,7 @@ Item {
         if(!source)
             return
 
-        switch(layoutDirection) {
-        case Qt.RightToLeft:
-            source.transformOrigin = Item.Left
-            break
-
-        default:
-            source.transformOrigin = Item.Right
-            break
-        }
+        source.transform = sourceScaleItem
     }
 
     function refresh() {
