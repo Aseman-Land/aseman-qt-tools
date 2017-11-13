@@ -58,6 +58,14 @@ Rectangle {
             }
         }
 
+        Rectangle {
+            anchors.bottom: parent.bottom
+            width: parent.width
+            height: 1*Devices.density
+            visible: !shadow_rct.visible
+            color: "#55000000"
+        }
+
         Row {
             id: back_row
             anchors.left: parent.left
