@@ -35,3 +35,4 @@ qml/AsemanTools/qmldir
 # Thirdparty
 
 qzxing
+*.DS_Store
