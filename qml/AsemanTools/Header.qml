@@ -63,7 +63,7 @@ Rectangle {
             width: parent.width
             height: 1*Devices.density
             visible: !shadow_rct.visible
-            color: "#55000000"
+            color: "#33000000"
         }
 
         Row {
