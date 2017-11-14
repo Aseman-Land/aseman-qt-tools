@@ -26,7 +26,7 @@ android {
         $$PWD/private/asemanandroidcameracapturecore.h
 } else {
     ios {
-        contains(DEFINES,ASEMAN_IOS_LIGHT_STATUS) {
+        !contains(DEFINES,ASEMAN_IOS_LIGHT_STATUS) {
             SOURCES +=  \
                 $$PWD/private/osxviewcontroller.mm
             HEADERS +=  \
