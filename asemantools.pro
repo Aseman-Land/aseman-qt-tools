@@ -1,6 +1,6 @@
 TEMPLATE = lib
 TARGET = AsemanToolsQml
-QT += qml quick widgets
+QT += qml quick gui
 CONFIG += qt plugin
 CONFIG -= android_install
 

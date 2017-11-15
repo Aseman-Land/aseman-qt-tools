@@ -311,10 +311,10 @@ OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/extra/AsemanLocationListener.java
 
 
-#!contains(DEFINES,ASEMAN_QML_PLUGIN) {
+!contains(DEFINES,ASEMAN_QML_PLUGIN) {
     RESOURCES += \
         $$PWD/asemanresource.qrc
-#}
+}
 
 DISTFILES += \
     $$PWD/android-build/src/land/aseman/android/extra/AsemanCameraCapture.java
