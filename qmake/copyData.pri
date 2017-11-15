@@ -32,7 +32,7 @@ for(sourceFiles, $${deploymentfolder}.source) {
             source = $$replace(source, \\\\, /)
             target = $$DEST_OUT_PWD$$eval($${deploymentfolder}.target)/
             target = $$replace(target, \\\\, /)
-            copyCommand += test -d \"$$target\" || mkdir -p \"$$target\" && cp -f -u -r \"$$source\" \"$$target\"
+            copyCommand += test -d \"$$target\" || mkdir -p \"$$target\" && cp -f -r \"$$source\" \"$$target\"
         }
     }
 }

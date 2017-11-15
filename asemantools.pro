@@ -10,11 +10,16 @@ isEmpty(ASEMAN_BUILD_DEST) {
     DESTDIR = $$ASEMAN_BUILD_DEST/qml/AsemanTools
 }
 
-TARGET = $$qtLibraryTarget($$TARGET)
 uri = AsemanTools
+QMAKE_MOC_OPTIONS += -Muri=$$uri
+ios {
+    QMAKE_CXXFLAGS += -fvisibility=hidden
+}
+
+TARGET = $$qtLibraryTarget($$TARGET)
 
 DEFINES += ASEMAN_QML_PLUGIN QT_MESSAGELOGCONTEXT
-android {
+android|ios {
     DEFINES += DISABLE_KEYCHAIN
 }
 
