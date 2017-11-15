@@ -54,6 +54,8 @@ AsemanJavaLayer::AsemanJavaLayer() :
 
     java_layers_objects.insert(this);
     QMetaObject::invokeMethod( this, "load_buffer", Qt::QueuedConnection );
+
+    setImplemented(true);
 }
 
 AsemanJavaLayer *AsemanJavaLayer::instance()
@@ -248,6 +250,12 @@ void AsemanJavaLayer::load_buffer()
         const QPair<QString,QString> & pair = java_layer_inc_share_buffer.takeFirst();
         emit incomingShare( pair.first, pair.second );
     }
+}
+
+void AsemanJavaLayer::setImplemented(bool stt)
+{
+    jboolean jstt = stt;
+    p->object.callMethod<jboolean>(__FUNCTION__, "(Z)V", jstt );
 }
 
 AsemanJavaLayer::~AsemanJavaLayer()

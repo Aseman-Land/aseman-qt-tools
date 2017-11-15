@@ -60,36 +60,44 @@ public class AsemanJavaLayer
     private static native void _activityDestroyed();
     private static native void _selectImageResult( String path );
     private static native void _keyboardVisiblityChanged(int height);
+    private static boolean implemented = false;
 
     public AsemanJavaLayer() {
     }
 
     public static void activityPaused(){
-        _activityPaused();
+        if(implemented)
+            _activityPaused();
     }
 
     public static void activityStopped(){
-        _activityStopped();
+        if(implemented)
+            _activityStopped();
     }
 
     public static void activityResumed(){
-        _activityResumed();
+        if(implemented)
+            _activityResumed();
     }
 
     public static void activityStarted(){
-        _activityStarted();
+        if(implemented)
+            _activityStarted();
     }
 
     public static void activityRestarted(){
-        _activityRestarted();
+        if(implemented)
+            _activityRestarted();
     }
 
     public static void activityDestroyed(){
-        _activityDestroyed();
+        if(implemented)
+            _activityDestroyed();
     }
 
     public static void keyboardVisiblityChanged(int height){
-        _keyboardVisiblityChanged(height);
+        if(implemented)
+            _keyboardVisiblityChanged(height);
     }
 
     public static void sendNote( String title, String msg ) {
@@ -98,7 +106,8 @@ public class AsemanJavaLayer
         if( msg == null )
             msg = "";
 
-        _sendNote(title,msg);
+        if(implemented)
+            _sendNote(title,msg);
     }
 
     public static void setKeepScreenOn(boolean status) {
@@ -142,14 +151,16 @@ public class AsemanJavaLayer
             return;
         }
 
-        _sendImage(imagePath);
+        if(implemented)
+            _sendImage(imagePath);
     }
 
     public static void selectImageResult( String path ) {
         if( path == null )
             path = "";
 
-        _selectImageResult(path);
+        if(implemented)
+            _selectImageResult(path);
     }
 
     public String packageName()
@@ -167,6 +178,10 @@ public class AsemanJavaLayer
         } else {
             return capitalize(manufacturer) + " " + model;
         }
+    }
+
+    public static  void setImplemented(boolean stt) {
+        implemented = stt;
     }
 
     public String deviceId() {

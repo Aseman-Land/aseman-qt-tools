@@ -76,6 +76,9 @@ signals:
 private slots:
     void load_buffer();
 
+protected:
+    void setImplemented(bool stt);
+
 private:
     AsemanJavaLayerPrivate *p;
 };

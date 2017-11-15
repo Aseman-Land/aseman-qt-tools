@@ -6,11 +6,13 @@ contains(DEFINES,ASEMAN_TOOLS_FULL) {
 }
 
 android {
-    manifest.source = android-build
-    manifest.target = .
-    COPYFOLDERS += manifest
-    include(qmake/copyData.pri)
-    copyData()
+    !contains(DEFINES,ASEMAN_QML_PLUGIN) {
+        manifest.source = android-build
+        manifest.target = .
+        COPYFOLDERS += manifest
+        include(qmake/copyData.pri)
+        copyData()
+    }
 
     QT += androidextras
     SOURCES += \

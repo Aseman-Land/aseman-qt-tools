@@ -2,6 +2,7 @@ TEMPLATE = lib
 TARGET = AsemanToolsQml
 QT += qml quick widgets
 CONFIG += qt plugin
+CONFIG -= android_install
 
 isEmpty(ASEMAN_BUILD_DEST) {
     DESTDIR = qml/AsemanTools/AsemanTools
@@ -9,11 +10,13 @@ isEmpty(ASEMAN_BUILD_DEST) {
     DESTDIR = $$ASEMAN_BUILD_DEST/qml/AsemanTools
 }
 
-#VERSION = 1.0.0
 TARGET = $$qtLibraryTarget($$TARGET)
 uri = AsemanTools
 
 DEFINES += ASEMAN_QML_PLUGIN QT_MESSAGELOGCONTEXT
+android {
+    DEFINES += DISABLE_KEYCHAIN
+}
 
 include(asemantools.pri)
 
@@ -46,4 +49,10 @@ qmlFile.files = qml/AsemanTools/
 qmlFile.path = $$PREFIX
 target = $$TARGET
 target.path = $$installPath
-INSTALLS += qmlFile qmldir target
+INSTALLS += target qmlFile qmldir
+
+android {
+    javaFiles.files = $$PWD/android-build/src/ $$PWD/android-build/res/
+    javaFiles.path = $$[QT_INSTALL_PREFIX]/src/android/java/
+    INSTALLS += javaFiles
+}
