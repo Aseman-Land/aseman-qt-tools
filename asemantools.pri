@@ -311,7 +311,7 @@ OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/extra/AsemanLocationListener.java
 
 
-!contains(DEFINES,ASEMAN_QML_PLUGIN) {
+!contains(DEFINES,ASEMAN_QML_PLUGIN)|contains(DEFINES,ASEMAN_STATIC_BUILD) {
     RESOURCES += \
         $$PWD/asemanresource.qrc
 }

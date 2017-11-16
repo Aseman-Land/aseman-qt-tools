@@ -11,7 +11,10 @@ isEmpty(ASEMAN_BUILD_DEST) {
 }
 
 uri = AsemanTools
-QMAKE_MOC_OPTIONS += -Muri=$$uri
+static {
+    QMAKE_MOC_OPTIONS += -Muri=$$uri
+    DEFINES += ASEMAN_STATIC_BUILD
+}
 ios {
     QMAKE_CXXFLAGS += -fvisibility=hidden
 }
@@ -34,8 +37,8 @@ HEADERS += \
 QMLDIR_VALUE = $$cat(qmldir, blob) 'plugin AsemanToolsQml'
 write_file($$OUT_PWD/$$DESTDIR/qmldir, QMLDIR_VALUE)
 
-qmlFiles.source = qml/AsemanTools/
-qmlFiles.target = $$DESTDIR/../
+qmlFiles.source = AsemanTools/
+qmlFiles.target = $$DESTDIR/../AsemanTools
 COPYFOLDERS += qmlFiles
 
 !win32-msvc* {
@@ -50,12 +53,15 @@ isEmpty(PREFIX) {
 installPath = $$PREFIX/$$replace(uri, \\., /)
 qmldir.files = $$OUT_PWD/$$DESTDIR/qmldir $$OUT_PWD/$$DESTDIR/plugins.qmltypes
 qmldir.path = $$installPath
-qmlFile.files = qml/AsemanTools/
-qmlFile.path = $$PREFIX
 target = $$TARGET
 target.path = $$installPath
-INSTALLS += target qmlFile qmldir
+INSTALLS += target qmldir
 
+!contains(DEFINES,ASEMAN_STATIC_BUILD) {
+    qmlFile.files = AsemanTools/
+    qmlFile.path = $$PREFIX
+    INSTALLS += qmlFile
+}
 android {
     javaFiles.files = $$PWD/android-build/src/ $$PWD/android-build/res/
     javaFiles.path = $$[QT_INSTALL_PREFIX]/src/android/java/

@@ -28,6 +28,9 @@ class QJSEngine;
 class AsemanQtTools
 {
 public:
+#ifdef ASEMAN_STATIC_BUILD
+    static bool registerTypes();
+#endif
     static void registerTypes(const char *uri, bool exportMode = false);
     static void registerSecureTypes(const char *uri, bool exportMode = false);
     static bool safeRegisterTypes(const char *uri, QQmlEngine *engine);
@@ -70,6 +73,11 @@ protected:
     static QString exportModel(const QString &module, int major, int minor, const QString &component);
 
     static QString fixType(const QString &type);
+
+private:
+#ifdef ASEMAN_STATIC_BUILD
+    static bool static_types_registered;
+#endif
 };
 
 #endif // ASEMANQTTOOLS_H
