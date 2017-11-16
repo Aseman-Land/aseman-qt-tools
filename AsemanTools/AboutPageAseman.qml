@@ -18,8 +18,6 @@
 
 import QtQuick 2.0
 import AsemanTools 1.0
-import AsemanTools.Controls 1.0 as Controls
-import AsemanTools.Controls.Styles 1.0 as Styles
 
 AboutPageItem {
     title: qsTr("Aseman")
