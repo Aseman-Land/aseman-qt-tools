@@ -39,6 +39,9 @@ QSet<AsemanJavaLayer*> java_layers_objects;
 QList< QPair<QString,QString> > java_layer_inc_share_buffer;
 QList< QString > java_layer_inc_image_buffer;
 
+bool aseman_jlayer_registerNativeMethods();
+bool aseman_jlayer_native_methods_registered = aseman_jlayer_registerNativeMethods();
+
 class AsemanJavaLayerPrivate
 {
 public:
@@ -60,6 +63,9 @@ AsemanJavaLayer::AsemanJavaLayer() :
 
 AsemanJavaLayer *AsemanJavaLayer::instance()
 {
+    if(!aseman_jlayer_native_methods_registered)
+        aseman_jlayer_registerNativeMethods();
+
     static QPointer<AsemanJavaLayer> java_layer_instance;
     if( !java_layer_instance )
     {
@@ -362,6 +368,9 @@ static void keyboardVisiblityChanged( JNIEnv *env, jobject obj, jint height )
 }
 
 bool aseman_jlayer_registerNativeMethods() {
+    if(aseman_jlayer_native_methods_registered)
+        return true;
+
     JNINativeMethod methods[] {{"_sendNote", "(Ljava/lang/String;Ljava/lang/String;)V", reinterpret_cast<void *>(noteRecieved)},
                                {"_sendImage", "(Ljava/lang/String;)V", reinterpret_cast<void *>(imageRecieved)},
                                {"_selectImageResult", "(Ljava/lang/String;)V", reinterpret_cast<void *>(selectImageResult)},
@@ -382,5 +391,3 @@ bool aseman_jlayer_registerNativeMethods() {
     env->DeleteLocalRef(objectClass);
     return true;
 }
-
-const bool aseman_jlayer_native_methods_registered = aseman_jlayer_registerNativeMethods();

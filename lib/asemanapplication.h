@@ -221,6 +221,8 @@ protected:
 
 private:
     void init();
+    static bool aseman_app_init();
+    static bool aseman_app_inited;
 
 private:
     AsemanApplicationPrivate *p;

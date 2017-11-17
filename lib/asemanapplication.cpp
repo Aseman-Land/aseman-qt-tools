@@ -103,6 +103,8 @@ static QSet<AsemanApplication*> aseman_app_objects;
 static QString *aseman_app_home_path = 0;
 static QString *aseman_app_log_path = 0;
 
+bool AsemanApplication::aseman_app_inited = AsemanApplication::aseman_app_init();
+
 #if defined(Q_OS_MAC) && defined(Q_PROCESSOR_X86_32)
 #include <objc/objc.h>
 #include <objc/message.h>
@@ -171,27 +173,6 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
 {
     if(!aseman_app_singleton)
         aseman_app_singleton = this;
-
-#ifndef FORCE_ASEMAN_DENSITY
-#ifdef Q_OS_ANDROID
-    const bool nexus5X = (AsemanJavaLayer::instance()->deviceName() == "LGE Nexus 5X");
-    if(!nexus5X)
-        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
-    if(!QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling) && qgetenv("QT_SCALE_FACTOR").isNull() && qgetenv("ASEMAN_SCALE_FACTOR").isNull())
-    {
-        qreal ratio = AsemanJavaLayer::instance()->density()*(AsemanDevices::isTablet()? 1.28 : 1);
-        if(nexus5X)
-        {
-            qreal newRatio = qRound((ratio*20) + 0.01)/20.0;
-            qputenv("QT_SCALE_FACTOR",QByteArray::number(newRatio));
-            qputenv("ASEMAN_SCALE_FACTOR",QByteArray::number(ratio/newRatio));
-        }
-        else
-            qputenv("QT_SCALE_FACTOR",QByteArray::number(ratio));
-    }
-#endif
-#endif
 
     p = new AsemanApplicationPrivate;
     p->appType = appType;
@@ -290,6 +271,34 @@ void AsemanApplication::init()
 
     if(AsemanApplicationPrivate::peer)
         connect(AsemanApplicationPrivate::peer, &QtLocalPeer::messageReceived, this, &AsemanApplication::messageReceived);
+}
+
+bool AsemanApplication::aseman_app_init()
+{
+    if(aseman_app_inited)
+        return true;
+
+#ifndef FORCE_ASEMAN_DENSITY
+#ifdef Q_OS_ANDROID
+    const bool nexus5X = (AsemanJavaLayer::instance()->deviceName() == "LGE Nexus 5X");
+    if(!nexus5X)
+        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
+    if(!QGuiApplication::testAttribute(Qt::AA_EnableHighDpiScaling) && qgetenv("QT_SCALE_FACTOR").isNull() && qgetenv("ASEMAN_SCALE_FACTOR").isNull())
+    {
+        qreal ratio = AsemanJavaLayer::instance()->density()*(AsemanDevices::isTablet()? 1.28 : 1);
+        if(nexus5X)
+        {
+            qreal newRatio = qRound((ratio*20) + 0.01)/20.0;
+            qputenv("QT_SCALE_FACTOR",QByteArray::number(newRatio));
+            qputenv("ASEMAN_SCALE_FACTOR",QByteArray::number(ratio/newRatio));
+        }
+        else
+            qputenv("QT_SCALE_FACTOR",QByteArray::number(ratio));
+    }
+#endif
+#endif
+    return true;
 }
 
 QString AsemanApplication::homePath()
