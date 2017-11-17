@@ -6,14 +6,6 @@ contains(DEFINES,ASEMAN_TOOLS_FULL) {
 }
 
 android {
-    !contains(DEFINES,ASEMAN_QML_PLUGIN) {
-        manifest.source = android-build
-        manifest.target = .
-        COPYFOLDERS += manifest
-        include(qmake/copyData.pri)
-        copyData()
-    }
-
     QT += androidextras
     SOURCES += \
         $$PWD/asemanjavalayer.cpp \
@@ -310,11 +302,8 @@ OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/store/StoreManager.java \
     $$PWD/android-build/src/land/aseman/android/extra/AsemanLocationListener.java
 
-
-!contains(DEFINES,ASEMAN_QML_PLUGIN)|contains(DEFINES,ASEMAN_STATIC_BUILD) {
-    RESOURCES += \
-        $$PWD/asemanresource.qrc
-}
+RESOURCES += \
+    $$PWD/asemanresource-lib.qrc
 
 DISTFILES += \
     $$PWD/android-build/src/land/aseman/android/extra/AsemanCameraCapture.java

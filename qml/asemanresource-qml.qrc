@@ -55,7 +55,6 @@
         <file>AsemanTools/files/aseman-special.png</file>
         <file>AsemanTools/files/aseman-special-black.png</file>
         <file>AsemanTools/files/close.png</file>
-        <file>files/countries.csv</file>
         <file>AsemanTools/AsemanMainQt.qml</file>
         <file>AsemanTools/MenuIcon.qml</file>
         <file>AsemanTools/RoundedImage.qml</file>

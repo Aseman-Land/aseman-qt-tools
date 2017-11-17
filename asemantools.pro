@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 CONFIG += ordered
 SUBDIRS += \
-    asemantools
+    lib/asemantools-lib.pro \
+    qml/asemantools-qml.pro

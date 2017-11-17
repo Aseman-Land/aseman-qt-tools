@@ -180,7 +180,7 @@ public class AsemanJavaLayer
         }
     }
 
-    public static  void setImplemented(boolean stt) {
+    public static void setImplemented(boolean stt) {
         implemented = stt;
     }
 

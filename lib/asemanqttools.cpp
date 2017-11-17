@@ -18,7 +18,6 @@
 
 #include "asemanqttools.h"
 
-#include "asemantoolsplugin.h"
 #include "asemanquickview.h"
 #include "asemandesktoptools.h"
 #include "asemanqtlogger.h"

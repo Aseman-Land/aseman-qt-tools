@@ -1,14 +1,8 @@
 TEMPLATE = lib
-TARGET = AsemanToolsQml
+TARGET = asemantoolsqml
 QT += qml quick gui
-CONFIG += qt plugin
 CONFIG -= android_install
-
-isEmpty(ASEMAN_BUILD_DEST) {
-    DESTDIR = qml/AsemanTools/AsemanTools
-} else {
-    DESTDIR = $$ASEMAN_BUILD_DEST/qml/AsemanTools
-}
+DESTDIR = AsemanTools
 
 uri = AsemanTools
 static {
@@ -21,12 +15,13 @@ ios {
 
 TARGET = $$qtLibraryTarget($$TARGET)
 
-DEFINES += ASEMAN_QML_PLUGIN QT_MESSAGELOGCONTEXT
+DEFINES += QT_MESSAGELOGCONTEXT
 android|ios {
     DEFINES += DISABLE_KEYCHAIN
 }
 
-include(asemantools.pri)
+LIBS += -L$$OUT_PWD/../lib -lasemantools
+INCLUDEPATH += ../lib
 
 SOURCES += \
     asemantoolsplugin.cpp
@@ -34,24 +29,20 @@ SOURCES += \
 HEADERS += \
     asemantoolsplugin.h
 
-QMLDIR_VALUE = $$cat(qmldir, blob) 'plugin AsemanToolsQml'
-write_file($$OUT_PWD/$$DESTDIR/qmldir, QMLDIR_VALUE)
-
-qmlFiles.source = AsemanTools/
-qmlFiles.target = $$DESTDIR/../AsemanTools
-COPYFOLDERS += qmlFiles
-
-!win32-msvc* {
-    include (qmake/copyData.pri)
-    copyData ()
+contains(DEFINES,ASEMAN_STATIC_BUILD) {
+    RESOURCES += \
+        $$PWD/asemanresource-qml.qrc
 }
+
+QMLDIR_VALUE = $$cat(qmldir, blob) 'plugin asemantoolsqml'
+write_file($$OUT_PWD/$$DESTDIR/qmldir, QMLDIR_VALUE)
 
 isEmpty(PREFIX) {
     PREFIX = $$[QT_INSTALL_QML]
 }
 
 installPath = $$PREFIX/$$replace(uri, \\., /)
-qmldir.files = $$OUT_PWD/$$DESTDIR/qmldir $$OUT_PWD/$$DESTDIR/plugins.qmltypes
+qmldir.files = $$OUT_PWD/$$DESTDIR/qmldir
 qmldir.path = $$installPath
 target = $$TARGET
 target.path = $$installPath
