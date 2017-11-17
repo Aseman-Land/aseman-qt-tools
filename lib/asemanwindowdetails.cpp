@@ -44,20 +44,14 @@ void AsemanWindowDetails::setWindow(QWindow *window)
         return;
 
     if(p->window)
-    {
-        disconnect(p->window, SIGNAL(screenChanged(QScreen*)),
-                   this, SIGNAL(screenChanged()));
-    }
+        disconnect(p->window, &QWindow::screenChanged, this, &AsemanWindowDetails::screenChanged);
 
     p->window = window;
     if(p->window)
-    {
-        connect(p->window, SIGNAL(screenChanged(QScreen*)),
-                this, SIGNAL(screenChanged()));
-    }
+        connect(p->window, &QWindow::screenChanged, this, &AsemanWindowDetails::screenChanged);
 
-    emit windowChanged();
-    emit screenChanged();
+    Q_EMIT windowChanged();
+    Q_EMIT screenChanged();
 }
 
 QScreen *AsemanWindowDetails::screen() const

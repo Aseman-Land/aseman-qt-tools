@@ -29,7 +29,7 @@ public:
     AsemanTextTools(QObject *parent = 0);
     virtual ~AsemanTextTools();
 
-public slots:
+public Q_SLOTS:
     qreal htmlWidth(const QString &html);
     static Qt::LayoutDirection directionOf( const QString & str );
 

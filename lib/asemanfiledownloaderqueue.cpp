@@ -51,7 +51,7 @@ void AsemanFileDownloaderQueue::setCapacity(int cap)
         return;
 
     p->capacity = cap;
-    emit capacityChanged();
+    Q_EMIT capacityChanged();
 }
 
 int AsemanFileDownloaderQueue::capacity() const
@@ -67,7 +67,7 @@ void AsemanFileDownloaderQueue::setDestination(const QString &dest)
     p->destination = dest;
     QDir().mkpath(p->destination);
 
-    emit destinationChanged();
+    Q_EMIT destinationChanged();
 }
 
 QString AsemanFileDownloaderQueue::destination() const
@@ -79,8 +79,8 @@ void AsemanFileDownloaderQueue::download(const QString &url, const QString &file
 {
     if( QFileInfo(p->destination+"/"+fileName).exists() )
     {
-        emit progressChanged(url, fileName, 100);
-        emit finished(url, fileName);
+        Q_EMIT progressChanged(url, fileName, 100);
+        Q_EMIT finished(url, fileName);
         return;
     }
 
@@ -92,7 +92,7 @@ void AsemanFileDownloaderQueue::download(const QString &url, const QString &file
     next();
 }
 
-void AsemanFileDownloaderQueue::finished(const QByteArray &data)
+void AsemanFileDownloaderQueue::finishedSlt(const QByteArray &data)
 {
     AsemanDownloader *downloader = static_cast<AsemanDownloader*>(sender());
     if(!downloader)
@@ -100,7 +100,7 @@ void AsemanFileDownloaderQueue::finished(const QByteArray &data)
 
     const QString &url = downloader->path();
     const QSet<QString> names = p->names.value(url);
-    foreach(const QString &name, names)
+    for(const QString &name: names)
     {
         QFile file(p->destination + "/" + name);
         if(!file.open(QFile::WriteOnly))
@@ -108,7 +108,7 @@ void AsemanFileDownloaderQueue::finished(const QByteArray &data)
 
         file.write(data);
         file.close();
-        emit finished(url, name);
+        Q_EMIT finished(url, name);
     }
 
     p->names.remove(url);
@@ -128,8 +128,8 @@ void AsemanFileDownloaderQueue::recievedBytesChanged()
     const qreal percent = ((qreal)recieved/total)*100;
     const QString &url = downloader->path();
     const QSet<QString> names = p->names.value(url);
-    foreach(const QString &name, names)
-        emit progressChanged(url, name, percent);
+    for(const QString &name: names)
+        Q_EMIT progressChanged(url, name, percent);
 }
 
 void AsemanFileDownloaderQueue::next()
@@ -158,8 +158,8 @@ AsemanDownloader *AsemanFileDownloaderQueue::getDownloader()
     AsemanDownloader *result = new AsemanDownloader(this);
     p->activeItems.insert(result);
 
-    connect(result, SIGNAL(recievedBytesChanged()), SLOT(recievedBytesChanged()));
-    connect(result, SIGNAL(finished(QByteArray)), SLOT(finished(QByteArray)));
+    connect(result, &AsemanDownloader::recievedBytesChanged, this, &AsemanFileDownloaderQueue::recievedBytesChanged);
+    connect(result, &AsemanDownloader::finished, this, &AsemanFileDownloaderQueue::finishedSlt);
 
     return result;
 }

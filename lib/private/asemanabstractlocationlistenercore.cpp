@@ -21,12 +21,12 @@
 AsemanAbstractLocationListenerCore::AsemanAbstractLocationListenerCore(QObject *parent) :
     QObject(parent)
 {
-    connect(this, SIGNAL(positionUpdated(QGeoPositionInfo)), SLOT(updated(QGeoPositionInfo)));
+    connect(this, &AsemanAbstractLocationListenerCore::positionUpdated, this, &AsemanAbstractLocationListenerCore::updated);
 }
 
 void AsemanAbstractLocationListenerCore::getLastKnownLocation()
 {
-    emit positionUpdated(_lastLocation);
+    Q_EMIT positionUpdated(_lastLocation);
 }
 
 void AsemanAbstractLocationListenerCore::stop()

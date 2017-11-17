@@ -47,7 +47,7 @@ void AsemanItemGrabber::setItem(QQuickItem *item)
         return;
 
     p->item = item;
-    emit itemChanged();
+    Q_EMIT itemChanged();
 }
 
 QQuickItem *AsemanItemGrabber::item() const
@@ -98,7 +98,7 @@ void AsemanItemGrabber::save(const QString &dest, const QSize &size)
         return;
     }
 
-    connect(p->result.data(), SIGNAL(ready()), this, SLOT(ready()));
+    connect(p->result.data(), &QQuickItemGrabResult::ready, this, &AsemanItemGrabber::ready);
 
     QDir().mkpath(dest);
 
@@ -113,14 +113,14 @@ void AsemanItemGrabber::save(const QString &dest, const QSize &size)
 
 void AsemanItemGrabber::ready()
 {
-    disconnect(p->result.data(), SIGNAL(ready()), this, SLOT(ready()));
+    disconnect(p->result.data(), &QQuickItemGrabResult::ready, this, &AsemanItemGrabber::ready);
 
     const QImage & img = p->result->image();
 
     QImageWriter writer(p->dest);
     writer.write(img);
 
-    emit saved(p->dest);
+    Q_EMIT saved(p->dest);
 }
 
 AsemanItemGrabber::~AsemanItemGrabber()

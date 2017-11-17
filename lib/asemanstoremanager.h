@@ -99,10 +99,10 @@ public:
     int inventoryState(const QString &sku) const;
     bool startPurchasing(const QString &sku);
 
-public slots:
+public Q_SLOTS:
     bool setup();
 
-signals:
+Q_SIGNALS:
     void publicKeyChanged();
     void packageNameChanged();
     void bindIntentChanged();
@@ -111,7 +111,7 @@ signals:
     void inventoryStateChanged(const QString &sku);
     void inventoryPurchased(const QString &sku);
 
-private slots:
+private Q_SLOTS:
     void inventoryStateChanged_slt(const QString &sku, bool state);
     void propertyChanged();
 

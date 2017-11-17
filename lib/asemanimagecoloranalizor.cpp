@@ -50,7 +50,7 @@ AsemanImageColorAnalizor::AsemanImageColorAnalizor(QObject *parent) :
     if( !colorizor_thread )
         colorizor_thread = new AsemanImageColorAnalizorThread(QCoreApplication::instance());
 
-    connect( colorizor_thread, SIGNAL(found(int,QString)), SLOT(found(int,QString)) );
+    connect( colorizor_thread, &AsemanImageColorAnalizorThread::found, this, &AsemanImageColorAnalizor::found);
 }
 
 QUrl AsemanImageColorAnalizor::source() const
@@ -64,7 +64,7 @@ void AsemanImageColorAnalizor::setSource(const QUrl &source)
         return;
 
     p->source = source;
-    emit sourceChanged();
+    Q_EMIT sourceChanged();
 
     start();
 }
@@ -90,7 +90,7 @@ void AsemanImageColorAnalizor::setMethod(int m)
         return;
 
     p->method = static_cast<Method>(m);
-    emit methodChanged();
+    Q_EMIT methodChanged();
 
     start();
 }
@@ -112,7 +112,7 @@ void AsemanImageColorAnalizor::found(int method, const QString &path)
         return;
 
     p->color = results[p->method][sourceString()];
-    emit colorChanged();
+    Q_EMIT colorChanged();
 }
 
 void AsemanImageColorAnalizor::start()
@@ -170,7 +170,7 @@ void AsemanImageColorAnalizorThread::analize(int method, const QString &path)
 void AsemanImageColorAnalizorThread::found_slt(AsemanImageColorAnalizorCore *c, int method, const QString &source, const QColor & color)
 {
     p->results[method][source] = color;
-    emit found(method, source);
+    Q_EMIT found(method, source);
 
     p->free_cores.append(c);
     if( p->queue.isEmpty() )
@@ -196,7 +196,7 @@ AsemanImageColorAnalizorCore *AsemanImageColorAnalizorThread::getCore()
     AsemanImageColorAnalizorCore *core = new AsemanImageColorAnalizorCore();
     core->moveToThread(thread);
 
-    connect( core, SIGNAL(found(AsemanImageColorAnalizorCore*,int,QString,QColor)), SLOT(found_slt(AsemanImageColorAnalizorCore*,int,QString,QColor)), Qt::QueuedConnection );
+    connect( core, &AsemanImageColorAnalizorCore::found, this, &AsemanImageColorAnalizorThread::found_slt, Qt::QueuedConnection );
 
     thread->start(QThread::LowestPriority);
     p->cores.insert(core);
@@ -206,7 +206,7 @@ AsemanImageColorAnalizorCore *AsemanImageColorAnalizorThread::getCore()
 
 AsemanImageColorAnalizorThread::~AsemanImageColorAnalizorThread()
 {
-    foreach( AsemanImageColorAnalizorCore *core, p->cores )
+    for(AsemanImageColorAnalizorCore *core: p->cores)
     {
         QThread *thread = core->thread();
         thread->quit();
@@ -303,7 +303,7 @@ void AsemanImageColorAnalizorCore::analize(int method, const QString &pt)
         break;
     }
 
-    emit found( this, method, path, result );
+    Q_EMIT found( this, method, path, result );
 }
 
 AsemanImageColorAnalizorCore::~AsemanImageColorAnalizorCore()

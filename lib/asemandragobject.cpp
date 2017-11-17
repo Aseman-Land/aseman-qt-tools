@@ -56,7 +56,7 @@ void AsemanDragObject::setMimeData(AsemanMimeData *mime)
         return;
 
     p->mime = mime;
-    emit mimeDataChanged();
+    Q_EMIT mimeDataChanged();
 }
 
 AsemanMimeData *AsemanDragObject::mimeData() const
@@ -70,7 +70,7 @@ void AsemanDragObject::setDropAction(int act)
         return;
 
     p->dropAction = act;
-    emit dropActionChanged();
+    Q_EMIT dropActionChanged();
 }
 
 int AsemanDragObject::dropAction() const
@@ -84,7 +84,7 @@ void AsemanDragObject::setSource(QQuickItem *item)
         return;
 
     p->source = item;
-    emit sourceChanged();
+    Q_EMIT sourceChanged();
 }
 
 QQuickItem *AsemanDragObject::source() const
@@ -98,7 +98,7 @@ void AsemanDragObject::setImage(const QUrl &url)
         return;
 
     p->image = url;
-    emit imageChanged();
+    Q_EMIT imageChanged();
 }
 
 QUrl AsemanDragObject::image() const
@@ -112,7 +112,7 @@ void AsemanDragObject::setImageData(const QImage &img)
         return;
 
     p->imageData = img;
-    emit imageDataChanged();
+    Q_EMIT imageDataChanged();
 }
 
 QImage AsemanDragObject::imageData() const
@@ -131,7 +131,7 @@ void AsemanDragObject::setHotSpot(const QPoint &point)
         return;
 
     p->hotSpot = point;
-    emit hotSpotChanged();
+    Q_EMIT hotSpotChanged();
 }
 
 QPoint AsemanDragObject::hotSpot() const
@@ -150,7 +150,7 @@ int AsemanDragObject::start()
         return -1;
 
     p->onDrag = true;
-    emit draggingChanged();
+    Q_EMIT draggingChanged();
 
     QMimeData *mime = new QMimeData();
     if(p->mime)
@@ -196,7 +196,7 @@ int AsemanDragObject::start()
     p->source->ungrabTouchPoints();
 
     p->onDrag = false;
-    emit draggingChanged();
+    Q_EMIT draggingChanged();
 
     return res;
 }

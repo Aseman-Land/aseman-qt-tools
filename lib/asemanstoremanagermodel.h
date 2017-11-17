@@ -56,11 +56,11 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
     int count() const;
 
-signals:
+Q_SIGNALS:
     void storeManagerChanged();
     void countChanged();
 
-private slots:
+private Q_SLOTS:
     void itemDetailsChanged();
     void inventoryStateChanged(const QString &sku);
     void changed(const QStringList &list);

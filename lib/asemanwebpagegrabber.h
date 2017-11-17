@@ -48,11 +48,11 @@ public:
     bool running() const;
     bool isAvailable() const;
 
-public slots:
+public Q_SLOTS:
     void start(bool force = false);
     QUrl check(const QUrl &source, QString *destPath = 0);
 
-signals:
+Q_SIGNALS:
     void complete(const QImage &image);
     void finished(const QUrl &path);
 
@@ -62,8 +62,8 @@ signals:
     void runningChanged();
     void isAvailableChanged();
 
-private slots:
-    void completed(bool stt = true);
+private Q_SLOTS:
+    void completedSlt();
     void loadProgress(int p);
 
     void createWebView();

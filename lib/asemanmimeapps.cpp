@@ -53,11 +53,11 @@ QStringList filesOf( const QString & path )
     QStringList res;
 
     const QStringList & dirs = QDir(path).entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-    foreach( const QString & d, dirs )
+    for( const QString &d: dirs)
         res << filesOf( path + "/" + d );
 
     const QStringList & files = QDir(path).entryList(QStringList()<<"*.desktop",QDir::Files);
-    foreach( const QString & f, files )
+    for(const QString &f: files)
         res << path + "/" + f;
 
     return res;
@@ -112,7 +112,7 @@ void init_mimeApps()
     desktops << filesOf(GLOBAL_APPS_PATH);
     desktops << filesOf(LOCAL_APPS_PATH);
 
-    foreach( const QString & d, desktops )
+    for(const QString &d: desktops)
     {
         const QHash<QString,QString> & conf = readConfFile(d);
 
@@ -125,7 +125,7 @@ void init_mimeApps()
         item.command     = conf.value("Desktop Entry/Exec");
         item.mimes       = conf.value("Desktop Entry/MimeType").split(QRegExp("(\\;|\\:)"),QString::SkipEmptyParts);
 
-        foreach( const QString & m, item.mimes )
+        for(const QString &m: item.mimes)
         {
             mime_apps_apps.insertMulti( m.toLower(), d );
             mime_apps_items.insert( d, item );
@@ -214,7 +214,7 @@ void AsemanMimeApps::openFiles(const QString &app, const QStringList &files)
     if( args.contains("%u") )
     {
         int index = args.indexOf("%u");
-        foreach( const QString & f, files )
+        for(const QString &f: files)
         {
             QStringList targs = args;
             targs.replace(index,f);
@@ -229,7 +229,7 @@ void AsemanMimeApps::openFiles(const QString &app, const QStringList &files)
         QStringList targs = args;
         targs.removeAt(index);
 
-        foreach( const QString & f, files )
+        for(const QString &f: files)
             targs.insert(index,f);
 
         QProcess::startDetached( cmd, targs );
@@ -238,7 +238,7 @@ void AsemanMimeApps::openFiles(const QString &app, const QStringList &files)
     if( args.contains("%f") )
     {
         int index = args.indexOf("%f");
-        foreach( const QString & f, files )
+        for(const QString &f: files)
         {
             QStringList targs = args;
             targs.replace(index,f);
@@ -253,14 +253,14 @@ void AsemanMimeApps::openFiles(const QString &app, const QStringList &files)
         QStringList targs = args;
         targs.removeAt(index);
 
-        foreach( const QString & f, files )
+        for(const QString &f: files)
             targs.insert(index,f);
 
         QProcess::startDetached( cmd, targs );
     }
     else
     {
-        foreach( const QString & f, files )
+        for(const QString &f: files)
         {
             QStringList targs = args;
             targs.append(f);

@@ -57,11 +57,11 @@ public:
 
     void setKeepScreenOn(bool stt);
 
-public slots:
+public Q_SLOTS:
     bool startService();
     bool stopService();
 
-signals:
+Q_SIGNALS:
     void incomingShare( const QString & title, const QString & msg );
     void incomingImage( const QString & path );
     void selectImageResult( const QString & path );
@@ -73,7 +73,7 @@ signals:
     void activityRestarted();
     void activityDestroyed();
 
-private slots:
+private Q_SLOTS:
     void load_buffer();
 
 protected:

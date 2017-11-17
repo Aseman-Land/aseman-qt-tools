@@ -46,16 +46,16 @@ public:
 
     QColor color() const;
 
-public slots:
+public Q_SLOTS:
     void refresh();
 
-signals:
+Q_SIGNALS:
     void windowChanged();
     void colorChanged();
     void autoRefreshChanged();
     void defaultColorChanged();
 
-private slots:
+private Q_SLOTS:
     void activeChanged();
 
 private:

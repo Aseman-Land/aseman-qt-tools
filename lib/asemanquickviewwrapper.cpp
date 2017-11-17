@@ -22,16 +22,16 @@ AsemanQuickViewWrapper::AsemanQuickViewWrapper(AsemanQuickView *view, QObject *p
     QObject(parent),
     mView(view)
 {
-    connect(mView, SIGNAL(statusBarHeightChanged()), SIGNAL(statusBarHeightChanged()));
-    connect(mView, SIGNAL(navigationBarHeightChanged()), SIGNAL(navigationBarHeightChanged()));
-    connect(mView, SIGNAL(rootChanged()), SIGNAL(rootChanged()));
-    connect(mView, SIGNAL(focusedTextChanged()), SIGNAL(focusedTextChanged()));
-    connect(mView, SIGNAL(layoutDirectionChanged()), SIGNAL(layoutDirectionChanged()));
-    connect(mView, SIGNAL(reverseScrollChanged()), SIGNAL(reverseScrollChanged()));
-    connect(mView, SIGNAL(fakeSignal()), SIGNAL(fakeSignal()));
-    connect(mView, SIGNAL(closeRequest()), SIGNAL(closeRequest()));
-    connect(mView, SIGNAL(destroyed(QObject*)), SLOT(viewDestroyed()));
-    connect(mView, SIGNAL(offlineStoragePathChanged()), SIGNAL(offlineStoragePathChanged()));
+    connect(mView, &AsemanQuickView::statusBarHeightChanged, this, &AsemanQuickViewWrapper::statusBarHeightChanged);
+    connect(mView, &AsemanQuickView::navigationBarHeightChanged, this, &AsemanQuickViewWrapper::navigationBarHeightChanged);
+    connect(mView, &AsemanQuickView::rootChanged, this, &AsemanQuickViewWrapper::rootChanged);
+    connect(mView, &AsemanQuickView::focusedTextChanged, this, &AsemanQuickViewWrapper::focusedTextChanged);
+    connect(mView, &AsemanQuickView::layoutDirectionChanged, this, &AsemanQuickViewWrapper::layoutDirectionChanged);
+    connect(mView, &AsemanQuickView::reverseScrollChanged, this, &AsemanQuickViewWrapper::reverseScrollChanged);
+    connect(mView, &AsemanQuickView::fakeSignal, this, &AsemanQuickViewWrapper::fakeSignal);
+    connect(mView, &AsemanQuickView::closeRequest, this, &AsemanQuickViewWrapper::closeRequest);
+    connect(mView, &AsemanQuickView::destroyed, this, &AsemanQuickViewWrapper::viewDestroyed);
+    connect(mView, &AsemanQuickView::offlineStoragePathChanged, this, &AsemanQuickViewWrapper::offlineStoragePathChanged);
 }
 
 AsemanQuickViewWrapper::~AsemanQuickViewWrapper()

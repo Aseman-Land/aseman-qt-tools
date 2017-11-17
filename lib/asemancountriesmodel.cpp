@@ -209,7 +209,7 @@ void AsemanCountriesModel::setFilter(const QString &filter)
 
     changed(list);
 
-    emit filterChanged();
+    Q_EMIT filterChanged();
 }
 
 QString AsemanCountriesModel::filter() const
@@ -243,7 +243,7 @@ void AsemanCountriesModel::init_buff()
 #endif
     QStringList heads = splits.takeFirst().split(";");
 
-    foreach( const QString & s, splits )
+    for( const QString & s: splits )
     {
         const QStringList & parts = s.split(";");
         for( int i=0; i<parts.count(); i++ )
@@ -313,7 +313,7 @@ void AsemanCountriesModel::changed(const QStringList &list)
     }
 
     if(count_changed)
-        emit countChanged();
+        Q_EMIT countChanged();
 }
 
 AsemanCountriesModel::~AsemanCountriesModel()

@@ -49,7 +49,7 @@ void AsemanQuickItemImageGrabber::setItem(QQuickItem *item)
         return;
 
     p->item = item;
-    emit itemChanged();
+    Q_EMIT itemChanged();
 }
 
 QQuickItem *AsemanQuickItemImageGrabber::item() const
@@ -63,7 +63,7 @@ void AsemanQuickItemImageGrabber::setDefaultImage(const QUrl &url)
         return;
 
     p->defaultImage = url;
-    emit defaultImageChanged();
+    Q_EMIT defaultImageChanged();
 }
 
 QUrl AsemanQuickItemImageGrabber::defaultImage() const
@@ -88,7 +88,7 @@ void AsemanQuickItemImageGrabber::start()
         QMetaObject::invokeMethod(this, "ready", Qt::QueuedConnection );
         return;
     }
-    connect(p->result.data(), SIGNAL(ready()), this, SLOT(ready()));
+    connect(p->result.data(), &QQuickItemGrabResult::ready, this, &AsemanQuickItemImageGrabber::ready);
 #else
     QMetaObject::invokeMethod(this, "ready", Qt::QueuedConnection );
 #endif
@@ -103,13 +103,13 @@ void AsemanQuickItemImageGrabber::ready()
     if(!p->result)
         return;
 
-    disconnect(p->result.data(), SIGNAL(ready()), this, SLOT(ready()));
+    disconnect(p->result.data(), &QQuickItemGrabResult::ready, this, &AsemanQuickItemImageGrabber::ready);
 
     p->image = p->result->image();
-    emit imageChanged();
+    Q_EMIT imageChanged();
 #else
     p->image = QImage(p->defaultImage.toLocalFile());
-    emit imageChanged();
+    Q_EMIT imageChanged();
 #endif
 }
 

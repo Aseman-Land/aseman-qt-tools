@@ -44,10 +44,10 @@ public:
     virtual QHash<qint32,QByteArray> roleNames() const;
     virtual int count() const = 0;
 
-public slots:
+public Q_SLOTS:
     virtual class AsemanColorfullListItem *get( int row ) = 0;
 
-signals:
+Q_SIGNALS:
     void countChanged();
 };
 
@@ -73,7 +73,7 @@ public:
     void setIsHeader( bool header );
     bool isHeader() const;
 
-signals:
+Q_SIGNALS:
     void titleChanged();
     void colorChanged();
     void isHeaderChanged();

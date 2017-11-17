@@ -38,8 +38,8 @@ AsemanCameraCapture::AsemanCameraCapture(QObject *parent) :
     p = new AsemanCameraCapturePrivate;
     p->core = new CameraCaptureCore(this);
 
-    connect(p->core, SIGNAL(imageCaptured(int,QString)),
-            SIGNAL(imageCaptured(int,QString)), Qt::QueuedConnection);
+    connect(p->core, &AsemanAbstractCameraCaptureCore::imageCaptured,
+            this, &AsemanCameraCapture::imageCaptured, Qt::QueuedConnection);
 }
 
 int AsemanCameraCapture::capture(const QString &dest, AsemanCameraCapture::CameraFace face)

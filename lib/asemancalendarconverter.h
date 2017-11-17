@@ -54,7 +54,7 @@ public:
     int currentDay();
     DateProperty convertDate( const QDate & date );
 
-public slots:
+public Q_SLOTS:
     QString calendarName( int t );
 
     QString convertIntToStringDate(qint64 d );
@@ -82,7 +82,7 @@ public slots:
 
     QDateTime fromTime_t( uint sec );
 
-signals:
+Q_SIGNALS:
     void calendarChanged();
     void fakeSignal();
 

@@ -84,11 +84,11 @@ public:
     void setMaximum(const QDateTime &dt);
     QDateTime maximum() const;
 
-public slots:
+public Q_SLOTS:
     void setConvertDate(int yearIdx, int monthIdx, int dayIdx, int hourIdx, int minuteIdx);
     QString monthName(int month);
 
-signals:
+Q_SIGNALS:
     void yearsChanged();
     void monthsChanged();
     void daysChanged();
@@ -106,7 +106,7 @@ signals:
     void currentHoursIndexChanged();
     void currentMinutesIndexChanged();
 
-private slots:
+private Q_SLOTS:
     void refreshLists();
     void refreshLists_prv();
 

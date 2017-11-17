@@ -41,7 +41,7 @@ public:
     void setIcon(const QString &icon);
     void setTimeOut(int timeOut);
 
-signals:
+Q_SIGNALS:
     void actionTriggered(const QString & act);
     void colorChanged();
 
@@ -49,7 +49,7 @@ protected:
     void resizeEvent(QResizeEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
 
-private slots:
+private Q_SLOTS:
     void refreshSize();
     void setRaised();
     void buttonClicked();

@@ -154,7 +154,7 @@ void AsemanListRecord::FromQByteArray( const QByteArray & str )
 QByteArray AsemanListRecord::toQByteArray()
 {
     QByteArray result;
-    foreach( const QByteArray & ba, list )
+    for(const QByteArray &ba: list)
         result += ba;
 
     return result;

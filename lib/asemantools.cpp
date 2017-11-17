@@ -484,11 +484,11 @@ void AsemanTools::copyDirectory(const QString &_src, const QString &_dst)
     QDir().mkpath(dst);
 
     const QStringList & dirs = QDir(src).entryList(QDir::Dirs|QDir::NoDotAndDotDot);
-    foreach( const QString & d, dirs )
+    for(const QString &d: dirs)
         copyDirectory(src+"/"+d, dst+"/"+d);
 
     const QStringList & files = QDir(src).entryList(QDir::Files);
-    foreach( const QString & f, files )
+    for(const QString &f: files)
         QFile::copy(src+"/"+f, dst+"/"+f);
 }
 
@@ -520,7 +520,7 @@ void AsemanTools::clearDirectory(const QString &pt)
         path = path.mid(AsemanDevices::localFilesPrePath().size());
 
     const QStringList & files = QDir(path).entryList(QDir::Files);
-    foreach( const QString & f, files )
+    for(const QString &f: files)
         deleteFile(path+"/"+f);
 }
 
@@ -549,7 +549,7 @@ Qt::LayoutDirection AsemanTools::directionOf(const QString &str)
     int ltr = 0;
     int rtl = 0;
 
-    foreach( const QChar & ch, str )
+    for(const QChar &ch: str)
     {
         QChar::Direction dir = ch.direction();
         switch( static_cast<int>(dir) )

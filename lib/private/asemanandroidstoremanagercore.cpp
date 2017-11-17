@@ -143,7 +143,7 @@ void AsemanAndroidStoreManagerCore::detailsFetched(const QString &sku, const QSt
     item.description = description;
 
     p->details[sku] = item;
-    emit itemDetailsChanged();
+    Q_EMIT itemDetailsChanged();
 }
 
 AsemanAndroidStoreManagerCore::~AsemanAndroidStoreManagerCore()

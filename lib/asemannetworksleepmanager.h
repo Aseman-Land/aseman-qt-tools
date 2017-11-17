@@ -50,7 +50,7 @@ public:
 
     bool available() const;
 
-signals:
+Q_SIGNALS:
     void hostChanged();
     void portChanged();
     void intervalChanged();
@@ -59,7 +59,7 @@ signals:
     void sleep();
     void availableChanged();
 
-private slots:
+private Q_SLOTS:
     void defaultNetworkChanged();
 
     void networkRecheckAll();

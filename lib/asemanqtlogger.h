@@ -31,10 +31,10 @@ public:
 
     virtual void logMsg(QtMsgType type , const QMessageLogContext &context, const QString &msg);
 
-public slots:
+public Q_SLOTS:
     void debug( const QVariant & var );
 
-private slots:
+private Q_SLOTS:
     void app_closed();
 
 private:

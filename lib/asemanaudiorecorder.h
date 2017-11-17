@@ -86,12 +86,12 @@ public:
     int state() const;
     int status() const;
 
-public slots:
+public Q_SLOTS:
     void stop();
     void pause();
     void record();
 
-signals:
+Q_SIGNALS:
     void encoderSettingsChanged();
     void outputChanged();
     void muteChanged();

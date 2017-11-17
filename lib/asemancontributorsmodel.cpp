@@ -60,7 +60,7 @@ void AsemanContributorsModel::setFiles(const QList<QUrl> &urls)
         return;
 
     p->files = urls;
-    emit filesChanged();
+    Q_EMIT filesChanged();
 
     refresh();
 }
@@ -179,14 +179,14 @@ void AsemanContributorsModel::refresh()
         endInsertRows();
     }
 
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 QList<AsemanContributorsModelItem> AsemanContributorsModel::readData() const
 {
     QList<AsemanContributorsModelItem> result;
 
-    foreach(const QUrl &url, p->files)
+    for(const QUrl &url: p->files)
     {
         QString f = url.toString();
         if(f.left(5)=="qrc:/")
@@ -212,7 +212,7 @@ QList<AsemanContributorsModelItem> AsemanContributorsModel::readData() const
         file.close();
 
         const QStringList &lines = data.split("\n", QString::SkipEmptyParts);
-        foreach(const QString &l, lines)
+        for(const QString &l: lines)
         {
             QStringList columns = l.split(",");
             if(columns.length() < 3)

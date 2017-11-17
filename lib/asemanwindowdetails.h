@@ -39,7 +39,7 @@ public:
 
     QScreen *screen() const;
 
-signals:
+Q_SIGNALS:
     void windowChanged();
     void screenChanged();
 

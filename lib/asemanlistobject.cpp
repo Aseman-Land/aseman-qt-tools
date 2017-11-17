@@ -36,19 +36,19 @@ AsemanListObject::AsemanListObject(QObject *parent) :
 void AsemanListObject::removeAll(const QVariant &v)
 {
     p->list.removeAll( v );
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 void AsemanListObject::removeOne(const QVariant &v)
 {
     p->list.removeOne( v );
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 void AsemanListObject::removeAt(int index)
 {
     p->list.removeAt( index );
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 QVariant AsemanListObject::takeLast()
@@ -57,7 +57,7 @@ QVariant AsemanListObject::takeLast()
         return QVariant();
 
     const QVariant & res = p->list.takeLast();
-    emit countChanged();
+    Q_EMIT countChanged();
 
     return res;
 }
@@ -68,7 +68,7 @@ QVariant AsemanListObject::takeFirst()
         return QVariant();
 
     const QVariant & res = p->list.takeFirst();
-    emit countChanged();
+    Q_EMIT countChanged();
 
     return res;
 }
@@ -76,7 +76,7 @@ QVariant AsemanListObject::takeFirst()
 QVariant AsemanListObject::takeAt(int index)
 {
     const QVariant & res = p->list.takeAt( index );
-    emit countChanged();
+    Q_EMIT countChanged();
 
     return res;
 }
@@ -84,7 +84,7 @@ QVariant AsemanListObject::takeAt(int index)
 void AsemanListObject::clear()
 {
     p->list.clear();
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 QVariant AsemanListObject::last() const
@@ -106,19 +106,19 @@ QVariant AsemanListObject::first() const
 void AsemanListObject::insert(int index, const QVariant &v)
 {
     p->list.insert( index, v );
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 void AsemanListObject::append(const QVariant &v)
 {
     p->list.append( v );
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 void AsemanListObject::prepend(const QVariant &v)
 {
     p->list.prepend( v );
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 int AsemanListObject::count() const
@@ -150,7 +150,7 @@ void AsemanListObject::fromList(const QVariantList &list)
         return;
 
     p->list = list;
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 QVariantList AsemanListObject::toList() const

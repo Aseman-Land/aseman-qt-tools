@@ -33,7 +33,7 @@ public:
     AsemanListObject(QObject *parent = 0);
     virtual ~AsemanListObject();
 
-public slots:
+public Q_SLOTS:
     void removeAll( const QVariant & v );
     void removeOne( const QVariant & v );
     void removeAt( int index );
@@ -61,7 +61,7 @@ public slots:
 
     bool contains( const QVariant & v ) const;
 
-signals:
+Q_SIGNALS:
     void countChanged();
 
 private:

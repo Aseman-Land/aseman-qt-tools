@@ -33,7 +33,7 @@ public:
     void requestLocationUpdates(int interval);
     void getLastKnownLocation();
 
-signals:
+Q_SIGNALS:
     void positionUpdated(const QGeoPositionInfo & update);
 
 private:

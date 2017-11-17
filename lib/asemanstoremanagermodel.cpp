@@ -43,19 +43,19 @@ void AsemanStoreManagerModel::setStoreManager(AsemanStoreManager *store)
 
     if(p->store)
     {
-        disconnect(p->store, SIGNAL(itemDetailsChanged()), this, SLOT(itemDetailsChanged()));
-        disconnect(p->store, SIGNAL(inventoryStateChanged(QString)), this, SLOT(inventoryStateChanged(QString)));
+        disconnect(p->store, &AsemanStoreManager::itemDetailsChanged, this, &AsemanStoreManagerModel::itemDetailsChanged);
+        disconnect(p->store, &AsemanStoreManager::inventoryStateChanged, this, &AsemanStoreManagerModel::inventoryStateChanged);
     }
 
     p->store = store;
     if(p->store)
     {
-        connect(p->store, SIGNAL(itemDetailsChanged()), this, SLOT(itemDetailsChanged()));
-        connect(p->store, SIGNAL(inventoryStateChanged(QString)), this, SLOT(inventoryStateChanged(QString)));
+        connect(p->store, &AsemanStoreManager::itemDetailsChanged, this, &AsemanStoreManagerModel::itemDetailsChanged);
+        connect(p->store, &AsemanStoreManager::inventoryStateChanged, this, &AsemanStoreManagerModel::inventoryStateChanged);
     }
 
     itemDetailsChanged();
-    emit storeManagerChanged();
+    Q_EMIT storeManagerChanged();
 }
 
 AsemanStoreManager *AsemanStoreManagerModel::storeManager() const
@@ -199,7 +199,7 @@ void AsemanStoreManagerModel::inventoryStateChanged(const QString &sku)
         return;
 
     QModelIndex idx = index(row);
-    emit dataChanged(idx, idx, QVector<int>()<<PurchasedRole<<PurchasingRole);
+    Q_EMIT dataChanged(idx, idx, QVector<int>()<<PurchasedRole<<PurchasingRole);
 }
 
 void AsemanStoreManagerModel::changed(const QStringList &list)
@@ -253,7 +253,7 @@ void AsemanStoreManagerModel::changed(const QStringList &list)
     }
 
     if(count_changed)
-        emit countChanged();
+        Q_EMIT countChanged();
 }
 
 AsemanStoreManagerModel::~AsemanStoreManagerModel()

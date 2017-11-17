@@ -29,9 +29,9 @@ public:
     AsemanQmlEngine(QObject *parent = 0);
     virtual ~AsemanQmlEngine();
 
-signals:
+Q_SIGNALS:
 
-public slots:
+public Q_SLOTS:
 
 private:
     AsemanQmlEnginePrivate *p;

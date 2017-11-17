@@ -47,7 +47,7 @@ void AsemanKeychain::setService(const QString &service)
         return;
 
     p->service = service;
-    emit serviceChanged();
+    Q_EMIT serviceChanged();
 }
 
 QString AsemanKeychain::service() const

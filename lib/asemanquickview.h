@@ -83,10 +83,10 @@ public:
 
     Q_INVOKABLE void registerWindow(QQuickWindow *window);
 
-public slots:
+public Q_SLOTS:
     void discardFocusedText();
 
-signals:
+Q_SIGNALS:
     void statusBarHeightChanged();
     void navigationBarHeightChanged();
     void rootChanged();

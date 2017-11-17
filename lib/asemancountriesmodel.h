@@ -75,7 +75,7 @@ public:
 
     QString systemCountry() const;
 
-signals:
+Q_SIGNALS:
     void countChanged();
     void filterChanged();
     void systemCountryChanged();

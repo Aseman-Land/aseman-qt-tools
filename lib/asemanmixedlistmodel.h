@@ -57,11 +57,11 @@ public:
     bool removeColumns(int column, int count, const QModelIndex & parent = QModelIndex());
     bool removeRows(int row, int count, const QModelIndex & parent = QModelIndex());
 
-signals:
+Q_SIGNALS:
     void countChanged();
     void modelsChanged();
 
-private slots:
+private Q_SLOTS:
     void columnsAboutToBeInserted_slt(const QModelIndex & parent, int first, int last);
     void columnsAboutToBeMoved_slt(const QModelIndex & sourceParent, int sourceStart, int sourceEnd, const QModelIndex & destinationParent, int destinationColumn);
     void columnsAboutToBeRemoved_slt(const QModelIndex & parent, int first, int last);

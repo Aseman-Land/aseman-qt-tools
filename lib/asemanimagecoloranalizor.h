@@ -50,12 +50,12 @@ public:
 
     QColor color() const;
 
-signals:
+Q_SIGNALS:
     void sourceChanged();
     void colorChanged();
     void methodChanged();
 
-private slots:
+private Q_SLOTS:
     void found(int method, const QString & path );
     void start();
 
@@ -77,13 +77,13 @@ public:
 
     const QHash<int, QHash<QString, QColor> > &results() const;
 
-public slots:
+public Q_SLOTS:
     void analize(int method, const QString & path );
 
-signals:
+Q_SIGNALS:
     void found( int method, const QString & path );
 
-private slots:
+private Q_SLOTS:
     void found_slt(class AsemanImageColorAnalizorCore *core, int method, const QString & path , const QColor &color);
 
 private:
@@ -102,10 +102,10 @@ public:
     AsemanImageColorAnalizorCore(QObject *parent = 0);
     virtual ~AsemanImageColorAnalizorCore();
 
-public slots:
+public Q_SLOTS:
     void analize( int method, const QString & path );
 
-signals:
+Q_SIGNALS:
     void found(AsemanImageColorAnalizorCore *core, int method, const QString & path , const QColor &color);
 
 private:

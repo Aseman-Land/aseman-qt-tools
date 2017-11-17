@@ -53,7 +53,7 @@ QList<AsemanNetworkManagerItem *> AsemanNetworkManagerItem::children() const
 
 void AsemanNetworkManagerItem::setChildrens(const QList<QNetworkConfiguration> &childs)
 {
-    if(childrenChanged_prv(childs)) emit childrenChanged();
+    if(childrenChanged_prv(childs)) Q_EMIT childrenChanged();
 }
 
 QString AsemanNetworkManagerItem::identifier() const
@@ -108,27 +108,27 @@ QObject &AsemanNetworkManagerItem::operator =(const QNetworkConfiguration &n)
     p->config = n;
 
     if(bearerTypeIsChanged)
-        emit bearerTypeChanged();
+        Q_EMIT bearerTypeChanged();
     if(bearerTypeFamilyIsChanged)
-        emit bearerTypeFamilyChanged();
+        Q_EMIT bearerTypeFamilyChanged();
     if(bearerTypeNameIsChanged)
-        emit bearerTypeNameChanged();
+        Q_EMIT bearerTypeNameChanged();
     if(childrenIsChanged)
-        emit childrenChanged();
+        Q_EMIT childrenChanged();
     if(identifierIsChanged)
-        emit identifierChanged();
+        Q_EMIT identifierChanged();
     if(isRoamingAvailableIsChanged)
-        emit isRoamingAvailableChanged();
+        Q_EMIT isRoamingAvailableChanged();
     if(isValidIsChanged)
-        emit isValidChanged();
+        Q_EMIT isValidChanged();
     if(nameIsChanged)
-        emit nameChanged();
+        Q_EMIT nameChanged();
     if(purposeIsChanged)
-        emit purposeChanged();
+        Q_EMIT purposeChanged();
     if(stateIsChanged)
-        emit stateChanged();
+        Q_EMIT stateChanged();
     if(typeIsChanged)
-        emit typeChanged();
+        Q_EMIT typeChanged();
     return *this;
 }
 
@@ -191,7 +191,7 @@ bool AsemanNetworkManagerItem::childrenChanged_prv(const QList<QNetworkConfigura
 
 int AsemanNetworkManagerItem::childIndex(const QList<QNetworkConfiguration> &childs, AsemanNetworkManagerItem *item)
 {
-    foreach(const QNetworkConfiguration &conf, childs)
+    for(const QNetworkConfiguration &conf: childs)
         if(conf.name() == item->name())
             return childs.indexOf(conf);
     return -1;
@@ -199,7 +199,7 @@ int AsemanNetworkManagerItem::childIndex(const QList<QNetworkConfiguration> &chi
 
 int AsemanNetworkManagerItem::childIndex(const QList<AsemanNetworkManagerItem *> &childs, const QNetworkConfiguration &item)
 {
-    foreach(AsemanNetworkManagerItem *conf, childs)
+    for(AsemanNetworkManagerItem *conf: childs)
         if(conf->name() == item.name())
             return childs.indexOf(conf);
     return -1;

@@ -95,11 +95,11 @@ AsemanDevices::AsemanDevices(QObject *parent) :
     p->androidKeyboardHeight = 0;
     p->java_layer = AsemanJavaLayer::instance();
 
-    connect( p->java_layer, SIGNAL(incomingShare(QString,QString)), SLOT(incoming_share(QString,QString)), Qt::QueuedConnection );
-    connect( p->java_layer, SIGNAL(incomingImage(QString))        , SLOT(incoming_image(QString))        , Qt::QueuedConnection );
-    connect( p->java_layer, SIGNAL(selectImageResult(QString))    , SLOT(select_image_result(QString))   , Qt::QueuedConnection );
-    connect( p->java_layer, SIGNAL(activityPaused())              , SLOT(activity_paused())              , Qt::QueuedConnection );
-    connect( p->java_layer, SIGNAL(activityResumed())             , SLOT(activity_resumed())             , Qt::QueuedConnection );
+    connect( p->java_layer, &AsemanJavaLayer::incomingShare, this, &AsemanDevices::incoming_share, Qt::QueuedConnection );
+    connect( p->java_layer, &AsemanJavaLayer::incomingImage, this, &AsemanDevices::incoming_image, Qt::QueuedConnection );
+    connect( p->java_layer, &AsemanJavaLayer::selectImageResult, this, &AsemanDevices::select_image_result, Qt::QueuedConnection );
+    connect( p->java_layer, &AsemanJavaLayer::activityPaused, this, &AsemanDevices::activity_paused, Qt::QueuedConnection );
+    connect( p->java_layer, &AsemanJavaLayer::activityResumed, this, &AsemanDevices::activity_resumed, Qt::QueuedConnection );
     connect( p->java_layer, &AsemanJavaLayer::keyboardVisiblityChanged, this, [this](qint32 height){
         height = height/deviceDensity();
         if(p->androidKeyboardHeight == height)
@@ -110,12 +110,12 @@ AsemanDevices::AsemanDevices(QObject *parent) :
     });
 #endif
 
-    connect( QGuiApplication::inputMethod(), SIGNAL(visibleChanged()), SLOT(keyboard_changed()) );
-    connect( static_cast<QGuiApplication*>(QCoreApplication::instance())->clipboard(), SIGNAL(dataChanged()), SIGNAL(clipboardChanged()) );
+    connect( QGuiApplication::inputMethod(), &QInputMethod::visibleChanged, this, &AsemanDevices::keyboard_changed);
+    connect( static_cast<QGuiApplication*>(QCoreApplication::instance())->clipboard(), &QClipboard::dataChanged, this, &AsemanDevices::clipboardChanged);
 
     QScreen *scr = screen();
     if( scr )
-        connect( scr, SIGNAL(geometryChanged(QRect)), SIGNAL(geometryChanged()) );
+        connect( scr, &QScreen::geometryChanged, this, &AsemanDevices::geometryChanged);
 
     AsemanDevicesPrivate::devicesObjs.insert(this);
 }
@@ -623,7 +623,7 @@ void AsemanDevices::setClipboardUrl(const QList<QUrl> &urls)
 {
     QString data = "copy";
 
-    foreach( const QUrl &url, urls )
+    for( const QUrl &url: urls )
         data += "\nfile://" + url.toLocalFile();
 
     QMimeData *mime = new QMimeData();
@@ -653,7 +653,7 @@ QString AsemanDevices::picturesLocation()
 #endif
 #endif
 
-    foreach( const QString & prob, probs )
+    for(const QString & prob: probs)
         if( QFile::exists(prob) )
             return prob;
 
@@ -675,7 +675,7 @@ QString AsemanDevices::musicsLocation()
 #endif
 #endif
 
-    foreach( const QString & prob, probs )
+    for(const QString & prob: probs)
         if( QFile::exists(prob) )
             return prob;
 
@@ -698,7 +698,7 @@ QString AsemanDevices::documentsLocation()
 #endif
 #endif
 
-    foreach( const QString & prob, probs )
+    for(const QString & prob: probs)
         if( QFile::exists(prob) )
             return prob;
 
@@ -721,7 +721,7 @@ QString AsemanDevices::downloadsLocation()
 #endif
 #endif
 
-    foreach( const QString & prob, probs )
+    for(const QString & prob: probs)
         if( QFile::exists(prob) )
             return prob;
 
@@ -799,7 +799,7 @@ void AsemanDevices::showKeyboard()
     QGuiApplication::inputMethod()->show();
     p->keyboard_stt = true;
 
-    emit keyboardChanged();
+    Q_EMIT keyboardChanged();
 #endif
 }
 
@@ -895,32 +895,32 @@ bool AsemanDevices::getOpenPictures()
 
 void AsemanDevices::incoming_share(const QString &title, const QString &msg)
 {
-    emit incomingShare(title,msg);
+    Q_EMIT incomingShare(title,msg);
 }
 
 void AsemanDevices::incoming_image(const QString &path)
 {
-    emit incomingImage(path);
+    Q_EMIT incomingImage(path);
 }
 
 void AsemanDevices::select_image_result(const QString &path)
 {
-    emit selectImageResult(path);
+    Q_EMIT selectImageResult(path);
 }
 
 void AsemanDevices::activity_paused()
 {
-    emit activityPaused();
+    Q_EMIT activityPaused();
 }
 
 void AsemanDevices::activity_resumed()
 {
-    emit activityResumed();
+    Q_EMIT activityResumed();
 }
 
 void AsemanDevices::keyboard_changed()
 {
-    emit keyboardChanged();
+    Q_EMIT keyboardChanged();
 }
 
 void AsemanDevices::timerEvent(QTimerEvent *e)
@@ -933,7 +933,7 @@ void AsemanDevices::timerEvent(QTimerEvent *e)
         QGuiApplication::inputMethod()->hide();
         p->keyboard_stt = false;
 
-        emit keyboardChanged();
+        Q_EMIT keyboardChanged();
     }
 }
 

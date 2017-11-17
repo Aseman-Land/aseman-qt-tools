@@ -53,14 +53,14 @@ AsemanNetworkSleepManager::AsemanNetworkSleepManager(QObject *parent) :
     p->resetTimer->setInterval(2000);
     p->resetTimer->setSingleShot(true);
 
-    connect(p->hostCheker, SIGNAL(hostChanged()), SIGNAL(hostChanged()));
-    connect(p->hostCheker, SIGNAL(portChanged()), SIGNAL(portChanged()));
-    connect(p->hostCheker, SIGNAL(intervalChanged()), SIGNAL(intervalChanged()));
-    connect(p->hostCheker, SIGNAL(availableChanged()), SLOT(updateAvailablity()));
+    connect(p->hostCheker, &AsemanHostChecker::hostChanged, this, &AsemanNetworkSleepManager::hostChanged);
+    connect(p->hostCheker, &AsemanHostChecker::portChanged,this, &AsemanNetworkSleepManager::portChanged);
+    connect(p->hostCheker, &AsemanHostChecker::intervalChanged, this, &AsemanNetworkSleepManager::intervalChanged);
+    connect(p->hostCheker, &AsemanHostChecker::availableChanged, this, &AsemanNetworkSleepManager::updateAvailablity);
 
-    connect(p->resetTimer, SIGNAL(timeout()), SLOT(finishResetTimer()));
+    connect(p->resetTimer, &QTimer::timeout, this, &AsemanNetworkSleepManager::finishResetTimer);
 
-    connect(p->networkManager, SIGNAL(defaultNetworkChanged()), SLOT(defaultNetworkChanged()));
+    connect(p->networkManager, &AsemanNetworkManager::defaultNetworkChanged, this, &AsemanNetworkSleepManager::defaultNetworkChanged);
 
     defaultNetworkChanged();
     updateAvailablity();
@@ -103,7 +103,7 @@ void AsemanNetworkSleepManager::setNetworkManager(bool stt)
 
     p->networkManagerState = stt;
     updateAvailablity();
-    emit networkManagerChanged();
+    Q_EMIT networkManagerChanged();
 }
 
 bool AsemanNetworkSleepManager::networkManager() const
@@ -120,35 +120,23 @@ void AsemanNetworkSleepManager::defaultNetworkChanged()
 {
     if(p->defaultNetwork)
     {
-        disconnect(p->defaultNetwork, SIGNAL(bearerTypeChanged()),
-                   this, SLOT(networkBearerTypeChanged()));
-        disconnect(p->defaultNetwork, SIGNAL(bearerTypeFamilyChanged()),
-                   this, SLOT(networkBearerTypeFamilyChanged()));
-        disconnect(p->defaultNetwork, SIGNAL(identifierChanged()),
-                   this, SLOT(networkIdentifierChanged()));
-        disconnect(p->defaultNetwork, SIGNAL(isValidChanged()),
-                   this, SLOT(networkIsValidChanged()));
-        disconnect(p->defaultNetwork, SIGNAL(stateChanged()),
-                   this, SLOT(networkStateChanged()));
-        disconnect(p->defaultNetwork, SIGNAL(typeChanged()),
-                   this, SLOT(networkTypeChanged()));
+        disconnect(p->defaultNetwork, &AsemanNetworkManagerItem::bearerTypeChanged, this, &AsemanNetworkSleepManager::networkBearerTypeChanged);
+        disconnect(p->defaultNetwork, &AsemanNetworkManagerItem::bearerTypeFamilyChanged, this, &AsemanNetworkSleepManager::networkBearerTypeFamilyChanged);
+        disconnect(p->defaultNetwork, &AsemanNetworkManagerItem::identifierChanged, this, &AsemanNetworkSleepManager::networkIdentifierChanged);
+        disconnect(p->defaultNetwork, &AsemanNetworkManagerItem::isValidChanged, this, &AsemanNetworkSleepManager::networkIsValidChanged);
+        disconnect(p->defaultNetwork, &AsemanNetworkManagerItem::stateChanged, this, &AsemanNetworkSleepManager::networkStateChanged);
+        disconnect(p->defaultNetwork, &AsemanNetworkManagerItem::typeChanged, this, &AsemanNetworkSleepManager::networkTypeChanged);
     }
 
     p->defaultNetwork = p->networkManager->defaultNetwork();
     if(p->defaultNetwork)
     {
-        connect(p->defaultNetwork, SIGNAL(bearerTypeChanged()),
-                this, SLOT(networkBearerTypeChanged()));
-        connect(p->defaultNetwork, SIGNAL(bearerTypeFamilyChanged()),
-                this, SLOT(networkBearerTypeFamilyChanged()));
-        connect(p->defaultNetwork, SIGNAL(identifierChanged()),
-                this, SLOT(networkIdentifierChanged()));
-        connect(p->defaultNetwork, SIGNAL(isValidChanged()),
-                this, SLOT(networkIsValidChanged()));
-        connect(p->defaultNetwork, SIGNAL(stateChanged()),
-                this, SLOT(networkStateChanged()));
-        connect(p->defaultNetwork, SIGNAL(typeChanged()),
-                this, SLOT(networkTypeChanged()));
+        connect(p->defaultNetwork, &AsemanNetworkManagerItem::bearerTypeChanged, this, &AsemanNetworkSleepManager::networkBearerTypeChanged);
+        connect(p->defaultNetwork, &AsemanNetworkManagerItem::bearerTypeFamilyChanged, this, &AsemanNetworkSleepManager::networkBearerTypeFamilyChanged);
+        connect(p->defaultNetwork, &AsemanNetworkManagerItem::identifierChanged, this, &AsemanNetworkSleepManager::networkIdentifierChanged);
+        connect(p->defaultNetwork, &AsemanNetworkManagerItem::isValidChanged, this, &AsemanNetworkSleepManager::networkIsValidChanged);
+        connect(p->defaultNetwork, &AsemanNetworkManagerItem::stateChanged, this, &AsemanNetworkSleepManager::networkStateChanged);
+        connect(p->defaultNetwork, &AsemanNetworkManagerItem::typeChanged, this, &AsemanNetworkSleepManager::networkTypeChanged);
     }
 }
 
@@ -221,11 +209,11 @@ void AsemanNetworkSleepManager::setAvailable(bool stt)
 
 void AsemanNetworkSleepManager::emitAvailableChanged()
 {
-    emit availableChanged();
+    Q_EMIT availableChanged();
     if(available())
-        emit wake();
+        Q_EMIT wake();
     else
-        emit sleep();
+        Q_EMIT sleep();
 }
 
 void AsemanNetworkSleepManager::startResetTimer()

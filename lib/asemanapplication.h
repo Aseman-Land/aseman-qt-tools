@@ -176,7 +176,7 @@ public:
 
     inline operator QCoreApplication*() const { return qapp(); }
 
-public slots:
+public Q_SLOTS:
     void refreshTranslations();
     void back();
     int exec();
@@ -188,7 +188,7 @@ public slots:
     void setSetting( const QString & key, const QVariant & value );
     QVariant readSetting( const QString & key, const QVariant & defaultValue = QVariant() );
 
-signals:
+Q_SIGNALS:
     void fakeSignal();
     void globalFontFamilyChanged();
     void globalMonoFontFamilyChanged();

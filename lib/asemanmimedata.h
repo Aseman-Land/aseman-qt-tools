@@ -51,11 +51,11 @@ public:
     QVariantMap dataMap() const;
     QStringList formats() const;
 
-public slots:
+public Q_SLOTS:
     void fetchClipboard();
     QString getDataAsString(const QString &type);
 
-signals:
+Q_SIGNALS:
     void textChanged();
     void htmlChanged();
     void urlsChanged();

@@ -69,7 +69,7 @@ public:
 
     bool downloading() const;
 
-public slots:
+public Q_SLOTS:
 #ifdef QT_POSITIONING_LIB
     void download(const QPointF &geo);
     bool check(const QPointF &geo);
@@ -83,7 +83,7 @@ public slots:
     QString webLinkOf(const GEO_CLASS_NAME &geo);
     QString pathOf(const GEO_CLASS_NAME &geo);
 
-signals:
+Q_SIGNALS:
     void destinationChanged();
     void currentGeoChanged();
     void imageChanged();
@@ -93,8 +93,8 @@ signals:
     void finished();
     void downloadingChanged();
 
-private slots:
-    void finished( const QByteArray & data );
+private Q_SLOTS:
+    void finishedSlt( const QByteArray & data );
 
 private:
     void init_downloader();

@@ -44,7 +44,7 @@ void AsemanMimeData::setText(const QString &txt)
         return;
 
     p->text = txt;
-    emit textChanged();
+    Q_EMIT textChanged();
 }
 
 QString AsemanMimeData::text() const
@@ -58,7 +58,7 @@ void AsemanMimeData::setHtml(const QString &html)
         return;
 
     p->html = html;
-    emit htmlChanged();
+    Q_EMIT htmlChanged();
 }
 
 QString AsemanMimeData::html() const
@@ -72,7 +72,7 @@ void AsemanMimeData::setUrls(const QList<QUrl> &urls)
         return;
 
     p->urls = urls;
-    emit urlsChanged();
+    Q_EMIT urlsChanged();
 }
 
 QList<QUrl> AsemanMimeData::urls() const
@@ -86,7 +86,7 @@ void AsemanMimeData::setDataMap(const QVariantMap &map)
         return;
 
     p->dataMap = map;
-    emit dataMapChanged();
+    Q_EMIT dataMapChanged();
 }
 
 QVariantMap AsemanMimeData::dataMap() const
@@ -111,7 +111,7 @@ void AsemanMimeData::fetchClipboard()
     setHtml(mime->html());
 
     QVariantMap data;
-    foreach(const QString &format, mime->formats())
+    for(const QString &format: mime->formats())
     {
         QVariant var;
         QByteArray bytes = mime->data(format);

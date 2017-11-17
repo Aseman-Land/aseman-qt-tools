@@ -47,13 +47,13 @@ public:
 
     bool available() const;
 
-signals:
+Q_SIGNALS:
     void hostChanged();
     void portChanged();
     void intervalChanged();
     void availableChanged();
 
-private slots:
+private Q_SLOTS:
     void socketStateChanged(QAbstractSocket::SocketState socketState);
     void socketError(QAbstractSocket::SocketError socketError);
     void timedOut();

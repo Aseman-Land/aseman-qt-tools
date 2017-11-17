@@ -57,7 +57,7 @@ void AsemanLinuxNativeNotification::setColor(const QColor &color)
         return;
 
     p->color = color;
-    emit colorChanged();
+    Q_EMIT colorChanged();
 }
 
 QColor AsemanLinuxNativeNotification::color() const
@@ -119,7 +119,7 @@ void AsemanLinuxNativeNotification::notificationClosed(const QDBusMessage &dmsg)
 
     if( args.count() == 1 )
     {
-        emit notifyClosed(id);
+        Q_EMIT notifyClosed(id);
         p->notifies.remove(id);
         return;
     }
@@ -127,12 +127,12 @@ void AsemanLinuxNativeNotification::notificationClosed(const QDBusMessage &dmsg)
     int type = args.at(1).toInt();
     switch (type) {
     case 1:
-        emit notifyTimedOut( id );
+        Q_EMIT notifyTimedOut( id );
         break;
 
     case 2:
     default:
-        emit notifyClosed( id );
+        Q_EMIT notifyClosed( id );
         p->notifies.remove(id);
         break;
     }
@@ -152,7 +152,7 @@ void AsemanLinuxNativeNotification::actionInvoked(const QDBusMessage &dmsg)
         return;
 
     QString action = args.at(1).toString();
-    emit notifyAction(id, action);
+    Q_EMIT notifyAction(id, action);
 }
 
 AsemanLinuxNativeNotification::~AsemanLinuxNativeNotification()

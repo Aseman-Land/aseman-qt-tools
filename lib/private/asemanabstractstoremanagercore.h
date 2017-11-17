@@ -45,10 +45,10 @@ public:
     virtual QStringList inventories() = 0;
     virtual QMap<QString,AsemanStoreManagerInventoryItem> itemDetails() const = 0;
 
-public slots:
+public Q_SLOTS:
     virtual void updateStates() = 0;
 
-signals:
+Q_SIGNALS:
     void inventoryStateChanged(const QString &sku, bool state);
     void setupFinished(bool state);
     void itemDetailsChanged();

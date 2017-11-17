@@ -41,7 +41,7 @@ void AsemanCalendarConverter::setCalendar(int t)
         return;
 
     p->calendar->setCalendar( static_cast<AsemanCalendarConverterCore::CalendarTypes>(t) );
-    emit calendarChanged();
+    Q_EMIT calendarChanged();
 }
 
 QStringList AsemanCalendarConverter::calendarsID() const

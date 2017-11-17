@@ -48,10 +48,10 @@ public:
     void setWindow(QWindow *win);
     QWindow *window() const;
 
-public slots:
+public Q_SLOTS:
     void userAttention();
 
-signals:
+Q_SIGNALS:
     void badgeNumberChanged();
     void progressChanged();
     void launcherChanged();

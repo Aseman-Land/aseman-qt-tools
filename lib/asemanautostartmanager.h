@@ -55,11 +55,11 @@ public:
     void setActive(bool active);
     bool active() const;
 
-public slots:
+public Q_SLOTS:
     void refresh();
     void save();
 
-signals:
+Q_SIGNALS:
     void commandChanged();
     void sourceChanged();
     void commentChanged();

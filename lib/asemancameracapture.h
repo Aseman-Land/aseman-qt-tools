@@ -34,10 +34,10 @@ public:
     AsemanCameraCapture(QObject *parent = 0);
     virtual ~AsemanCameraCapture();
 
-public slots:
+public Q_SLOTS:
     int capture(const QString &dest, AsemanCameraCapture::CameraFace face);
 
-signals:
+Q_SIGNALS:
     void imageCaptured(int id, const QString &path);
 
 private:

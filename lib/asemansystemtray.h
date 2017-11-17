@@ -71,7 +71,7 @@ public:
     void setMenu(const QStringList &menu);
     QStringList menu() const;
 
-signals:
+Q_SIGNALS:
     void visibleChanged();
     void activated(int reason);
     void iconChanged();
@@ -82,7 +82,7 @@ signals:
     void menuChanged();
     void menuTriggered(int index);
 
-public slots:
+public Q_SLOTS:
 
 protected:
     void activated_slt(QSystemTrayIcon::ActivationReason reason);

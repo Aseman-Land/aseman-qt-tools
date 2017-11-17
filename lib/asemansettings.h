@@ -44,12 +44,12 @@ public Q_SLOTS:
     void remove(const QString &key);
     QStringList keys() const;
 
-signals:
+Q_SIGNALS:
     void categoryChanged();
     void sourceChanged();
     void valueChanged();
 
-private slots:
+private Q_SLOTS:
     void propertyChanged();
     void initProperties();
 

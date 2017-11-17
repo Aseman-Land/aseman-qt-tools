@@ -54,7 +54,7 @@ void AsemanDragArea::setMinimum(int min)
         return;
 
     p->minimum = min;
-    emit minimumChanged();
+    Q_EMIT minimumChanged();
 }
 
 int AsemanDragArea::minimum() const
@@ -68,7 +68,7 @@ void AsemanDragArea::setOrientation(int ori)
         return;
 
     p->orientation = ori;
-    emit orientationChanged();
+    Q_EMIT orientationChanged();
 }
 
 int AsemanDragArea::orientation() const
@@ -97,9 +97,9 @@ bool AsemanDragArea::childMouseEventFilter(QQuickItem *item, QEvent *e)
         if(p->state == Grabbed)
         {
             p->position = mapFromItem(item, mevent->pos()).toPoint();
-            emit mouseXChanged();
-            emit mouseYChanged();
-            emit positionChanged();
+            Q_EMIT mouseXChanged();
+            Q_EMIT mouseYChanged();
+            Q_EMIT positionChanged();
             return true;
         }
     }
@@ -115,7 +115,7 @@ bool AsemanDragArea::childMouseEventFilter(QQuickItem *item, QEvent *e)
 
     case QEvent::MouseButtonRelease:
         if(p->state == Grabbed)
-            emit released();
+            Q_EMIT released();
 
         p->position = QPoint(0,0);
         p->state = Unknown;
@@ -131,10 +131,10 @@ bool AsemanDragArea::childMouseEventFilter(QQuickItem *item, QEvent *e)
             if(p->state == Grabbed)
             {
                 p->position = mapFromItem(item, mevent->pos()).toPoint();
-                emit pressed();
-                emit mouseXChanged();
-                emit mouseYChanged();
-                emit positionChanged();
+                Q_EMIT pressed();
+                Q_EMIT mouseXChanged();
+                Q_EMIT mouseYChanged();
+                Q_EMIT positionChanged();
             }
             return true;
         }
@@ -145,10 +145,10 @@ bool AsemanDragArea::childMouseEventFilter(QQuickItem *item, QEvent *e)
             if(p->state == Grabbed)
             {
                 p->position = mapFromItem(item, mevent->pos()).toPoint();
-                emit pressed();
-                emit mouseXChanged();
-                emit mouseYChanged();
-                emit positionChanged();
+                Q_EMIT pressed();
+                Q_EMIT mouseXChanged();
+                Q_EMIT mouseYChanged();
+                Q_EMIT positionChanged();
             }
             return true;
         }

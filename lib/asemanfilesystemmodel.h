@@ -98,10 +98,10 @@ public:
     QHash<qint32,QByteArray> roleNames() const;
     int count() const;
 
-public slots:
+public Q_SLOTS:
     void refresh();
 
-signals:
+Q_SIGNALS:
     void countChanged();
     void showDirsChanged();
     void showDotAndDotDotChanged();
@@ -114,7 +114,7 @@ signals:
     void sortFieldChanged();
     void listChanged();
 
-private slots:
+private Q_SLOTS:
     void reinit_buffer();
 
 private:

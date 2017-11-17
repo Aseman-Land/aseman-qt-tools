@@ -240,21 +240,20 @@ void AsemanApplication::init()
     {
 #ifdef QT_WIDGETS_LIB
     case WidgetApplication:
-        connect(p->app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), SIGNAL(applicationStateChanged()));
         p->globalFont = static_cast<QApplication*>(p->app)->font();
 #endif
 #ifdef QT_GUI_LIB
     case GuiApplication:
-        connect(p->app, SIGNAL(lastWindowClosed()), SIGNAL(lastWindowClosed()));
-        connect(p->app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), SIGNAL(applicationStateChanged()));
+        connect(static_cast<QGuiApplication*>(p->app), &QGuiApplication::lastWindowClosed, this, &AsemanApplication::lastWindowClosed);
+        connect(static_cast<QGuiApplication*>(p->app), &QGuiApplication::applicationStateChanged, this, &AsemanApplication::applicationStateChanged);
         p->globalFont = static_cast<QGuiApplication*>(p->app)->font();
 #endif
 #ifdef QT_CORE_LIB
     case CoreApplication:
-        connect(p->app, SIGNAL(organizationNameChanged())  , SIGNAL(organizationNameChanged()));
-        connect(p->app, SIGNAL(organizationDomainChanged()), SIGNAL(organizationDomainChanged()));
-        connect(p->app, SIGNAL(applicationNameChanged())   , SIGNAL(applicationNameChanged()));
-        connect(p->app, SIGNAL(applicationVersionChanged()), SIGNAL(applicationVersionChanged()));
+        connect(p->app, &QCoreApplication::organizationNameChanged, this, &AsemanApplication::organizationNameChanged);
+        connect(p->app, &QCoreApplication::organizationDomainChanged, this, &AsemanApplication::organizationDomainChanged);
+        connect(p->app, &QCoreApplication::applicationNameChanged, this, &AsemanApplication::applicationNameChanged);
+        connect(p->app, &QCoreApplication::applicationVersionChanged, this, &AsemanApplication::applicationVersionChanged);
         break;
 #endif
 
@@ -324,10 +323,10 @@ void AsemanApplication::setHomePath(const QString &path)
 
     if(aseman_app_singleton)
     {
-        emit aseman_app_singleton->homePathChanged();
-        emit aseman_app_singleton->logPathChanged();
-        emit aseman_app_singleton->confsPathChanged();
-        emit aseman_app_singleton->backupsPathChanged();
+        Q_EMIT aseman_app_singleton->homePathChanged();
+        Q_EMIT aseman_app_singleton->logPathChanged();
+        Q_EMIT aseman_app_singleton->confsPathChanged();
+        Q_EMIT aseman_app_singleton->backupsPathChanged();
     }
 }
 
@@ -376,7 +375,7 @@ void AsemanApplication::setLogPath(const QString &path)
 
     *aseman_app_log_path = path;
     if(aseman_app_singleton)
-        emit aseman_app_singleton->logPathChanged();
+        Q_EMIT aseman_app_singleton->logPathChanged();
 }
 
 QString AsemanApplication::confsPath()
@@ -496,7 +495,7 @@ void AsemanApplication::setApplicationAbout(const QString &desc)
         return;
 
     aseman_app_singleton->p->appAbout = desc;
-    emit aseman_app_singleton->applicationAboutChanged();
+    Q_EMIT aseman_app_singleton->applicationAboutChanged();
 }
 
 QString AsemanApplication::applicationAbout()
@@ -629,7 +628,7 @@ void AsemanApplication::setGlobalFont(const QFont &font)
         return;
 
     p->globalFont = font;
-    emit globalFontChanged();
+    Q_EMIT globalFontChanged();
 }
 
 QFont AsemanApplication::globalFont() const
@@ -677,12 +676,12 @@ QSettings *AsemanApplication::settings()
 
 void AsemanApplication::refreshTranslations()
 {
-    emit languageUpdated();
+    Q_EMIT languageUpdated();
 }
 
 void AsemanApplication::back()
 {
-    emit backRequest();
+    Q_EMIT backRequest();
 }
 
 int AsemanApplication::exec()
@@ -726,7 +725,7 @@ bool AsemanApplication::eventFilter(QObject *o, QEvent *e)
                 p->clickOnDock_timer->start();
             }
             else
-                emit clickedOnDock();
+                Q_EMIT clickedOnDock();
             break;
 
         default:

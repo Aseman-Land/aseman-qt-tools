@@ -93,7 +93,7 @@ public:
     void setActiveSensors( int t );
     int activeSensors() const;
 
-public slots:
+public Q_SLOTS:
     void start();
     void stop();
 
@@ -102,7 +102,7 @@ public slots:
 
     void refresh();
 
-signals:
+Q_SIGNALS:
     void accChanged();
     void grvChanged();
     void angleChanged();
@@ -113,7 +113,7 @@ signals:
     void activeSensorsChanged();
     void updated();
 
-private slots:
+private Q_SLOTS:
     void acc_reading();
     void grv_reading();
     void rtt_reading();

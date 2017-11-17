@@ -51,7 +51,7 @@ void AsemanSettings::setCategory(const QString &category)
 
     p->caregory = category;
     initProperties();
-    emit categoryChanged();
+    Q_EMIT categoryChanged();
 }
 
 QString AsemanSettings::category() const
@@ -76,7 +76,7 @@ void AsemanSettings::setSource(const QString &source)
         initProperties();
     }
 
-    emit sourceChanged();
+    Q_EMIT sourceChanged();
 }
 
 QString AsemanSettings::source() const

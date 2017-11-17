@@ -40,17 +40,17 @@ public:
     void setDestination(const QString &dest);
     QString destination() const;
 
-public slots:
+public Q_SLOTS:
     void download(const QString &url, const QString &fileName);
 
-signals:
+Q_SIGNALS:
     void capacityChanged();
     void destinationChanged();
     void finished(const QString &url, const QString &fileName);
     void progressChanged(const QString &url, const QString &fileName, qreal percent);
 
-private slots:
-    void finished( const QByteArray & data );
+private Q_SLOTS:
+    void finishedSlt( const QByteArray & data );
     void recievedBytesChanged();
 
 private:

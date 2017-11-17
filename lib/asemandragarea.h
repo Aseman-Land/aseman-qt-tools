@@ -43,7 +43,7 @@ public:
     int mouseX() const;
     int mouseY() const;
 
-signals:
+Q_SIGNALS:
     void minimumChanged();
     void orientationChanged();
 

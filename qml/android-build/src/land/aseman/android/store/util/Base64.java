@@ -545,7 +545,7 @@ public class Base64 {
                         } else if ((b4Posn == 3 && bytesLeft > 2)
                                 || (b4Posn == 4 && bytesLeft > 1)) {
                             throw new Base64DecoderException(
-                                    "padding byte '=' falsely signals end of encoded value "
+                                    "padding byte '=' falsely Q_SIGNALS end of encoded value "
                                             + "at offset " + i);
                         } else if (lastByte != EQUALS_SIGN && lastByte != NEW_LINE) {
                             throw new Base64DecoderException(

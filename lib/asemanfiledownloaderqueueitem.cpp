@@ -45,7 +45,7 @@ void AsemanFileDownloaderQueueItem::setSource(const QString &url)
         return;
 
     p->source = url;
-    emit sourceChanged();
+    Q_EMIT sourceChanged();
 
     refresh();
 }
@@ -61,7 +61,7 @@ void AsemanFileDownloaderQueueItem::setFileName(const QString &name)
         return;
 
     p->fileName = name;
-    emit fileNameChanged();
+    Q_EMIT fileNameChanged();
 
     refresh();
 }
@@ -83,17 +83,17 @@ void AsemanFileDownloaderQueueItem::setDownloaderQueue(AsemanFileDownloaderQueue
 
     if(p->queue)
     {
-        disconnect(p->queue, SIGNAL(finished(QString,QString)), this, SLOT(finished(QString,QString)));
-        disconnect(p->queue, SIGNAL(progressChanged(QString,QString,qreal)), this, SLOT(progressChanged(QString,QString,qreal)) );
+        disconnect(p->queue, &AsemanFileDownloaderQueue::finished, this, &AsemanFileDownloaderQueueItem::finished);
+        disconnect(p->queue, &AsemanFileDownloaderQueue::progressChanged, this, &AsemanFileDownloaderQueueItem::progressChanged);
     }
 
     p->queue = queue;
-    emit downloaderQueueChanged();
+    Q_EMIT downloaderQueueChanged();
 
     if(p->queue)
     {
-        connect(p->queue, SIGNAL(finished(QString,QString)), this, SLOT(finished(QString,QString)));
-        connect(p->queue, SIGNAL(progressChanged(QString,QString,qreal)), this, SLOT(progressChanged(QString,QString,qreal)) );
+        connect(p->queue, &AsemanFileDownloaderQueue::finished, this, &AsemanFileDownloaderQueueItem::finished);
+        connect(p->queue, &AsemanFileDownloaderQueue::progressChanged, this, &AsemanFileDownloaderQueueItem::progressChanged);
     }
 
     refresh();
@@ -115,10 +115,10 @@ void AsemanFileDownloaderQueueItem::finished(const QString &url, const QString &
         return;
 
     p->result = AsemanDevices::localFilesPrePath() + p->queue->destination() + "/" + fileName;
-    emit resultChanged();
+    Q_EMIT resultChanged();
 
     p->percent = 100;
-    emit percentChanged();
+    Q_EMIT percentChanged();
 }
 
 void AsemanFileDownloaderQueueItem::progressChanged(const QString &url, const QString &fileName, qreal percent)
@@ -127,7 +127,7 @@ void AsemanFileDownloaderQueueItem::progressChanged(const QString &url, const QS
         return;
 
     p->percent = percent;
-    emit percentChanged();
+    Q_EMIT percentChanged();
 }
 
 void AsemanFileDownloaderQueueItem::refresh()

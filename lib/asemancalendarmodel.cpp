@@ -67,7 +67,7 @@ AsemanCalendarModel::AsemanCalendarModel(QObject *parent) :
     p->refreshTimer->setSingleShot(true);
     p->refreshTimer->setInterval(100);
 
-    connect(p->refreshTimer, SIGNAL(timeout()), SLOT(refreshLists_prv()));
+    connect(p->refreshTimer, &QTimer::timeout, this, &AsemanCalendarModel::refreshLists_prv);
 
     refreshLists_prv();
 }
@@ -135,7 +135,7 @@ void AsemanCalendarModel::setDateTime(const QDateTime &dt)
         p->dateTime = p->maximum;
 
     refreshLists();
-    emit dateTimeChanged();
+    Q_EMIT dateTimeChanged();
 }
 
 QDateTime AsemanCalendarModel::dateTime() const
@@ -152,7 +152,7 @@ void AsemanCalendarModel::setCalendar(int t)
     p->conv->setCalendar(t);
 
     refreshLists_prv();
-    emit calendarChanged();
+    Q_EMIT calendarChanged();
 }
 
 int AsemanCalendarModel::calendar() const
@@ -170,12 +170,12 @@ void AsemanCalendarModel::setMinimum(const QDateTime &dt)
         p->minimum = p->maximum;
 
     refreshLists();
-    emit minimumChanged();
+    Q_EMIT minimumChanged();
 
     if(p->dateTime < p->minimum)
     {
         p->dateTime = p->minimum;
-        emit dateTimeChanged();
+        Q_EMIT dateTimeChanged();
     }
 }
 
@@ -194,13 +194,13 @@ void AsemanCalendarModel::setMaximum(const QDateTime &dt)
         p->maximum = p->minimum;
 
     refreshLists();
-    emit maximumChanged();
+    Q_EMIT maximumChanged();
 
     if(p->dateTime > p->maximum)
     {
         p->dateTime = p->maximum;
         refreshLists();
-        emit dateTimeChanged();
+        Q_EMIT dateTimeChanged();
     }
 }
 
@@ -308,16 +308,16 @@ void AsemanCalendarModel::refreshLists_prv()
     p->currentHoursIndex = currentHoursIndex;
     p->currentMinutesIndex = currentMinutesIndex;
 
-    if(years_changed) emit yearsChanged();
-    if(months_changed) emit monthsChanged();
-    if(days_changed) emit daysChanged();
-    if(hours_changed) emit hoursChanged();
-    if(minutes_changed) emit minutesChanged();
-    if(currentYearIndex_changed || years_changed) emit currentYearIndexChanged();
-    if(currentMonthIndex_changed || months_changed) emit currentMonthIndexChanged();
-    if(currentDaysIndex_changed || days_changed) emit currentDaysIndexChanged();
-    if(currentHoursIndex_changed || hours_changed) emit currentHoursIndexChanged();
-    if(currentMinutesIndex_changed || minutes_changed) emit currentMinutesIndexChanged();
+    if(years_changed) Q_EMIT yearsChanged();
+    if(months_changed) Q_EMIT monthsChanged();
+    if(days_changed) Q_EMIT daysChanged();
+    if(hours_changed) Q_EMIT hoursChanged();
+    if(minutes_changed) Q_EMIT minutesChanged();
+    if(currentYearIndex_changed || years_changed) Q_EMIT currentYearIndexChanged();
+    if(currentMonthIndex_changed || months_changed) Q_EMIT currentMonthIndexChanged();
+    if(currentDaysIndex_changed || days_changed) Q_EMIT currentDaysIndexChanged();
+    if(currentHoursIndex_changed || hours_changed) Q_EMIT currentHoursIndexChanged();
+    if(currentMinutesIndex_changed || minutes_changed) Q_EMIT currentMinutesIndexChanged();
 }
 
 AsemanCalendarModel::~AsemanCalendarModel()

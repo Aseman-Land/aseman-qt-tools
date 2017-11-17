@@ -41,7 +41,7 @@ public:
     Q_INVOKABLE QString appCommand( const QString & app ) const;
     Q_INVOKABLE QStringList appMimes( const QString & app ) const;
 
-public slots:
+public Q_SLOTS:
     void openFiles( const QString & app, const QStringList & files );
 
 private:

@@ -57,7 +57,7 @@ void AsemanQuickObject::append(QQmlListProperty<QObject> *p, QObject *v)
 {
     AsemanQuickObject *aobj = static_cast<AsemanQuickObject*>(p->object);
     aobj->p->items.append(v);
-    emit aobj->itemsChanged();
+    Q_EMIT aobj->itemsChanged();
 }
 
 int AsemanQuickObject::count(QQmlListProperty<QObject> *p)
@@ -76,7 +76,7 @@ void AsemanQuickObject::clear(QQmlListProperty<QObject> *p)
 {
     AsemanQuickObject *aobj = static_cast<AsemanQuickObject*>(p->object);
     aobj->p->items.clear();
-    emit aobj->itemsChanged();
+    Q_EMIT aobj->itemsChanged();
 }
 
 AsemanQuickObject::~AsemanQuickObject()

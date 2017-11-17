@@ -243,7 +243,7 @@ void AsemanDesktopTools::setMenuStyle(const QString &style)
         return;
 
     p->style = style;
-    emit menuStyleChanged();
+    Q_EMIT menuStyleChanged();
 }
 
 QString AsemanDesktopTools::menuStyle() const
@@ -263,7 +263,7 @@ void AsemanDesktopTools::setTooltip(const QString &txt)
         return;
 
     p->tooltip = txt;
-    emit tooltipChanged();
+    Q_EMIT tooltipChanged();
 }
 
 QString AsemanDesktopTools::tooltip() const
@@ -300,7 +300,7 @@ QString AsemanDesktopTools::getOpenFileName(QWindow *window, const QString & tit
 
             QProcess process;
             QEventLoop loop;
-            connect(&process, SIGNAL(finished(int)), &loop, SLOT(quit()), Qt::QueuedConnection );
+            connect(&process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), &loop, &QEventLoop::quit, Qt::QueuedConnection );
 
             process.start("/usr/bin/kdialog", args );
             loop.exec(QEventLoop::ExcludeUserInputEvents);
@@ -326,7 +326,7 @@ QString AsemanDesktopTools::getOpenFileName(QWindow *window, const QString & tit
 
             QProcess process;
             QEventLoop loop;
-            connect(&process, SIGNAL(finished(int)), &loop, SLOT(quit()), Qt::QueuedConnection );
+            connect(&process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), &loop, &QEventLoop::quit, Qt::QueuedConnection );
 
             process.start("/usr/bin/zenity", args );
             loop.exec(QEventLoop::ExcludeUserInputEvents);
@@ -373,7 +373,7 @@ QStringList AsemanDesktopTools::getOpenFileNames(QWindow *window, const QString 
 
             QProcess process;
             QEventLoop loop;
-            connect(&process, SIGNAL(finished(int)), &loop, SLOT(quit()), Qt::QueuedConnection );
+            connect(&process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), &loop, &QEventLoop::quit, Qt::QueuedConnection );
 
             process.start("/usr/bin/kdialog", args );
             loop.exec(QEventLoop::ExcludeUserInputEvents);
@@ -399,7 +399,7 @@ QStringList AsemanDesktopTools::getOpenFileNames(QWindow *window, const QString 
 
             QProcess process;
             QEventLoop loop;
-            connect(&process, SIGNAL(finished(int)), &loop, SLOT(quit()), Qt::QueuedConnection );
+            connect(&process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), &loop, &QEventLoop::quit, Qt::QueuedConnection );
 
             process.start("/usr/bin/zenity", args );
             loop.exec(QEventLoop::ExcludeUserInputEvents);
@@ -446,7 +446,7 @@ QString AsemanDesktopTools::getSaveFileName(QWindow *window, const QString &titl
 
             QProcess process;
             QEventLoop loop;
-            connect(&process, SIGNAL(finished(int)), &loop, SLOT(quit()), Qt::QueuedConnection );
+            connect(&process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), &loop, &QEventLoop::quit, Qt::QueuedConnection );
 
             process.start("/usr/bin/kdialog", args );
             loop.exec(QEventLoop::ExcludeUserInputEvents);
@@ -474,7 +474,7 @@ QString AsemanDesktopTools::getSaveFileName(QWindow *window, const QString &titl
 
             QProcess process;
             QEventLoop loop;
-            connect(&process, SIGNAL(finished(int)), &loop, SLOT(quit()), Qt::QueuedConnection );
+            connect(&process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), &loop, &QEventLoop::quit, Qt::QueuedConnection );
 
             process.start("/usr/bin/zenity", args );
             loop.exec(QEventLoop::ExcludeUserInputEvents);
@@ -521,7 +521,7 @@ QString AsemanDesktopTools::getExistingDirectory(QWindow *window, const QString 
 
             QProcess process;
             QEventLoop loop;
-            connect(&process, SIGNAL(finished(int)), &loop, SLOT(quit()), Qt::QueuedConnection );
+            connect(&process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), &loop, &QEventLoop::quit, Qt::QueuedConnection );
 
             process.start("/usr/bin/kdialog", args );
             loop.exec(QEventLoop::ExcludeUserInputEvents);
@@ -547,7 +547,7 @@ QString AsemanDesktopTools::getExistingDirectory(QWindow *window, const QString 
 
             QProcess process;
             QEventLoop loop;
-            connect(&process, SIGNAL(finished(int)), &loop, SLOT(quit()), Qt::QueuedConnection );
+            connect(&process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), &loop, &QEventLoop::quit, Qt::QueuedConnection );
 
             process.start("/usr/bin/zenity", args );
             loop.exec(QEventLoop::ExcludeUserInputEvents);
@@ -629,12 +629,12 @@ int AsemanDesktopTools::showMenu(const QVariantList &actions, QPoint point)
     menu->setStyleSheet(p->style);
 
     p->currentMenuObjects.append(menu);
-    emit currentMenuObjectChanged();
+    Q_EMIT currentMenuObjectChanged();
 
     QAction *res = menu->exec(point);
 
     p->currentMenuObjects.removeAll(menu);
-    emit currentMenuObjectChanged();
+    Q_EMIT currentMenuObjectChanged();
 
     menu->deleteLater();
 
@@ -650,7 +650,7 @@ QMenu *AsemanDesktopTools::menuOf(const QVariantList &list, QList<QAction *> *ac
 {
 #if defined(DESKTOP_DEVICE) && defined(QT_WIDGETS_LIB)
     QMenu *result = new QMenu(parent);
-    foreach(const QVariant &var, list)
+    for(const QVariant &var: list)
     {
         QString txt;
         bool checkable = false;

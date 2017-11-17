@@ -168,7 +168,7 @@ void AsemanFontHandler::setFonts(const QVariantMap &fonts)
         return;
 
     p->fonts = fonts;
-    emit fontsChanged();
+    Q_EMIT fontsChanged();
 }
 
 QFont AsemanFontHandler::fontOf(int script)
@@ -251,7 +251,7 @@ void AsemanFontHandler::load(const QByteArray &data)
         p->fonts[record.first()] = font;
     }
 
-    emit fontsChanged();
+    Q_EMIT fontsChanged();
 }
 
 #ifdef QT_WIDGETS_LIB
@@ -277,11 +277,11 @@ void AsemanFontHandler::openFontChooser()
     layout->setContentsMargins(0,0,0,0);
     layout->setSpacing(1);
 
-    connect(comboBox, SIGNAL(currentIndexChanged(QString)), SLOT(currentIndexChanged(QString)));
-    connect(fontDlg , SIGNAL(currentFontChanged(QFont))   , SLOT(currentFontChanged(QFont))   );
+    connect(comboBox, static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentIndexChanged), this, &AsemanFontHandler::currentIndexChanged);
+    connect(fontDlg , &QFontDialog::currentFontChanged, this, &AsemanFontHandler::currentFontChanged);
 
-    connect(fontDlg, SIGNAL(accepted()), &dialog, SLOT(accept()));
-    connect(fontDlg, SIGNAL(rejected()), &dialog, SLOT(reject()));
+    connect(fontDlg, &QFontDialog::accepted, &dialog, &QDialog::accept);
+    connect(fontDlg, &QFontDialog::rejected, &dialog, &QDialog::reject);
 
     comboBox->setCurrentText("latin");
     comboBox->currentIndexChanged("latin");
@@ -292,7 +292,7 @@ void AsemanFontHandler::openFontChooser()
     p->combo_hash.remove(comboBox);
     p->combo_cache.remove(comboBox);
 
-    emit fontsChanged();
+    Q_EMIT fontsChanged();
 }
 
 void AsemanFontHandler::currentIndexChanged(const QString &key)

@@ -38,25 +38,25 @@ AsemanHashObject::AsemanHashObject(QObject *parent) :
 void AsemanHashObject::insert(const QString &key, const QVariant &value)
 {
     p->hash.insert(key,value);
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 void AsemanHashObject::insertMulti(const QString &key, const QVariant &value)
 {
     p->hash.insertMulti(key,value);
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 void AsemanHashObject::remove(const QString &key)
 {
     p->hash.remove(key);
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 void AsemanHashObject::remove(const QString &key, const QVariant &value)
 {
     p->hash.remove(key,value);
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 QVariant AsemanHashObject::key(const QVariant &value)
@@ -114,7 +114,7 @@ void AsemanHashObject::clear()
     if(p->hash.isEmpty())
         return;
     p->hash.clear();
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 int AsemanHashObject::count()

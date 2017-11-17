@@ -133,7 +133,7 @@ void AsemanQuickView::setReverseScroll(bool stt)
         return;
 
     p->reverseScroll = stt;
-    emit reverseScrollChanged();
+    Q_EMIT reverseScrollChanged();
 }
 
 bool AsemanQuickView::reverseScroll() const
@@ -157,7 +157,7 @@ void AsemanQuickView::setRoot(QObject *root)
         return;
 
     p->root = root;
-    emit rootChanged();
+    Q_EMIT rootChanged();
 }
 
 QObject *AsemanQuickView::root() const
@@ -173,12 +173,12 @@ void AsemanQuickView::setFocusedText(QQuickItem *item)
     if( p->focused_text == item )
         return;
     if( p->focused_text )
-        disconnect( p->focused_text, SIGNAL(destroyed()), this, SIGNAL(focusedTextChanged()) );
+        disconnect(p->focused_text, &QQuickItem::destroyed, this, &AsemanQuickView::focusedTextChanged);
 
     p->focused_text = item;
     if( item )
     {
-        connect( item, SIGNAL(destroyed()), this, SIGNAL(focusedTextChanged()) );
+        connect(p->focused_text, &QQuickItem::destroyed, this, &AsemanQuickView::focusedTextChanged);
         devices()->showKeyboard();
     }
     else
@@ -186,7 +186,7 @@ void AsemanQuickView::setFocusedText(QQuickItem *item)
         devices()->hideKeyboard();
     }
 
-    emit focusedTextChanged();
+    Q_EMIT focusedTextChanged();
 }
 
 QQuickItem *AsemanQuickView::focusedText() const
@@ -205,7 +205,7 @@ void AsemanQuickView::setLayoutDirection(int l)
         return;
 
     p->layoutDirection = l;
-    emit layoutDirectionChanged();
+    Q_EMIT layoutDirectionChanged();
 }
 
 qreal AsemanQuickView::flickVelocity() const
@@ -223,7 +223,7 @@ void AsemanQuickView::setOfflineStoragePath(const QString &path)
         return;
 
     p->engine->setOfflineStoragePath(path);
-    emit offlineStoragePathChanged();
+    Q_EMIT offlineStoragePathChanged();
 }
 
 QString AsemanQuickView::offlineStoragePath() const

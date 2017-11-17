@@ -56,6 +56,6 @@ public class IabException extends Exception {
         this(new IabResult(response, message), cause);
     }
 
-    /** Returns the IAB result (error) that this exception signals. */
+    /** Returns the IAB result (error) that this exception Q_SIGNALS. */
     public IabResult getResult() { return mResult; }
 }

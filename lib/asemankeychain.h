@@ -34,7 +34,7 @@ public:
     void setService(const QString &service);
     QString service() const;
 
-public slots:
+public Q_SLOTS:
     QString read(const QString &key, const QJSValue &jsCallback = QJSValue());
     QByteArray readData(const QString &key, const QJSValue &jsCallback = QJSValue());
 
@@ -43,7 +43,7 @@ public slots:
 
     bool remove(const QString &key, const QJSValue &jsCallback = QJSValue());
 
-signals:
+Q_SIGNALS:
     void serviceChanged();
 
 private:

@@ -43,7 +43,7 @@ void AsemanAudioEncoderSettings::setBitRate(int rate)
         return;
 
     p->settings.setBitRate(rate);
-    emit bitRateChanged();
+    Q_EMIT bitRateChanged();
 }
 
 int AsemanAudioEncoderSettings::channelCount() const
@@ -57,7 +57,7 @@ void AsemanAudioEncoderSettings::setChannelCount(int channels)
         return;
 
     p->settings.setChannelCount(channels);
-    emit channelCountChanged();
+    Q_EMIT channelCountChanged();
 }
 
 QString AsemanAudioEncoderSettings::codec() const
@@ -71,7 +71,7 @@ void AsemanAudioEncoderSettings::setCodec(const QString &cdc)
         return;
 
     p->settings.setCodec(cdc);
-    emit codecChanged();
+    Q_EMIT codecChanged();
 }
 
 int AsemanAudioEncoderSettings::encodingMode() const
@@ -85,7 +85,7 @@ void AsemanAudioEncoderSettings::setEncodingMode(int mode)
         return;
 
     p->settings.setEncodingMode(static_cast<QMultimedia::EncodingMode>(mode));
-    emit encodingModeChanged();
+    Q_EMIT encodingModeChanged();
 }
 
 QVariantMap AsemanAudioEncoderSettings::encodingOptions() const
@@ -99,7 +99,7 @@ void AsemanAudioEncoderSettings::setEncodingOptions(const QVariantMap &options)
         return;
 
     p->settings.setEncodingOptions(options);
-    emit encodingOptionsChanged();
+    Q_EMIT encodingOptionsChanged();
 }
 
 int AsemanAudioEncoderSettings::quality() const
@@ -113,7 +113,7 @@ void AsemanAudioEncoderSettings::setQuality(int quality)
         return;
 
     p->settings.setQuality(static_cast<QMultimedia::EncodingQuality>(quality));
-    emit qualityChanged();
+    Q_EMIT qualityChanged();
 }
 
 int AsemanAudioEncoderSettings::sampleRate() const
@@ -127,7 +127,7 @@ void AsemanAudioEncoderSettings::setSampleRate(int rate)
         return;
 
     p->settings.setSampleRate(rate);
-    emit sampleRateChanged();
+    Q_EMIT sampleRateChanged();
 }
 
 QAudioEncoderSettings AsemanAudioEncoderSettings::exportSettings() const

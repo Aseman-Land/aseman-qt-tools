@@ -32,11 +32,11 @@ public:
     AsemanSystemInfo(QObject *parent = 0);
     virtual ~AsemanSystemInfo();
 
-public slots:
+public Q_SLOTS:
     quint64 cpuCores();
     quint64 cpuFreq();
 
-signals:
+Q_SIGNALS:
     void fakeSignal();
 
 private:

@@ -41,7 +41,7 @@ public:
     AsemanTools(QObject *parent = 0);
     virtual ~AsemanTools();
 
-public slots:
+public Q_SLOTS:
     static void debug( const QVariant & var );
     static void exportDocuments(const QString &destination);
 

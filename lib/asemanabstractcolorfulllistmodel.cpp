@@ -65,7 +65,7 @@ void AsemanColorfullListItem::setTitle(const QString &title)
         return;
 
     p->title = title;
-    emit titleChanged();
+    Q_EMIT titleChanged();
 }
 
 QString AsemanColorfullListItem::title() const
@@ -79,7 +79,7 @@ void AsemanColorfullListItem::setColor(const QColor &color)
         return;
 
     p->color = color;
-    emit colorChanged();
+    Q_EMIT colorChanged();
 }
 
 QColor AsemanColorfullListItem::color() const
@@ -93,7 +93,7 @@ void AsemanColorfullListItem::setIsHeader(bool header)
         return;
 
     p->isHeader = header;
-    emit isHeaderChanged();
+    Q_EMIT isHeaderChanged();
 }
 
 bool AsemanColorfullListItem::isHeader() const

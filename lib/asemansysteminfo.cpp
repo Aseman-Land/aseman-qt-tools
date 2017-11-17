@@ -48,7 +48,7 @@ quint64 AsemanSystemInfo::cpuCores()
     p->cpu_cores = 0;
 
     const QStringList & dirs = QDir(CPU_CORE_PATH).entryList(QDir::Dirs|QDir::NoDotAndDotDot);
-    foreach( const QString & dir, dirs )
+    for(const QString & dir: dirs)
     {
         bool ok = false;
         const QString & left = dir.left(3);

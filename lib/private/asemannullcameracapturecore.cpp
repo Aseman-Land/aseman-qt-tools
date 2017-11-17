@@ -27,7 +27,7 @@ AsemanNullCameraCaptureCore::AsemanNullCameraCaptureCore(QObject *parent) :
 int AsemanNullCameraCaptureCore::capture(const QString &dest, AsemanCameraCapture::CameraFace face)
 {
     Q_UNUSED(face)
-    emit imageCaptured(0, dest);
+    Q_EMIT imageCaptured(0, dest);
     return 0;
 }
 

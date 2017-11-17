@@ -30,7 +30,7 @@ QSet<AsemanQtLogger*> aseman_qt_logger_objs;
 
 void asemanQtLoggerFnc(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-    foreach( AsemanQtLogger *obj, aseman_qt_logger_objs )
+    for(AsemanQtLogger *obj: aseman_qt_logger_objs)
         obj->logMsg(type,context,msg);
 }
 

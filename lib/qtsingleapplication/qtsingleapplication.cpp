@@ -161,7 +161,7 @@ void QtSingleApplication::sysInit(const QString &appId)
 {
     actWin = 0;
     peer = new QtLocalPeer(this, appId);
-    connect(peer, SIGNAL(messageReceived(const QString&)), SIGNAL(messageReceived(const QString&)));
+    connect(peer, &QtLocalPeer::messageReceived, this, &QtSingleApplication::messageReceived);
 }
 
 
@@ -268,7 +268,7 @@ bool QtSingleApplication::isRunning()
 /*!
     Tries to send the text \a message to the currently running
     instance. The QtSingleApplication object in the running instance
-    will emit the messageReceived() signal when it receives the
+    will Q_EMIT the messageReceived() signal when it receives the
     message.
 
     This function returns true if the message has been sent to, and
@@ -310,9 +310,9 @@ void QtSingleApplication::setActivationWindow(QWidget* aw, bool activateOnMessag
 {
     actWin = aw;
     if (activateOnMessage)
-        connect(peer, SIGNAL(messageReceived(const QString&)), this, SLOT(activateWindow()));
+        connect(peer, &QtLocalPeer::messageReceived, this, &QtSingleApplication::activateWindow);
     else
-        disconnect(peer, SIGNAL(messageReceived(const QString&)), this, SLOT(activateWindow()));
+        disconnect(peer, &QtLocalPeer::messageReceived, this, &QtSingleApplication::activateWindow);
 }
 
 

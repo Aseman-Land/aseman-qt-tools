@@ -50,17 +50,14 @@ AsemanNetworkManager::AsemanNetworkManager(QObject *parent) :
 
     p->lastConfig = p->network->defaultConfiguration();
 
-    connect(p->network, SIGNAL(configurationAdded(QNetworkConfiguration)),
-            SLOT(configureAdded(QNetworkConfiguration)));
-    connect(p->network, SIGNAL(configurationChanged(QNetworkConfiguration)),
-            this, SLOT(configureChanged(QNetworkConfiguration)));
-    connect(p->network, SIGNAL(configurationRemoved(QNetworkConfiguration)),
-            SLOT(configureRemoved(QNetworkConfiguration)));
+    connect(p->network, &QNetworkConfigurationManager::configurationAdded, this, &AsemanNetworkManager::configureAdded);
+    connect(p->network, &QNetworkConfigurationManager::configurationChanged, this, &AsemanNetworkManager::configureChanged);
+    connect(p->network, &QNetworkConfigurationManager::configurationRemoved, this, &AsemanNetworkManager::configureRemoved);
 
-    connect(p->network, SIGNAL(updateCompleted()), SLOT(updateCheck()));
-    connect(p->updateTimer, SIGNAL(timeout()), SLOT(updateCheck()));
+    connect(p->network, &QNetworkConfigurationManager::updateCompleted, this, &AsemanNetworkManager::updateCheck);
+    connect(p->updateTimer, &QTimer::timeout, this, &AsemanNetworkManager::updateCheck);
 
-    foreach(const QNetworkConfiguration &config, p->network->allConfigurations())
+    for(const QNetworkConfiguration &config: p->network->allConfigurations())
         configureAdded(config);
 
     updateCheck();
@@ -90,7 +87,7 @@ void AsemanNetworkManager::setInterval(qint32 ms)
     p->updateTimer->stop();
     p->updateTimer->start();
 
-    emit intervalChanged();
+    Q_EMIT intervalChanged();
 }
 
 qint32 AsemanNetworkManager::interval() const
@@ -111,7 +108,7 @@ void AsemanNetworkManager::configureAdded(const QNetworkConfiguration &config)
     item->operator =(config);
     p->map[config.identifier()] = QVariant::fromValue<AsemanNetworkManagerItem*>(item);
 
-    emit configurationsChanged();
+    Q_EMIT configurationsChanged();
 }
 
 void AsemanNetworkManager::configureRemoved(const QNetworkConfiguration &config)
@@ -120,7 +117,7 @@ void AsemanNetworkManager::configureRemoved(const QNetworkConfiguration &config)
     if(item)
         item->deleteLater();
 
-    emit configurationsChanged();
+    Q_EMIT configurationsChanged();
 }
 
 void AsemanNetworkManager::updateCheck()
@@ -134,7 +131,7 @@ void AsemanNetworkManager::updateCheck()
     }
 
     p->lastConfig = p->network->defaultConfiguration();
-    emit defaultNetworkIdentifierChanged();
+    Q_EMIT defaultNetworkIdentifierChanged();
 }
 
 AsemanNetworkManager::~AsemanNetworkManager()

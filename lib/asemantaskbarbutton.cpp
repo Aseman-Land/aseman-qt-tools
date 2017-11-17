@@ -86,7 +86,7 @@ void AsemanTaskbarButton::setBadgeNumber(int num)
 
     p->badgeNumber = num;
     if(p->engine) p->engine->updateBadgeNumber(num);
-    emit badgeNumberChanged();
+    Q_EMIT badgeNumberChanged();
 }
 
 int AsemanTaskbarButton::badgeNumber() const
@@ -101,7 +101,7 @@ void AsemanTaskbarButton::setProgress(qreal progress)
 
     p->progress = progress;
     if(p->engine) p->engine->updateProgress(progress);
-    emit progressChanged();
+    Q_EMIT progressChanged();
 }
 
 qreal AsemanTaskbarButton::progress() const
@@ -116,7 +116,7 @@ void AsemanTaskbarButton::setLauncher(const QString &launcher)
 
     p->launcher = launcher;
     if(p->engine) p->engine->updateLauncher(p->launcher);
-    emit launcherChanged();
+    Q_EMIT launcherChanged();
 }
 
 QString AsemanTaskbarButton::launcher() const
@@ -131,7 +131,7 @@ void AsemanTaskbarButton::setWindow(QWindow *win)
 
     p->window = win;
     if(p->engine) p->engine->updateWindow(p->window);
-    emit windowChanged();
+    Q_EMIT windowChanged();
 }
 
 QWindow *AsemanTaskbarButton::window() const

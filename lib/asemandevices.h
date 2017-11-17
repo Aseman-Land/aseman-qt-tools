@@ -170,7 +170,7 @@ public:
     static QString resourcePathQml();
     static QString libsPath();
 
-public slots:
+public Q_SLOTS:
     void hideKeyboard();
     void showKeyboard();
 
@@ -184,7 +184,7 @@ public slots:
     bool startCameraPicture();
     bool getOpenPictures();
 
-signals:
+Q_SIGNALS:
     void incomingShare( const QString & title, const QString & msg );
     void incomingImage( const QString & path );
     void selectImageResult( const QString & path );
@@ -245,7 +245,7 @@ signals:
     void resourcePathChanged();
     void libsPathChanged();
 
-private slots:
+private Q_SLOTS:
     void incoming_share( const QString & title, const QString & msg );
     void incoming_image( const QString & path );
     void select_image_result( const QString & path );

@@ -29,10 +29,10 @@ public:
     AsemanDebugObjectCounter(QObject *parent = 0);
     virtual ~AsemanDebugObjectCounter();
 
-public slots:
+public Q_SLOTS:
     void start(QObject *object, int interval);
 
-private slots:
+private Q_SLOTS:
     void timeout();
 
 private:

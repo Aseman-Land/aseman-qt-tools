@@ -45,7 +45,7 @@ public:
 
     bool opened() const;
 
-public slots:
+public Q_SLOTS:
     bool createFolder(const QString &name);
     bool removeFolder(const QString &name);
     QByteArray readEntry(const QString &folder, const QString &key);
@@ -66,13 +66,13 @@ public slots:
     bool open();
     bool close();
 
-signals:
+Q_SIGNALS:
     void availableWalletsChanged();
     void folderListChanged();
     void openedChanged();
     void walletChanged();
 
-private slots:
+private Q_SLOTS:
     void fetchWalletsList();
     void fetchFolderList();
 

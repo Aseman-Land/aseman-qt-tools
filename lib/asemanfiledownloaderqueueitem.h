@@ -49,14 +49,14 @@ public:
 
     QString result() const;
 
-signals:
+Q_SIGNALS:
     void sourceChanged();
     void downloaderQueueChanged();
     void resultChanged();
     void fileNameChanged();
     void percentChanged();
 
-private slots:
+private Q_SLOTS:
     void finished(const QString &url, const QString &fileName);
     void progressChanged(const QString &url, const QString &fileName, qreal percent);
 

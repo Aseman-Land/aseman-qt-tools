@@ -52,8 +52,8 @@ AsemanTitleBarColorGrabber::AsemanTitleBarColorGrabber(QObject *parent) :
     p->activeTimer->setSingleShot(true);
     p->activeTimer->setInterval(500);
 
-    connect(p->normalTimer, SIGNAL(timeout()), SLOT(refresh()));
-    connect(p->activeTimer, SIGNAL(timeout()), SLOT(refresh()));
+    connect(p->normalTimer, &QTimer::timeout, this, &AsemanTitleBarColorGrabber::refresh);
+    connect(p->activeTimer, &QTimer::timeout, this, &AsemanTitleBarColorGrabber::refresh);
 }
 
 void AsemanTitleBarColorGrabber::setWindow(QWindow *win)
@@ -61,16 +61,16 @@ void AsemanTitleBarColorGrabber::setWindow(QWindow *win)
     if(p->window == win)
         return;
     if(p->window)
-        disconnect(win, SIGNAL(activeChanged()), this, SLOT(activeChanged()));
+        disconnect(win, &QWindow::activeChanged, this, &AsemanTitleBarColorGrabber::activeChanged);
 
     p->window = win;
     if(p->window)
-        connect(win, SIGNAL(activeChanged()), this, SLOT(activeChanged()));
+        connect(win, &QWindow::activeChanged, this, &AsemanTitleBarColorGrabber::activeChanged);
 
-    emit windowChanged();
+    Q_EMIT windowChanged();
 
     p->color = QColor();
-    emit colorChanged();
+    Q_EMIT colorChanged();
 
     p->firstAttemps = 0;
     refresh();
@@ -92,7 +92,7 @@ void AsemanTitleBarColorGrabber::setAutoRefresh(bool stt)
     else
         p->normalTimer->stop();
 
-    emit autoRefreshChanged();
+    Q_EMIT autoRefreshChanged();
 }
 
 bool AsemanTitleBarColorGrabber::autoRefresh() const
@@ -106,8 +106,8 @@ void AsemanTitleBarColorGrabber::setDefaultColor(const QColor &defaultColor)
         return;
 
     p->defaultColor = defaultColor;
-    emit defaultColorChanged();
-    emit colorChanged();
+    Q_EMIT defaultColorChanged();
+    Q_EMIT colorChanged();
 }
 
 QColor AsemanTitleBarColorGrabber::defaultColor() const
@@ -129,7 +129,7 @@ void AsemanTitleBarColorGrabber::refresh()
             return;
 
         p->color = color;
-        emit colorChanged();
+        Q_EMIT colorChanged();
         return;
     }
     if(!p->window->isActive() || QGuiApplication::focusWindow() != p->window)
@@ -149,7 +149,7 @@ void AsemanTitleBarColorGrabber::refresh()
         return;
 
     p->color = color;
-    emit colorChanged();
+    Q_EMIT colorChanged();
 }
 
 void AsemanTitleBarColorGrabber::activeChanged()

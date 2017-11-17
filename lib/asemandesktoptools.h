@@ -86,7 +86,7 @@ public:
 
     QObject *currentMenuObject() const;
 
-public slots:
+public Q_SLOTS:
     static QString getOpenFileName(QWindow *window = 0, const QString &title = QString(), const QString &filter = QString(), const QString & startPath = QDir::homePath() );
     static QStringList getOpenFileNames(QWindow *window = 0, const QString &title = QString(), const QString &filter = QString(), const QString & startPath = QDir::homePath() );
     static QString getSaveFileName(QWindow *window = 0, const QString &title = QString(), const QString &filter = QString(), const QString & startPath = QDir::homePath() );
@@ -98,7 +98,7 @@ public slots:
     static bool yesOrNo(QWindow *window, const QString &title, const QString &text, int type = Warning);
     static void showMessage(QWindow *window, const QString &title, const QString &text, int type = Information);
 
-signals:
+Q_SIGNALS:
     void titleBarColorChanged();
     void titleBarTextColorChanged();
     void titleBarTransparentColorChanged();

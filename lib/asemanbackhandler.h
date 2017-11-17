@@ -40,7 +40,7 @@ public:
 
     int count();
 
-public slots:
+public Q_SLOTS:
     void pushHandler( QObject *obj, QJSValue jsv );
     void pushDownHandler( QObject *obj, QJSValue jsv );
     void removeHandler( QObject *obj );
@@ -51,12 +51,12 @@ public slots:
 
     bool back();
 
-signals:
+Q_SIGNALS:
     void topHandlerChanged();
     void countChanged();
     void backFinished();
 
-private slots:
+private Q_SLOTS:
     void object_destroyed( QObject *obj );
 
 private:

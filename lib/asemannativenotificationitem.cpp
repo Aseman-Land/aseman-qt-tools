@@ -140,7 +140,7 @@ AsemanNativeNotificationItem::AsemanNativeNotificationItem(QWidget *parent) :
 
     refreshSize();
 
-    connect(p->close_btn, SIGNAL(clicked()), SLOT(close()) );
+    connect(p->close_btn, &QToolButton::clicked, this, &AsemanNativeNotificationItem::close);
 }
 
 void AsemanNativeNotificationItem::setColor(const QColor &color)
@@ -164,7 +164,7 @@ void AsemanNativeNotificationItem::setColor(const QColor &color)
     palette.setColor(QPalette::Button, p->buttonColor);
     setPalette(palette);
 
-    emit colorChanged();
+    Q_EMIT colorChanged();
 }
 
 QColor AsemanNativeNotificationItem::color() const
@@ -195,7 +195,7 @@ void AsemanNativeNotificationItem::setActions(const QStringList &actions)
 
         p->btns_layout->addWidget(btn);
 
-        connect(btn, SIGNAL(clicked()), SLOT(buttonClicked()) );
+        connect(btn, &QPushButton::clicked, this, &AsemanNativeNotificationItem::buttonClicked);
     }
 
     p->body_layout->addStretch();
@@ -259,7 +259,7 @@ void AsemanNativeNotificationItem::buttonClicked()
         return;
 
     const QString &action = p->actions.value(btn);
-    emit actionTriggered(action);
+    Q_EMIT actionTriggered(action);
 }
 
 AsemanNativeNotificationItem::~AsemanNativeNotificationItem()

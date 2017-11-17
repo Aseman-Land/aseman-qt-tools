@@ -95,7 +95,7 @@ public:
 
     QObject &operator =(const QNetworkConfiguration &network);
 
-signals:
+Q_SIGNALS:
     void bearerTypeChanged();
     void bearerTypeFamilyChanged();
     void bearerTypeNameChanged();

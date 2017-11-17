@@ -44,15 +44,15 @@ public:
     Q_INVOKABLE QByteArray save();
     Q_INVOKABLE void load(const QByteArray &data);
 
-public slots:
+public Q_SLOTS:
 #ifdef QT_WIDGETS_LIB
     void openFontChooser();
 #endif
 
-signals:
+Q_SIGNALS:
     void fontsChanged();
 
-private slots:
+private Q_SLOTS:
     void init();
 #ifdef QT_WIDGETS_LIB
     void currentIndexChanged(const QString &key);

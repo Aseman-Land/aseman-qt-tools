@@ -83,7 +83,7 @@ public:
 
     QAudioEncoderSettings exportSettings() const;
 
-signals:
+Q_SIGNALS:
     void bitRateChanged();
     void channelCountChanged();
     void codecChanged();

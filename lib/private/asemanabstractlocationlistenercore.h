@@ -33,10 +33,10 @@ public:
     virtual void getLastKnownLocation();
     virtual void stop();
 
-signals:
+Q_SIGNALS:
     void positionUpdated(const QGeoPositionInfo & update);
 
-private slots:
+private Q_SLOTS:
     void updated(const QGeoPositionInfo & update);
 
 private:

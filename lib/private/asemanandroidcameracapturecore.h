@@ -31,7 +31,7 @@ public:
 
     int capture(const QString &dest, AsemanCameraCapture::CameraFace face);
 
-signals:
+Q_SIGNALS:
     void imageCaptured(int id, const QString &path);
 
 private:

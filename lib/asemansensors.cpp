@@ -118,10 +118,10 @@ AsemanSensors::AsemanSensors(QObject *parent) :
              << ax << ay << az << "\n"
              << rx << ry << rz;
 
-    connect( p->gravity      , SIGNAL(readingChanged()), SLOT(grv_reading()) );
-    connect( p->accelerometer, SIGNAL(readingChanged()), SLOT(acc_reading()) );
-    connect( p->rotation     , SIGNAL(readingChanged()), SLOT(rtt_reading()) );
-    connect( p->gyroscope    , SIGNAL(readingChanged()), SLOT(gyr_reading()) );
+    connect( p->gravity, &QAccelerometer::readingChanged, this, &AsemanSensors::grv_reading);
+    connect( p->accelerometer, &QAccelerometer::readingChanged, this, &AsemanSensors::acc_reading);
+    connect( p->rotation, &QRotationSensor::readingChanged, this, &AsemanSensors::rtt_reading);
+    connect( p->gyroscope, &QGyroscope::readingChanged, this, &AsemanSensors::gyr_reading);
 }
 
 qreal AsemanSensors::ax() const
@@ -208,7 +208,7 @@ void AsemanSensors::setDuration(int ms)
     if( active() )
         start();
 
-    emit durationChanged();
+    Q_EMIT durationChanged();
 }
 
 int AsemanSensors::duration() const
@@ -262,7 +262,7 @@ void AsemanSensors::setActiveSensors(int t)
         p->gyroscope->start();
     }
 
-    emit activeSensorsChanged();
+    Q_EMIT activeSensorsChanged();
 }
 
 int AsemanSensors::activeSensors() const
@@ -288,7 +288,7 @@ void AsemanSensors::start()
     p->gyroscope->start();
 
     p->duration_timer = startTimer(p->duration);
-    emit activeChanged();
+    Q_EMIT activeChanged();
 }
 
 void AsemanSensors::stop()
@@ -303,7 +303,7 @@ void AsemanSensors::stop()
     p->gravity->stop();
 
     p->duration_timer = 0;
-    emit activeChanged();
+    Q_EMIT activeChanged();
 }
 
 void AsemanSensors::zero()
@@ -314,10 +314,10 @@ void AsemanSensors::zero()
 
     refresh();
 
-    emit accChanged();
-    emit grvChanged();
-    emit angleChanged();
-    emit angleSpeedChanged();
+    Q_EMIT accChanged();
+    Q_EMIT grvChanged();
+    Q_EMIT angleChanged();
+    Q_EMIT angleSpeedChanged();
 }
 
 void AsemanSensors::setZero(qreal xrad, qreal yrad)
@@ -327,10 +327,10 @@ void AsemanSensors::setZero(qreal xrad, qreal yrad)
 
     refresh();
 
-    emit accChanged();
-    emit grvChanged();
-    emit angleChanged();
-    emit angleSpeedChanged();
+    Q_EMIT accChanged();
+    Q_EMIT grvChanged();
+    Q_EMIT angleChanged();
+    Q_EMIT angleSpeedChanged();
 }
 
 void AsemanSensors::refresh()
@@ -473,11 +473,11 @@ void AsemanSensors::timerEvent(QTimerEvent *e)
 {
     if( e->timerId() == p->duration_timer )
     {
-        emit accChanged();
-        emit grvChanged();
-        emit angleChanged();
-        emit angleSpeedChanged();
-        emit updated();
+        Q_EMIT accChanged();
+        Q_EMIT grvChanged();
+        Q_EMIT angleChanged();
+        Q_EMIT angleSpeedChanged();
+        Q_EMIT updated();
 
 //        qDebug() << p->a_vector.x << p->a_vector.y << p->a_vector.z
 //                 << angleX() << angleY() << angleZ();

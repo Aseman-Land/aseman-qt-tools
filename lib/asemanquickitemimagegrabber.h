@@ -44,15 +44,15 @@ public:
 
     QImage image() const;
 
-public slots:
+public Q_SLOTS:
     void start();
 
-signals:
+Q_SIGNALS:
     void itemChanged();
     void imageChanged();
     void defaultImageChanged();
 
-private slots:
+private Q_SLOTS:
     void ready();
 
 private:

@@ -76,10 +76,10 @@ public:
 
     Q_INVOKABLE void registerWindow(QQuickWindow *window);
 
-public slots:
+public Q_SLOTS:
     void discardFocusedText();
 
-signals:
+Q_SIGNALS:
     void fullscreenChanged();
     void statusBarHeightChanged();
     void navigationBarHeightChanged();
@@ -92,7 +92,7 @@ signals:
     void closeRequest();
     void offlineStoragePathChanged();
 
-private slots:
+private Q_SLOTS:
     void viewDestroyed();
 
 private:

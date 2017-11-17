@@ -60,7 +60,7 @@ void AsemanMacNativeNotification::setColor(const QColor &color)
         return;
 
     p->color = color;
-    emit colorChanged();
+    Q_EMIT colorChanged();
 }
 
 QColor AsemanMacNativeNotification::color() const
@@ -82,8 +82,10 @@ uint AsemanMacNativeNotification::sendNotify(const QString &title, const QString
         result = p->last_id;
         p->last_id++;
 
-        connect(item, SIGNAL(messageClicked()), SLOT(messageClicked())  , Qt::QueuedConnection );
-        connect(item, SIGNAL(destroyed())     , SLOT(messageDestroyed()), Qt::QueuedConnection );
+        connect(item, &AsemanMacNativeNotificationItem::messageClicked,
+                this, &AsemanMacNativeNotification::messageClicked, Qt::QueuedConnection );
+        connect(item, &AsemanMacNativeNotificationItem::destroyed,
+                this, &AsemanMacNativeNotification::messageDestroyed, Qt::QueuedConnection );
     }
 
     item->showMessage(title, body, QSystemTrayIcon::Information, timeOut);
@@ -118,7 +120,7 @@ void AsemanMacNativeNotification::messageClicked()
 
     const QStringList & actions = item->actions;
     if(!actions.isEmpty())
-        emit notifyAction(id, actions.first());
+        Q_EMIT notifyAction(id, actions.first());
 
     item->deleteLater();
 }

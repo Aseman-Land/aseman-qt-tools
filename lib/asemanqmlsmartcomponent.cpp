@@ -54,13 +54,13 @@ void AsemanQmlSmartComponent::setSource(const QUrl &url)
         p->component->deleteLater();
         p->component = 0;
         if(hadError)
-            emit errorChanged();
+            Q_EMIT errorChanged();
     }
 
     p->source = url;
     recheckTimer();
 
-    emit sourceChanged();
+    Q_EMIT sourceChanged();
 }
 
 QUrl AsemanQmlSmartComponent::source() const
@@ -75,7 +75,7 @@ void AsemanQmlSmartComponent::setDelayInterval(int ms)
 
     p->delayInterval = ms;
     recheckTimer();
-    emit delayIntervalChanged();
+    Q_EMIT delayIntervalChanged();
 }
 
 int AsemanQmlSmartComponent::delayInterval() const
@@ -107,7 +107,7 @@ QQmlComponent *AsemanQmlSmartComponent::component() const
         return 0;
 }
 
-void AsemanQmlSmartComponent::statusChanged(QQmlComponent::Status status)
+void AsemanQmlSmartComponent::statusChangedSlt(QQmlComponent::Status status)
 {
     switch(static_cast<int>(status))
     {
@@ -115,8 +115,8 @@ void AsemanQmlSmartComponent::statusChanged(QQmlComponent::Status status)
         break;
 
     case QQmlComponent::Ready:
-        emit componentChanged();
-        emit ready();
+        Q_EMIT componentChanged();
+        Q_EMIT ready();
         break;
 
     case QQmlComponent::Loading:
@@ -124,11 +124,11 @@ void AsemanQmlSmartComponent::statusChanged(QQmlComponent::Status status)
 
     case QQmlComponent::Error:
         qDebug() << error();
-        emit errorChanged();
+        Q_EMIT errorChanged();
         break;
     }
 
-    emit statusChanged();
+    Q_EMIT statusChanged();
 }
 
 void AsemanQmlSmartComponent::recheckTimer()
@@ -147,9 +147,7 @@ void AsemanQmlSmartComponent::createComponent()
         return;
 
     p->component = new QQmlComponent(qmlEngine(this), this);
-    connect(p->component, SIGNAL(statusChanged(QQmlComponent::Status)),
-            this, SLOT(statusChanged(QQmlComponent::Status)));
-
+    connect(p->component, &QQmlComponent::statusChanged, this, &AsemanQmlSmartComponent::statusChangedSlt);
     p->component->loadUrl(p->source, QQmlComponent::Asynchronous);
 }
 

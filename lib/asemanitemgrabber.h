@@ -43,17 +43,17 @@ public:
     void setFileName(const QString &fileName);
     QString fileName() const;
 
-public slots:
+public Q_SLOTS:
     void save(const QString &dest, const QSize &size);
 
-signals:
+Q_SIGNALS:
     void itemChanged();
     void suffixChanged();
     void fileNameChanged();
     void saved(const QString &dest);
     void failed();
 
-private slots:
+private Q_SLOTS:
     void ready();
 
 private:

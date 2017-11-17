@@ -70,9 +70,9 @@ void AsemanBackHandler::pushHandler(QObject *obj, QJSValue jsv)
     item.jsv = jsv;
 
     p->stack.push( item );
-    emit countChanged();
+    Q_EMIT countChanged();
 
-    connect( obj, SIGNAL(destroyed(QObject*)), SLOT(object_destroyed(QObject*)) );
+    connect( obj, &QObject::destroyed, this, &AsemanBackHandler::object_destroyed );
 }
 
 void AsemanBackHandler::pushDownHandler(QObject *obj, QJSValue jsv)
@@ -82,9 +82,9 @@ void AsemanBackHandler::pushDownHandler(QObject *obj, QJSValue jsv)
     item.jsv = jsv;
 
     p->stack.prepend( item );
-    emit countChanged();
+    Q_EMIT countChanged();
 
-    connect( obj, SIGNAL(destroyed(QObject*)), SLOT(object_destroyed(QObject*)) );
+    connect( obj, &QObject::destroyed, this, &AsemanBackHandler::object_destroyed );
 }
 
 void AsemanBackHandler::removeHandler(QObject *obj)
@@ -96,7 +96,7 @@ void AsemanBackHandler::removeHandler(QObject *obj)
             break;
         }
 
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 QObject *AsemanBackHandler::tryPopHandler()
@@ -114,7 +114,7 @@ QObject *AsemanBackHandler::tryPopHandler()
     if( p->stack.count() == count )
         p->stack.pop();
 
-    emit countChanged();
+    Q_EMIT countChanged();
     return item.obj;
 }
 
@@ -130,7 +130,7 @@ QObject *AsemanBackHandler::forcePopHandler()
     if( p->stack.count() == count )
         p->stack.pop();
 
-    emit countChanged();
+    Q_EMIT countChanged();
     return item.obj;
 }
 
@@ -143,7 +143,7 @@ bool AsemanBackHandler::back()
 {
     if( p->stack.isEmpty() )
     {
-        emit backFinished();
+        Q_EMIT backFinished();
         return false;
     }
 
@@ -160,7 +160,7 @@ void AsemanBackHandler::object_destroyed(QObject *obj)
             i--;
         }
 
-    emit countChanged();
+    Q_EMIT countChanged();
 }
 
 AsemanBackHandler::~AsemanBackHandler()

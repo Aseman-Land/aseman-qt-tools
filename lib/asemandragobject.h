@@ -62,10 +62,10 @@ public:
     void setHotSpot(const QPoint &point);
     QPoint hotSpot() const;
 
-public slots:
+public Q_SLOTS:
     int start();
 
-signals:
+Q_SIGNALS:
     void mimeDataChanged();
     void dropActionChanged();
     void sourceChanged();

@@ -66,7 +66,7 @@ void AsemanStoreManager::setPublicKey(const QString &publicKey)
         return;
 
     p->publicKey = publicKey;
-    emit publicKeyChanged();
+    Q_EMIT publicKeyChanged();
 }
 
 QString AsemanStoreManager::publicKey() const
@@ -80,7 +80,7 @@ void AsemanStoreManager::setPackageName(const QString &packageName)
         return;
 
     p->packageName = packageName;
-    emit packageNameChanged();
+    Q_EMIT packageNameChanged();
 }
 
 QString AsemanStoreManager::packageName() const
@@ -94,7 +94,7 @@ void AsemanStoreManager::setBindIntent(const QString &bindIntent)
         return;
 
     p->bindIntent = bindIntent;
-    emit bindIntentChanged();
+    Q_EMIT bindIntentChanged();
 }
 
 QString AsemanStoreManager::bindIntent() const
@@ -110,7 +110,7 @@ void AsemanStoreManager::setCacheSource(const QString &path)
     p->cacheSource = path;
     reinitCache();
 
-    emit cacheSourceChanged();
+    Q_EMIT cacheSourceChanged();
 }
 
 QString AsemanStoreManager::cacheSource() const
@@ -192,7 +192,7 @@ void AsemanStoreManager::propertyChanged()
 
     QMetaMethod signalObj = metaObject()->method(signalIndex);
     const QByteArray &propertyName = p->signalsProperties.value(signalObj.methodSignature());
-    emit inventoryStateChanged(propertyName);
+    Q_EMIT inventoryStateChanged(propertyName);
 
     const QVariant &value = property(propertyName);
     switch(value.toInt())
@@ -276,10 +276,8 @@ void AsemanStoreManager::initCore()
         return;
 
     p->core = new AsemanStoreManagerCore();
-    connect(p->core, SIGNAL(inventoryStateChanged(QString,bool)),
-            this, SLOT(inventoryStateChanged_slt(QString,bool)));
-    connect(p->core, SIGNAL(itemDetailsChanged()),
-            this, SIGNAL(itemDetailsChanged()));
+    connect(p->core, &AsemanAbstractStoreManagerCore::inventoryStateChanged, this, &AsemanStoreManager::inventoryStateChanged_slt);
+    connect(p->core, &AsemanAbstractStoreManagerCore::itemDetailsChanged, this, &AsemanStoreManager::itemDetailsChanged);
 }
 
 AsemanStoreManager::~AsemanStoreManager()

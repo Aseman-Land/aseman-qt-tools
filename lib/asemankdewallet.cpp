@@ -79,7 +79,7 @@ void AsemanKdeWallet::setWallet(const QString &wallet)
         return;
 
     p->wallet = wallet;
-    emit walletChanged();
+    Q_EMIT walletChanged();
 }
 
 QString AsemanKdeWallet::wallet() const
@@ -115,7 +115,7 @@ bool AsemanKdeWallet::createFolder(const QString &name)
         return false;
 
     p->folderList << name;
-    emit folderListChanged();
+    Q_EMIT folderListChanged();
     return true;
 }
 
@@ -142,7 +142,7 @@ bool AsemanKdeWallet::removeFolder(const QString &name)
         return false;
 
     p->folderList.removeAll(name);
-    emit folderListChanged();
+    Q_EMIT folderListChanged();
     return true;
 }
 
@@ -484,7 +484,7 @@ bool AsemanKdeWallet::open()
 
     fetchFolderList();
 
-    emit openedChanged();
+    Q_EMIT openedChanged();
     return opened();
 }
 
@@ -510,7 +510,7 @@ bool AsemanKdeWallet::close()
     if(ok)
         p->handle = false;
 
-    emit openedChanged();
+    Q_EMIT openedChanged();
     return true;
 }
 
@@ -527,7 +527,7 @@ void AsemanKdeWallet::fetchWalletsList()
         return;
 
     p->availableWallets = res.first().toStringList();
-    emit availableWalletsChanged();
+    Q_EMIT availableWalletsChanged();
 }
 
 void AsemanKdeWallet::fetchFolderList()
@@ -550,7 +550,7 @@ void AsemanKdeWallet::fetchFolderList()
         p->folderList = res.first().toStringList();
     }
 
-    emit folderListChanged();
+    Q_EMIT folderListChanged();
 }
 
 AsemanKdeWallet::~AsemanKdeWallet()

@@ -36,7 +36,7 @@ AsemanDebugObjectCounter::AsemanDebugObjectCounter(QObject *parent) :
     p = new AsemanDebugObjectCounterPrivate;
     p->timer = new QTimer(this);
 
-    connect(p->timer, SIGNAL(timeout()), SLOT(timeout()));
+    connect(p->timer, &QTimer::timeout, this, &AsemanDebugObjectCounter::timeout);
 }
 
 void AsemanDebugObjectCounter::start(QObject *object, int interval)
@@ -77,7 +77,7 @@ void AsemanDebugObjectCounter::calculate(QObject *obj, QMap<QString, int> &count
     count[obj->metaObject()->className()] = count[obj->metaObject()->className()]+1;
 
     QObjectList childs = obj->children();
-    foreach(QObject *child, childs)
+    for(QObject *child: childs)
         calculate(child, count);
 }
 

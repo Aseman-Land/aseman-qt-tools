@@ -31,7 +31,7 @@ AsemanQtLocationListenerCore::AsemanQtLocationListenerCore(QObject *parent) :
 {
     p = new AsemanQtLocationListenerCorePrivate;
     p->source = QGeoPositionInfoSource::createDefaultSource(this);
-    connect(p->source, SIGNAL(positionUpdated(QGeoPositionInfo)), SIGNAL(positionUpdated(QGeoPositionInfo)));
+    connect(p->source, &QGeoPositionInfoSource::positionUpdated, this, &AsemanQtLocationListenerCore::positionUpdated);
 }
 
 void AsemanQtLocationListenerCore::requestLocationUpdates(int interval)

@@ -54,7 +54,7 @@ public:
 
     Q_INVOKABLE QVariantMap toMap() const;
 
-signals:
+Q_SIGNALS:
     void countChanged();
 
 private:

@@ -82,8 +82,8 @@ AsemanWebPageGrabber::AsemanWebPageGrabber(QObject *parent) :
     p->destroyTimer->setSingleShot(true);
     p->destroyTimer->setInterval(1000);
 
-    connect(p->timer, SIGNAL(timeout()), SLOT(completed()));
-    connect(p->destroyTimer, SIGNAL(timeout()), SLOT(destroyWebView()));
+    connect(p->timer, &QTimer::timeout, this, &AsemanWebPageGrabber::completedSlt);
+    connect(p->destroyTimer, &QTimer::timeout, this, &AsemanWebPageGrabber::destroyWebView);
 }
 
 void AsemanWebPageGrabber::setSource(const QUrl &source)
@@ -92,7 +92,7 @@ void AsemanWebPageGrabber::setSource(const QUrl &source)
         return;
 
     p->source = source;
-    emit sourceChanged();
+    Q_EMIT sourceChanged();
 }
 
 QUrl AsemanWebPageGrabber::source() const
@@ -106,7 +106,7 @@ void AsemanWebPageGrabber::setDestination(const QString &dest)
         return;
 
     p->destination = dest;
-    emit destinationChanged();
+    Q_EMIT destinationChanged();
 }
 
 QString AsemanWebPageGrabber::destination() const
@@ -120,7 +120,7 @@ void AsemanWebPageGrabber::setTimeOut(int ms)
         return;
 
     p->timeOut = ms;
-    emit timeOutChanged();
+    Q_EMIT timeOutChanged();
 }
 
 int AsemanWebPageGrabber::timeOut() const
@@ -150,15 +150,15 @@ void AsemanWebPageGrabber::start(bool force)
 {
 #ifdef NULL_ASEMAN_WEBGRABBER
     Q_UNUSED(force)
-    emit finished(QUrl());
-    emit complete(QImage());
+    Q_EMIT finished(QUrl());
+    Q_EMIT complete(QImage());
 #else
     if(!force)
     {
         const QUrl &checkUrl = check(p->source, &(p->destPrivate));
         if(!checkUrl.isEmpty())
         {
-            emit finished(checkUrl);
+            Q_EMIT finished(checkUrl);
             return;
         }
     }
@@ -208,13 +208,10 @@ QUrl AsemanWebPageGrabber::check(const QUrl &source, QString *destPath)
 #endif
 }
 
-void AsemanWebPageGrabber::completed(bool stt)
+void AsemanWebPageGrabber::completedSlt()
 {
 #ifdef NULL_ASEMAN_WEBGRABBER
-    Q_UNUSED(stt)
 #else
-    if(!stt)
-        return;
     if(!p->viewer)
         return;
     if(p->progress < 80)
@@ -223,8 +220,8 @@ void AsemanWebPageGrabber::completed(bool stt)
         p->viewer->stop();
 
         destroyWebView();
-        emit complete(QImage());
-        emit finished(QUrl());
+        Q_EMIT complete(QImage());
+        Q_EMIT finished(QUrl());
         p->destPrivate.clear();
         return;
     }
@@ -243,8 +240,8 @@ void AsemanWebPageGrabber::completed(bool stt)
 
     destroyWebView();
 
-    emit complete(image);
-    emit finished(QUrl::fromLocalFile(p->destPrivate));
+    Q_EMIT complete(image);
+    Q_EMIT finished(QUrl::fromLocalFile(p->destPrivate));
     p->destPrivate.clear();
 #endif
 }
@@ -295,10 +292,10 @@ void AsemanWebPageGrabber::createWebView()
     p->viewer->show();
 #endif
 
-    connect(p->viewer, SIGNAL(loadProgress(int)), SLOT(loadProgress(int)));
-    connect(p->viewer, SIGNAL(loadFinished(bool)), SLOT(completed(bool)), Qt::QueuedConnection);
+    connect(p->viewer, &WEBVIEW_CLASS::loadProgress, this, &AsemanWebPageGrabber::loadProgress);
+    connect(p->viewer, &WEBVIEW_CLASS::loadFinished, this, &AsemanWebPageGrabber::completed, Qt::QueuedConnection);
 
-    emit runningChanged();
+    Q_EMIT runningChanged();
 #endif
 }
 
@@ -309,7 +306,7 @@ void AsemanWebPageGrabber::destroyWebView()
         return;
 
     delete p->viewer;
-    emit runningChanged();
+    Q_EMIT runningChanged();
 #endif
 }
 

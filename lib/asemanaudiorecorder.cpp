@@ -36,15 +36,12 @@ AsemanAudioRecorder::AsemanAudioRecorder(QObject *parent) :
     p = new AsemanAudioRecorderPrivate;
     p->recorder = new QAudioRecorder(this);
 
-    connect(p->recorder, SIGNAL(stateChanged(QMediaRecorder::State)),
-            SIGNAL(stateChanged()));
-    connect(p->recorder, SIGNAL(statusChanged(QMediaRecorder::Status)),
-            SIGNAL(statusChanged()));
-    connect(p->recorder, SIGNAL(availabilityChanged(bool)), SIGNAL(availableChanged()));
-    connect(p->recorder, SIGNAL(mutedChanged(bool)), SIGNAL(muteChanged()));
-    connect(p->recorder, SIGNAL(volumeChanged(qreal)), SIGNAL(volumeChanged()));
-    connect(p->recorder, SIGNAL(availabilityChanged(QMultimedia::AvailabilityStatus)),
-            SIGNAL(availabilityChanged()));
+    connect(p->recorder, &QAudioRecorder::stateChanged, this, &AsemanAudioRecorder::stateChanged);
+    connect(p->recorder, &QAudioRecorder::statusChanged, this, &AsemanAudioRecorder::statusChanged);
+    connect(p->recorder, static_cast<void (QAudioRecorder::*)(bool)>(&QAudioRecorder::availabilityChanged), this, &AsemanAudioRecorder::availableChanged);
+    connect(p->recorder, &QAudioRecorder::mutedChanged, this, &AsemanAudioRecorder::muteChanged);
+    connect(p->recorder, &QAudioRecorder::volumeChanged, this, &AsemanAudioRecorder::volumeChanged);
+    connect(p->recorder, static_cast<void (QAudioRecorder::*)(bool)>(&QAudioRecorder::availabilityChanged), this, &AsemanAudioRecorder::availabilityChanged);
 }
 
 AsemanAudioEncoderSettings *AsemanAudioRecorder::encoderSettings() const
@@ -58,7 +55,7 @@ void AsemanAudioRecorder::setEncoderSettings(AsemanAudioEncoderSettings *setting
         return;
 
     p->encoderSettings = settings;
-    emit encoderSettingsChanged();
+    Q_EMIT encoderSettingsChanged();
 }
 
 void AsemanAudioRecorder::setOutput(const QUrl &url)
@@ -67,7 +64,7 @@ void AsemanAudioRecorder::setOutput(const QUrl &url)
         return;
 
     p->recorder->setOutputLocation(url);
-    emit outputChanged();
+    Q_EMIT outputChanged();
 }
 
 QUrl AsemanAudioRecorder::output() const
@@ -107,7 +104,7 @@ void AsemanAudioRecorder::setAudioInput(const QString &input)
         return;
 
     p->recorder->setAudioInput(input);
-    emit audioInputChanged();
+    Q_EMIT audioInputChanged();
 }
 
 QString AsemanAudioRecorder::audioInput() const

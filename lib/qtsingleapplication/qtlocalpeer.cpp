@@ -150,7 +150,7 @@ bool QtLocalPeer::isClient()
 #endif
     if (!res)
         qWarning("QtSingleCoreApplication: listen on local socket failed, %s", qPrintable(server->errorString()));
-    QObject::connect(server, SIGNAL(newConnection()), SLOT(receiveConnection()));
+    QObject::connect(server, &QLocalServer::newConnection, this, &QtLocalPeer::receiveConnection);
     return false;
 }
 
@@ -218,5 +218,5 @@ void QtLocalPeer::receiveConnection()
     socket->write(ack, qstrlen(ack));
     socket->waitForBytesWritten(1000);
     delete socket;
-    emit messageReceived(message); //### (might take a long time to return)
+    Q_EMIT messageReceived(message); //### (might take a long time to return)
 }

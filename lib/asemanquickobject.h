@@ -53,7 +53,7 @@ public:
 
     static bool isValid(AsemanQuickObject* obj);
 
-signals:
+Q_SIGNALS:
     void itemsChanged();
 
 private:

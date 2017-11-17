@@ -54,7 +54,7 @@ void AsemanMapDownloader::setDestination(const QUrl &dest)
         return;
 
     p->destination = dest;
-    emit destinationChanged();
+    Q_EMIT destinationChanged();
 }
 
 QUrl AsemanMapDownloader::destination() const
@@ -68,7 +68,7 @@ void AsemanMapDownloader::setMapProvider(int type)
         return;
 
     p->mapProvider = type;
-    emit mapProviderChanged();
+    Q_EMIT mapProviderChanged();
 }
 
 int AsemanMapDownloader::mapProvider() const
@@ -82,7 +82,7 @@ void AsemanMapDownloader::setSize(const QSize &size)
         return;
 
     p->size = size;
-    emit sizeChanged();
+    Q_EMIT sizeChanged();
 }
 
 QSize AsemanMapDownloader::size() const
@@ -96,7 +96,7 @@ void AsemanMapDownloader::setZoom(int zoom)
         return;
 
     p->zoom = zoom;
-    emit zoomChanged();
+    Q_EMIT zoomChanged();
 }
 
 int AsemanMapDownloader::zoom() const
@@ -168,9 +168,9 @@ void AsemanMapDownloader::download(const GEO_CLASS_NAME &geo)
     if(QFile::exists(filePath))
     {
         p->image = QUrl::fromLocalFile(filePath);
-        emit currentGeoChanged();
-        emit imageChanged();
-        emit finished();
+        Q_EMIT currentGeoChanged();
+        Q_EMIT imageChanged();
+        Q_EMIT finished();
         return;
     }
 
@@ -181,8 +181,8 @@ void AsemanMapDownloader::download(const GEO_CLASS_NAME &geo)
     p->downloader->start();
 
     p->downloading = true;
-    emit currentGeoChanged();
-    emit downloadingChanged();
+    Q_EMIT currentGeoChanged();
+    Q_EMIT downloadingChanged();
 }
 
 bool AsemanMapDownloader::check(const GEO_CLASS_NAME &geo)
@@ -253,7 +253,7 @@ QString AsemanMapDownloader::pathOf(const GEO_CLASS_NAME &geo)
     return filePath;
 }
 
-void AsemanMapDownloader::finished(const QByteArray &data)
+void AsemanMapDownloader::finishedSlt(const QByteArray &data)
 {
     Q_UNUSED(data)
 
@@ -261,9 +261,9 @@ void AsemanMapDownloader::finished(const QByteArray &data)
 
     p->downloading = false;
 
-    emit downloadingChanged();
-    emit imageChanged();
-    emit finished();
+    Q_EMIT downloadingChanged();
+    Q_EMIT imageChanged();
+    Q_EMIT finished();
 }
 
 void AsemanMapDownloader::init_downloader()
@@ -273,7 +273,7 @@ void AsemanMapDownloader::init_downloader()
 
     p->downloader = new AsemanDownloader(this);
 
-    connect(p->downloader, SIGNAL(finished(QByteArray)), SLOT(finished(QByteArray)), Qt::QueuedConnection);
+    connect(p->downloader, &AsemanDownloader::finished, this, &AsemanMapDownloader::finishedSlt, Qt::QueuedConnection);
 }
 
 AsemanMapDownloader::~AsemanMapDownloader()

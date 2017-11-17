@@ -48,7 +48,7 @@ public:
 
     QQmlComponent *component() const;
 
-signals:
+Q_SIGNALS:
     void delayIntervalChanged();
     void sourceChanged();
     void statusChanged();
@@ -56,8 +56,8 @@ signals:
     void componentChanged();
     void ready();
 
-private slots:
-    void statusChanged(QQmlComponent::Status status);
+private Q_SLOTS:
+    void statusChangedSlt(QQmlComponent::Status status);
 
 private:
     void recheckTimer();

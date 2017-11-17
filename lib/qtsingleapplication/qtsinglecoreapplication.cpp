@@ -98,7 +98,7 @@ QtSingleCoreApplication::QtSingleCoreApplication(int &argc, char **argv)
     : QCoreApplication(argc, argv)
 {
     peer = new QtLocalPeer(this);
-    connect(peer, SIGNAL(messageReceived(const QString&)), SIGNAL(messageReceived(const QString&)));
+    connect(peer, &QtLocalPeer::messageReceived, this, &QtSingleCoreApplication::messageReceived);
 }
 
 
@@ -111,7 +111,7 @@ QtSingleCoreApplication::QtSingleCoreApplication(const QString &appId, int &argc
     : QCoreApplication(argc, argv)
 {
     peer = new QtLocalPeer(this, appId);
-    connect(peer, SIGNAL(messageReceived(const QString&)), SIGNAL(messageReceived(const QString&)));
+    connect(peer, &QtLocalPeer::messageReceived, this, &QtSingleCoreApplication::messageReceived);
 }
 
 
@@ -135,7 +135,7 @@ bool QtSingleCoreApplication::isRunning()
 /*!
     Tries to send the text \a message to the currently running
     instance. The QtSingleCoreApplication object in the running instance
-    will emit the messageReceived() signal when it receives the
+    will Q_EMIT the messageReceived() signal when it receives the
     message.
 
     This function returns true if the message has been sent to, and

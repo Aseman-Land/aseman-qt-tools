@@ -64,7 +64,7 @@ AsemanJavaLayer *AsemanJavaLayer::instance()
     if( !java_layer_instance )
     {
         java_layer_instance = new AsemanJavaLayer();
-        QObject::connect( QCoreApplication::instance(), SIGNAL(destroyed()), java_layer_instance, SLOT(deleteLater()) );
+        QObject::connect(QCoreApplication::instance(), &QCoreApplication::destroyed, java_layer_instance, &AsemanJavaLayer::deleteLater);
     }
 
     return java_layer_instance;
@@ -248,7 +248,7 @@ void AsemanJavaLayer::load_buffer()
     while( !java_layer_inc_share_buffer.isEmpty() )
     {
         const QPair<QString,QString> & pair = java_layer_inc_share_buffer.takeFirst();
-        emit incomingShare( pair.first, pair.second );
+        Q_EMIT incomingShare( pair.first, pair.second );
     }
 }
 
@@ -272,8 +272,8 @@ static void noteRecieved( JNIEnv *env, jobject obj ,jstring title, jstring msg )
     const char *t = env->GetStringUTFChars(title,&a);
     const char *m = env->GetStringUTFChars(msg,&b);
 
-    foreach( AsemanJavaLayer *sjl, java_layers_objects )
-        emit sjl->incomingShare( QString(t), QString(m) );
+    for(AsemanJavaLayer *sjl: java_layers_objects)
+        Q_EMIT sjl->incomingShare( QString(t), QString(m) );
 
     if( java_layers_objects.isEmpty() )
         java_layer_inc_share_buffer << QPair<QString,QString>( QString(t), QString(m) );
@@ -288,8 +288,8 @@ static void imageRecieved( JNIEnv *env, jobject obj ,jstring jpath )
     QString path = QString("/sdcard/Aseman/%1.jpeg").arg(QDateTime::currentDateTime().toMSecsSinceEpoch());
     QFile().rename(QString(p),path);
 
-    foreach( AsemanJavaLayer *sjl, java_layers_objects )
-        emit sjl->incomingImage(path);
+    for(AsemanJavaLayer *sjl: java_layers_objects)
+        Q_EMIT sjl->incomingImage(path);
 
     if( java_layers_objects.isEmpty() )
         java_layer_inc_image_buffer << path;
@@ -301,64 +301,64 @@ static void selectImageResult( JNIEnv *env, jobject obj ,jstring path )
     jboolean a;
     const char *p = env->GetStringUTFChars(path,&a);
 
-    foreach( AsemanJavaLayer *sjl, java_layers_objects )
-        emit sjl->selectImageResult( QString(p) );
+    for(AsemanJavaLayer *sjl: java_layers_objects)
+        Q_EMIT sjl->selectImageResult( QString(p) );
 }
 
 static void activityPaused( JNIEnv *env, jobject obj )
 {
     Q_UNUSED(env)
     Q_UNUSED(obj)
-    foreach( AsemanJavaLayer *sjl, java_layers_objects )
-        emit sjl->activityPaused();
+    for(AsemanJavaLayer *sjl: java_layers_objects)
+        Q_EMIT sjl->activityPaused();
 }
 
 static void activityStopped( JNIEnv *env, jobject obj )
 {
     Q_UNUSED(env)
     Q_UNUSED(obj)
-    foreach( AsemanJavaLayer *sjl, java_layers_objects )
-        emit sjl->activityStopped();
+    for(AsemanJavaLayer *sjl: java_layers_objects)
+        Q_EMIT sjl->activityStopped();
 }
 
 static void activityResumed( JNIEnv *env, jobject obj )
 {
     Q_UNUSED(env)
     Q_UNUSED(obj)
-    foreach( AsemanJavaLayer *sjl, java_layers_objects )
-        emit sjl->activityResumed();
+    for(AsemanJavaLayer *sjl: java_layers_objects)
+        Q_EMIT sjl->activityResumed();
 }
 
 static void activityStarted( JNIEnv *env, jobject obj )
 {
     Q_UNUSED(env)
     Q_UNUSED(obj)
-    foreach( AsemanJavaLayer *sjl, java_layers_objects )
-        emit sjl->activityStarted();
+    for(AsemanJavaLayer *sjl: java_layers_objects)
+        Q_EMIT sjl->activityStarted();
 }
 
 static void activityRestarted( JNIEnv *env, jobject obj )
 {
     Q_UNUSED(env)
     Q_UNUSED(obj)
-    foreach( AsemanJavaLayer *sjl, java_layers_objects )
-        emit sjl->activityRestarted();
+    for(AsemanJavaLayer *sjl: java_layers_objects)
+        Q_EMIT sjl->activityRestarted();
 }
 
 static void activityDestroyed( JNIEnv *env, jobject obj )
 {
     Q_UNUSED(env)
     Q_UNUSED(obj)
-    foreach( AsemanJavaLayer *sjl, java_layers_objects )
-        emit sjl->activityDestroyed();
+    for(AsemanJavaLayer *sjl: java_layers_objects)
+        Q_EMIT sjl->activityDestroyed();
 }
 
 static void keyboardVisiblityChanged( JNIEnv *env, jobject obj, jint height )
 {
     Q_UNUSED(env)
     Q_UNUSED(obj)
-    foreach( AsemanJavaLayer *sjl, java_layers_objects )
-        emit sjl->keyboardVisiblityChanged(height);
+    for(AsemanJavaLayer *sjl: java_layers_objects)
+        Q_EMIT sjl->keyboardVisiblityChanged(height);
 }
 
 bool aseman_jlayer_registerNativeMethods() {

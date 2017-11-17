@@ -48,7 +48,7 @@ AsemanHostChecker::AsemanHostChecker(QObject *parent) :
     p->timer = new QTimer(this);
     p->timer->setSingleShot(false);
 
-    connect(p->timer, SIGNAL(timeout()), SLOT(timedOut()));
+    connect(p->timer, &QTimer::timeout, this, &AsemanHostChecker::timedOut);
 }
 
 void AsemanHostChecker::setHost(const QString &host)
@@ -58,7 +58,7 @@ void AsemanHostChecker::setHost(const QString &host)
 
     p->host = host;
     refresh();
-    emit hostChanged();
+    Q_EMIT hostChanged();
 }
 
 QString AsemanHostChecker::host() const
@@ -73,7 +73,7 @@ void AsemanHostChecker::setPort(qint32 port)
 
     p->port = port;
     refresh();
-    emit portChanged();
+    Q_EMIT portChanged();
 }
 
 qint32 AsemanHostChecker::port() const
@@ -88,7 +88,7 @@ void AsemanHostChecker::setInterval(qint32 ms)
 
     p->interval = ms;
     refresh();
-    emit intervalChanged();
+    Q_EMIT intervalChanged();
 }
 
 qint32 AsemanHostChecker::interval() const
@@ -107,26 +107,24 @@ void AsemanHostChecker::setAvailable(bool stt)
         return;
 
     p->available = stt;
-    emit availableChanged();
+    Q_EMIT availableChanged();
 }
 
 void AsemanHostChecker::createSocket()
 {
     if(p->socket)
     {
-        disconnect(p->socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
-                   this, SLOT(socketStateChanged(QAbstractSocket::SocketState)));
-        disconnect(p->socket, SIGNAL(error(QAbstractSocket::SocketError)),
-                   this, SLOT(socketError(QAbstractSocket::SocketError)));
+        disconnect(p->socket, &QTcpSocket::stateChanged, this, &AsemanHostChecker::socketStateChanged);
+        disconnect(p->socket, static_cast<void (QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error),
+                   this, &AsemanHostChecker::socketError);
         p->socket->deleteLater();
     }
 
     p->socket = new QTcpSocket(this);
 
-    connect(p->socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
-            this, SLOT(socketStateChanged(QAbstractSocket::SocketState)));
-    connect(p->socket, SIGNAL(error(QAbstractSocket::SocketError)),
-            this, SLOT(socketError(QAbstractSocket::SocketError)));
+    connect(p->socket, &QTcpSocket::stateChanged, this, &AsemanHostChecker::socketStateChanged);
+    connect(p->socket, static_cast<void (QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error),
+            this, &AsemanHostChecker::socketError);
 }
 
 void AsemanHostChecker::refresh()

@@ -148,10 +148,10 @@ AsemanFileSystemModel::AsemanFileSystemModel(QObject *parent) :
     p->refresh_timer = new QTimer(this);
     p->refresh_timer->setInterval(10);
 
-    connect(p->watcher, SIGNAL(directoryChanged(QString)), SLOT(refresh()));
-    connect(p->watcher, SIGNAL(fileChanged(QString))     , SLOT(refresh()));
+    connect(p->watcher, &QFileSystemWatcher::directoryChanged, this, &AsemanFileSystemModel::refresh);
+    connect(p->watcher, &QFileSystemWatcher::fileChanged, this, &AsemanFileSystemModel::refresh);
 
-    connect(p->refresh_timer, SIGNAL(timeout()), SLOT(reinit_buffer()));
+    connect(p->refresh_timer, &QTimer::timeout, this, &AsemanFileSystemModel::reinit_buffer);
 }
 
 void AsemanFileSystemModel::setShowDirs(bool stt)
@@ -160,7 +160,7 @@ void AsemanFileSystemModel::setShowDirs(bool stt)
         return;
 
     p->showDirs = stt;
-    emit showDirsChanged();
+    Q_EMIT showDirsChanged();
 
     refresh();
 }
@@ -176,7 +176,7 @@ void AsemanFileSystemModel::setShowDotAndDotDot(bool stt)
         return;
 
     p->showDotAndDotDot = stt;
-    emit showDotAndDotDotChanged();
+    Q_EMIT showDotAndDotDotChanged();
 
     refresh();
 }
@@ -192,7 +192,7 @@ void AsemanFileSystemModel::setShowDirsFirst(bool stt)
         return;
 
     p->showDirsFirst = stt;
-    emit showDirsFirstChanged();
+    Q_EMIT showDirsFirstChanged();
 
     refresh();
 }
@@ -208,7 +208,7 @@ void AsemanFileSystemModel::setShowFiles(bool stt)
         return;
 
     p->showFiles = stt;
-    emit showFilesChanged();
+    Q_EMIT showFilesChanged();
 
     refresh();
 }
@@ -224,7 +224,7 @@ void AsemanFileSystemModel::setShowHidden(bool stt)
         return;
 
     p->showHidden = stt;
-    emit showHiddenChanged();
+    Q_EMIT showHiddenChanged();
 
     refresh();
 }
@@ -240,7 +240,7 @@ void AsemanFileSystemModel::setNameFilters(const QStringList &list)
         return;
 
     p->nameFilters = list;
-    emit nameFiltersChanged();
+    Q_EMIT nameFiltersChanged();
 
     refresh();
 }
@@ -262,7 +262,7 @@ void AsemanFileSystemModel::setFolder(const QString &url)
     if(!p->folder.isEmpty())
         p->watcher->addPath(p->folder);
 
-    emit folderChanged();
+    Q_EMIT folderChanged();
 
     refresh();
 }
@@ -278,7 +278,7 @@ void AsemanFileSystemModel::setSortField(int field)
         return;
 
     p->sortField = field;
-    emit sortFieldChanged();
+    Q_EMIT sortFieldChanged();
 
     refresh();
 }
@@ -405,7 +405,7 @@ void AsemanFileSystemModel::reinit_buffer()
         list = QDir(p->folder).entryList(static_cast<QDir::Filter>(filter));
 
     QList<QFileInfo> res;
-    foreach(const QString &fileName, list)
+    for(const QString &fileName: list)
         res << QFileInfo(p->folder + "/" + fileName);
 
     if(!p->nameFilters.isEmpty())
@@ -420,7 +420,7 @@ void AsemanFileSystemModel::reinit_buffer()
                 suffixes = p->mdb.mimeTypeForFile(inf.filePath()).suffixes();
 
             bool founded = inf.isDir();
-            foreach(const QString &sfx, suffixes)
+            for(const QString &sfx: suffixes)
                 if(p->nameFilters.contains("*."+sfx, Qt::CaseInsensitive))
                 {
                     founded = true;
@@ -491,9 +491,9 @@ void AsemanFileSystemModel::changed(const QList<QFileInfo> &list)
     }
 
     if(count_changed)
-        emit countChanged();
+        Q_EMIT countChanged();
 
-    emit listChanged();
+    Q_EMIT listChanged();
 }
 
 AsemanFileSystemModel::~AsemanFileSystemModel()

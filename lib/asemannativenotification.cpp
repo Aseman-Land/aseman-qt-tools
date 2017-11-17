@@ -41,7 +41,7 @@ void AsemanNativeNotification::setColor(const QColor &color)
         return;
 
     p->color = color;
-    emit colorChanged();
+    Q_EMIT colorChanged();
 }
 
 QColor AsemanNativeNotification::color() const
@@ -65,8 +65,8 @@ uint AsemanNativeNotification::sendNotify(const QString &title, const QString &b
         result = p->last_id;
         p->last_id++;
 
-        connect(item, SIGNAL(destroyed()), SLOT(itemClosed()) );
-        connect(item, SIGNAL(actionTriggered(QString)), SLOT(actionTriggered(QString)) );
+        connect(item, &AsemanNativeNotificationItem::destroyed, this, &AsemanNativeNotification::itemClosed);
+        connect(item, &AsemanNativeNotificationItem::actionTriggered, this, &AsemanNativeNotification::actionTriggered);
     }
 
     item->setTitle(title);
@@ -99,7 +99,7 @@ void AsemanNativeNotification::itemClosed()
         return;
 
     p->items.remove(id);
-    emit notifyClosed(id);
+    Q_EMIT notifyClosed(id);
 }
 
 void AsemanNativeNotification::actionTriggered(const QString &action)
@@ -112,7 +112,7 @@ void AsemanNativeNotification::actionTriggered(const QString &action)
     if(!id)
         return;
 
-    emit notifyAction(id, action);
+    Q_EMIT notifyAction(id, action);
     item->close();
 }
 

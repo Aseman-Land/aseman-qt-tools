@@ -52,7 +52,7 @@ void AsemanAutoStartManager::setCommand(const QString &cmd)
         return;
 
     p->command = cmd;
-    emit commandChanged();
+    Q_EMIT commandChanged();
 
     save();
 }
@@ -68,7 +68,7 @@ void AsemanAutoStartManager::setSource(const QString &fileName)
         return;
 
     p->source = fileName;
-    emit sourceChanged();
+    Q_EMIT sourceChanged();
 
     refresh();
 }
@@ -84,7 +84,7 @@ void AsemanAutoStartManager::setComment(const QString &txt)
         return;
 
     p->comment = txt;
-    emit commentChanged();
+    Q_EMIT commentChanged();
 
     save();
 }
@@ -100,7 +100,7 @@ void AsemanAutoStartManager::setName(const QString &name)
         return;
 
     p->name = name;
-    emit nameChanged();
+    Q_EMIT nameChanged();
 
     save();
 }
@@ -116,7 +116,7 @@ void AsemanAutoStartManager::setType(const QString &t)
         return;
 
     p->type = t;
-    emit typeChanged();
+    Q_EMIT typeChanged();
 
     save();
 }
@@ -132,7 +132,7 @@ void AsemanAutoStartManager::setActive(bool active)
         return;
 
     p->active = active;
-    emit activeChanged();
+    Q_EMIT activeChanged();
 
     save();
 }
@@ -220,17 +220,17 @@ void AsemanAutoStartManager::refresh()
     const QString data = file.readAll();
     p->active = !data.contains("Hidden=true");
 
-    emit activeChanged();
+    Q_EMIT activeChanged();
 #elif defined(Q_OS_WIN)
     QSettings autoStartSettings("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
 
     p->active = autoStartSettings.contains(p->source);
 
-    emit activeChanged();
+    Q_EMIT activeChanged();
 #elif defined(Q_OS_MAC) && defined(OSX_CORE_SERVICES_AVAILABLE)
     p->active = hasLoginItem(p->name);
 
-    emit activeChanged();
+    Q_EMIT activeChanged();
 #endif
 }
 

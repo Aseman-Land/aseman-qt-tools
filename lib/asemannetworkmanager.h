@@ -44,13 +44,13 @@ public:
     void setInterval(qint32 ms);
     qint32 interval() const;
 
-signals:
+Q_SIGNALS:
     void defaultNetworkIdentifierChanged();
     void defaultNetworkChanged();
     void configurationsChanged();
     void intervalChanged();
 
-private slots:
+private Q_SLOTS:
     void configureChanged(const QNetworkConfiguration &config);
     void configureAdded(const QNetworkConfiguration &config);
     void configureRemoved(const QNetworkConfiguration &config);

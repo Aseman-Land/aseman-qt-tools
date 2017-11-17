@@ -665,7 +665,7 @@ QString AsemanQtTools::exportItem(const QString &module, int major, int minor, c
     }
     if(!resultSignals.isEmpty())
     {
-        headers += QString(" * [Signals](#signals)\n");
+        headers += QString(" * [Signals](#Q_SIGNALS)\n");
         resultSignals = QString("\n### Signals\n\n") + resultSignals;
     }
     if(isModel)
