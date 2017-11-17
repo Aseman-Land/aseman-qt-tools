@@ -27,8 +27,16 @@ class AsemanToolsPlugin : public QQmlExtensionPlugin
     Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
 
 public:
+#ifdef ASEMAN_STATIC_BUILD
+    static bool registerTypes();
+#endif
     void registerTypes(const char *uri);
     void initializeEngine(QQmlEngine *engine, const char *uri);
+
+private:
+#ifdef ASEMAN_STATIC_BUILD
+    static bool static_types_registered;
+#endif
 };
 
 #endif // ASEMANTOOLSPLUGIN_H

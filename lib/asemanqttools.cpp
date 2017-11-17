@@ -129,20 +129,6 @@ SINGLETON_PROVIDER(AsemanJavaLayer          , aseman_javalayer_singleton       ,
 QStringList aseman_qt_tools_indexCache;
 QString aseman_qt_tools_destination;
 
-#ifdef ASEMAN_STATIC_BUILD
-bool AsemanQtTools::static_types_registered = AsemanQtTools::registerTypes();
-
-bool AsemanQtTools::registerTypes()
-{
-    if(static_types_registered)
-        return true;
-
-    Q_INIT_RESOURCE(asemanresource);
-    registerTypes("AsemanTools");
-    return true;
-}
-#endif
-
 void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
 {
     static QSet<QByteArray> register_list;

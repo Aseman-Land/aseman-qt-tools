@@ -20,6 +20,20 @@
 
 #include <asemanqttools.h>
 
+#ifdef ASEMAN_STATIC_BUILD
+bool AsemanToolsPlugin::static_types_registered = AsemanToolsPlugin::registerTypes();
+
+bool AsemanToolsPlugin::registerTypes()
+{
+    if(static_types_registered)
+        return true;
+
+    Q_INIT_RESOURCE(asemanresource_qml);
+    AsemanQtTools::registerTypes("AsemanTools");
+    return true;
+}
+#endif
+
 void AsemanToolsPlugin::registerTypes(const char *uri)
 {
     AsemanQtTools::registerTypes(uri);

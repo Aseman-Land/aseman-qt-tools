@@ -39,6 +39,7 @@ AsemanCountriesModel::AsemanCountriesModel(QObject *parent) :
     AsemanAbstractListModel(parent)
 {
     p = new AsemanCountriesModelPrivate;
+    Q_INIT_RESOURCE(asemanresource_lib);
     init_buff();
 }
 

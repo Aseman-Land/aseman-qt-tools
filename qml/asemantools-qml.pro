@@ -2,6 +2,7 @@ TEMPLATE = lib
 TARGET = asemantoolsqml
 QT += qml quick gui
 CONFIG -= android_install
+CONFIG += plugin qt
 DESTDIR = AsemanTools
 
 uri = AsemanTools
@@ -31,7 +32,7 @@ HEADERS += \
 
 contains(DEFINES,ASEMAN_STATIC_BUILD) {
     RESOURCES += \
-        $$PWD/asemanresource-qml.qrc
+        $$PWD/asemanresource_qml.qrc
 }
 
 QMLDIR_VALUE = $$cat(qmldir, blob) 'plugin asemantoolsqml'

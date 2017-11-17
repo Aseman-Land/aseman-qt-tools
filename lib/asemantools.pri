@@ -303,7 +303,7 @@ OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/extra/AsemanLocationListener.java
 
 RESOURCES += \
-    $$PWD/asemanresource-lib.qrc
+    $$PWD/asemanresource_lib.qrc
 
 DISTFILES += \
     $$PWD/android-build/src/land/aseman/android/extra/AsemanCameraCapture.java
