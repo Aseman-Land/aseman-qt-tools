@@ -22,14 +22,25 @@ import AsemanTools 1.0
 ListView {
     id: listv
 
+    maximumFlickVelocity: View.flickVelocity
+    boundsBehavior: Devices.isIOS? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
+
     readonly property real tabBarRatio: prv.tabBarExtra/tabBarHeight
     property real tabBarHeight: 50*Devices.density
 
     onTabBarHeightChanged: prv.tabBarExtra = tabBarHeight
     onContentYChanged: prv.optimizeTabBar()
+    onContentHeightChanged: if(contentHeight<height) anim.start()
 
-    maximumFlickVelocity: View.flickVelocity
-    boundsBehavior: Devices.isIOS? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
+    NumberAnimation {
+        id: anim
+        target: prv
+        property: "tabBarExtra"
+        from: prv.tabBarExtra
+        to: tabBarHeight
+        easing.type: Easing.OutCubic
+        duration: 250
+    }
 
     Transition {
         id: android_transition
@@ -48,7 +59,7 @@ ListView {
         function optimizeTabBar() {
             var minFlick = -tabBarHeight
             var maxFlick = listv.contentHeight - listv.height + minFlick
-            if(listv.contentY > maxFlick || listv.contentY < 0)
+            if(listv.contentY > maxFlick || listv.contentY<0)
                 return
 
             var newExtra = tabBarExtra - (listv.contentY-prv.lastContentY)

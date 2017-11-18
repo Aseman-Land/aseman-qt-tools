@@ -30,6 +30,17 @@ GridView {
 
     maximumFlickVelocity: View.flickVelocity
     boundsBehavior: Devices.isIOS? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
+    onContentHeightChanged: if(contentHeight<height) anim.start()
+
+    NumberAnimation {
+        id: anim
+        target: prv
+        property: "tabBarExtra"
+        from: prv.tabBarExtra
+        to: tabBarHeight
+        easing.type: Easing.OutCubic
+        duration: 250
+    }
 
     Transition {
         id: android_transition
