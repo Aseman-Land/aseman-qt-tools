@@ -20,6 +20,14 @@ import QtQuick 2.3
 import AsemanTools 1.0
 
 GridView {
+    id: gridv
+
+    readonly property real tabBarRatio: prv.tabBarExtra/tabBarHeight
+    property real tabBarHeight: 50*Devices.density
+
+    onTabBarHeightChanged: prv.tabBarExtra = tabBarHeight
+    onContentYChanged: prv.optimizeTabBar()
+
     maximumFlickVelocity: View.flickVelocity
     boundsBehavior: Devices.isIOS? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
 
@@ -28,6 +36,32 @@ GridView {
         NumberAnimation {
             properties: "x,y"
             duration: 0
+        }
+    }
+
+    QtObject {
+        id: prv
+
+        property real lastContentY: gridv.contentY+1
+        property real tabBarExtra: gridv.tabBarHeight
+
+        function optimizeTabBar() {
+            var minFlick = -tabBarHeight
+            var maxFlick = gridv.contentHeight - gridv.height + minFlick
+            if(gridv.contentY > maxFlick || gridv.contentY < 0)
+                return
+
+            var newExtra = tabBarExtra - (gridv.contentY-prv.lastContentY)
+            if(newExtra<0)
+                newExtra = 0
+            if(gridv.contentY < minFlick)
+                newExtra = -gridv.contentY
+            else
+            if(newExtra>tabBarHeight)
+                newExtra = tabBarHeight
+
+            tabBarExtra = newExtra
+            prv.lastContentY = gridv.contentY
         }
     }
 

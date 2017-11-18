@@ -20,6 +20,14 @@ import QtQuick 2.3
 import AsemanTools 1.0
 
 ListView {
+    id: listv
+
+    readonly property real tabBarRatio: prv.tabBarExtra/tabBarHeight
+    property real tabBarHeight: 50*Devices.density
+
+    onTabBarHeightChanged: prv.tabBarExtra = tabBarHeight
+    onContentYChanged: prv.optimizeTabBar()
+
     maximumFlickVelocity: View.flickVelocity
     boundsBehavior: Devices.isIOS? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
 
@@ -28,6 +36,32 @@ ListView {
         NumberAnimation {
             properties: "x,y"
             duration: 0
+        }
+    }
+
+    QtObject {
+        id: prv
+
+        property real lastContentY: listv.contentY+1
+        property real tabBarExtra: listv.tabBarHeight
+
+        function optimizeTabBar() {
+            var minFlick = -tabBarHeight
+            var maxFlick = listv.contentHeight - listv.height + minFlick
+            if(listv.contentY > maxFlick || listv.contentY < 0)
+                return
+
+            var newExtra = tabBarExtra - (listv.contentY-prv.lastContentY)
+            if(newExtra<0)
+                newExtra = 0
+            if(listv.contentY < minFlick)
+                newExtra = -listv.contentY
+            else
+            if(newExtra>tabBarHeight)
+                newExtra = tabBarHeight
+
+            tabBarExtra = newExtra
+            prv.lastContentY = listv.contentY
         }
     }
 

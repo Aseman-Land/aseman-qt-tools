@@ -31,6 +31,7 @@ Item {
     property color highlightColor: "#03A9F4"
     property color textColor: "#333333"
     property real fontSize: 12*Devices.fontDensity
+    property string displayRole
 
     Rectangle {
         id: back
@@ -65,7 +66,7 @@ Item {
                 elide: Text.ElideRight
                 font.pixelSize: fontSize
                 color: tabBar.currentIndex==index? highlightColor : textColor
-                text: tabBar.model[index]
+                text: displayRole.length? model[displayRole] : tabBar.model[index]
             }
         }
         highlightMoveDuration: 400
