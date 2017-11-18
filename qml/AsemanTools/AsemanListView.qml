@@ -38,8 +38,8 @@ ListView {
         property: "tabBarExtra"
         from: prv.tabBarExtra
         to: tabBarHeight
-        easing.type: Easing.OutCubic
-        duration: 250
+        easing.type: Devices.isIOS? Easing.OutBack : Easing.OutCubic
+        duration: Devices.isIOS? 350 : 250
     }
 
     Transition {

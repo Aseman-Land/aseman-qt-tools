@@ -317,6 +317,8 @@ QString AsemanTools::urlToLocalPath(const QUrl &url)
 
     if(res.left(AsemanDevices::localFilesPrePath().size()) == AsemanDevices::localFilesPrePath())
         res = res.mid(AsemanDevices::localFilesPrePath().size());
+    if(res.left(5) == "qrc:/")
+        res = res.mid(3);
 
     return res;
 }

@@ -44,16 +44,14 @@ Item {
         orientation: Qt.Horizontal
         layoutDirection: View.layoutDirection
 
-        property real itemWidth: {
-            var res = tabBar.width/tabBar.count
-            if(res < minimumWidth)
-                res = minimumWidth
-            return res
-        }
-
         delegate: QtControls.ItemDelegate {
             height: tabBar.height
-            width: tabBar.itemWidth
+            width: {
+                var res = tabBar.width/tabBar.count
+                if(res < minimumWidth)
+                    res = minimumWidth
+                return res
+            }
             hoverEnabled: false
             onClicked: tabBar.currentIndex = index
 
