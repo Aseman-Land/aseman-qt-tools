@@ -68,6 +68,7 @@ PointMapListener 1.0 PointMapListener.qml
 BackAction 1.0 BackAction.qml
 Dialog 1.0 Dialog.qml
 BarcodeScanner 1.0 BarcodeScanner.qml
+SearchBar 1.0 SearchBar.qml
 ArrayTools 1.0 ArrayFunctions.js
 
 TabBar 1.1 TabBar.qml

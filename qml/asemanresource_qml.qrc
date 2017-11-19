@@ -110,6 +110,7 @@
         <file>AsemanTools/private/GlobalBusyDialog.qml</file>
         <file>AsemanTools/Dialog.qml</file>
         <file>AsemanTools/BarcodeScanner.qml</file>
+        <file>AsemanTools/SearchBar.qml</file>
     </qresource>
     <qresource prefix="/qt-project.org/imports/AsemanTools">
         <file>qmldir</file>
