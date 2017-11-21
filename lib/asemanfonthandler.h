@@ -25,8 +25,10 @@
 #include <QFont>
 #include <QMap>
 
+#include "asemantools_global.h"
+
 class AsemanFontHandlerPrivate;
-class AsemanFontHandler : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanFontHandler : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QVariantMap fonts READ fonts WRITE setFonts NOTIFY fontsChanged)

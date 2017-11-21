@@ -5,7 +5,9 @@
 #include <QUrl>
 #include <QVariant>
 
-class AsemanQmlImage : public QQuickPaintedItem
+#include "asemantools_global.h"
+
+class LIBASEMANTOOLSSHARED_EXPORT AsemanQmlImage : public QQuickPaintedItem
 {
     Q_OBJECT
     Q_ENUMS(FillMode)

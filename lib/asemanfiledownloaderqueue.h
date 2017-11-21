@@ -22,9 +22,11 @@
 #include <QObject>
 #include <QUrl>
 
+#include "asemantools_global.h"
+
 class AsemanDownloader;
 class AsemanFileDownloaderQueuePrivate;
-class AsemanFileDownloaderQueue : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanFileDownloaderQueue : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int capacity READ capacity WRITE setCapacity NOTIFY capacityChanged)

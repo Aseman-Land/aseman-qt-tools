@@ -21,8 +21,10 @@
 
 #include <QObject>
 
+#include "asemantools_global.h"
+
 class AsemanDebugObjectCounterPrivate;
-class AsemanDebugObjectCounter : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanDebugObjectCounter : public QObject
 {
     Q_OBJECT
 public:

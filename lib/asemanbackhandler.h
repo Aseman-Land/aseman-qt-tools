@@ -22,8 +22,10 @@
 #include <QObject>
 #include <QJSValue>
 
+#include "asemantools_global.h"
+
 class AsemanBackHandlerPrivate;
-class AsemanBackHandler : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanBackHandler : public QObject
 {
     Q_OBJECT
 

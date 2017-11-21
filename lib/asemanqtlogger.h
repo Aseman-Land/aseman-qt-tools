@@ -21,8 +21,10 @@
 
 #include <QObject>
 
+#include "asemantools_global.h"
+
 class AsemanQtLoggerPrivate;
-class AsemanQtLogger : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanQtLogger : public QObject
 {
     Q_OBJECT
 public:

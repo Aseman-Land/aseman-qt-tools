@@ -22,10 +22,12 @@
 #include <QObject>
 #include <QStringList>
 
+#include "asemantools_global.h"
+
 class QNetworkReply;
 class QSslError;
 class AsemanDownloaderPrivate;
-class AsemanDownloader : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanDownloader : public QObject
 {
     Q_PROPERTY(qint64 recievedBytes READ recievedBytes NOTIFY recievedBytesChanged)
     Q_PROPERTY(qint64 totalBytes READ totalBytes NOTIFY totalBytesChanged)

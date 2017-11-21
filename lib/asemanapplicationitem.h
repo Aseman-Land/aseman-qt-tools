@@ -21,8 +21,10 @@
 
 #include "asemanapplication.h"
 
+#include "asemantools_global.h"
+
 class AsemanApplicationItemPrivate;
-class AsemanApplicationItem : public AsemanApplication
+class LIBASEMANTOOLSSHARED_EXPORT AsemanApplicationItem : public AsemanApplication
 {
     Q_OBJECT
 public:

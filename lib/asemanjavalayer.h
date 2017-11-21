@@ -21,8 +21,10 @@
 
 #include <QObject>
 
+#include "asemantools_global.h"
+
 class AsemanJavaLayerPrivate;
-class AsemanJavaLayer : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanJavaLayer : public QObject
 {
     Q_OBJECT
 public:

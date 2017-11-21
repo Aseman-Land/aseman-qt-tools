@@ -22,7 +22,9 @@
 #include <QObject>
 #include "asemanquickview.h"
 
-class AsemanQuickViewWrapper : public QObject
+#include "asemantools_global.h"
+
+class LIBASEMANTOOLSSHARED_EXPORT AsemanQuickViewWrapper : public QObject
 {
     Q_OBJECT
 

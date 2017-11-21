@@ -25,8 +25,10 @@
 
 #include "asemancalendarconverter.h"
 
+#include "asemantools_global.h"
+
 class AsemanCalendarModelPrivate;
-class AsemanCalendarModel : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanCalendarModel : public QObject
 {
     Q_OBJECT
     Q_ENUMS(CalendarTypes)

@@ -21,7 +21,9 @@
 
 #include "asemanabstractcameracapturecore.h"
 
-class AsemanNullCameraCaptureCore : public AsemanAbstractCameraCaptureCore
+#include "asemantools_global.h"
+
+class LIBASEMANTOOLSSHARED_EXPORT AsemanNullCameraCaptureCore : public AsemanAbstractCameraCaptureCore
 {
     Q_OBJECT
 public:

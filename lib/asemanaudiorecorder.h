@@ -24,9 +24,11 @@
 #include <QMediaRecorder>
 #include <QStringList>
 
+#include "asemantools_global.h"
+
 class AsemanAudioEncoderSettings;
 class AsemanAudioRecorderPrivate;
-class AsemanAudioRecorder : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanAudioRecorder : public QObject
 {
     Q_OBJECT
     Q_ENUMS(State)

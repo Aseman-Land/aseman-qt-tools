@@ -21,8 +21,10 @@
 
 #include <QObject>
 
+#include "asemantools_global.h"
+
 class AsemanSensorsPrivate;
-class AsemanSensors : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanSensors : public QObject
 {
     Q_OBJECT
 

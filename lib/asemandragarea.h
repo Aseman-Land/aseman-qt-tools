@@ -21,8 +21,10 @@
 
 #include <QQuickItem>
 
+#include "asemantools_global.h"
+
 class AsemanDragAreaPrivate;
-class AsemanDragArea : public QQuickItem
+class LIBASEMANTOOLSSHARED_EXPORT AsemanDragArea : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(int orientation READ orientation WRITE setOrientation NOTIFY orientationChanged)

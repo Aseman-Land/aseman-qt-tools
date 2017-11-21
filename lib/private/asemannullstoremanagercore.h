@@ -21,8 +21,10 @@
 
 #include "asemanabstractstoremanagercore.h"
 
+#include "asemantools_global.h"
+
 class AsemanNullStoreManagerCorePrivate;
-class AsemanNullStoreManagerCore : public AsemanAbstractStoreManagerCore
+class LIBASEMANTOOLSSHARED_EXPORT AsemanNullStoreManagerCore : public AsemanAbstractStoreManagerCore
 {
     Q_OBJECT
 public:

@@ -23,8 +23,10 @@
 #include <QStringList>
 #include <QMap>
 
+#include "asemantools_global.h"
+
 class AsemanStoreManagerInventoryItem;
-class AsemanAbstractStoreManagerCore : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanAbstractStoreManagerCore : public QObject
 {
     Q_OBJECT
 public:

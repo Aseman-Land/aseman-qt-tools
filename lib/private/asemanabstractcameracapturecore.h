@@ -22,7 +22,9 @@
 #include <QObject>
 #include "../asemancameracapture.h"
 
-class AsemanAbstractCameraCaptureCore : public QObject
+#include "asemantools_global.h"
+
+class LIBASEMANTOOLSSHARED_EXPORT AsemanAbstractCameraCaptureCore : public QObject
 {
     Q_OBJECT
 public:

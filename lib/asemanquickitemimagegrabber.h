@@ -23,9 +23,11 @@
 #include <QImage>
 #include <QUrl>
 
+#include "asemantools_global.h"
+
 class QQuickItem;
 class AsemanQuickItemImageGrabberPrivate;
-class AsemanQuickItemImageGrabber : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanQuickItemImageGrabber : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QQuickItem* item READ item WRITE setItem NOTIFY itemChanged)

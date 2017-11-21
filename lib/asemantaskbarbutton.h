@@ -22,9 +22,11 @@
 #include <QObject>
 #include <QVariant>
 
+#include "asemantools_global.h"
+
 class QWindow;
 class AsemanTaskbarButtonPrivate;
-class AsemanTaskbarButton : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanTaskbarButton : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int      badgeNumber READ badgeNumber WRITE setBadgeNumber NOTIFY badgeNumberChanged)

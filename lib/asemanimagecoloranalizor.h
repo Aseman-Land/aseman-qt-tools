@@ -24,8 +24,10 @@
 #include <QHash>
 #include <QUrl>
 
+#include "asemantools_global.h"
+
 class AsemanImageColorAnalizorPrivate;
-class AsemanImageColorAnalizor : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanImageColorAnalizor : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QUrl source READ source WRITE setSource NOTIFY sourceChanged)
@@ -68,7 +70,7 @@ private:
 
 
 class AsemanImageColorAnalizorThreadPrivate;
-class AsemanImageColorAnalizorThread: public QObject
+class AsemanImageColorAnalizorThread : public QObject
 {
     Q_OBJECT
 public:
@@ -95,7 +97,7 @@ private:
 
 
 class AsemanImageColorAnalizorCorePrivate;
-class AsemanImageColorAnalizorCore: public QObject
+class AsemanImageColorAnalizorCore : public QObject
 {
     Q_OBJECT
 public:

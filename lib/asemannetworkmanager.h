@@ -23,9 +23,11 @@
 #include <QNetworkConfiguration>
 #include <QVariantMap>
 
+#include "asemantools_global.h"
+
 class AsemanNetworkManagerItem;
 class AsemanNetworkCheckerPrivate;
-class AsemanNetworkManager : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanNetworkManager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString defaultNetworkIdentifier READ defaultNetworkIdentifier NOTIFY defaultNetworkIdentifierChanged)

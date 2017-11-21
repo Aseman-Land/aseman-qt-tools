@@ -22,8 +22,10 @@
 #include "asemanabstractlistmodel.h"
 #include "asemanstoremanager.h"
 
+#include "asemantools_global.h"
+
 class AsemanStoreManagerModelPrivate;
-class AsemanStoreManagerModel : public AsemanAbstractListModel
+class LIBASEMANTOOLSSHARED_EXPORT AsemanStoreManagerModel : public AsemanAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(int count READ count NOTIFY countChanged)

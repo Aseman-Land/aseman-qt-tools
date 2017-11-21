@@ -22,8 +22,10 @@
 #include <QWidget>
 #include <QStringList>
 
+#include "asemantools_global.h"
+
 class AsemanNativeNotificationItemPrivate;
-class AsemanNativeNotificationItem : public QWidget
+class LIBASEMANTOOLSSHARED_EXPORT AsemanNativeNotificationItem : public QWidget
 {
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)

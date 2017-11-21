@@ -21,8 +21,10 @@
 
 #include <QQuickItem>
 
+#include "asemantools_global.h"
+
 class AsemanMouseEventListenerPrivate;
-class AsemanMouseEventListener : public QQuickItem
+class LIBASEMANTOOLSSHARED_EXPORT AsemanMouseEventListener : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(qreal mouseX READ mouseX NOTIFY mouseXChanged)

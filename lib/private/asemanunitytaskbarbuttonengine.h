@@ -21,7 +21,9 @@
 
 #include "asemanabstracttaskbarbuttonengine.h"
 
-class AsemanUnityTaskbarButtonEngine : public AsemanAbstractTaskbarButtonEngine
+#include "asemantools_global.h"
+
+class LIBASEMANTOOLSSHARED_EXPORT AsemanUnityTaskbarButtonEngine : public AsemanAbstractTaskbarButtonEngine
 {
 public:
     AsemanUnityTaskbarButtonEngine();

@@ -22,8 +22,10 @@
 #include <QObject>
 #include <QUrl>
 
+#include "asemantools_global.h"
+
 class AsemanAutoStartManagerPrivate;
-class AsemanAutoStartManager : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanAutoStartManager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString command READ command WRITE setCommand NOTIFY commandChanged)

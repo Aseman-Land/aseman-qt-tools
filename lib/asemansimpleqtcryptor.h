@@ -54,6 +54,8 @@
 #include <QSharedPointer>
 #include <QObject>
 
+#include "asemantools_global.h"
+
 class QString;
 
 namespace AsemanSimpleQtCryptor {
@@ -118,7 +120,7 @@ public:
 
 
 
-class Key : public QObject {
+class LIBASEMANTOOLSSHARED_EXPORT Key : public QObject {
     Q_OBJECT
 public:
     Key();

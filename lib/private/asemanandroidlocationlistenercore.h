@@ -22,8 +22,10 @@
 #include "asemanabstractlocationlistenercore.h"
 #include <QGeoPositionInfo>
 
+#include "asemantools_global.h"
+
 class AsemanAndroidLocationListenerPrivate;
-class AsemanAndroidLocationListenerCore : public AsemanAbstractLocationListenerCore
+class LIBASEMANTOOLSSHARED_EXPORT AsemanAndroidLocationListenerCore : public AsemanAbstractLocationListenerCore
 {
     Q_OBJECT
 public:

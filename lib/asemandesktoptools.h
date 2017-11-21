@@ -28,10 +28,12 @@
 #include <QWindow>
 #include <QVariant>
 
+#include "asemantools_global.h"
+
 class QAction;
 class QMenu;
 class AsemanDesktopToolsPrivate;
-class AsemanDesktopTools : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanDesktopTools : public QObject
 {
     Q_PROPERTY(QColor titleBarColor READ titleBarColor NOTIFY titleBarColorChanged)
     Q_PROPERTY(QColor titleBarTransparentColor READ titleBarTransparentColor NOTIFY titleBarTransparentColorChanged)

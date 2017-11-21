@@ -22,7 +22,9 @@
 #include <QAbstractListModel>
 #include <QStringList>
 
-class AsemanAbstractListModel : public QAbstractListModel
+#include "asemantools_global.h"
+
+class LIBASEMANTOOLSSHARED_EXPORT AsemanAbstractListModel : public QAbstractListModel
 {
     Q_OBJECT
 public:

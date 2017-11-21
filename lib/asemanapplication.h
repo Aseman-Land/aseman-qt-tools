@@ -30,6 +30,8 @@
 
 #ifdef QT_GUI_LIB
 #include <QIcon>
+
+#include "asemantools_global.h"
 #endif
 
 #if defined(QT_WIDGETS_LIB) && defined(DESKTOP_DEVICE)
@@ -46,7 +48,7 @@
 
 class QSettings;
 class AsemanApplicationPrivate;
-class AsemanApplication : public AsemanQuickObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanApplication : public AsemanQuickObject
 {
     Q_OBJECT
     Q_ENUMS(ApplicationType)

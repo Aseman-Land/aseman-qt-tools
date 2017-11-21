@@ -21,8 +21,10 @@
 
 #include "asemanabstractcameracapturecore.h"
 
+#include "asemantools_global.h"
+
 class AsemanAndroidCameraCaptureCorePrivate;
-class AsemanAndroidCameraCaptureCore : public AsemanAbstractCameraCaptureCore
+class LIBASEMANTOOLSSHARED_EXPORT AsemanAndroidCameraCaptureCore : public AsemanAbstractCameraCaptureCore
 {
     Q_OBJECT
 public:

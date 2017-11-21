@@ -23,8 +23,10 @@
 #include <QUrl>
 #include <QVariantMap>
 
+#include "asemantools_global.h"
+
 class AsemanMimeDataPrivate;
-class AsemanMimeData : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanMimeData : public QObject
 {
     Q_OBJECT
 

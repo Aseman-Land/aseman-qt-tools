@@ -23,10 +23,12 @@
 #include <QUrl>
 #include <QSize>
 
+#include "asemantools_global.h"
+
 class AsemanMimeData;
 class QScreen;
 class AsemanDevicesPrivate;
-class AsemanDevices : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanDevices : public QObject
 {
     Q_OBJECT
 

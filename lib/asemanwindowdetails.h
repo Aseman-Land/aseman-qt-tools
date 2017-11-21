@@ -23,8 +23,10 @@
 #include <QWindow>
 #include <QScreen>
 
+#include "asemantools_global.h"
+
 class AsemanWindowDetailsPrivate;
-class AsemanWindowDetails : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanWindowDetails : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QWindow* window READ window WRITE setWindow NOTIFY windowChanged)

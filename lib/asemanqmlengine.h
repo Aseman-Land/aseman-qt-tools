@@ -21,8 +21,10 @@
 
 #include <QQmlApplicationEngine>
 
+#include "asemantools_global.h"
+
 class AsemanQmlEnginePrivate;
-class AsemanQmlEngine : public QQmlApplicationEngine
+class LIBASEMANTOOLSSHARED_EXPORT AsemanQmlEngine : public QQmlApplicationEngine
 {
     Q_OBJECT
 public:

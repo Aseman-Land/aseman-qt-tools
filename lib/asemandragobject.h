@@ -23,9 +23,11 @@
 #include <QQuickItem>
 #include <QImage>
 
+#include "asemantools_global.h"
+
 class AsemanMimeData;
 class AsemanDragObjectPrivate;
-class AsemanDragObject : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanDragObject : public QObject
 {
     Q_OBJECT
 

@@ -23,8 +23,10 @@
 #include <QStringList>
 #include "asemanabstractlistmodel.h"
 
+#include "asemantools_global.h"
+
 class AsemanCountriesModelPrivate;
-class AsemanCountriesModel : public AsemanAbstractListModel
+class LIBASEMANTOOLSSHARED_EXPORT AsemanCountriesModel : public AsemanAbstractListModel
 {
     Q_OBJECT
     Q_ENUMS(ColorfullListModelRoles)

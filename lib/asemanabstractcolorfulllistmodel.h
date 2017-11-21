@@ -22,7 +22,9 @@
 #include "asemanabstractlistmodel.h"
 #include <QColor>
 
-class AsemanAbstractColorfullListModel : public AsemanAbstractListModel
+#include "asemantools_global.h"
+
+class LIBASEMANTOOLSSHARED_EXPORT AsemanAbstractColorfullListModel : public AsemanAbstractListModel
 {
     Q_OBJECT
     Q_ENUMS(ColorfullListModelRoles)
@@ -52,7 +54,7 @@ Q_SIGNALS:
 };
 
 
-class AsemanColorfullListItem: public QObject
+class AsemanColorfullListItem : public QObject
 {
     Q_OBJECT
 

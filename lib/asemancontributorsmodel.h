@@ -23,9 +23,11 @@
 #include <QList>
 #include <QUrl>
 
+#include "asemantools_global.h"
+
 class AsemanContributorsModelItem;
 class AsemanContributorsModelPrivate;
-class AsemanContributorsModel : public AsemanAbstractListModel
+class LIBASEMANTOOLSSHARED_EXPORT AsemanContributorsModel : public AsemanAbstractListModel
 {
     Q_OBJECT
     Q_ENUMS(ItemRoles)

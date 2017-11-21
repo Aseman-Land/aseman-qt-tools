@@ -21,8 +21,10 @@
 
 #include "asemanabstractstoremanagercore.h"
 
+#include "asemantools_global.h"
+
 class AsemanAndroidStoreManagerCorePrivate;
-class AsemanAndroidStoreManagerCore : public AsemanAbstractStoreManagerCore
+class LIBASEMANTOOLSSHARED_EXPORT AsemanAndroidStoreManagerCore : public AsemanAbstractStoreManagerCore
 {
     Q_OBJECT
 public:

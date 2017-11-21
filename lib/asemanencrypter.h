@@ -21,7 +21,9 @@
 
 #include "asemansimpleqtcryptor.h"
 
-class AsemanEncrypter: public QObject
+#include "asemantools_global.h"
+
+class LIBASEMANTOOLSSHARED_EXPORT AsemanEncrypter : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString key READ key WRITE setKey NOTIFY keyChanged)

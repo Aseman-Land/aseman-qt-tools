@@ -25,6 +25,8 @@
 
 #include "asemanquickobject.h"
 
+#include "asemantools_global.h"
+
 #define DEFINE_STORE_MANAGER_INVENTORY(SKU) \
     DEFINE_QML_PROEPRTY(int, SKU) \
     Q_SIGNALS: \
@@ -60,7 +62,7 @@ public:
 
 class AsemanStoreManagerProduct;
 class AsemanStoreManagerPrivate;
-class AsemanStoreManager : public AsemanQuickObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanStoreManager : public AsemanQuickObject
 {
     Q_OBJECT
     Q_ENUMS(InventoryState)

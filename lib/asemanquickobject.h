@@ -24,6 +24,8 @@
 
 #include "asemanglobals.h"
 
+#include "asemantools_global.h"
+
 #define aqobject_cast(OBJECT) static_cast<AsemanQuickObject*>(OBJECT)
 
 #define DEFINE_QML_PROEPRTY(TYPE, PNAME) \
@@ -37,7 +39,7 @@
         void set##PNAME(TYPE PNAME) { SET_PROPERTY(PNAME) }
 
 class AsemanQuickObjectPrivate;
-class AsemanQuickObject : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanQuickObject : public QObject
 {
     Q_OBJECT
 

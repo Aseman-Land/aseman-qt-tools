@@ -24,8 +24,10 @@
 #include <QJSValue>
 #include <QUrl>
 
+#include "asemantools_global.h"
+
 class AsemanQmlSmartComponentPrivate;
-class AsemanQmlSmartComponent : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanQmlSmartComponent : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QUrl source READ source WRITE setSource NOTIFY sourceChanged)

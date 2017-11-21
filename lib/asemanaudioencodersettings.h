@@ -23,9 +23,11 @@
 #include <QVariant>
 #include <QMultimedia>
 
+#include "asemantools_global.h"
+
 class QAudioEncoderSettings;
 class AsemanAudioEncoderSettingsPrivate;
-class AsemanAudioEncoderSettings : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanAudioEncoderSettings : public QObject
 {
     Q_OBJECT
     Q_ENUMS(EncodingQuality)

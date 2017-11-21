@@ -22,6 +22,8 @@
 #include <QQuickView>
 #include <QQmlEngine>
 
+#include "asemantools_global.h"
+
 class AsemanBackHandler;
 class AsemanDesktopTools;
 class AsemanDevices;
@@ -30,7 +32,7 @@ class AsemanQtLogger;
 class AsemanTools;
 class AsemanCalendarConverter;
 class AsemanQuickViewPrivate;
-class AsemanQuickView : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanQuickView : public QObject
 {
     Q_OBJECT
 

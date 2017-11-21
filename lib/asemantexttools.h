@@ -21,8 +21,10 @@
 
 #include <QObject>
 
+#include "asemantools_global.h"
+
 class AsemanTextToolsPrivate;
-class AsemanTextTools : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanTextTools : public QObject
 {
     Q_OBJECT
 public:

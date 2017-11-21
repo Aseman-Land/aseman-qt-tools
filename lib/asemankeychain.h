@@ -22,8 +22,10 @@
 #include <QObject>
 #include <QJSValue>
 
+#include "asemantools_global.h"
+
 class AsemanKeychainPrivate;
-class AsemanKeychain : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanKeychain : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString service READ service WRITE setService NOTIFY serviceChanged)

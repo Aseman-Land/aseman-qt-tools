@@ -21,9 +21,11 @@
 
 #include <QObject>
 
+#include "asemantools_global.h"
+
 class AsemanFileDownloaderQueue;
 class AsemanFileDownloaderQueueItemPrivate;
-class AsemanFileDownloaderQueueItem : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanFileDownloaderQueueItem : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString source READ source WRITE setSource NOTIFY sourceChanged)

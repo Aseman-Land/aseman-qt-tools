@@ -22,8 +22,10 @@
 #include <QObject>
 #include <QVariant>
 
+#include "asemantools_global.h"
+
 class AsemanHashObjectPrivate;
-class AsemanHashObject : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanHashObject : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int count READ count NOTIFY countChanged)

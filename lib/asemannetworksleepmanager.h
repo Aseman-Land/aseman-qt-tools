@@ -21,8 +21,10 @@
 
 #include <QObject>
 
+#include "asemantools_global.h"
+
 class AsemanNetworkSleepManagerPrivate;
-class AsemanNetworkSleepManager : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanNetworkSleepManager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString host     READ host     WRITE setHost     NOTIFY hostChanged)

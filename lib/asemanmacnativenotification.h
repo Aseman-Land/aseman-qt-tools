@@ -23,9 +23,11 @@
 #include <QStringList>
 #include <QColor>
 
+#include "asemantools_global.h"
+
 class QDBusMessage;
 class AsemanMacNativeNotificationPrivate;
-class AsemanMacNativeNotification : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanMacNativeNotification : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)

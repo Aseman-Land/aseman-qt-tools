@@ -23,8 +23,10 @@
 #include <QStringList>
 #include <QFileInfo>
 
+#include "asemantools_global.h"
+
 class AsemanFileSystemModelPrivate;
-class AsemanFileSystemModel : public AsemanAbstractListModel
+class LIBASEMANTOOLSSHARED_EXPORT AsemanFileSystemModel : public AsemanAbstractListModel
 {
     Q_OBJECT
     Q_ENUMS(SortFlag)

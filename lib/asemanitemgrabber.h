@@ -22,8 +22,10 @@
 #include <QObject>
 #include <QQuickItem>
 
+#include "asemantools_global.h"
+
 class AsemanItemGrabberPrivate;
-class AsemanItemGrabber : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanItemGrabber : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QQuickItem* item READ item WRITE setItem NOTIFY itemChanged)

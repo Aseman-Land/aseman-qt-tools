@@ -21,8 +21,10 @@
 
 #include "asemanabstractlistmodel.h"
 
+#include "asemantools_global.h"
+
 class AsemanMixedListModelPrivate;
-class AsemanMixedListModel : public AsemanAbstractListModel
+class LIBASEMANTOOLSSHARED_EXPORT AsemanMixedListModel : public AsemanAbstractListModel
 {
     Q_OBJECT
     Q_ENUMS(RolesModelObject)

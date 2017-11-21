@@ -24,8 +24,10 @@
 #include <QVariantMap>
 #include <QByteArray>
 
+#include "asemantools_global.h"
+
 class AsemanKdeWalletPrivate;
-class AsemanKdeWallet : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanKdeWallet : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QStringList availableWallets READ availableWallets NOTIFY availableWalletsChanged)

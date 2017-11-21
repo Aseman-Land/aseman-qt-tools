@@ -23,7 +23,9 @@
 
 #include <QUrl>
 
-class AsemanTranslationManager : public AsemanQuickObject
+#include "asemantools_global.h"
+
+class LIBASEMANTOOLSSHARED_EXPORT AsemanTranslationManager : public AsemanQuickObject
 {
     Q_OBJECT
     Q_PROPERTY(QUrl sourceDirectory READ sourceDirectory WRITE setSourceDirectory NOTIFY sourceDirectoryChanged)

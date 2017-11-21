@@ -25,8 +25,10 @@
 #include <QUrl>
 #include <QSystemTrayIcon>
 
+#include "asemantools_global.h"
+
 class AsemanSystemTrayPrivate;
-class AsemanSystemTray : public AsemanQuickObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanSystemTray : public AsemanQuickObject
 {
     Q_OBJECT
     Q_ENUMS(ActivateReason)

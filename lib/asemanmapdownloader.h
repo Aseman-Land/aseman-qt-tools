@@ -30,8 +30,10 @@
 #define GEO_CLASS_NAME QPointF
 #endif
 
+#include "asemantools_global.h"
+
 class AsemanMapDownloaderPrivate;
-class AsemanMapDownloader : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanMapDownloader : public QObject
 {
     Q_OBJECT
     Q_ENUMS(MapProvider)

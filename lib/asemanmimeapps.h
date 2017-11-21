@@ -22,8 +22,10 @@
 #include <QObject>
 #include <QStringList>
 
+#include "asemantools_global.h"
+
 class AsemanMimeAppsPrivate;
-class AsemanMimeApps: public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanMimeApps : public QObject
 {
     Q_OBJECT
 public:

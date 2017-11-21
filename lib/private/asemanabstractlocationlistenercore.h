@@ -22,7 +22,9 @@
 #include <QObject>
 #include <QGeoPositionInfo>
 
-class AsemanAbstractLocationListenerCore : public QObject
+#include "asemantools_global.h"
+
+class LIBASEMANTOOLSSHARED_EXPORT AsemanAbstractLocationListenerCore : public QObject
 {
     Q_OBJECT
 public:

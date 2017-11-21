@@ -22,8 +22,10 @@
 #include <QObject>
 #include <QTcpSocket>
 
+#include "asemantools_global.h"
+
 class AsemanPingPrivate;
-class AsemanHostChecker : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanHostChecker : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString host     READ host     WRITE setHost     NOTIFY hostChanged)

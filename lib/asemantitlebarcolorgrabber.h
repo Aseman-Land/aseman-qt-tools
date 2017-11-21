@@ -22,8 +22,10 @@
 #include <QObject>
 #include <QWindow>
 
+#include "asemantools_global.h"
+
 class AsemanTitleBarColorGrabberPrivate;
-class AsemanTitleBarColorGrabber : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanTitleBarColorGrabber : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QWindow* window READ window WRITE setWindow NOTIFY windowChanged)

@@ -24,6 +24,8 @@
 #include <QDateTime>
 #include <QObject>
 
+#include "asemantools_global.h"
+
 class DateProperty
 {
 public:
@@ -95,7 +97,7 @@ private:
     AsemanCalendarConverterCorePrivate *p;
 };
 
-class JalaliCalendarObject : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT JalaliCalendarObject : public QObject
 {
     Q_OBJECT
 public:

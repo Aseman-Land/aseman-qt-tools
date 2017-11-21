@@ -22,8 +22,10 @@
 #include <QObject>
 #include <QVariant>
 
+#include "asemantools_global.h"
+
 class AsemanSettingsPrivate;
-class AsemanSettings : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanSettings : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString category READ category WRITE setCategory NOTIFY categoryChanged)

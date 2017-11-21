@@ -280,7 +280,8 @@ HEADERS += \
     $$PWD/asemanmouseeventlistener.h \
     $$PWD/asemanitemgrabber.h \
     $$PWD/asemantranslationmanager.h \
-    $$PWD/asemanqmlimage.h
+    $$PWD/asemanqmlimage.h \
+    $$PWD/asemantools_global.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

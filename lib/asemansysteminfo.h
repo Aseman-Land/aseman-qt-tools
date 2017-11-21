@@ -21,8 +21,10 @@
 
 #include <QObject>
 
+#include "asemantools_global.h"
+
 class AsemanSystemInfoPrivate;
-class AsemanSystemInfo : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanSystemInfo : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(quint64 cpuCores READ cpuCores NOTIFY fakeSignal)

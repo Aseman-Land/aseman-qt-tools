@@ -23,8 +23,10 @@
 #include <QNetworkConfiguration>
 #include "asemannetworkmanager.h"
 
+#include "asemantools_global.h"
+
 class AsemanNetworkManagerItemPrivate;
-class AsemanNetworkManagerItem : public QObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanNetworkManagerItem : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int bearerType READ bearerType NOTIFY bearerTypeChanged)

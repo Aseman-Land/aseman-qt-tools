@@ -22,8 +22,10 @@
 #include "asemanquickobject.h"
 #include <QUrl>
 
+#include "asemantools_global.h"
+
 class AsemanWebPageGrabberPrivate;
-class AsemanWebPageGrabber : public AsemanQuickObject
+class LIBASEMANTOOLSSHARED_EXPORT AsemanWebPageGrabber : public AsemanQuickObject
 {
     Q_OBJECT
     Q_PROPERTY(QUrl source READ source WRITE setSource NOTIFY sourceChanged)
