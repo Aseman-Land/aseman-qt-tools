@@ -3,10 +3,14 @@
 
 #include <QtCore/qglobal.h>
 
+#ifndef QT_STATIC
 #if defined(LIBASEMANTOOLS_LIBRARY)
 #  define LIBASEMANTOOLSSHARED_EXPORT Q_DECL_EXPORT
 #else
 #  define LIBASEMANTOOLSSHARED_EXPORT Q_DECL_IMPORT
+#endif
+#else
+#define LIBASEMANTOOLSSHARED_EXPORT
 #endif
 
 #endif // ASEMANTOOLS_GLOBAL_H
