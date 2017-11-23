@@ -1,6 +1,5 @@
 TEMPLATE = lib
 TARGET = asemantoolsqml
-QT += qml quick gui
 CONFIG -= android_install
 CONFIG += plugin qt
 DESTDIR = AsemanTools
@@ -8,7 +7,7 @@ DESTDIR = AsemanTools
 uri = AsemanTools
 static {
     QMAKE_MOC_OPTIONS += -Muri=$$uri
-    DEFINES += ASEMAN_STATIC_BUILD
+    DEFINES += ASEMAN_STATIC_BUILD ASEMAN_EMBEDED_MODE
 }
 ios {
     QMAKE_CXXFLAGS += -fvisibility=hidden
@@ -24,16 +23,7 @@ android|ios {
 LIBS += -L$$OUT_PWD/../lib -lasemantools
 INCLUDEPATH += ../lib
 
-SOURCES += \
-    asemantoolsplugin.cpp
-
-HEADERS += \
-    asemantoolsplugin.h
-
-contains(DEFINES,ASEMAN_STATIC_BUILD) {
-    RESOURCES += \
-        $$PWD/asemanresource_qml.qrc
-}
+include(asemantools-qml.pri)
 
 QMLDIR_VALUE = $$cat(qmldir, blob) 'plugin asemantoolsqml'
 write_file($$OUT_PWD/$$DESTDIR/qmldir, QMLDIR_VALUE)

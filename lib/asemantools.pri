@@ -5,6 +5,8 @@ contains(DEFINES,ASEMAN_TOOLS_FULL) {
     !android: linux: QT += dbus
 }
 
+INCLUDEPATH += $$PWD
+
 android {
     QT += androidextras
     SOURCES += \

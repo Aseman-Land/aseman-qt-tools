@@ -112,6 +112,7 @@
         <file>AsemanTools/BarcodeScanner.qml</file>
         <file>AsemanTools/SearchBar.qml</file>
     </qresource>
+    </qresource>
     <qresource prefix="/qt-project.org/imports/AsemanTools">
         <file>qmldir</file>
     </qresource>
