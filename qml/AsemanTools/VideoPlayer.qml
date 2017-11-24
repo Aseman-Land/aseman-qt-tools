@@ -13,6 +13,7 @@ Item {
     property bool controlsVisibled: true
     property alias source: video.source
     readonly property bool playing: video.playbackState == MediaPlayer.PlayingState
+    readonly property bool loading: video.status == MediaPlayer.Loading
     property color color: Devices.isAndroid? "#55000000" : "#55ffffff"
     property color background: "#000000"
     property bool blur: !Devices.isAndroid
@@ -80,6 +81,15 @@ Item {
 
             focus: true
             Keys.onSpacePressed: playing? videoPlayer.pause() : videoPlayer.play()
+        }
+
+        BusyIndicator {
+            anchors.centerIn: parent
+            height: 48*Devices.density
+            width: height
+            running: loading
+            transformOrigin: Item.Center
+            Material.accent: "#ffffff"
         }
     }
 
