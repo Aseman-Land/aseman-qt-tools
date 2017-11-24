@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtMultimedia 5.7
+import QtMultimedia 5.8
 import AsemanTools 1.1
 import AsemanTools.Awesome 1.0
 import QtQuick.Controls 2.2
@@ -43,6 +43,14 @@ Item {
                     if(playing)
                         timer.restart()
                 }
+            }
+
+            Label {
+                id: errorLabel
+                anchors.fill: parent
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                color: "#ffffff"
+                text: video.errorString
             }
 
             focus: true

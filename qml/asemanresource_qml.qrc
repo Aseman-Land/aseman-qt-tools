@@ -114,7 +114,6 @@
         <file>AsemanTools/SearchBar.qml</file>
         <file>AsemanTools/VideoPlayer.qml</file>
     </qresource>
-    </qresource>
     <qresource prefix="/qt-project.org/imports/AsemanTools">
         <file>qmldir</file>
     </qresource>
