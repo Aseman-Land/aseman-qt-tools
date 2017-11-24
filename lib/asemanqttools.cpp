@@ -162,7 +162,7 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerType<AsemanMouseEventListener>(uri, 1,0, "MouseEventListener", exportMode);
     registerType<AsemanFontHandler>(uri, 1,0, "FontHandler", exportMode);
     registerType<AsemanItemGrabber>(uri, 1,0, "ItemGrabber", exportMode);
-    registerType<AsemanApplication>(uri, 1,0, "AsemanApplication", exportMode);
+    registerType<AsemanApplication>(uri, 1,0, "AsemanApplicationBase", exportMode);
     registerType<AsemanQmlImage>(uri, 1,0, "AsemanImage", exportMode);
     registerType<AsemanTranslationManager>(uri, 1,0, "TranslationManager", exportMode);
     registerType<AsemanQmlSmartComponent>(uri, 1,0, "SmartComponentCore", exportMode);

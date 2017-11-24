@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/qt-project.org/imports">
         <file>AsemanTools/AnimationItem.qml</file>
+        <file>AsemanTools/AsemanApplication.qml</file>
         <file>AsemanTools/Button.qml</file>
         <file>AsemanTools/CursorPicker.qml</file>
         <file>AsemanTools/DateTimeChooser.qml</file>
@@ -111,6 +112,7 @@
         <file>AsemanTools/Dialog.qml</file>
         <file>AsemanTools/BarcodeScanner.qml</file>
         <file>AsemanTools/SearchBar.qml</file>
+        <file>AsemanTools/VideoPlayer.qml</file>
     </qresource>
     </qresource>
     <qresource prefix="/qt-project.org/imports/AsemanTools">
