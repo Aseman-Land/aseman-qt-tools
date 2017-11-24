@@ -47,10 +47,35 @@ Item {
 
             Label {
                 id: errorLabel
-                anchors.fill: parent
+                anchors.centerIn: parent
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 color: "#ffffff"
-                text: video.errorString
+                text: {
+                    var res = ""
+                    switch(video.error) {
+                    case MediaPlayer.NoError:
+                        break
+                    case MediaPlayer.ResourceError:
+                        res += "ResourceError\n"
+                        break
+                    case MediaPlayer.FormatError:
+                        res += "FormatError\n"
+                        break
+                    case MediaPlayer.NetworkError:
+                        res += "NetworkError\n"
+                        break
+                    case MediaPlayer.AccessDenied:
+                        res += "AccessDenied\n"
+                        break
+                    case MediaPlayer.ServiceMissing:
+                        res += "ServiceMissing\n"
+                        break
+                    }
+                    res += video.errorString
+                    return res
+                }
             }
 
             focus: true
