@@ -12,6 +12,7 @@ Item {
 
     property bool controlsVisibled: true
     property alias source: video.source
+    property alias title: titleLabel.text
     readonly property bool playing: video.playbackState == MediaPlayer.PlayingState
     readonly property bool loading: video.status == MediaPlayer.Loading
     property color color: Devices.isAndroid? "#55000000" : "#55ffffff"
@@ -169,10 +170,10 @@ Item {
                 }
 
                 Label {
+                    id: titleLabel
                     color: "#ffffff"
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignHCenter
-                    text: "Marina Kaye - Homeless (live)"
                 }
 
                 Button {
