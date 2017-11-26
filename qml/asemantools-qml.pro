@@ -44,8 +44,3 @@ INSTALLS += target qmldir
     qmlFile.path = $$PREFIX
     INSTALLS += qmlFile
 }
-android {
-    javaFiles.files = $$PWD/android-build/src/ $$PWD/android-build/res/
-    javaFiles.path = $$[QT_INSTALL_PREFIX]/src/android/java/
-    INSTALLS += javaFiles
-}

@@ -63,6 +63,9 @@ public Q_SLOTS:
     bool startService();
     bool stopService();
 
+    bool setTranslucentNavigationBar(bool stt);
+    bool setTranslucentStatusBar(bool stt);
+
 Q_SIGNALS:
     void incomingShare( const QString & title, const QString & msg );
     void incomingImage( const QString & path );

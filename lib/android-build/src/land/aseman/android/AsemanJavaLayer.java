@@ -426,6 +426,34 @@ public class AsemanJavaLayer
         return true;
     }
 
+    boolean setTranslucentNavigationBar(boolean stt)
+    {
+        final boolean _stt = stt;
+        Handler mainHandler = new Handler(AsemanActivity.getActivityInstance().getMainLooper());
+        Runnable myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                AsemanActivity.getActivityInstance().setTranslucentNavigationBar(_stt);
+            }
+        };
+        mainHandler.post(myRunnable);
+        return true;
+    }
+
+    boolean setTranslucentStatusBar(boolean stt)
+    {
+        final boolean _stt = stt;
+        Handler mainHandler = new Handler(AsemanActivity.getActivityInstance().getMainLooper());
+        Runnable myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                AsemanActivity.getActivityInstance().setTranslucentStatusBar(_stt);
+            }
+        };
+        mainHandler.post(myRunnable);
+        return true;
+    }
+
 //    boolean googleSignIn(String clientId)
 //    {
 //        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
