@@ -121,7 +121,7 @@ public class AsemanActivity extends QtActivity
         return true;
     }
 
-    boolean setTranslucentStatusBar(boolean stt)
+    boolean setTransparentStatusBar(boolean stt)
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
             return false;
@@ -138,7 +138,7 @@ public class AsemanActivity extends QtActivity
         return true;
     }
 
-    boolean setTranslucentNavigationBar(boolean stt)
+    boolean setTransparentNavigationBar(boolean stt)
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
             return false;
@@ -223,8 +223,8 @@ public class AsemanActivity extends QtActivity
         if(resID != 0)
             w.setBackgroundDrawableResource(resID);
 
-//        setTranslucentNavigationBar(true);
-        if( !setTranslucentStatusBar(true) )
+//        setTransparentNavigationBar(true);
+        if( !setTransparentStatusBar(true) )
             setLayoutNoLimit(true);
 
         super.onCreate(savedInstanceState);

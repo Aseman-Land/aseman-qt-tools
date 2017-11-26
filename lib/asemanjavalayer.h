@@ -41,13 +41,17 @@ public:
     bool getOpenPictures();
 
     bool transparentStatusBar();
+    bool setTransparentStatusBar(bool stt);
+
     bool transparentNavigationBar();
+    bool setTransparentNavigationBar(bool stt);
 
     int densityDpi();
     int screenSizeWidth();
     int screenSizeHeight();
     int getSizeName();
     int statusBarHeight();
+    int navigationBarHeight();
     bool isTablet();
     qreal density();
 
@@ -62,9 +66,6 @@ public:
 public Q_SLOTS:
     bool startService();
     bool stopService();
-
-    bool setTranslucentNavigationBar(bool stt);
-    bool setTranslucentStatusBar(bool stt);
 
 Q_SIGNALS:
     void incomingShare( const QString & title, const QString & msg );

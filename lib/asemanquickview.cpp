@@ -88,6 +88,9 @@ AsemanQuickView::AsemanQuickView(QQmlEngine *engine, QObject *parent ) :
     p->engine = engine;
     p->layoutDirection = Qt::LeftToRight;
     p->reverseScroll = false;
+
+    connect(devices(), &AsemanDevices::statusBarHeightChanged, this, &AsemanQuickView::statusBarHeightChanged);
+    connect(devices(), &AsemanDevices::navigationBarHeightChanged, this, &AsemanQuickView::navigationBarHeightChanged);
 }
 
 AsemanDesktopTools *AsemanQuickView::desktopTools() const
@@ -143,12 +146,12 @@ bool AsemanQuickView::reverseScroll() const
 
 qreal AsemanQuickView::statusBarHeight() const
 {
-    return AsemanDevices::statusBarHeight();
+    return devices()->statusBarHeight();
 }
 
 qreal AsemanQuickView::navigationBarHeight() const
 {
-    return AsemanDevices::navigationBarHeight();
+    return devices()->navigationBarHeight();
 }
 
 void AsemanQuickView::setRoot(QObject *root)

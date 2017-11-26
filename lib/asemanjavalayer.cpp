@@ -174,6 +174,12 @@ int AsemanJavaLayer::statusBarHeight()
     return res;
 }
 
+int AsemanJavaLayer::navigationBarHeight()
+{
+    jint res = p->object.callMethod<jint>(__FUNCTION__, "()I" );
+    return res;
+}
+
 bool AsemanJavaLayer::isTablet()
 {
     jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "()Z");
@@ -249,13 +255,13 @@ void AsemanJavaLayer::setKeepScreenOn(bool stt)
     p->object.callMethod<jboolean>(__FUNCTION__, "(Z)V", jstt );
 }
 
-bool AsemanJavaLayer::setTranslucentNavigationBar(bool stt)
+bool AsemanJavaLayer::setTransparentNavigationBar(bool stt)
 {
     jboolean jstt = stt;
     p->object.callMethod<jboolean>(__FUNCTION__, "(Z)Z", jstt );
 }
 
-bool AsemanJavaLayer::setTranslucentStatusBar(bool stt)
+bool AsemanJavaLayer::setTransparentStatusBar(bool stt)
 {
     jboolean jstt = stt;
     p->object.callMethod<jboolean>(__FUNCTION__, "(Z)Z", jstt );

@@ -50,6 +50,7 @@
 #include <QProcess>
 #include <QGuiApplication>
 #include <QCryptographicHash>
+#include <QTimer>
 
 #ifdef ASEMAN_MULTIMEDIA
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
@@ -75,6 +76,9 @@ public:
     qint32 androidKeyboardHeight;
 #endif
 
+    bool transparentStatusBar;
+    bool transparentNavigationBar;
+
     static QHash<int, bool> flags;
     static qreal fontScale;
     static QSet<AsemanDevices*> devicesObjs;
@@ -90,6 +94,11 @@ AsemanDevices::AsemanDevices(QObject *parent) :
     p = new AsemanDevicesPrivate;
     p->hide_keyboard_timer = 0;
     p->keyboard_stt = false;
+    p->transparentStatusBar = false;
+    p->transparentNavigationBar = false;
+
+    refreshTransparentStatusBar();
+    refreshTransparentNavigationBar();
 
 #ifdef Q_OS_ANDROID
     p->androidKeyboardHeight = 0;
@@ -398,24 +407,50 @@ qreal AsemanDevices::qtMajorVersion()
 
 bool AsemanDevices::transparentStatusBar()
 {
+    return p->transparentStatusBar;
+}
+
+void AsemanDevices::setTransparentStatusBar(bool stt)
+{
+    if(p->transparentStatusBar == stt)
+        return;
+
 #ifdef Q_OS_ANDROID
-    return AsemanJavaLayer::instance()->transparentStatusBar();
+    AsemanJavaLayer::instance()->setTransparentStatusBar(stt);
 #else
-#ifdef Q_OS_IOS
-    return true;
-#else
-    return false;
+    Q_UNUSED(stt)
 #endif
-#endif
+    p->transparentStatusBar = stt;
+    Q_EMIT transparentStatusBarChanged();
+
+    QTimer::singleShot(100, this, [this](){
+        refreshTransparentStatusBar();
+        Q_EMIT statusBarHeightChanged();
+    });
 }
 
 bool AsemanDevices::transparentNavigationBar()
 {
+    return p->transparentNavigationBar;
+}
+
+void AsemanDevices::setTransparentNavigationBar(bool stt)
+{
+    if(p->transparentNavigationBar == stt)
+        return;
+
 #ifdef Q_OS_ANDROID
-    return AsemanJavaLayer::instance()->transparentNavigationBar();
+    AsemanJavaLayer::instance()->setTransparentNavigationBar(stt);
 #else
-    return false;
+    Q_UNUSED(stt)
 #endif
+    p->transparentNavigationBar = stt;
+    Q_EMIT transparentNavigationBarChanged();
+
+    QTimer::singleShot(100, this, [this](){
+        refreshTransparentNavigationBar();
+        Q_EMIT navigationBarHeightChanged();
+    });
 }
 
 qreal AsemanDevices::standardTitleBarHeight() const
@@ -454,7 +489,19 @@ qreal AsemanDevices::statusBarHeight()
 
 qreal AsemanDevices::navigationBarHeight()
 {
-    return transparentNavigationBar()? 44*density() : 0;
+    if(!transparentNavigationBar())
+        return 0;
+
+    static qreal result = 0;
+    if(!result)
+    {
+#ifdef Q_OS_ANDROID
+        result = density()*(AsemanJavaLayer::instance()->navigationBarHeight()/deviceDensity());
+#else
+        result = 44*density();
+#endif
+    }
+    return result;
 }
 
 void AsemanDevices::setFlag(int flag, bool state)
@@ -935,6 +982,28 @@ void AsemanDevices::timerEvent(QTimerEvent *e)
 
         Q_EMIT keyboardChanged();
     }
+}
+
+void AsemanDevices::refreshTransparentStatusBar()
+{
+#ifdef Q_OS_ANDROID
+    p->transparentStatusBar = AsemanJavaLayer::instance()->transparentStatusBar();
+#else
+#ifdef Q_OS_IOS
+    p->transparentStatusBar = true;
+#else
+    p->transparentStatusBar = false;
+#endif
+#endif
+}
+
+void AsemanDevices::refreshTransparentNavigationBar()
+{
+#ifdef Q_OS_ANDROID
+    p->transparentNavigationBar = AsemanJavaLayer::instance()->transparentNavigationBar();
+#else
+    p->transparentNavigationBar = false;
+#endif
 }
 
 AsemanDevices::~AsemanDevices()

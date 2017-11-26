@@ -66,8 +66,8 @@ class LIBASEMANTOOLSSHARED_EXPORT AsemanDevices : public QObject
     Q_PROPERTY(qreal deviceDensity READ deviceDensity NOTIFY densityChanged     )
     Q_PROPERTY(qreal fontDensity   READ fontDensity   NOTIFY fontDensityChanged )
 
-    Q_PROPERTY(bool  transparentStatusBar     READ transparentStatusBar     NOTIFY transparentStatusBarChanged    )
-    Q_PROPERTY(bool  transparentNavigationBar READ transparentNavigationBar NOTIFY transparentNavigationBarChanged)
+    Q_PROPERTY(bool  transparentStatusBar     READ transparentStatusBar     WRITE setTransparentStatusBar     NOTIFY transparentStatusBarChanged    )
+    Q_PROPERTY(bool  transparentNavigationBar READ transparentNavigationBar WRITE setTransparentNavigationBar NOTIFY transparentNavigationBarChanged)
     Q_PROPERTY(qreal standardTitleBarHeight   READ standardTitleBarHeight   NOTIFY standardTitleBarHeightChanged  )
     Q_PROPERTY(qreal statusBarHeight          READ statusBarHeight          NOTIFY statusBarHeightChanged)
     Q_PROPERTY(qreal navigationBarHeight      READ navigationBarHeight      NOTIFY navigationBarHeightChanged)
@@ -147,12 +147,16 @@ public:
 
     static QString localFilesPrePath();
 
-    static bool transparentStatusBar();
-    static bool transparentNavigationBar();
+    bool transparentStatusBar();
+    void setTransparentStatusBar(bool stt);
+
+    bool transparentNavigationBar();
+    void setTransparentNavigationBar(bool stt);
+
     qreal standardTitleBarHeight() const;
 
-    static qreal statusBarHeight();
-    static qreal navigationBarHeight();
+    qreal statusBarHeight();
+    qreal navigationBarHeight();
 
     Q_INVOKABLE static void setFlag(int flag, bool state = true);
     Q_INVOKABLE static bool flag(int flag);
@@ -257,6 +261,8 @@ private Q_SLOTS:
 
 protected:
     void timerEvent(QTimerEvent *e);
+    void refreshTransparentStatusBar();
+    void refreshTransparentNavigationBar();
 
 private:
     AsemanDevicesPrivate *p;

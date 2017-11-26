@@ -342,6 +342,16 @@ public class AsemanJavaLayer
         return result;
     }
 
+    int navigationBarHeight() {
+        int result = 0;
+        Context context = AsemanApplication.getAppContext();
+        int resourceId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            return context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return 0;
+    }
+
     boolean isTablet()
     {
         Context context = AsemanApplication.getAppContext();
@@ -426,28 +436,28 @@ public class AsemanJavaLayer
         return true;
     }
 
-    boolean setTranslucentNavigationBar(boolean stt)
+    boolean setTransparentNavigationBar(boolean stt)
     {
         final boolean _stt = stt;
         Handler mainHandler = new Handler(AsemanActivity.getActivityInstance().getMainLooper());
         Runnable myRunnable = new Runnable() {
             @Override
             public void run() {
-                AsemanActivity.getActivityInstance().setTranslucentNavigationBar(_stt);
+                AsemanActivity.getActivityInstance().setTransparentNavigationBar(_stt);
             }
         };
         mainHandler.post(myRunnable);
         return true;
     }
 
-    boolean setTranslucentStatusBar(boolean stt)
+    boolean setTransparentStatusBar(boolean stt)
     {
         final boolean _stt = stt;
         Handler mainHandler = new Handler(AsemanActivity.getActivityInstance().getMainLooper());
         Runnable myRunnable = new Runnable() {
             @Override
             public void run() {
-                AsemanActivity.getActivityInstance().setTranslucentStatusBar(_stt);
+                AsemanActivity.getActivityInstance().setTransparentStatusBar(_stt);
             }
         };
         mainHandler.post(myRunnable);
