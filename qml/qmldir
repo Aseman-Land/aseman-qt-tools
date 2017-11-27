@@ -71,6 +71,7 @@ BarcodeScanner 1.0 BarcodeScanner.qml
 AsemanApplication 1.0 AsemanApplication.qml
 SearchBar 1.0 SearchBar.qml
 VideoPlayer 1.0 VideoPlayer.qml
+CircularProgressBar 1.0 CircularProgressBar.qml
 ArrayTools 1.0 ArrayFunctions.js
 
 TabBar 1.1 TabBar.qml

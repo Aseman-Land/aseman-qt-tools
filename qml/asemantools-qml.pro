@@ -4,6 +4,7 @@ CONFIG -= android_install
 CONFIG += plugin qt
 DESTDIR = AsemanTools
 
+versionCode = 597dcbfc2109
 uri = AsemanTools
 static {
     QMAKE_MOC_OPTIONS += -Muri=$$uri
