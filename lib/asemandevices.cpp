@@ -31,6 +31,9 @@
 #ifdef Q_OS_ANDROID
 #include "asemanjavalayer.h"
 #endif
+#ifdef Q_OS_IOS
+#include "asemanobjectiveclayer.h"
+#endif
 
 #include <QTimerEvent>
 #include <QGuiApplication>
@@ -481,7 +484,11 @@ qreal AsemanDevices::statusBarHeight()
 #ifdef Q_OS_ANDROID
         result = density()*(AsemanJavaLayer::instance()->statusBarHeight()/deviceDensity());
 #else
+#ifdef Q_OS_IOS
+        result = AsemanObjectiveCLayer::statusBarHeight()*density();
+#else
         result = 20*density();
+#endif
 #endif
     }
     return result;

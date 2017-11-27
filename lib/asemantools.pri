@@ -22,11 +22,14 @@ android {
         $$PWD/private/asemanandroidcameracapturecore.h
 } else {
     ios {
+        SOURCES +=  \
+            $$PWD/asemanobjectiveclayer.mm
+        HEADERS +=  \
+            $$PWD/asemanobjectiveclayer.h
+
         !contains(DEFINES,ASEMAN_IOS_LIGHT_STATUS) {
-            SOURCES +=  \
-                $$PWD/private/osxviewcontroller.mm
-            HEADERS +=  \
-                $$PWD/private/osxviewcontroller.h
+            SOURCES += $$PWD/private/osxviewcontroller.mm
+            HEADERS += $$PWD/private/osxviewcontroller.h
         }
     } else {
         contains(BUILD_MODE,ubuntutouch) {
