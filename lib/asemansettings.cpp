@@ -156,7 +156,7 @@ void AsemanSettings::initProperties()
         if(p->settings)
         {
             QVariant value = p->settings->value(PROPERTY_KEY(propertyName));
-            if(!value.isNull())
+            if(value != QObject::property(propertyName))
                 setProperty(propertyName, value);
         }
 
