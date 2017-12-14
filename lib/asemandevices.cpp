@@ -54,6 +54,7 @@
 #include <QGuiApplication>
 #include <QCryptographicHash>
 #include <QTimer>
+#include <QVariantMap>
 
 #ifdef ASEMAN_MULTIMEDIA
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
@@ -829,6 +830,105 @@ QString AsemanDevices::libsPath()
     return QCoreApplication::applicationDirPath() + "/../Resources/";
 #endif
 #endif
+}
+
+QVariantMap AsemanDevices::deviceDetails()
+{
+    QVariantMap map;
+    map["device.name"] = AsemanDevices::deviceName();
+    map["device.id"] = AsemanDevices::deviceId();
+    map["device.shortId"] = AsemanDevices::deviceShortId();
+
+    map["qt.version"] = AsemanDevices::qtVersion();
+    map["qt.majorVersion"] = AsemanDevices::qtMajorVersion();
+
+    map["screen.size"] = AsemanDevices::screenSize();
+    map["screen.keyboardHeight"] = AsemanDevices::keyboardHeight();
+    map["screen.density"] = AsemanDevices::density();
+    map["screen.dpi"] = AsemanDevices::densityDpi();
+    map["screen.deviceDensity"] = AsemanDevices::deviceDensity();
+    map["screen.fontDensity"] = AsemanDevices::fontDensity();
+
+    map["lcd.physicalSize"] = AsemanDevices::lcdPhysicalSize();
+    map["lcd.physicalWidth"] = AsemanDevices::lcdPhysicalWidth();
+    map["lcd.physicalHeight"] = AsemanDevices::lcdPhysicalHeight();
+    map["lcd.dpiX"] = AsemanDevices::lcdDpiX();
+    map["lcd.dpiY"] = AsemanDevices::lcdDpiY();
+
+    map["os.mobile"] = AsemanDevices::isMobile();
+    map["os.tablet"] = AsemanDevices::isTablet();
+    map["os.largeTablet"] = AsemanDevices::isLargeTablet();
+    map["os.touchDevice"] = AsemanDevices::isTouchDevice();
+    map["os.desktop"] = AsemanDevices::isDesktop();
+    map["os.macX"] = AsemanDevices::isMacX();
+    map["os.windows"] = AsemanDevices::isWindows();
+    map["os.linux"] = AsemanDevices::isLinux();
+    map["os.android"] = AsemanDevices::isAndroid();
+    map["os.iOS"] = AsemanDevices::isIOS();
+    map["os.ubuntuTouch"] = AsemanDevices::isUbuntuTouch();
+    map["os.windowsPhone"] = AsemanDevices::isWindowsPhone();
+    map["os.windows8"] = AsemanDevices::isWindows8();
+
+    map["ui.transparentStatusBar"] = AsemanDevices::transparentStatusBar();
+    map["ui.transparentNavigationBar"] = AsemanDevices::transparentNavigationBar();
+    map["ui.standardTitleBarHeight"] = AsemanDevices::standardTitleBarHeight();
+    map["ui.statusBarHeight"] = AsemanDevices::statusBarHeight();
+    map["ui.navigationBarHeight"] = AsemanDevices::navigationBarHeight();
+
+    map["path.cameraLocation"] = AsemanDevices::cameraLocation();
+    map["path.picturesLocation"] = AsemanDevices::picturesLocation();
+    map["path.musicsLocation"] = AsemanDevices::musicsLocation();
+    map["path.documentsLocation"] = AsemanDevices::downloadsLocation();
+    map["path.resourcePath"] = AsemanDevices::resourcePath();
+    map["path.resourcePathQml"] = AsemanDevices::resourcePathQml();
+    map["path.libsPath"] = AsemanDevices::libsPath();
+
+    map["app.path.homePath"] = AsemanApplication::homePath();
+    map["app.path.startPath"] = AsemanApplication::startPath();
+    map["app.path.appPath"] = AsemanApplication::appPath();
+    map["app.path.appFilePath"] = AsemanApplication::appFilePath();
+    map["app.path.confsPath"] = AsemanApplication::confsPath();
+    map["app.path.tempPath"] = AsemanApplication::tempPath();
+    map["app.path.backupsPath"] = AsemanApplication::backupsPath();
+    map["app.path.cameraPath"] = AsemanApplication::cameraPath();
+    map["app.path.dirPath"] = AsemanApplication::applicationDirPath();
+    map["app.path.filePath"] = AsemanApplication::applicationFilePath();
+    map["app.path.logPath"] = AsemanApplication::logPath();
+
+    map["app.pid"] = AsemanApplication::applicationPid();
+    map["app.organizationDomain"] = AsemanApplication::organizationDomain();
+    map["app.organizationName"] = AsemanApplication::organizationName();
+    map["app.name"] = AsemanApplication::applicationName();
+    map["app.version"] = AsemanApplication::applicationVersion();
+    map["app.displayName"] = AsemanApplication::applicationDisplayName();
+    map["app.appId"] = AsemanApplication::applicationId();
+    map["app.platformName"] = AsemanApplication::platformName();
+
+    map["app.isRunning"] = AsemanApplication::isRunning();
+    map["app.appType"] = AsemanApplication::appType();
+    map["app.isDebug"] = AsemanApplication::isDebug();
+    map["app.font"] = AsemanApplication::font();
+
+    QMapIterator<QString, QVariant> i(map);
+    while(i.hasNext())
+    {
+        i.next();
+        if(i.key().left(5) != "path." && i.key().left(9) != "app.path.")
+            continue;
+
+        QString path = i.value().toString();
+        QFileInfo inf(path);
+
+        map[i.key() + ".exists"] = inf.exists();
+        map[i.key() + ".isDir"] = inf.isDir();
+        map[i.key() + ".isFile"] = inf.isFile();
+        map[i.key() + ".isWritable"] = inf.isWritable();
+        map[i.key() + ".isReadable"] = inf.isReadable();
+        map[i.key() + ".isExecutable"] = inf.isExecutable();
+        map[i.key() + ".isSymLink"] = inf.isSymLink();
+    }
+
+    return map;
 }
 
 void AsemanDevices::hideKeyboard()

@@ -29,11 +29,11 @@
 
 #ifdef QT_QML_LIB
 #include <QJSValue>
-
-#include "asemantools_global.h"
 #endif
 
 #define ASEMAN_TYPE_NAME(TYPE) #TYPE
+
+#include "asemantools_global.h"
 
 class AsemanToolsPrivate;
 class LIBASEMANTOOLSSHARED_EXPORT AsemanTools : public QObject

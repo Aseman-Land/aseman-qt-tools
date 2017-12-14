@@ -22,6 +22,7 @@
 #include <QObject>
 #include <QUrl>
 #include <QSize>
+#include <QVariantMap>
 
 #include "asemantools_global.h"
 
@@ -93,6 +94,7 @@ class LIBASEMANTOOLSSHARED_EXPORT AsemanDevices : public QObject
     Q_PROPERTY(qreal qtMajorVersion READ qtMajorVersion NOTIFY qtVersionChanged)
 
     Q_PROPERTY(qreal fontScale READ fontScale WRITE setFontScale NOTIFY fontScaleChanged)
+    Q_PROPERTY(QVariantMap deviceDetails READ deviceDetails NOTIFY deviceDetailsChanged)
 
 public:
     enum Flags {
@@ -176,6 +178,8 @@ public:
     static QString resourcePathQml();
     static QString libsPath();
 
+    QVariantMap deviceDetails();
+
 public Q_SLOTS:
     void hideKeyboard();
     void showKeyboard();
@@ -250,6 +254,8 @@ Q_SIGNALS:
     void downloadsLocationChanged();
     void resourcePathChanged();
     void libsPathChanged();
+
+    void deviceDetailsChanged();
 
 private Q_SLOTS:
     void incoming_share( const QString & title, const QString & msg );

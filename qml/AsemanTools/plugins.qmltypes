@@ -9,7 +9,6 @@ import QtQuick.tooling 1.2
 Module {
     dependencies: [
         "AsemanTools.Awesome 1.0",
-        "AsemanTools.Controls.Styles 1.0",
         "AsemanTools.MaterialIcons 1.0",
         "Qt.labs.folderlistmodel 2.1",
         "Qt.labs.settings 1.0",
@@ -26,9 +25,7 @@ Module {
         "QtQuick.Controls.impl 2.2",
         "QtQuick.Dialogs 1.2",
         "QtQuick.Extras 1.4",
-        "QtQuick.Extras.Private.CppUtils 1.1",
-        "QtQuick.Layouts 1.1",
-        "QtQuick.PrivateWidgets 1.1",
+        "QtQuick.Layouts 1.2",
         "QtQuick.Templates 2.2",
         "QtQuick.Window 2.3",
         "QtQuick.XmlListModel 2.0"
@@ -134,6 +131,12 @@ Module {
         Method {
             name: "sendMessage"
             Parameter { name: "msg"; type: "string" }
+        }
+        Method {
+            name: "requestPermissions"
+            type: "QVariantMap"
+            Parameter { name: "persmissions"; type: "QStringList" }
+            Parameter { name: "callback"; type: "QJSValue" }
         }
         Method {
             name: "setSetting"
@@ -757,8 +760,8 @@ Module {
         Property { name: "density"; type: "double"; isReadonly: true }
         Property { name: "deviceDensity"; type: "double"; isReadonly: true }
         Property { name: "fontDensity"; type: "double"; isReadonly: true }
-        Property { name: "transparentStatusBar"; type: "bool"; isReadonly: true }
-        Property { name: "transparentNavigationBar"; type: "bool"; isReadonly: true }
+        Property { name: "transparentStatusBar"; type: "bool" }
+        Property { name: "transparentNavigationBar"; type: "bool" }
         Property { name: "standardTitleBarHeight"; type: "double"; isReadonly: true }
         Property { name: "statusBarHeight"; type: "double"; isReadonly: true }
         Property { name: "navigationBarHeight"; type: "double"; isReadonly: true }
@@ -778,6 +781,7 @@ Module {
         Property { name: "qtVersion"; type: "string"; isReadonly: true }
         Property { name: "qtMajorVersion"; type: "double"; isReadonly: true }
         Property { name: "fontScale"; type: "double" }
+        Property { name: "deviceDetails"; type: "QVariantMap"; isReadonly: true }
         Signal {
             name: "incomingShare"
             Parameter { name: "title"; type: "string" }
@@ -2534,227 +2538,6 @@ Module {
         }
     }
     Component {
-        name: "QZXing"
-        prototype: "QObject"
-        exports: ["AsemanTools/QZXing 1.0"]
-        exportMetaObjectRevisions: [0]
-        Enum {
-            name: "DecoderFormat"
-            values: {
-                "DecoderFormat_None": 0,
-                "DecoderFormat_Aztec": 2,
-                "DecoderFormat_CODABAR": 4,
-                "DecoderFormat_CODE_39": 8,
-                "DecoderFormat_CODE_93": 16,
-                "DecoderFormat_CODE_128": 32,
-                "DecoderFormat_DATA_MATRIX": 64,
-                "DecoderFormat_EAN_8": 128,
-                "DecoderFormat_EAN_13": 256,
-                "DecoderFormat_ITF": 512,
-                "DecoderFormat_MAXICODE": 1024,
-                "DecoderFormat_PDF_417": 2048,
-                "DecoderFormat_QR_CODE": 4096,
-                "DecoderFormat_RSS_14": 8192,
-                "DecoderFormat_RSS_EXPANDED": 16384,
-                "DecoderFormat_UPC_A": 32768,
-                "DecoderFormat_UPC_E": 65536,
-                "DecoderFormat_UPC_EAN_EXTENSION": 131072,
-                "DecoderFormat_CODE_128_GS1": 262144
-            }
-        }
-        Property { name: "processingTime"; type: "int"; isReadonly: true }
-        Property { name: "enabledDecoders"; type: "uint" }
-        Property { name: "tryHarder"; type: "bool" }
-        Signal { name: "decodingStarted" }
-        Signal {
-            name: "decodingFinished"
-            Parameter { name: "succeeded"; type: "bool" }
-        }
-        Signal { name: "enabledFormatsChanged" }
-        Signal {
-            name: "tagFound"
-            Parameter { name: "tag"; type: "string" }
-        }
-        Signal {
-            name: "tagFoundAdvanced"
-            Parameter { name: "tag"; type: "string" }
-            Parameter { name: "format"; type: "string" }
-            Parameter { name: "charSet"; type: "string" }
-        }
-        Signal {
-            name: "tagFoundAdvanced"
-            Parameter { name: "tag"; type: "string" }
-            Parameter { name: "format"; type: "string" }
-            Parameter { name: "charSet"; type: "string" }
-            Parameter { name: "rect"; type: "QRectF" }
-        }
-        Signal {
-            name: "error"
-            Parameter { name: "msg"; type: "string" }
-        }
-        Method {
-            name: "decodeImage"
-            type: "string"
-            Parameter { name: "image"; type: "QImage" }
-            Parameter { name: "maxWidth"; type: "int" }
-            Parameter { name: "maxHeight"; type: "int" }
-            Parameter { name: "smoothTransformation"; type: "bool" }
-        }
-        Method {
-            name: "decodeImage"
-            type: "string"
-            Parameter { name: "image"; type: "QImage" }
-            Parameter { name: "maxWidth"; type: "int" }
-            Parameter { name: "maxHeight"; type: "int" }
-        }
-        Method {
-            name: "decodeImage"
-            type: "string"
-            Parameter { name: "image"; type: "QImage" }
-            Parameter { name: "maxWidth"; type: "int" }
-        }
-        Method {
-            name: "decodeImage"
-            type: "string"
-            Parameter { name: "image"; type: "QImage" }
-        }
-        Method {
-            name: "decodeImageFromFile"
-            type: "string"
-            Parameter { name: "imageFilePath"; type: "string" }
-            Parameter { name: "maxWidth"; type: "int" }
-            Parameter { name: "maxHeight"; type: "int" }
-            Parameter { name: "smoothTransformation"; type: "bool" }
-        }
-        Method {
-            name: "decodeImageFromFile"
-            type: "string"
-            Parameter { name: "imageFilePath"; type: "string" }
-            Parameter { name: "maxWidth"; type: "int" }
-            Parameter { name: "maxHeight"; type: "int" }
-        }
-        Method {
-            name: "decodeImageFromFile"
-            type: "string"
-            Parameter { name: "imageFilePath"; type: "string" }
-            Parameter { name: "maxWidth"; type: "int" }
-        }
-        Method {
-            name: "decodeImageFromFile"
-            type: "string"
-            Parameter { name: "imageFilePath"; type: "string" }
-        }
-        Method {
-            name: "decodeImageQML"
-            type: "string"
-            Parameter { name: "item"; type: "QObject"; isPointer: true }
-        }
-        Method {
-            name: "decodeSubImageQML"
-            type: "string"
-            Parameter { name: "item"; type: "QObject"; isPointer: true }
-            Parameter { name: "offsetX"; type: "int" }
-            Parameter { name: "offsetY"; type: "int" }
-            Parameter { name: "width"; type: "int" }
-            Parameter { name: "height"; type: "int" }
-        }
-        Method {
-            name: "decodeSubImageQML"
-            type: "string"
-            Parameter { name: "item"; type: "QObject"; isPointer: true }
-            Parameter { name: "offsetX"; type: "int" }
-            Parameter { name: "offsetY"; type: "int" }
-            Parameter { name: "width"; type: "int" }
-        }
-        Method {
-            name: "decodeSubImageQML"
-            type: "string"
-            Parameter { name: "item"; type: "QObject"; isPointer: true }
-            Parameter { name: "offsetX"; type: "int" }
-            Parameter { name: "offsetY"; type: "int" }
-        }
-        Method {
-            name: "decodeSubImageQML"
-            type: "string"
-            Parameter { name: "item"; type: "QObject"; isPointer: true }
-            Parameter { name: "offsetX"; type: "int" }
-        }
-        Method {
-            name: "decodeSubImageQML"
-            type: "string"
-            Parameter { name: "item"; type: "QObject"; isPointer: true }
-        }
-        Method {
-            name: "decodeImageQML"
-            type: "string"
-            Parameter { name: "imageUrl"; type: "QUrl" }
-        }
-        Method {
-            name: "decodeSubImageQML"
-            type: "string"
-            Parameter { name: "imageUrl"; type: "QUrl" }
-            Parameter { name: "offsetX"; type: "int" }
-            Parameter { name: "offsetY"; type: "int" }
-            Parameter { name: "width"; type: "int" }
-            Parameter { name: "height"; type: "int" }
-        }
-        Method {
-            name: "decodeSubImageQML"
-            type: "string"
-            Parameter { name: "imageUrl"; type: "QUrl" }
-            Parameter { name: "offsetX"; type: "int" }
-            Parameter { name: "offsetY"; type: "int" }
-            Parameter { name: "width"; type: "int" }
-        }
-        Method {
-            name: "decodeSubImageQML"
-            type: "string"
-            Parameter { name: "imageUrl"; type: "QUrl" }
-            Parameter { name: "offsetX"; type: "int" }
-            Parameter { name: "offsetY"; type: "int" }
-        }
-        Method {
-            name: "decodeSubImageQML"
-            type: "string"
-            Parameter { name: "imageUrl"; type: "QUrl" }
-            Parameter { name: "offsetX"; type: "int" }
-        }
-        Method {
-            name: "decodeSubImageQML"
-            type: "string"
-            Parameter { name: "imageUrl"; type: "QUrl" }
-        }
-        Method {
-            name: "encodeData"
-            type: "QImage"
-            Parameter { name: "data"; type: "string" }
-        }
-        Method { name: "getProcessTimeOfLastDecoding"; type: "int" }
-        Method { name: "getEnabledFormats"; type: "uint" }
-        Method {
-            name: "setDecoder"
-            Parameter { name: "hint"; type: "uint" }
-        }
-        Method { name: "foundedFormat"; type: "string" }
-        Method { name: "charSet"; type: "string" }
-    }
-    Component {
-        name: "QZXingFilter"
-        prototype: "QAbstractVideoFilter"
-        exports: ["AsemanTools/QZXingFilter 1.0"]
-        exportMetaObjectRevisions: [0]
-        Property { name: "decoding"; type: "bool"; isReadonly: true }
-        Property { name: "decoder"; type: "QZXing"; isReadonly: true; isPointer: true }
-        Property { name: "captureRect"; type: "QRectF" }
-        Signal { name: "isDecodingChanged" }
-        Signal {
-            name: "decodingFinished"
-            Parameter { name: "succeeded"; type: "bool" }
-            Parameter { name: "decodeTime"; type: "int" }
-        }
-        Signal { name: "decodingStarted" }
-    }
-    Component {
         prototype: "QQuickAbstractButton"
         name: "QtQuick.Controls/AbstractButton 2.0"
         exports: ["QtQuick.Controls/AbstractButton 2.0"]
@@ -3544,6 +3327,15 @@ Module {
     }
     Component {
         prototype: "QQuickRectangle"
+        name: "QtQuick.Controls.impl/CheckIndicator 2.0"
+        exports: ["QtQuick.Controls.impl/CheckIndicator 2.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "control"; type: "QQuickItem"; isPointer: true }
+    }
+    Component {
+        prototype: "QQuickRectangle"
         name: "QtQuick.Controls.Universal.impl/CheckIndicator 2.0"
         exports: ["QtQuick.Controls.Universal.impl/CheckIndicator 2.0"]
         exportMetaObjectRevisions: [0]
@@ -3553,15 +3345,6 @@ Module {
         Property { name: "partiallyChecked"; type: "bool"; isReadonly: true }
     }
     Component {
-        prototype: "QQuickRectangle"
-        name: "QtQuick.Controls.impl/CheckIndicator 2.0"
-        exports: ["QtQuick.Controls.impl/CheckIndicator 2.0"]
-        exportMetaObjectRevisions: [0]
-        isComposite: true
-        defaultProperty: "data"
-        Property { name: "control"; type: "QQuickItem"; isPointer: true }
-    }
-    Component {
         prototype: "QQuickFocusScope"
         name: "QtQuick.Extras.Private/CircularButton 1.0"
         exports: ["QtQuick.Extras.Private/CircularButton 1.0"]
@@ -3569,7 +3352,7 @@ Module {
         isComposite: true
         defaultProperty: "data"
         Property { name: "isDefault"; type: "bool" }
-        Property { name: "menu"; type: "Menu_QMLTYPE_47"; isPointer: true }
+        Property { name: "menu"; type: "Menu_QMLTYPE_51"; isPointer: true }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
         Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
@@ -3736,14 +3519,6 @@ Module {
         defaultProperty: "data"
     }
     Component {
-        prototype: "QQuickDelayButton"
-        name: "QtQuick.Controls/DelayButton 2.2"
-        exports: ["QtQuick.Controls/DelayButton 2.2"]
-        exportMetaObjectRevisions: [2]
-        isComposite: true
-        defaultProperty: "data"
-    }
-    Component {
         prototype: "QQuickFocusScope"
         name: "QtQuick.Extras/DelayButton 1.0"
         exports: ["QtQuick.Extras/DelayButton 1.0"]
@@ -3755,7 +3530,7 @@ Module {
         Property { name: "progress"; type: "double"; isReadonly: true }
         Signal { name: "activated" }
         Property { name: "isDefault"; type: "bool" }
-        Property { name: "menu"; type: "Menu_QMLTYPE_47"; isPointer: true }
+        Property { name: "menu"; type: "Menu_QMLTYPE_51"; isPointer: true }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
         Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
@@ -3782,10 +3557,18 @@ Module {
         Property { name: "__styleData"; type: "QObject"; isPointer: true }
     }
     Component {
+        prototype: "QQuickDelayButton"
+        name: "QtQuick.Controls/DelayButton 2.2"
+        exports: ["QtQuick.Controls/DelayButton 2.2"]
+        exportMetaObjectRevisions: [2]
+        isComposite: true
+        defaultProperty: "data"
+    }
+    Component {
         prototype: "QQuickFocusScope"
-        name: "QtQuick.Extras/Dial 1.1"
-        exports: ["QtQuick.Extras/Dial 1.1"]
-        exportMetaObjectRevisions: [1]
+        name: "QtQuick.Extras/Dial 1.0"
+        exports: ["QtQuick.Extras/Dial 1.0"]
+        exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
         Property { name: "__wrap"; type: "bool" }
@@ -3813,9 +3596,9 @@ Module {
     }
     Component {
         prototype: "QQuickFocusScope"
-        name: "QtQuick.Extras/Dial 1.0"
-        exports: ["QtQuick.Extras/Dial 1.0"]
-        exportMetaObjectRevisions: [0]
+        name: "QtQuick.Extras/Dial 1.1"
+        exports: ["QtQuick.Extras/Dial 1.1"]
+        exportMetaObjectRevisions: [1]
         isComposite: true
         defaultProperty: "data"
         Property { name: "__wrap"; type: "bool" }
@@ -5062,15 +4845,6 @@ Module {
     }
     Component {
         prototype: "QQuickRectangle"
-        name: "QtQuick.Controls.impl/RadioIndicator 2.0"
-        exports: ["QtQuick.Controls.impl/RadioIndicator 2.0"]
-        exportMetaObjectRevisions: [0]
-        isComposite: true
-        defaultProperty: "data"
-        Property { name: "control"; type: "QQuickItem"; isPointer: true }
-    }
-    Component {
-        prototype: "QQuickRectangle"
         name: "QtQuick.Controls.Universal.impl/RadioIndicator 2.0"
         exports: ["QtQuick.Controls.Universal.impl/RadioIndicator 2.0"]
         exportMetaObjectRevisions: [0]
@@ -5082,6 +4856,15 @@ Module {
         prototype: "QQuickRectangle"
         name: "QtQuick.Controls.Material.impl/RadioIndicator 2.0"
         exports: ["QtQuick.Controls.Material.impl/RadioIndicator 2.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "control"; type: "QQuickItem"; isPointer: true }
+    }
+    Component {
+        prototype: "QQuickRectangle"
+        name: "QtQuick.Controls.impl/RadioIndicator 2.0"
+        exports: ["QtQuick.Controls.impl/RadioIndicator 2.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
@@ -5181,9 +4964,9 @@ Module {
     }
     Component {
         prototype: "QQuickFocusScope"
-        name: "QtQuick.Extras/StatusIndicator 1.0"
-        exports: ["QtQuick.Extras/StatusIndicator 1.0"]
-        exportMetaObjectRevisions: [0]
+        name: "QtQuick.Extras/StatusIndicator 1.1"
+        exports: ["QtQuick.Extras/StatusIndicator 1.1"]
+        exportMetaObjectRevisions: [1]
         isComposite: true
         defaultProperty: "data"
         Property { name: "active"; type: "bool" }
@@ -5197,9 +4980,9 @@ Module {
     }
     Component {
         prototype: "QQuickFocusScope"
-        name: "QtQuick.Extras/StatusIndicator 1.1"
-        exports: ["QtQuick.Extras/StatusIndicator 1.1"]
-        exportMetaObjectRevisions: [1]
+        name: "QtQuick.Extras/StatusIndicator 1.0"
+        exports: ["QtQuick.Extras/StatusIndicator 1.0"]
+        exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
         Property { name: "active"; type: "bool" }
@@ -5245,12 +5028,13 @@ Module {
     }
     Component {
         prototype: "QQuickItem"
-        name: "QtQuick.Controls.impl/SwitchIndicator 2.0"
-        exports: ["QtQuick.Controls.impl/SwitchIndicator 2.0"]
+        name: "QtQuick.Controls.Material.impl/SwitchIndicator 2.0"
+        exports: ["QtQuick.Controls.Material.impl/SwitchIndicator 2.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
         Property { name: "control"; type: "QQuickItem"; isPointer: true }
+        Property { name: "handle"; type: "QQuickRectangle"; isReadonly: true; isPointer: true }
     }
     Component {
         prototype: "QQuickItem"
@@ -5263,13 +5047,12 @@ Module {
     }
     Component {
         prototype: "QQuickItem"
-        name: "QtQuick.Controls.Material.impl/SwitchIndicator 2.0"
-        exports: ["QtQuick.Controls.Material.impl/SwitchIndicator 2.0"]
+        name: "QtQuick.Controls.impl/SwitchIndicator 2.0"
+        exports: ["QtQuick.Controls.impl/SwitchIndicator 2.0"]
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "data"
         Property { name: "control"; type: "QQuickItem"; isPointer: true }
-        Property { name: "handle"; type: "QQuickRectangle"; isReadonly: true; isPointer: true }
     }
     Component {
         prototype: "QQuickTabBar"
@@ -5321,7 +5104,7 @@ Module {
         isComposite: true
         defaultProperty: "data"
         Property { name: "isDefault"; type: "bool" }
-        Property { name: "menu"; type: "Menu_QMLTYPE_47"; isPointer: true }
+        Property { name: "menu"; type: "Menu_QMLTYPE_51"; isPointer: true }
         Property { name: "checkable"; type: "bool" }
         Property { name: "checked"; type: "bool" }
         Property { name: "exclusiveGroup"; type: "QQuickExclusiveGroup1"; isPointer: true }
@@ -5378,14 +5161,6 @@ Module {
         exportMetaObjectRevisions: [0]
         isComposite: true
         defaultProperty: "contentData"
-    }
-    Component {
-        prototype: "QQuickTumbler"
-        name: "QtQuick.Controls/Tumbler 2.0"
-        exports: ["QtQuick.Controls/Tumbler 2.0"]
-        exportMetaObjectRevisions: [0]
-        isComposite: true
-        defaultProperty: "data"
     }
     Component {
         prototype: "QQuickFocusScope"
@@ -5447,6 +5222,14 @@ Module {
         Property { name: "__panel"; type: "QQuickItem"; isPointer: true }
         Property { name: "styleHints"; type: "QVariant" }
         Property { name: "__styleData"; type: "QObject"; isPointer: true }
+    }
+    Component {
+        prototype: "QQuickTumbler"
+        name: "QtQuick.Controls/Tumbler 2.0"
+        exports: ["QtQuick.Controls/Tumbler 2.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
     }
     Component {
         prototype: "QObject"

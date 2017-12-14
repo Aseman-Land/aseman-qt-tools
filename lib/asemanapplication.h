@@ -28,11 +28,15 @@
 #include <QClipboard>
 #include <QUrl>
 
+#ifdef QT_QML_LIB
+#include <QJSValue>
+#endif
+
 #ifdef QT_GUI_LIB
 #include <QIcon>
+#endif
 
 #include "asemantools_global.h"
-#endif
 
 #if defined(QT_WIDGETS_LIB) && defined(DESKTOP_DEVICE)
 #define DEFAULT_AAPP_TYPE AsemanApplication::WidgetApplication
@@ -106,6 +110,9 @@ public:
     };
 
     AsemanApplication();
+#ifdef QT_QML_LIB
+    AsemanApplication(QQmlEngine *engine);
+#endif
     AsemanApplication(int &argc, char **argv, ApplicationType appType = DEFAULT_AAPP_TYPE);
     virtual ~AsemanApplication();
 
@@ -186,6 +193,10 @@ public Q_SLOTS:
 
     void sleep(quint64 ms);
     void sendMessage(const QString &msg);
+
+#ifdef QT_QML_LIB
+    QVariantMap requestPermissions(QStringList persmissions, QJSValue callback);
+#endif
 
     void setSetting( const QString & key, const QVariant & value );
     QVariant readSetting( const QString & key, const QVariant & defaultValue = QVariant() );

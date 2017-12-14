@@ -31,6 +31,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <QStandardPaths>
+#include <QPointer>
 
 #ifdef QT_WIDGETS_LIB
 #define READ_DEFINITION(FUNCTION, DEFAULT_VALUE) \
@@ -86,6 +87,12 @@
 #endif
 #endif
 
+#ifdef Q_OS_ANDROID
+#include <QtAndroid>
+#endif
+#ifdef QT_QML_LIB
+#include <QQmlEngine>
+#endif
 
 #ifdef QT_GUI_LIB
 #include <QGuiApplication>
@@ -102,6 +109,7 @@ static AsemanApplication *aseman_app_singleton = 0;
 static QSet<AsemanApplication*> aseman_app_objects;
 static QString *aseman_app_home_path = 0;
 static QString *aseman_app_log_path = 0;
+static QString *aseman_app_tmp_path = 0;
 
 bool AsemanApplication::aseman_app_inited = AsemanApplication::aseman_app_init();
 
@@ -128,6 +136,9 @@ public:
     QCoreApplication *app;
     bool app_owner;
     QString appAbout;
+#ifdef QT_QML_LIB
+    QPointer<QQmlEngine> engine;
+#endif
     static QtLocalPeer *peer;
 };
 
@@ -167,6 +178,14 @@ AsemanApplication::AsemanApplication() :
     p->app->installEventFilter(this);
     init();
 }
+
+#ifdef QT_QML_LIB
+AsemanApplication::AsemanApplication(QQmlEngine *engine) :
+    AsemanApplication()
+{
+    p->engine = engine;
+}
+#endif
 
 AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType appType) :
     AsemanQuickObject()
@@ -308,20 +327,23 @@ QString AsemanApplication::homePath()
 
     aseman_app_home_path = new QString();
 
-#ifdef Q_OS_ANDROID
-    *aseman_app_home_path = QDir::homePath();
-#else
-#ifdef Q_OS_IOS
-    *aseman_app_home_path = QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first();
-#else
+    QString oldPath;
 #ifdef Q_OS_WIN
-    *aseman_app_home_path = QDir::homePath() + "/AppData/Local/" + QCoreApplication::applicationName();
+    oldPath = QDir::homePath() + "/AppData/Local/" + QCoreApplication::applicationName();
 #else
-    *aseman_app_home_path = QDir::homePath() + "/.config/" + QCoreApplication::applicationName();
-#endif
-#endif
+    oldPath = QDir::homePath() + "/.config/" + QCoreApplication::applicationName();
 #endif
 
+    QStringList paths = QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation);
+    if(paths.isEmpty())
+        paths << oldPath;
+
+    if( oldPath.count() && QFileInfo::exists(oldPath) )
+        *aseman_app_home_path = oldPath;
+    else
+        *aseman_app_home_path = paths.first();
+
+    QDir().mkpath(*aseman_app_home_path);
     return *aseman_app_home_path;
 }
 
@@ -345,7 +367,7 @@ QString AsemanApplication::startPath()
     return "/sdcard/";
 #else
 #ifdef Q_OS_IOS
-    return QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first();
+    return homePath();
 #else
     return QDir::homePath();
 #endif
@@ -367,11 +389,8 @@ QString AsemanApplication::logPath()
     if(!aseman_app_log_path)
     {
         aseman_app_log_path = new QString();
-#ifdef Q_OS_ANDROID
-        *aseman_app_log_path = "/sdcard/" + QCoreApplication::organizationDomain() + "/" + QCoreApplication::applicationName() + "/log";
-#else
-        *aseman_app_log_path = homePath()+"/log";
-#endif
+        *aseman_app_log_path = homePath() + "/log";
+        QDir().mkpath(*aseman_app_log_path);
     }
 
     return *aseman_app_log_path;
@@ -394,15 +413,18 @@ QString AsemanApplication::confsPath()
 
 QString AsemanApplication::tempPath()
 {
-#ifdef Q_OS_ANDROID
-    return "/sdcard/" + QCoreApplication::organizationDomain() + "/" + QCoreApplication::applicationName() + "/temp";
+    if(!aseman_app_tmp_path)
+    {
+        aseman_app_tmp_path = new QString();
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+        *aseman_app_tmp_path = homePath() + "/tmp/";
 #else
-#ifdef Q_OS_IOS
-    return QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first() + "/tmp/";
-#else
-    return QDir::tempPath();
+        *aseman_app_tmp_path = QDir::tempPath();
 #endif
-#endif
+        QDir().mkpath(*aseman_app_tmp_path);
+    }
+
+    return *aseman_app_tmp_path;
 }
 
 QString AsemanApplication::backupsPath()
@@ -411,7 +433,7 @@ QString AsemanApplication::backupsPath()
     return "/sdcard/" + QCoreApplication::organizationDomain() + "/" + QCoreApplication::applicationName() + "/backups";
 #else
 #ifdef Q_OS_IOS
-    return QStandardPaths::standardLocations(QStandardPaths::QStandardPaths::AppDataLocation).first() + "/backups/";
+    return homePath() + "/backups/";
 #else
     return homePath() + "/backups";
 #endif
@@ -620,6 +642,63 @@ void AsemanApplication::sendMessage(const QString &msg)
     if(AsemanApplicationPrivate::peer)
         AsemanApplicationPrivate::peer->sendMessage(msg, 5000);
 }
+
+#ifdef QT_QML_LIB
+QVariantMap AsemanApplication::requestPermissions(QStringList persmissions, QJSValue callback)
+{
+    QVariantMap _res;
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
+#ifdef Q_OS_ANDROID
+    auto c_callback = [callback](const QtAndroid::PermissionResultMap &res) -> QVariantMap {
+        QVariantMap map;
+
+        QHashIterator<QString, QtAndroid::PermissionResult> i(res);
+        while(i.hasNext())
+        {
+            i.next();
+            map[i.key()] = (i.value() == QtAndroid::PermissionResult::Granted);
+        }
+
+        return map;
+    };
+
+    for(QString pr: persmissions)
+        if(QtAndroid::checkPermission(pr) == QtAndroid::PermissionResult::Granted)
+        {
+            persmissions.removeAll(pr);
+            _res[pr] = true;
+        }
+
+    if(persmissions.count())
+    {
+        if(callback.isCallable())
+            QtAndroid::requestPermissions(persmissions, [callback, c_callback, _res, this](const QtAndroid::PermissionResultMap &res){
+                QVariantMap map = c_callback(res);
+                map.unite(_res);
+
+                QJSValue callbackCopy = callback;
+                if(p->engine)
+                    callbackCopy.call(QJSValueList() << p->engine->toScriptValue<QVariant>(map));
+            });
+        else
+            _res.unite(c_callback( QtAndroid::requestPermissionsSync(persmissions) ));
+    }
+    else
+    {
+        if(callback.isCallable())
+        {
+            if(p->engine)
+                callback.call(QJSValueList() << p->engine->toScriptValue<QVariant>(_res));
+        }
+    }
+#endif
+#endif
+    Q_UNUSED(persmissions)
+    Q_UNUSED(callback)
+    return _res;
+}
+#endif
 
 AsemanApplication *AsemanApplication::instance()
 {

@@ -47,7 +47,7 @@ public:
     static int registerUncreatableType(const char *uri, int versionMajor, int versionMinor, const char *qmlName, const QString& reason, bool exportMode);
 
     static class AsemanQuickViewWrapper *quickView(QQmlEngine *engine);
-    static class AsemanApplication *application();
+    static class AsemanApplication *application(QQmlEngine *engine);
     static class AsemanDesktopTools *desktopTools();
     static class AsemanDevices *devices();
     static class AsemanQtLogger *qtLogger();

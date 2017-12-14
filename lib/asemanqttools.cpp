@@ -117,7 +117,7 @@ SINGLETON_PROVIDER(AsemanTextTools          , aseman_text_tools_singleton      ,
 SINGLETON_PROVIDER(AsemanDesktopTools       , aseman_desktoptools_singleton    , AsemanQtTools::desktopTools())
 SINGLETON_PROVIDER(AsemanCalendarConverter  , aseman_calendarconv_singleton    , AsemanQtTools::calendar(engine))
 SINGLETON_PROVIDER(AsemanBackHandler        , aseman_backhandler_singleton     , AsemanQtTools::backHandler(engine))
-SINGLETON_PROVIDER(AsemanApplication        , aseman_app_singleton             , AsemanQtTools::application())
+SINGLETON_PROVIDER(AsemanApplication        , aseman_app_singleton             , AsemanQtTools::application(engine))
 SINGLETON_PROVIDER(AsemanQuickViewWrapper   , aseman_qview_singleton           , AsemanQtTools::quickView(engine))
 SINGLETON_PROVIDER(AsemanQtLogger           , aseman_logger_singleton          , AsemanQtTools::qtLogger())
 SINGLETON_PROVIDER(AsemanSystemInfo         , aseman_sysinfo_singleton         , AsemanQtTools::systemInfo())
@@ -294,11 +294,11 @@ AsemanQuickViewWrapper *AsemanQtTools::quickView(QQmlEngine *engine)
     return res;
 }
 
-AsemanApplication *AsemanQtTools::application()
+AsemanApplication *AsemanQtTools::application(QQmlEngine *engine)
 {
     static QPointer<AsemanApplication> res;
     if(!res)
-        res = new AsemanApplication();
+        res = new AsemanApplication(engine);
 
     return res;
 }
