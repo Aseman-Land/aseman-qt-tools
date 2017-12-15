@@ -27,6 +27,7 @@ Column {
     spacing: 10*Devices.density
 
     property alias message: msg.text
+    property alias okText: okBtn.text
 
     signal canceled()
     signal ok()
@@ -62,6 +63,7 @@ Column {
         }
 
         Button {
+            id: okBtn
             textFont.family: AsemanApp.globalFont.family
             textFont.pixelSize: 10*Devices.fontDensity
             textColor: "#0d80ec"

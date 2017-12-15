@@ -55,16 +55,13 @@
 #include <QCryptographicHash>
 #include <QTimer>
 #include <QVariantMap>
+#include <QSysInfo>
 
 #ifdef ASEMAN_MULTIMEDIA
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
 #include <QBuffer>
 #include <QCameraInfo>
 #endif
-#endif
-
-#ifdef Q_OS_WIN
-#include <QSysInfo>
 #endif
 
 class AsemanDevicesPrivate
@@ -389,6 +386,36 @@ QString AsemanDevices::deviceShortId()
 {
     QString hash = QCryptographicHash::hash(deviceId().toUtf8(), QCryptographicHash::Md5).toHex();
     return hash.remove("-").left(8);
+}
+
+QString AsemanDevices::platformVersion()
+{
+    return QSysInfo::productVersion();
+}
+
+QString AsemanDevices::platformType()
+{
+    return QSysInfo::productType();
+}
+
+QString AsemanDevices::platformName()
+{
+    return QSysInfo::prettyProductName();
+}
+
+QString AsemanDevices::platformKernel()
+{
+    return QSysInfo::kernelType();
+}
+
+QString AsemanDevices::platformKernelVersion()
+{
+    return QSysInfo::kernelVersion();
+}
+
+QString AsemanDevices::platformCpuArchitecture()
+{
+    return QSysInfo::currentCpuArchitecture();
 }
 
 QString AsemanDevices::qtVersion()
@@ -838,6 +865,13 @@ QVariantMap AsemanDevices::deviceDetails()
     map["device.name"] = AsemanDevices::deviceName();
     map["device.id"] = AsemanDevices::deviceId();
     map["device.shortId"] = AsemanDevices::deviceShortId();
+
+    map["platform.version"] = AsemanDevices::platformVersion();
+    map["platform.type"] = AsemanDevices::platformType();
+    map["platform.name"] = AsemanDevices::platformName();
+    map["platform.kernel"] = AsemanDevices::platformKernel();
+    map["platform.kernelVersion"] = AsemanDevices::platformKernelVersion();
+    map["platform.cpuArchitecture"] = AsemanDevices::platformCpuArchitecture();
 
     map["qt.version"] = AsemanDevices::qtVersion();
     map["qt.majorVersion"] = AsemanDevices::qtMajorVersion();

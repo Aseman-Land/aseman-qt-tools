@@ -279,7 +279,7 @@ void AsemanJavaLayer::load_buffer()
 void AsemanJavaLayer::setImplemented(bool stt)
 {
     jboolean jstt = stt;
-    p->object.callMethod<jboolean>(__FUNCTION__, "(Z)V", jstt );
+    p->object.callMethod<jboolean>(__FUNCTION__, "(Z)Z", jstt );
 }
 
 AsemanJavaLayer::~AsemanJavaLayer()

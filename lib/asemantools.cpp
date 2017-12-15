@@ -210,6 +210,22 @@ QString AsemanTools::readText(const QString &path)
     return res;
 }
 
+bool AsemanTools::writeText(const QString &path, const QString &text)
+{
+    QFile file(path);
+    if( !file.open(QFile::WriteOnly) )
+        return false;
+
+    file.write(text.toUtf8());
+    file.close();
+    return true;
+}
+
+bool AsemanTools::fileExists(const QString &path)
+{
+    return QFileInfo::exists(path);
+}
+
 QStringList AsemanTools::filesOf(const QString &path)
 {
     return QDir(path).entryList(QDir::Files);

@@ -180,8 +180,9 @@ public class AsemanJavaLayer
         }
     }
 
-    public static void setImplemented(boolean stt) {
+    boolean setImplemented(boolean stt) {
         implemented = stt;
+        return true;
     }
 
     public String deviceId() {
@@ -463,6 +464,18 @@ public class AsemanJavaLayer
         mainHandler.post(myRunnable);
         return true;
     }
+
+//    public static String getUniquePsuedoID() {
+//        String m_szDevIDShort = "35" + (Build.BOARD.length() % 10) + (Build.BRAND.length() % 10) + (Build.CPU_ABI.length() % 10) + (Build.DEVICE.length() % 10) + (Build.MANUFACTURER.length() % 10) + (Build.MODEL.length() % 10) + (Build.PRODUCT.length() % 10);
+//        String serial = null;
+//        try {
+//            serial = android.os.Build.class.getField("SERIAL").get(null).toString();
+//            return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
+//        } catch (Exception exception) {
+//            serial = "3077139d-9dde-4ee1-afb5-ecc43f5d1524";
+//        }
+//        return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
+//    }
 
 //    boolean googleSignIn(String clientId)
 //    {

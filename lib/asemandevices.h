@@ -57,6 +57,13 @@ class LIBASEMANTOOLSSHARED_EXPORT AsemanDevices : public QObject
     Q_PROPERTY(qreal lcdDpiX           READ lcdDpiX           NOTIFY lcdDpiXChanged           )
     Q_PROPERTY(qreal lcdDpiY           READ lcdDpiY           NOTIFY lcdDpiYChanged           )
 
+    Q_PROPERTY(QString platformVersion         READ platformVersion         NOTIFY platformChanged)
+    Q_PROPERTY(QString platformType            READ platformType            NOTIFY platformChanged)
+    Q_PROPERTY(QString platformName            READ platformName            NOTIFY platformChanged)
+    Q_PROPERTY(QString platformKernel          READ platformKernel          NOTIFY platformChanged)
+    Q_PROPERTY(QString platformKernelVersion   READ platformKernelVersion   NOTIFY platformChanged)
+    Q_PROPERTY(QString platformCpuArchitecture READ platformCpuArchitecture NOTIFY platformChanged)
+
     Q_PROPERTY(QSize screenSize        READ screenSize        NOTIFY geometryChanged          )
     Q_PROPERTY(qreal keyboardHeight    READ keyboardHeight    NOTIFY geometryChanged          )
 
@@ -133,6 +140,13 @@ public:
     static QString deviceName();
     static QString deviceId();
     static QString deviceShortId();
+
+    static QString platformVersion();
+    static QString platformType();
+    static QString platformName();
+    static QString platformKernel();
+    static QString platformKernelVersion();
+    static QString platformCpuArchitecture();
 
     static QString qtVersion();
     static qreal qtMajorVersion();
@@ -217,6 +231,7 @@ Q_SIGNALS:
     void deviceNameChanged();
     void deviceIdChanged();
     void qtVersionChanged();
+    void platformChanged();
 
     void cameraIsAvailableChanged();
 

@@ -110,6 +110,7 @@
         <file>AsemanTools/BackAction.qml</file>
         <file>AsemanTools/private/GlobalBusyDialog.qml</file>
         <file>AsemanTools/Dialog.qml</file>
+        <file>AsemanTools/CrashController.qml</file>
         <file>AsemanTools/BarcodeScanner.qml</file>
         <file>AsemanTools/SearchBar.qml</file>
         <file>AsemanTools/CircularProgressBar.qml</file>

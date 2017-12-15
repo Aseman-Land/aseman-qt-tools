@@ -74,6 +74,8 @@ public Q_SLOTS:
     static QString fileMime(const QString &path);
     static QString fileParent( const QString & path );
     static QString readText( const QString & path );
+    static bool writeText(const QString & path , const QString &text);
+    static bool fileExists(const QString & path);
     static QStringList filesOf(const QString &path);
 
     static QSize imageSize(const QString &path);
