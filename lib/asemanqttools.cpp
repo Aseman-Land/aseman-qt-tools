@@ -328,7 +328,7 @@ AsemanQtLogger *AsemanQtTools::qtLogger()
     {
         QString path = QString::fromUtf8(qgetenv("ASEMAN_LOG_PATH"));
         if(path.isEmpty())
-            path = AsemanApplication::logPath();
+            path = AsemanApplication::logPath() + "/log";
 
         res = new AsemanQtLogger(path);
     }

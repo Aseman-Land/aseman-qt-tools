@@ -270,11 +270,11 @@ public class AsemanJavaLayer
         intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+path));
 
         try {
-        
+
             Intent new_intent = Intent.createChooser(intent , "Share Via");
             new_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             oContext.startActivity(new_intent);
-            
+
         } catch(Exception e) {
             Log.e("Share" , "Exception:" , e);
             return false;

@@ -199,8 +199,8 @@ public Q_SLOTS:
     void showKeyboard();
 
     void share(const QString & subject, const QString & message );
-    void openFile( const QString & address );
-    void shareFile(const QString &address);
+    bool openFile( const QString & address );
+    bool shareFile(const QString &address);
     void callNumber( const QString & number );
     void setClipboard( const QString & text );
     void setClipboardData(AsemanMimeData *mime);

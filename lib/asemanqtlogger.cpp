@@ -27,11 +27,13 @@
 #include <QMutex>
 
 QSet<AsemanQtLogger*> aseman_qt_logger_objs;
+QtMessageHandler aseman_qt_logger_previousHandler = 0;
 
 void asemanQtLoggerFnc(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
     for(AsemanQtLogger *obj: aseman_qt_logger_objs)
         obj->logMsg(type,context,msg);
+    aseman_qt_logger_previousHandler(type, context, msg);
 }
 
 class AsemanQtLoggerPrivate
@@ -47,13 +49,9 @@ AsemanQtLogger::AsemanQtLogger(const QString &path, QObject *parent) :
 {
     p = new AsemanQtLoggerPrivate;
     p->path = path;
-
-    p->file = new QFile(path);
-    p->file->open(QFile::WriteOnly);
+    p->file = 0;
 
     aseman_qt_logger_objs.insert(this);
-    if( aseman_qt_logger_objs.count() == 1 )
-        qInstallMessageHandler(asemanQtLoggerFnc);
 }
 
 void AsemanQtLogger::logMsg(QtMsgType type, const QMessageLogContext &context, const QString &msg)
@@ -96,9 +94,28 @@ void AsemanQtLogger::logMsg(QtMsgType type, const QMessageLogContext &context, c
     }
 }
 
+QString AsemanQtLogger::path() const
+{
+    return p->path;
+}
+
 void AsemanQtLogger::debug(const QVariant &var)
 {
     qDebug() << var;
+}
+
+void AsemanQtLogger::start()
+{
+    if(p->file)
+        return;
+
+    p->file = new QFile(p->path);
+    p->file->open(QFile::WriteOnly);
+
+    if(aseman_qt_logger_previousHandler)
+        return;
+
+    aseman_qt_logger_previousHandler = qInstallMessageHandler(asemanQtLoggerFnc);
 }
 
 void AsemanQtLogger::app_closed()

@@ -27,14 +27,21 @@ class AsemanQtLoggerPrivate;
 class LIBASEMANTOOLSSHARED_EXPORT AsemanQtLogger : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString path READ path NOTIFY pathChanged)
+
 public:
     AsemanQtLogger(const QString & path, QObject *parent = 0);
     virtual ~AsemanQtLogger();
 
     virtual void logMsg(QtMsgType type , const QMessageLogContext &context, const QString &msg);
+    QString path() const;
+
+Q_SIGNALS:
+    void pathChanged();
 
 public Q_SLOTS:
     void debug( const QVariant & var );
+    void start();
 
 private Q_SLOTS:
     void app_closed();

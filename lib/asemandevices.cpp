@@ -1001,23 +1001,23 @@ void AsemanDevices::share(const QString &subject, const QString &message)
 #endif
 }
 
-void AsemanDevices::openFile(const QString &address)
+bool AsemanDevices::openFile(const QString &address)
 {
 #ifdef Q_OS_ANDROID
     const QMimeType & t = p->mime_db.mimeTypeForFile(address);
-    p->java_layer->openFile( address, t.name() );
+    return p->java_layer->openFile( address, t.name() );
 #else
-    QDesktopServices::openUrl( QUrl(address) );
+    return QDesktopServices::openUrl( QUrl(address) );
 #endif
 }
 
-void AsemanDevices::shareFile(const QString &address)
+bool AsemanDevices::shareFile(const QString &address)
 {
 #ifdef Q_OS_ANDROID
     const QMimeType & t = p->mime_db.mimeTypeForFile(address);
-    p->java_layer->shareFile( address, t.name() );
+    return p->java_layer->shareFile( address, t.name() );
 #else
-    QDesktopServices::openUrl( QUrl(address) );
+    return QDesktopServices::openUrl( QUrl(address) );
 #endif
 }
 

@@ -78,39 +78,39 @@ AsemanJavaLayer *AsemanJavaLayer::instance()
 
 bool AsemanJavaLayer::sharePaper(const QString &title, const QString &msg)
 {
-    jstring jtitle = p->env->NewString(reinterpret_cast<const jchar*>(title.constData()), title.length());
-    jstring jmsg   = p->env->NewString(reinterpret_cast<const jchar*>(msg.constData()), msg.length());
-    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;Ljava/lang/String;)Z", jtitle, jmsg );
+    QAndroidJniObject jtitle = QAndroidJniObject::fromString(title.toUtf8());
+    QAndroidJniObject jmsg = QAndroidJniObject::fromString(msg.toUtf8());
+    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;Ljava/lang/String;)Z", jtitle.object<jstring>(), jmsg.object<jstring>() );
     return res;
 }
 
 bool AsemanJavaLayer::shareFile(const QString &path, const QString &type)
 {
-    jstring jpath = p->env->NewString(reinterpret_cast<const jchar*>(path.constData()), path.length());
-    jstring jtype = p->env->NewString(reinterpret_cast<const jchar*>(type.constData()), type.length());
-    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;Ljava/lang/String;)Z", jpath, jtype );
+    QAndroidJniObject jpath = QAndroidJniObject::fromString(path.toUtf8());
+    QAndroidJniObject jtype = QAndroidJniObject::fromString(type.toUtf8());
+    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;Ljava/lang/String;)Z", jpath.object<jstring>(), jtype.object<jstring>() );
     return res;
 }
 
 bool AsemanJavaLayer::openFile(const QString &path, const QString &type)
 {
-    jstring jpath = p->env->NewString(reinterpret_cast<const jchar*>(path.constData()), path.length());
-    jstring jtype = p->env->NewString(reinterpret_cast<const jchar*>(type.constData()), type.length());
-    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;Ljava/lang/String;)Z", jpath, jtype );
+    QAndroidJniObject jpath = QAndroidJniObject::fromString(path.toUtf8());
+    QAndroidJniObject jtype = QAndroidJniObject::fromString(type.toUtf8());
+    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;Ljava/lang/String;)Z", jpath.object<jstring>(), jtype.object<jstring>() );
     return res;
 }
 
 bool AsemanJavaLayer::startCamera(const QString &output)
 {
-    jstring joutput = p->env->NewString(reinterpret_cast<const jchar*>(output.constData()), output.length());
-    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;)Z", joutput );
+    QAndroidJniObject joutput = QAndroidJniObject::fromString(output.toUtf8());
+    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;)Z", joutput.object<jstring>() );
     return res;
 }
 
 bool AsemanJavaLayer::callNumber(const QString &number)
 {
-    jstring jnumber = p->env->NewString(reinterpret_cast<const jchar*>(number.constData()), number.length());
-    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;)Z", jnumber );
+    QAndroidJniObject jnumber = QAndroidJniObject::fromString(number.toUtf8());
+    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;)Z", jnumber.object<jstring>() );
     return res;
 }
 
