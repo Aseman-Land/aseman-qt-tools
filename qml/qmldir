@@ -81,4 +81,5 @@ AsemanWindow 1.1 AsemanWindow1_1.qml
 Drawer 1.1 SideMenu.qml
 SideMenu 1.1 SideMenu1_1.qml
 Button 1.1 Button1_1.qml
+AsemanFullWindow 1.1 AsemanFullWindow.qml
 

@@ -114,6 +114,7 @@
         <file>AsemanTools/BarcodeScanner.qml</file>
         <file>AsemanTools/SearchBar.qml</file>
         <file>AsemanTools/CircularProgressBar.qml</file>
+        <file>AsemanTools/AsemanFullWindow.qml</file>
         <file>AsemanTools/VideoPlayer.qml</file>
     </qresource>
     <qresource prefix="/qt-project.org/imports/AsemanTools">
