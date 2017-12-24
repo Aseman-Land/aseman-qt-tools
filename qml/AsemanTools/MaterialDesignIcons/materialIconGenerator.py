@@ -64,7 +64,7 @@ try:
 			line = line.replace('"', '').strip()
 			head, sep, tail = line.partition(':')
 
-			head = 'mdi_' + head
+			head = 'mi_' + head
 			head = head.replace('-' , '_')
 			tail = '"\\u'+tail.strip() + '";'
 			# print (head + sep + tail)
