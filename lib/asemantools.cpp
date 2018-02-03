@@ -166,8 +166,11 @@ QByteArray AsemanTools::variantToBytes(const QVariant &var)
     return result;
 }
 
-QString AsemanTools::fileName(const QString &path)
+QString AsemanTools::fileName(const QString &_path)
 {
+    QString path = _path;
+    if(path.left(AsemanDevices::localFilesPrePath().size()) == AsemanDevices::localFilesPrePath())
+        path = path.mid(AsemanDevices::localFilesPrePath().size());
     return QFileInfo(path).baseName();
 }
 
@@ -221,8 +224,12 @@ bool AsemanTools::writeText(const QString &path, const QString &text)
     return true;
 }
 
-bool AsemanTools::fileExists(const QString &path)
+bool AsemanTools::fileExists(const QString &_path)
 {
+    QString path = _path;
+    if(path.left(AsemanDevices::localFilesPrePath().size()) == AsemanDevices::localFilesPrePath())
+        path = path.mid(AsemanDevices::localFilesPrePath().size());
+
     return QFileInfo::exists(path);
 }
 

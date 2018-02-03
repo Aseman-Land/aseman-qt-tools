@@ -214,7 +214,8 @@ SOURCES += \
     $$PWD/asemanmouseeventlistener.cpp \
     $$PWD/asemanitemgrabber.cpp \
     $$PWD/asemantranslationmanager.cpp \
-    $$PWD/asemanqmlimage.cpp
+    $$PWD/asemanqmlimage.cpp \
+    $$PWD/asemannetworkproxy.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -286,7 +287,8 @@ HEADERS += \
     $$PWD/asemanitemgrabber.h \
     $$PWD/asemantranslationmanager.h \
     $$PWD/asemanqmlimage.h \
-    $$PWD/asemantools_global.h
+    $$PWD/asemantools_global.h \
+    $$PWD/asemannetworkproxy.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

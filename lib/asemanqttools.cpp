@@ -44,6 +44,7 @@
 #include "asemannetworkmanager.h"
 #include "asemannetworkmanageritem.h"
 #include "asemannetworksleepmanager.h"
+#include "asemannetworkproxy.h"
 #include "asemanquickobject.h"
 #include "asemannotification.h"
 #include "asemantexttools.h"
@@ -173,6 +174,7 @@ void AsemanQtTools::registerTypes(const char *uri, bool exportMode)
     registerType<AsemanHostChecker>(uri, 1,0, "HostChecker", exportMode);
     registerType<AsemanNetworkManager>(uri, 1,0, "NetworkManager", exportMode);
     registerType<AsemanNetworkSleepManager>(uri, 1,0, "NetworkSleepManager", exportMode);
+    registerType<AsemanNetworkProxy>(uri, 1,0, "NetworkProxy", exportMode);
     registerType<AsemanTitleBarColorGrabber>(uri, 1,0, "TitleBarColorGrabber", exportMode);
     registerType<AsemanTaskbarButton>(uri, 1,0, "TaskbarButton", exportMode);
     registerType<AsemanMapDownloader>(uri, 1,0, "MapDownloader", exportMode);

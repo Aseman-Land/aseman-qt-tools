@@ -19,6 +19,7 @@
 #include "asemanapplication.h"
 #include "asemandevices.h"
 #include "asemanjavalayer.h"
+#include "asemannetworkproxy.h"
 #include "asemantools.h"
 #include "qtsingleapplication/qtlocalpeer.h"
 
@@ -140,6 +141,7 @@ public:
     QPointer<QQmlEngine> engine;
 #endif
     static QtLocalPeer *peer;
+    QPointer<AsemanNetworkProxy> proxy;
 };
 
 QtLocalPeer *AsemanApplicationPrivate::peer = 0;
@@ -151,6 +153,7 @@ AsemanApplication::AsemanApplication() :
     p->app = QCoreApplication::instance();
     p->appType = NoneApplication;
     p->app_owner = false;
+    p->proxy = new AsemanNetworkProxy(this);
 
 #ifdef QT_WIDGETS_LIB
     if( qobject_cast<QApplication*>(p->app) )
@@ -732,6 +735,23 @@ QFont AsemanApplication::font()
 void AsemanApplication::setFont(const QFont &f)
 {
     SET_DIFINITION(setFont, f);
+}
+
+AsemanNetworkProxy *AsemanApplication::proxy() const
+{
+    return p->proxy;
+}
+
+void AsemanApplication::setProxy(AsemanNetworkProxy *proxy)
+{
+    if(p->proxy == proxy)
+        return;
+
+    if(p->proxy)
+        delete p->proxy;
+
+    p->proxy = proxy;
+    Q_EMIT proxyChanged();
 }
 
 #ifdef QT_GUI_LIB

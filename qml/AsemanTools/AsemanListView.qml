@@ -25,6 +25,7 @@ ListView {
     maximumFlickVelocity: View.flickVelocity
     boundsBehavior: Devices.isIOS? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
 
+    property bool allTimeMode: true
     readonly property real tabBarRatio: prv.tabBarExtra/tabBarHeight
     property real tabBarHeight: 50*Devices.density
 
@@ -59,8 +60,14 @@ ListView {
         function optimizeTabBar() {
             var minFlick = -tabBarHeight
             var maxFlick = listv.contentHeight - listv.height + minFlick
-            if(listv.contentY > maxFlick || listv.contentY<0)
+            if(listv.contentY > maxFlick || listv.contentY<0) {
+                tabBarExtra = tabBarHeight
                 return
+            }
+            if(listv.contentY > tabBarHeight && !allTimeMode) {
+                tabBarExtra = 0
+                return
+            }
 
             var newExtra = tabBarExtra - (listv.contentY-prv.lastContentY)
             if(newExtra<0)

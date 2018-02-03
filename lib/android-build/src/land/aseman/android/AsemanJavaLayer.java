@@ -22,6 +22,8 @@ import land.aseman.android.AsemanApplication;
 import land.aseman.android.AsemanActivity;
 import land.aseman.android.AsemanService;
 
+import org.qtproject.qt5.android.bindings.QtService;
+
 import android.util.Log;
 import android.content.Intent;
 import android.content.Context;
@@ -216,7 +218,7 @@ public class AsemanJavaLayer
     {
         Context oContext;
         oContext = AsemanApplication.getAppContext();
-        Intent i = new Intent(oContext, AsemanService.class);
+        Intent i = new Intent(oContext, QtService.class);
         i.putExtra("name", "SurvivingwithAndroid");
         try {
             oContext.startService(i);
@@ -231,7 +233,7 @@ public class AsemanJavaLayer
     {
         Context oContext;
         oContext = AsemanApplication.getAppContext();
-        Intent i = new Intent(oContext, AsemanService.class);
+        Intent i = new Intent(oContext, QtService.class);
         try {
         oContext.stopService(i);
         } catch(Exception e) {
@@ -304,7 +306,11 @@ public class AsemanJavaLayer
     DisplayMetrics getMetrics()
     {
         DisplayMetrics dm = new DisplayMetrics();
-        AsemanActivity.getActivityInstance().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        try {
+            AsemanActivity.getActivityInstance().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        } catch(Exception e) {
+            return dm;
+        }
         return dm;
     }
 

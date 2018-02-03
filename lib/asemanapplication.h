@@ -50,6 +50,7 @@
 #endif
 #endif
 
+class AsemanNetworkProxy;
 class QSettings;
 class AsemanApplicationPrivate;
 class LIBASEMANTOOLSSHARED_EXPORT AsemanApplication : public AsemanQuickObject
@@ -72,6 +73,7 @@ class LIBASEMANTOOLSSHARED_EXPORT AsemanApplication : public AsemanQuickObject
     Q_PROPERTY(bool isDebug READ isDebug NOTIFY fakeSignal)
 
     Q_PROPERTY(QFont globalFont READ globalFont WRITE setGlobalFont NOTIFY globalFontChanged)
+    Q_PROPERTY(AsemanNetworkProxy* proxy READ proxy WRITE setProxy NOTIFY proxyChanged)
 
     Q_PROPERTY(QString applicationName READ applicationName WRITE setApplicationName NOTIFY applicationNameChanged)
     Q_PROPERTY(QString applicationVersion READ applicationVersion WRITE setApplicationVersion NOTIFY applicationVersionChanged)
@@ -174,6 +176,9 @@ public:
     static QFont font();
     static void setFont(const QFont &f);
 
+    AsemanNetworkProxy *proxy() const;
+    void setProxy(AsemanNetworkProxy *proxy);
+
 #ifdef QT_GUI_LIB
     static QPalette palette();
     static void setPalette(const QPalette &pal);
@@ -209,6 +214,7 @@ Q_SIGNALS:
     void languageUpdated();
     void backRequest();
     void clickedOnDock();
+    void proxyChanged();
 
     void homePathChanged();
     void logPathChanged();
