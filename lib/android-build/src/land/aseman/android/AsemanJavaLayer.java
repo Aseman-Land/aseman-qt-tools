@@ -48,6 +48,12 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 
+import android.app.ActivityManager.RunningAppProcessInfo;
+import android.app.ActivityManager ;
+import android.os.Process;
+import java.util.List;
+import java.util.Iterator;
+
 //import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 public class AsemanJavaLayer
@@ -218,7 +224,7 @@ public class AsemanJavaLayer
     {
         Context oContext;
         oContext = AsemanApplication.getAppContext();
-        Intent i = new Intent(oContext, QtService.class);
+        Intent i = new Intent(oContext, AsemanService.class);
         i.putExtra("name", "SurvivingwithAndroid");
         try {
             oContext.startService(i);
@@ -230,6 +236,57 @@ public class AsemanJavaLayer
     }
 
     boolean stopService()
+    {
+        Context oContext;
+        oContext = AsemanApplication.getAppContext();
+        Intent i = new Intent(oContext, AsemanService.class);
+        try {
+        oContext.stopService(i);
+        } catch(Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    boolean killService(String serviceName)
+    {
+        Context oContext;
+        oContext = AsemanApplication.getAppContext();
+        ActivityManager am = (ActivityManager) oContext.getSystemService(oContext.ACTIVITY_SERVICE);
+        List<RunningAppProcessInfo> runningAppProcesses = am.getRunningAppProcesses();
+
+        Iterator<RunningAppProcessInfo> iter = runningAppProcesses.iterator();
+
+        while(iter.hasNext()){
+            RunningAppProcessInfo next = iter.next();
+
+            String pricessName = oContext.getPackageName() + serviceName;
+
+            if(next.processName.equals(pricessName)){
+                Process.killProcess(next.pid);
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    boolean startQtService()
+    {
+        Context oContext;
+        oContext = AsemanApplication.getAppContext();
+        Intent i = new Intent(oContext, QtService.class);
+        i.putExtra("name", "SurvivingwithAndroid");
+        try {
+            oContext.startService(i);
+        } catch(Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    boolean stopQtService()
     {
         Context oContext;
         oContext = AsemanApplication.getAppContext();

@@ -66,6 +66,10 @@ public:
 public Q_SLOTS:
     bool startService();
     bool stopService();
+    bool killService(const QString &serviceName);
+
+    bool startQtService();
+    bool stopQtService();
 
 Q_SIGNALS:
     void incomingShare( const QString & title, const QString & msg );

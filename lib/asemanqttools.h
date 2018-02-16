@@ -22,10 +22,12 @@
 #include <QtGlobal>
 #include <QString>
 
+#include "asemantools_global.h"
+
 class QObject;
 class QQmlEngine;
 class QJSEngine;
-class AsemanQtTools
+class LIBASEMANTOOLSSHARED_EXPORT AsemanQtTools
 {
 public:
     static void registerTypes(const char *uri, bool exportMode = false);

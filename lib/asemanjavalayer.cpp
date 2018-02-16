@@ -144,6 +144,25 @@ bool AsemanJavaLayer::stopService()
     return res;
 }
 
+bool AsemanJavaLayer::killService(const QString &serviceName)
+{
+    QAndroidJniObject jserviceName = QAndroidJniObject::fromString(serviceName.toUtf8());
+    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "(Ljava/lang/String;)Z", jserviceName.object<jstring>());
+    return res;
+}
+
+bool AsemanJavaLayer::startQtService()
+{
+    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "()Z" );
+    return res;
+}
+
+bool AsemanJavaLayer::stopQtService()
+{
+    jboolean res = p->object.callMethod<jboolean>(__FUNCTION__, "()Z" );
+    return res;
+}
+
 int AsemanJavaLayer::densityDpi()
 {
     jint res = p->object.callMethod<jint>(__FUNCTION__, "()I" );
