@@ -21,6 +21,7 @@ package land.aseman.android;
 import land.aseman.android.AsemanApplication;
 import land.aseman.android.AsemanActivity;
 import land.aseman.android.AsemanService;
+import land.aseman.android.AsemanQtService;
 
 import org.qtproject.qt5.android.bindings.QtService;
 
@@ -275,7 +276,7 @@ public class AsemanJavaLayer
     {
         Context oContext;
         oContext = AsemanApplication.getAppContext();
-        Intent i = new Intent(oContext, QtService.class);
+        Intent i = new Intent(oContext, AsemanQtService.class);
         i.putExtra("name", "SurvivingwithAndroid");
         try {
             oContext.startService(i);
@@ -290,7 +291,7 @@ public class AsemanJavaLayer
     {
         Context oContext;
         oContext = AsemanApplication.getAppContext();
-        Intent i = new Intent(oContext, QtService.class);
+        Intent i = new Intent(oContext, AsemanQtService.class);
         try {
         oContext.stopService(i);
         } catch(Exception e) {
