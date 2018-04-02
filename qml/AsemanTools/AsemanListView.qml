@@ -60,10 +60,8 @@ ListView {
         function optimizeTabBar() {
             var minFlick = -tabBarHeight
             var maxFlick = listv.contentHeight - listv.height + minFlick
-            if(listv.contentY > maxFlick || listv.contentY<0) {
-                tabBarExtra = tabBarHeight
+            if(listv.contentY > maxFlick || listv.contentY<0)
                 return
-            }
             if(listv.contentY > tabBarHeight && !allTimeMode) {
                 tabBarExtra = 0
                 return
