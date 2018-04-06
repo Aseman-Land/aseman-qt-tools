@@ -290,7 +290,7 @@ AsemanStoreManager::~AsemanStoreManager()
 AsemanStoreManagerProduct::AsemanStoreManagerProduct(QObject *parent) :
     _skuState(AsemanStoreManager::InventoryStateNone)
 {
-
+    Q_UNUSED(parent)
 }
 
 AsemanStoreManager *AsemanStoreManagerProduct::store() const

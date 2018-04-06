@@ -26,11 +26,18 @@ ListView {
     boundsBehavior: Devices.isIOS? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
 
     property bool allTimeMode: true
-    readonly property real tabBarRatio: prv.tabBarExtra/tabBarHeight
+    readonly property real tabBarRatio: {
+        if( prv.tabBarExtra < tabBarMargin )
+            return 0
+        if( prv.tabBarExtra > tabBarMargin + tabBarHeight )
+            return 1
+        else
+            return (prv.tabBarExtra - tabBarMargin)/tabBarHeight
+    }
     property real tabBarHeight: 50*Devices.density
+    property real tabBarMargin: tabBarHeight
 
-    onTabBarHeightChanged: prv.tabBarExtra = tabBarHeight
-    onContentYChanged: prv.optimizeTabBar()
+    onTabBarHeightChanged: prv.tabBarExtra = tabBarHeight + tabBarMargin*2
     onContentHeightChanged: if(contentHeight<height) anim.start()
 
     NumberAnimation {
@@ -38,7 +45,7 @@ ListView {
         target: prv
         property: "tabBarExtra"
         from: prv.tabBarExtra
-        to: tabBarHeight
+        to: tabBarHeight + listv.tabBarMargin*2
         easing.type: Devices.isIOS? Easing.OutBack : Easing.OutCubic
         duration: Devices.isIOS? 350 : 250
     }
@@ -54,30 +61,38 @@ ListView {
     QtObject {
         id: prv
 
-        property real lastContentY: listv.contentY+1
-        property real tabBarExtra: listv.tabBarHeight
+        property real contentY: heightRatio? yPosition*listv.height/heightRatio - tabBarHeight - tabBarMargin*2 : 0
+        property real lastContentY: contentY+1
+        property real tabBarExtra: listv.tabBarHeight + listv.tabBarMargin*2
+
+        property real yPosition: listv.visibleArea.yPosition
+        property real heightRatio: listv.visibleArea.heightRatio
+
+        onContentYChanged: prv.optimizeTabBar()
 
         function optimizeTabBar() {
-            var minFlick = -tabBarHeight
+            var minFlick = -tabBarHeight - tabBarMargin*2
             var maxFlick = listv.contentHeight - listv.height + minFlick
-            if(listv.contentY > maxFlick || listv.contentY<0)
+            if(contentY > maxFlick || contentY<0)
                 return
-            if(listv.contentY > tabBarHeight && !allTimeMode) {
+            if(contentY > tabBarHeight + tabBarMargin*2 && !allTimeMode) {
                 tabBarExtra = 0
                 return
             }
 
-            var newExtra = tabBarExtra - (listv.contentY-prv.lastContentY)
+            var newExtra = tabBarExtra - (contentY-prv.lastContentY)
             if(newExtra<0)
                 newExtra = 0
-            if(listv.contentY < minFlick)
-                newExtra = -listv.contentY
+            if(contentY < minFlick)
+                newExtra = -contentY
             else
-            if(newExtra>tabBarHeight)
-                newExtra = tabBarHeight
+            if(newExtra>tabBarHeight + tabBarMargin*2)
+                newExtra = tabBarHeight + tabBarMargin*2
+            if(newExtra == NaN)
+                return
 
             tabBarExtra = newExtra
-            prv.lastContentY = listv.contentY
+            prv.lastContentY = contentY
         }
     }
 
