@@ -18,10 +18,12 @@
 
 #include "asemanapplication.h"
 #include "asemandevices.h"
-#include "asemanjavalayer.h"
 #include "asemannetworkproxy.h"
 #include "asemantools.h"
 #include "qtsingleapplication/qtlocalpeer.h"
+#ifdef Q_OS_ANDROID
+#include "asemanjavalayer.h"
+#endif
 
 #include <QDir>
 #include <QFont>

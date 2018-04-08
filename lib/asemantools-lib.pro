@@ -3,6 +3,7 @@ TARGET = asemantools
 QT += qml quick gui
 CONFIG -= android_install
 
+win32: DESTDIR = $$OUT_PWD
 ios {
     QMAKE_CXXFLAGS += -fvisibility=hidden
 }

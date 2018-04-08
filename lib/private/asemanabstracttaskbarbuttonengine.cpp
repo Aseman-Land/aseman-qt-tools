@@ -17,3 +17,13 @@
 */
 
 #include "asemanabstracttaskbarbuttonengine.h"
+
+AsemanAbstractTaskbarButtonEngine::AsemanAbstractTaskbarButtonEngine(){}
+
+AsemanAbstractTaskbarButtonEngine::~AsemanAbstractTaskbarButtonEngine(){}
+
+void AsemanAbstractTaskbarButtonEngine::updateLauncher(const QString &launcher) {Q_UNUSED(launcher)}
+
+void AsemanAbstractTaskbarButtonEngine::updateWindow(QWindow *window) {Q_UNUSED(window)}
+
+void AsemanAbstractTaskbarButtonEngine::userAttention() {}

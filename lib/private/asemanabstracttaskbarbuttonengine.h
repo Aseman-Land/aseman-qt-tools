@@ -19,19 +19,23 @@
 #ifndef ASEMANABSTRACTTASKBARBUTTONENGINE_H
 #define ASEMANABSTRACTTASKBARBUTTONENGINE_H
 
-#include <QtGlobal>
+#include <QObject>
 #include <QVariant>
 
+#include "asemantools_global.h"
+
 class QWindow;
-class AsemanAbstractTaskbarButtonEngine
+class LIBASEMANTOOLSSHARED_EXPORT AsemanAbstractTaskbarButtonEngine: public QObject
 {
+    Q_OBJECT
 public:
-    virtual ~AsemanAbstractTaskbarButtonEngine(){}
+    AsemanAbstractTaskbarButtonEngine();
+    virtual ~AsemanAbstractTaskbarButtonEngine();
     virtual void updateBadgeNumber(int num) = 0;
     virtual void updateProgress(qreal progress) = 0;
-    virtual void updateLauncher(const QString &launcher) {Q_UNUSED(launcher)}
-    virtual void updateWindow(QWindow *window) {Q_UNUSED(window)}
-    virtual void userAttention() {}
+    virtual void updateLauncher(const QString &launcher);
+    virtual void updateWindow(QWindow *window);
+    virtual void userAttention();
 };
 
 #endif // ASEMANABSTRACTTASKBARBUTTONENGINE_H
