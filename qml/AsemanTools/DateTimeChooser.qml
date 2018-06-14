@@ -25,16 +25,12 @@ Rectangle {
     height: 150*Devices.density
     clip: true
 
-    property color separatorColors: "#88888888"
     property color textsColor
     property bool dateVisible: true
     property bool timeVisible: true
 
     property alias calendarType: model.calendar
     property alias date: model.dateTime
-
-    property alias dateLabel: date_text.text
-    property alias timeLabel: time_text.text
 
     CalendarModel {
         id: model
@@ -71,10 +67,7 @@ Rectangle {
 
     Row {
         id: row
-        anchors.top: date_line.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.fill: parent
 
         SelectableList {
             id: year_list
@@ -150,48 +143,6 @@ Rectangle {
 
             return tempString
         }
-    }
-
-    Rectangle {
-        id: date_line
-        x: 0
-        height: 2*Devices.density
-        width: year_list.width + month_list.width + day_list.width
-        anchors.top: date_text.bottom
-        visible: dateVisible
-        color: separatorColors
-    }
-
-    Rectangle {
-        id: time_line
-        x: parent.width-width
-        height: 2*Devices.density
-        width: hour_list.width + minute_list.width
-        anchors.top: time_text.bottom
-        visible: timeVisible
-        color: separatorColors
-    }
-
-    Text {
-        id: date_text
-        anchors.horizontalCenter: date_line.horizontalCenter
-        anchors.top: parent.top
-        font.family: AsemanApp.globalFont.family
-        font.pixelSize: Math.floor(10*Devices.fontDensity)
-        color: dt_chooser.textsColor
-        visible: dateVisible
-        text: qsTr("Date")
-    }
-
-    Text {
-        id: time_text
-        anchors.horizontalCenter: time_line.horizontalCenter
-        anchors.top: parent.top
-        font.family: AsemanApp.globalFont.family
-        font.pixelSize: Math.floor(10*Devices.fontDensity)
-        color: dt_chooser.textsColor
-        visible: timeVisible
-        text: qsTr("Time")
     }
 
     function getDate() {

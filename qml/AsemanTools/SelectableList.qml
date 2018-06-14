@@ -35,7 +35,11 @@ Rectangle {
     property variant nameMethodObject: seletable_list
     property string nameMethodFunction: "itemName"
 
-    onItemsChanged: list.refresh()
+    property bool debugMode: false
+
+    onItemsChanged: {
+        list.refresh()
+    }
 
     Rectangle {
         id: background
@@ -54,29 +58,35 @@ Rectangle {
             highlightMoveDuration: 300
             highlightMoveVelocity: -1
             snapMode: ListView.SnapToItem
-            model: ListModel{}
+            model: listModel
+
+            ListModel { id: listModel }
 
             delegate: Item {
                 width: list.width
                 height: itemsHeight
-
-                property variant itemName: name
 
                 Text {
                     id: txt
                     anchors.centerIn: parent
                     font.family: AsemanApp.globalFont.family
                     font.pixelSize: Math.floor(11*Devices.fontDensity)
-                    text: Tools.call(nameMethodObject,nameMethodFunction,Qt.DirectConnection,name)
+                    text: Tools.call(nameMethodObject,nameMethodFunction,Qt.DirectConnection,model.name)
                     color: textsColor
                 }
             }
 
             function refresh() {
-                model.clear()
-
-                for( var i=0; i<items.length; i++ )
-                    model.append({"index":i,"name":items[i]})
+                if(debugMode)
+                    console.debug(items.length)
+                for(var i=0; i<items.length; i++) {
+                    if(listModel.count <= i)
+                        listModel.append({"name": items[i]})
+                    else
+                        listModel.setProperty(i, "name", items[i])
+                }
+                if(items.length < listModel.count)
+                    listModel.remove(items.length, listModel.count - items.length)
             }
         }
     }

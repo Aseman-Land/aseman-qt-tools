@@ -286,16 +286,16 @@ void AsemanCalendarModel::refreshLists_prv()
     int currentHoursIndex = p->dateTime.time().hour() - hourStart;
     int currentMinutesIndex = p->dateTime.time().minute() - minuteStart;
 
-    bool years_changed = (p->years == years);
-    bool months_changed = (p->months == months);
-    bool days_changed = (p->days == days);
-    bool hours_changed = (p->hours == hours);
-    bool minutes_changed = (p->minutes == minutes);
-    bool currentYearIndex_changed = (p->currentYearIndex == currentYearIndex);
-    bool currentMonthIndex_changed = (p->currentMonthIndex == currentMonthIndex);
-    bool currentDaysIndex_changed = (p->currentDaysIndex == currentDaysIndex);
-    bool currentHoursIndex_changed = (p->currentHoursIndex == currentHoursIndex);
-    bool currentMinutesIndex_changed = (p->currentMinutesIndex == currentMinutesIndex);
+    bool years_changed = (p->years != years);
+    bool months_changed = (p->months != months);
+    bool days_changed = (p->days != days);
+    bool hours_changed = (p->hours != hours);
+    bool minutes_changed = (p->minutes != minutes);
+    bool currentYearIndex_changed = (p->currentYearIndex != currentYearIndex);
+    bool currentMonthIndex_changed = (p->currentMonthIndex != currentMonthIndex);
+    bool currentDaysIndex_changed = (p->currentDaysIndex != currentDaysIndex);
+    bool currentHoursIndex_changed = (p->currentHoursIndex != currentHoursIndex);
+    bool currentMinutesIndex_changed = (p->currentMinutesIndex != currentMinutesIndex);
 
     p->years = years;
     p->months = months;
