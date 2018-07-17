@@ -26,8 +26,8 @@ Rectangle {
     color: "#00000000"
 
     property alias text: title_txt.text
-    property alias titleFont: title_txt.font
-    property alias titleFontSize: title_txt.font.pixelSize
+    property string titleFont: AsemanApp.globalFont.family
+    property double titleFontSize: Math.floor(10*Devices.fontDensity)
     property bool light: true
     property bool backButton: false
     property real backScale: 1
@@ -115,8 +115,8 @@ Rectangle {
 
         Text {
             id: title_txt
-            font.pixelSize: Math.floor(10*Devices.fontDensity)
-            font.family: AsemanApp.globalFont.family
+            font.pixelSize: titleFontSize
+            font.family: titleFont
             y: Devices.standardTitleBarHeight/2 - height/2
             x: {
                 if(centerText)
