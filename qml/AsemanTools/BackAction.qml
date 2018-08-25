@@ -22,9 +22,15 @@ import AsemanTools 1.0
 AsemanObject {
     id: backAction
     property bool active: false
+    property var callback
     onActiveChanged: {
         if(active)
-            BackHandler.pushHandler(backAction, function(){ active = false })
+            BackHandler.pushHandler(backAction, function(){
+                if(callback)
+                    callback()
+                else
+                    active = false
+            })
         else
             BackHandler.removeHandler(backAction)
     }
