@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import AsemanTools 1.0
-import QtQuick.Controls 2.0 as QtControls
+import Qt.labs.controls 1.0 as QtControls
 
 Item {
     height: 50*Devices.density
@@ -46,6 +46,7 @@ Item {
 
         delegate: QtControls.ItemDelegate {
             height: tabBar.height
+<<<<<<< HEAD
             width: {
                 var res = tabBar.width/tabBar.count
                 if(res < minimumWidth)
@@ -53,6 +54,10 @@ Item {
                 return res
             }
             hoverEnabled: false
+=======
+            width: tabBar.itemWidth
+//            hoverEnabled: false
+>>>>>>> Qt-5.6
             onClicked: tabBar.currentIndex = index
 
             Text {
