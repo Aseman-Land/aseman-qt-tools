@@ -17,7 +17,7 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 2.0
+import Qt.labs.controls 1.0
 import AsemanTools 1.0
 
 ApplicationWindow {
@@ -65,6 +65,37 @@ ApplicationWindow {
     }
 
     FontLoader {
+        source: "Awesome/fontawesome-webfont.ttf"
+    }
+
+    FontLoader {
+        source: "MaterialIcons/MaterialIcons-Regular.ttf"
+    }
+
+    function tryClose() {
+        try_close = true
+        close()
+    }
+
+    function showTooltip( text ){
+        tool_tip.showText(text)
+    }
+
+    function showGlobalWait(text, blockBack) {
+        var component = Qt.createComponent("private/GlobalBusyDialog.qml")
+        var obj = component.createObject(appWin)
+        obj.z = 100000000
+        obj.text = text
+        obj.blockBack = blockBack
+        return obj
+    }
+
+    Component.onCompleted: {
+        View.registerWindow(appWin)
+        View.root = appWin
+    }
+}
+   FontLoader {
         source: "Awesome/fontawesome-webfont.ttf"
     }
 

@@ -15,10 +15,17 @@ Module {
         "QtGraphicalEffects 1.0",
         "QtMultimedia 5.9",
         "QtQml.Models 2.2",
+<<<<<<< HEAD
         "QtQuick 2.9",
         "QtQuick.Controls 2.2",
         "QtQuick.Controls.Material 2.2",
         "QtQuick.Controls.Material.impl 2.2",
+=======
+        "QtQuick 2.5",
+        "QtQuick.Controls 2.0",
+        "QtQuick.Controls.Material 2.0",
+        "QtQuick.Controls.Material.impl 2.0",
+>>>>>>> Qt-5.6
         "QtQuick.Controls.Styles 1.4",
         "QtQuick.Controls.Universal 2.2",
         "QtQuick.Controls.Universal.impl 2.2",
